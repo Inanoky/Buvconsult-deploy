@@ -1,10 +1,12 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image"
 import {FileIcon, PlusCircle} from "lucide-react";
 import prisma from "@/app/utils/db";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {Card} from "@/components/ui/card";
+import DefaultImage from "@/public/default.png"
 
 
 async function getData(userId){
@@ -72,10 +74,16 @@ export default async function SitesRoute(){
             ): (
                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
                    {data.map((item) =>(
-                        <Card key={item.id}>
-                            <h1>{item.name}</h1>
+                <Card key={item.id}>
+                 <Image
+                     src={item.imageUrl ?? DefaultImage}
+                     alt={item.name}
+                     className = "rounded-t-lg object-cover w-full h-[200px]"
+                     width = {300}
+                     height = {150}
+                    />
 
-                        </Card>
+                </Card>
 
                        )
 
