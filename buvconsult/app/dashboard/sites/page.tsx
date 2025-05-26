@@ -1,4 +1,3 @@
-"use client"
 
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
@@ -9,7 +8,9 @@ import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import DefaultImage from "@/public/default.png"
-import {DeleteSite} from "@/app/actions";
+import {deleteProject} from "@/app/actions";
+import React from "react";
+
 
 
 async function getData(userId){
@@ -33,6 +34,9 @@ async function getData(userId){
 export default async function SitesRoute(){
     const {getUser} = getKindeServerSession()
     const user = await getUser
+
+
+
 
     if(!user){
         return redirect("/api/auth/login")
@@ -97,9 +101,14 @@ export default async function SitesRoute(){
                     <CardFooter className="flex justify-between">
 
                             <Button asChild>
-                                <Link href="#">View Articles</Link>
+
+                                <Link href={`/dashboard/sites/${item.id}`}>View Articles</Link>
+
                             </Button>
-                            <Button onClick={() => DeleteSite(item.id)} className="bg-red-500">Delete site</Button>
+                            <form action={deleteProject}>
+                                    <input type="hidden" name="id" value={item.id}/>
+                                     <Button type="submit" className="bg-red-500">Delete project</Button>
+                            </form>
 
                     </CardFooter>
                 </Card>

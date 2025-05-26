@@ -16,28 +16,44 @@ datasource db {
 }
 
 model User {
-  id String @id @unique
-  email String
-  firstName String
-  lastName String
+  id           String @id @unique
+  email        String
+  firstName    String
+  lastName     String
   profileImage String
 
-  createdAt DateTime  @default(now())
+  createdAt DateTime @default(now())
 
-  Site Site[]
+  Site  Site[]
+  posts Post[]
 }
 
 model Site {
-  id String @id @default(uuid())
-  name String
-  description String
-  subdirectory String @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  name         String
+  description  String
+  subdirectory String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   imageUrl String?
-  User User? @relation(fields: [userId], references: [id])
+  User     User?   @relation(fields: [userId], references: [id])
+  userId   String?
+  posts    Post[]
+}
+
+model Post {
+  id               String   @id @default(uuid()) //Unique identified, msut have
+  title            String
+  articleContent   Json
+  smallDescription String
+  image            String
+  slug             String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
   userId String?
-
-
+  Site   Site?   @relation(fields: [siteId], references: [id])
+  siteId String?
 }

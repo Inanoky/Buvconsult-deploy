@@ -42,13 +42,11 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
     return redirect("/dashboard/sites")
 }
 
-export async function DeleteSite(SiteId){
+export async function deleteProject(formData: FormData){
 
-
-    await prisma.site.delete({where: {id: SiteId} })
-
-
+    const id = formData.get("id") as string;
+    await prisma.site.delete({where : {id : id}})
+    return redirect("/dashboard/sites")
 
 }
-
 
