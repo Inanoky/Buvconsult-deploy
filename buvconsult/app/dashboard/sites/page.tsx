@@ -5,7 +5,7 @@ import {FileIcon, PlusCircle} from "lucide-react";
 import prisma from "@/app/utils/db";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
-import {Card} from "@/components/ui/card";
+import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import DefaultImage from "@/public/default.png"
 
 
@@ -79,11 +79,25 @@ export default async function SitesRoute(){
                      src={item.imageUrl ?? DefaultImage}
                      alt={item.name}
                      className = "rounded-t-lg object-cover w-full h-[200px]"
-                     width = {300}
-                     height = {150}
+                     width = {400}
+                     height = {200}
                     />
+                    <CardHeader>
 
+
+                        <CardTitle>{item.name}</CardTitle>
+                        <CardDescription>{item.description}</CardDescription>
+
+
+
+                    </CardHeader>
+                    <CardFooter>
+                        <Button asChild className="w-full">
+                            <Link href="#">View Articles</Link>
+                        </Button>
+                    </CardFooter>
                 </Card>
+
 
                        )
 
