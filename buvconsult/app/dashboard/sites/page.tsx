@@ -1,3 +1,5 @@
+"use client"
+
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image"
@@ -7,6 +9,7 @@ import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import DefaultImage from "@/public/default.png"
+import {DeleteSite} from "@/app/actions";
 
 
 async function getData(userId){
@@ -91,10 +94,13 @@ export default async function SitesRoute(){
 
 
                     </CardHeader>
-                    <CardFooter>
-                        <Button asChild className="w-full">
-                            <Link href="#">View Articles</Link>
-                        </Button>
+                    <CardFooter className="flex justify-between">
+
+                            <Button asChild>
+                                <Link href="#">View Articles</Link>
+                            </Button>
+                            <Button onClick={() => DeleteSite(item.id)} className="bg-red-500">Delete site</Button>
+
                     </CardFooter>
                 </Card>
 

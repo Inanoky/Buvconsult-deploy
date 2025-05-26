@@ -7,6 +7,7 @@ import {redirect} from "next/navigation";
 import {parseWithZod} from '@conform-to/zod'
 import {siteSchema} from "@/app/utils/zodSchemas";
 import prisma from "@/app/utils/db";
+import {ButtonHTMLAttributes} from "react";
 
 
 export async function CreateSiteAction(prevState: any,formData: FormData){
@@ -39,6 +40,15 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
     });
 
     return redirect("/dashboard/sites")
+}
+
+export async function DeleteSite(SiteId){
+
+
+    await prisma.site.delete({where: {id: SiteId} })
+
+
+
 }
 
 
