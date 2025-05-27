@@ -11,6 +11,7 @@ import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import Image from "next/image"
 import {UploadDropzone} from "@/app/utils/UploadthingsComponents";
+import {toast} from "sonner";
 
 
 
@@ -74,7 +75,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                                  <Image
                                 src={imageUrl}
                                 alt="Uploaded Image"
-                                className="object-cover"
+                                className="object-cover w-[200px] h-[200px] rounded-lg"
                                 width = {200}
                                 height = {400}
                                 />
@@ -84,7 +85,14 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
 
                                 <UploadDropzone onClientUploadComplete={(res) => {
                                 setImageUrl(res[0].url)
-                                }} endpoint="imageUploader"/>
+                                    toast.success('Image has been uploaded')
+                                }}
+                                endpoint="imageUploader"
+                                onUploadError={() => {
+                                    toast.error('Something went wrong')
+                                }}
+
+                                />
 
                             ) }
 
