@@ -3,12 +3,12 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image"
 import {FileIcon, PlusCircle} from "lucide-react";
-import prisma from "@/app/utils/db";
+import {prisma} from "@/app/utils/db";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import DefaultImage from "@/public/default.png"
-import {deleteProject} from "@/app/actions";
+
 import React from "react";
 
 
