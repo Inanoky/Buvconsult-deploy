@@ -105,10 +105,6 @@ export default async function SitesRoute(){
                                 <Link href={`/dashboard/sites/${item.id}`}>View Articles</Link>
 
                             </Button>
-                            <form action={deleteProject}>
-                                    <input type="hidden" name="id" value={item.id}/>
-                                     <Button type="submit" className="bg-red-500">Delete project</Button>
-                            </form>
 
                     </CardFooter>
                 </Card>
