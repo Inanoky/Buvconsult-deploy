@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { createSuggestionItems } from "novel";
 import { Command, renderItems } from "novel";
-
+//nothing
 export const suggestionItems = createSuggestionItems([
 
   {
