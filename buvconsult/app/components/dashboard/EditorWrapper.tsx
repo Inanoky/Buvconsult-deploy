@@ -34,6 +34,7 @@ const TailwindEditor = ({onChange, initialValue}: EditorProps) => {
                 class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
               },
           }}
+          immediatelyRender={false} //something to avoid hidration errors, just needs to be added. 4:22:41
           extensions={extensions}
         initialContent={initialValue}
         onUpdate={({ editor }) => {
