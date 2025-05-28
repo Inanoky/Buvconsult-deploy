@@ -6,7 +6,7 @@ import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {parseWithZod} from '@conform-to/zod'
 import {siteSchema} from "@/app/utils/zodSchemas";
-import prisma from "@/app/utils/db";
+import {prisma} from "@/app/utils/db";
 import {ButtonHTMLAttributes} from "react";
 
 
