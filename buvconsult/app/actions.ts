@@ -5,19 +5,15 @@
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
 import {parseWithZod} from '@conform-to/zod'
-import {siteSchema} from "@/app/utils/zodSchemas";
+import {PostSchema, siteSchema} from "@/app/utils/zodSchemas";
 import {prisma} from "@/app/utils/db";
 import {ButtonHTMLAttributes} from "react";
+import {requireUser} from "@/app/utils/requireUser";
 
 
 export async function CreateSiteAction(prevState: any,formData: FormData){
 
-    const{getUser} = getKindeServerSession()
-    const user = await getUser();
-
-    if(!user){
-        return redirect('/api/auth/login')
-    }
+    const user = await requireUser();
 
 
     const submission = parseWithZod(formData, {
@@ -43,4 +39,31 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
 }
 
 
+export async function CreatePostAction(prevState: any,formData : FormData){
 
+    const user = await requireUser(); //user validation
+
+    const submission = parseWithZod(formData,{
+
+        schema: PostSchema, //zod schema validation
+
+    });
+
+    if(submission.status !== "success"){
+        return submission.reply();
+    }
+
+    const data = await prisma.post.create({ //this is databse mutation
+        data : {
+            title: submission.value.title,
+            smallDescription :submission.value.smallDescription,
+            slug :submission.value.slug,
+            articleContent: JSON.parse(submission.value.articleContent),  //here interesting, some sheaningas with JSON.
+            image: submission.value.coverImage,
+            userID: user.id,
+            siteId: formData.get("siteId") as string,
+        },
+    })
+
+    return redirect("/dashboard/sites")
+}

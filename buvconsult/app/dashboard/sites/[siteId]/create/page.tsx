@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {ArrowLeft, Atom} from "lucide-react";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import React, {ReactNode, useState} from "react";
+import React, {ReactNode, useActionState, useState} from "react";
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
@@ -14,6 +14,10 @@ import {UploadDropzone} from "@/app/utils/UploadthingsComponents";
 import {toast} from "sonner";
 import {JSONContent} from "novel";
 import TailwindEditor from "@/app/components/dashboard/EditorWrapper";
+import {CreatePostAction} from "@/app/actions";
+import {useForm} from "@conform-to/react";
+import {parseWithZod} from "@conform-to/zod";
+import {PostSchema} from "@/app/utils/zodSchemas";
 
 
 
@@ -21,6 +25,16 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
 
     const [imageUrl, setImageUrl] = useState<undefined | string > (undefined)
     const [value, setValue] = useState<JSONContent | undefined >(undefined)
+    const [lastResult, action] = useActionState(CreatePostAction, undefined) //this is action to mutate article to database. 4:13 - youtube
+    const [form, fields] = useForm({
+        lastResult,
+
+        onValidate({formData}){
+            return parseWithZod(formData, {schema: PostSchema})
+        },
+        shouldValidate : `onBlur`,
+        shouldRevalidate: "onInput",
+    })
 
 
     return (
@@ -47,16 +61,30 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                     </CardDescription>
                </CardHeader>
                 <CardContent>
-                    <form className = "flex flex-col gap-6">
+                    <form className = "flex flex-col gap-6"
+                          id={form.id}
+                          onSubmit={form.onSubmit}
+                          action={action}>  {/*this is a form submission*/}
 
                         <div className="grid gap-2">
 
                             <Label>Title</Label>
-                            <Input placeholder="Next js blogging application"/>
+                            <Input  //*all this inside <Input> is connection to conform I think
+                                key={fields.title.key}
+
+                                name={fields.title.name}
+                                defaultValue={fields.title.initialValue}
+                                placeholder="Next js blogging application"/>
+                            <p className="text-red-500 text-sm">{fields.title.errors}</p>
                         </div>
                         <div className="grid gap-2">
                             <Label>Slug</Label>
-                            <Input placeholder="Article Slug"/>
+                            <Input
+                                key={fields.slug.key}
+                                name={fields.slug.name}
+                                defaultValue={fields.slug.initialValue}
+                                placeholder="Article Slug"/>
+                            <p className="text-red-500 text-sm">{fields.slug.errors}</p>
                             <Button className="w-fit" variant="secondary" type="button">
                                 <Atom className="size-4 mr-2"/> Generate Slug
                             </Button>
@@ -65,12 +93,17 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                         <div className="grid gap-2">
 
                             <Label>Small Description</Label>
-                            <Textarea placeholder="Small description for your blog..."
-                            className="h-32"/>
+                            <Textarea
+                                key={fields.smallDescription.key}
+                                name={fields.smallDescription.name}
+                                defaultValue={fields.smallDescription.initialValue}
+                                placeholder="Small description for your blog..."
+                                className="h-32"/>
+                            <p className="text-red-500 text-sm">{fields.smallDescription.errors}</p>
                         </div>
 
                         <div className="grid gap-2">
-                            <Label>Cover Image</Label>
+                        <Label>Cover Image</Label>
 
 
                             {imageUrl ? (
@@ -106,7 +139,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
 
 
                     </div>
-
+                    <Button className="w-fit">Submit</Button>
                     </form>
                 </CardContent>
 
