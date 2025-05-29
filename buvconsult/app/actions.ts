@@ -60,10 +60,10 @@ export async function CreatePostAction(prevState: any,formData : FormData){
             slug :submission.value.slug,
             articleContent: JSON.parse(submission.value.articleContent),  //here interesting, some sheaningas with JSON.
             image: submission.value.coverImage,
-            userID: user.id,
+            userId: user.id,
             siteId: formData.get("siteId") as string,
         },
     })
 
-    return redirect("/dashboard/sites")
+    return redirect(`/dashboard/sites/${formData.get("siteId")}`)
 }

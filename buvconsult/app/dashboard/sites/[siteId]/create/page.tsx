@@ -81,6 +81,12 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                           onSubmit={form.onSubmit}
                           action={action}>  {/*this is a form submission*/}
 
+                        <input
+                            type="hidden"
+                            name="siteId"
+                            value={params.siteId}
+                        />
+
                         <div className="grid gap-2">
 
                             <Label>Title</Label>
