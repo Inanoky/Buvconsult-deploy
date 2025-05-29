@@ -16,7 +16,7 @@ import TailwindEditor from "@/app/components/dashboard/EditorWrapper";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import React, {useActionState, useState} from "react";
 import {JSONContent} from "novel";
-import {CreatePostAction} from "@/app/actions";
+import {CreatePostAction, EditPostActions} from "@/app/actions";
 import {useForm} from "@conform-to/react";
 import {parseWithZod} from "@conform-to/zod";
 import {PostSchema} from "@/app/utils/zodSchemas";
@@ -31,15 +31,16 @@ interface iAppProps{  //this is on 5:21, not clear
         articleContent: any
         id: string
         image: string
+    };
+    siteId:string; //here somehow param got delivered. 05:33
     }
-    }
 
 
 
 
 
 
-export function EditArticleForm({data}:iAppProps){
+export function EditArticleForm({data, siteId}:iAppProps){
 
 
 
@@ -49,7 +50,7 @@ export function EditArticleForm({data}:iAppProps){
     const [title, setTitle] = useState<undefined|string>(data.title)
 
 
-    const [lastResult, action] = useActionState(CreatePostAction, undefined) //this is action to mutate article to database. 4:13 - youtube
+    const [lastResult, action] = useActionState(EditPostActions, undefined) //this is action to mutate article to database. 4:13 - youtube
     const [form, fields] = useForm({
         lastResult,
 
@@ -90,12 +91,12 @@ export function EditArticleForm({data}:iAppProps){
                     </CardDescription>
                </CardHeader>
                 <CardContent>
-                    <form className = "flex flex-col gap-6"
+                    <form className="flex flex-col gap-6"
                           id={form.id}
                           onSubmit={form.onSubmit}
                           action={action}>  {/*this is a form submission*/}
-
-
+                        <input type="hidden" name="articleId" value={data.id}/>
+                        <input type="hidden" name="siteId" value={siteId}/> {/*5:33*/}
 
                         <div className="grid gap-2">
 
@@ -137,71 +138,71 @@ export function EditArticleForm({data}:iAppProps){
                                 defaultValue={data.smallDescription}
                                 placeholder="Small description for your blog..."
                                 className="h-32"
-                                        />
+                            />
                             <p className="text-red-500 text-sm">{fields.smallDescription.errors}</p>
                         </div>
 
                         <div className="grid gap-2">
-                        <Label>Cover Image</Label>
-                        <input
-                            type="hidden"
-                            name={fields.coverImage.name}
-                            key={fields.coverImage.key}
-                            defaultValue={fields.coverImage.initialValue}
-                            value={imageUrl}
-                        />
+                            <Label>Cover Image</Label>
+                            <input
+                                type="hidden"
+                                name={fields.coverImage.name}
+                                key={fields.coverImage.key}
+                                defaultValue={fields.coverImage.initialValue}
+                                value={imageUrl}
+                            />
 
                             {imageUrl ? (
-                                 <Image
-                                src={imageUrl}
-                                alt="Uploaded Image"
-                                className="object-cover w-[200px] h-[200px] rounded-lg"
-                                width = {200}
-                                height = {400}
+                                <Image
+                                    src={imageUrl}
+                                    alt="Uploaded Image"
+                                    className="object-cover w-[200px] h-[200px] rounded-lg"
+                                    width={200}
+                                    height={400}
                                 />
 
-                            ):(
+                            ) : (
 
 
                                 <UploadDropzone onClientUploadComplete={(res) => {
-                                setImageUrl(res[0].url)
+                                    setImageUrl(res[0].url)
                                     toast.success('Image has been uploaded')
                                 }}
-                                endpoint="imageUploader"
-                                onUploadError={() => {
-                                    toast.error('Something went wrong')
-                                }}
+                                                endpoint="imageUploader"
+                                                onUploadError={() => {
+                                                    toast.error('Something went wrong')
+                                                }}
 
                                 />
 
-                            ) }
+                            )}
 
                             <p className="text-red-500 text-sm">{fields.coverImage.errors}</p>
 
                         </div>
 
-                    <div className="grid gap-2">
-                        <Label> Article Content </Label>
-                        <input type="hidden"
-                               name={fields.articleContent.name}
-                               key={fields.articleContent.key}
-                               defaultValue={fields.articleContent.initialValue}
-                               value={JSON.stringify(value)} //here some weird sheaningas, i guess we stringify first, pass through zod? then json again before uploading to database.
-                               />
-                        <TailwindEditor onChange={setValue} initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
-                        <p className="text-red-500 text-sm">
-                            {fields.articleContent.errors}
-                        </p>
+                        <div className="grid gap-2">
+                            <Label> Article Content </Label>
+                            <input type="hidden"
+                                   name={fields.articleContent.name}
+                                   key={fields.articleContent.key}
+                                   defaultValue={fields.articleContent.initialValue}
+                                   value={JSON.stringify(value)} //here some weird sheaningas, i guess we stringify first, pass through zod? then json again before uploading to database.
+                            />
+                            <TailwindEditor onChange={setValue}
+                                            initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
+                            <p className="text-red-500 text-sm">
+                                {fields.articleContent.errors}
+                            </p>
 
 
-                    </div>
-                        <SubmitButton text={"Create Article"} />
+                        </div>
+                        <SubmitButton text={"Edit Article"}/>
 
                     </form>
-                </CardContent >
+                </CardContent>
 
-            </Card>
-
+         </Card>
 
 
     )

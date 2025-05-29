@@ -70,3 +70,35 @@ export async function CreatePostAction(prevState: any,formData : FormData){
 
 
 //this is for article edit. 05:24
+export async function EditPostActions(prevState: any, formData: FormData){
+
+    const user = await requireUser()
+
+    const submission = parseWithZod(formData, { //this can yield 2 results, successful or not
+        schema : PostSchema,
+    })
+
+    if(submission.status !== "success"){
+        return submission.reply();
+
+    }
+
+    const data = await prisma.post.update({
+        where: {
+            userId: user.id,
+            id: formData.get('articleId') as string,
+        },
+        data : {
+            title: submission.value.title,
+            smallDescription: submission.value.smallDescription,
+            slug: submission.value.slug,
+            articleContent: JSON.parse(submission.value.articleContent), //Stored in database as JSON object.
+            image: submission.value.coverImage,
+
+
+        },
+
+    });
+
+    return redirect(`/dashboard/sites/${formData.get("siteId")}`)
+}

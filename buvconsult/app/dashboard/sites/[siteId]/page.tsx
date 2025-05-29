@@ -152,7 +152,10 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
                                                                 Edit
                                                             </Link>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                                                        <DropdownMenuItem asChild>
+                                                            {/* below from 05:37*/}
+                                                            <Link href={`/dashboard/sites/${params.siteId}/${item.id}/delete`}>Delete</Link>
+                                                        </DropdownMenuItem>
                                                     </DropdownMenuContent>
 
 
