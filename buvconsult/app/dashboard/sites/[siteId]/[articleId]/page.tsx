@@ -5,6 +5,7 @@ import {notFound} from "next/navigation";
 import {Button} from "@/components/ui/button";
 import {ArrowLeft} from "lucide-react";
 import Link from "next/link";
+import {EditArticleForm} from "@/app/components/dashboard/forms/EditArticleForm";
 
 async function getData(postId:string){
 
@@ -52,6 +53,7 @@ export default async function EditRoute({params}:
                 <h1 className="text-2xl font-semibold">Edit Article</h1>
 
             </div>
+            <EditArticleForm data={data}/>
         </div>
     )
 }

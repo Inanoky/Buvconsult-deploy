@@ -14,13 +14,73 @@ import {UploadDropzone} from "@/app/utils/UploadthingsComponents";
 import {toast} from "sonner";
 import TailwindEditor from "@/app/components/dashboard/EditorWrapper";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
-import React from "react";
+import React, {useActionState, useState} from "react";
+import {JSONContent} from "novel";
+import {CreatePostAction} from "@/app/actions";
+import {useForm} from "@conform-to/react";
+import {parseWithZod} from "@conform-to/zod";
+import {PostSchema} from "@/app/utils/zodSchemas";
+import slugify from "react-slugify";
 
-export function EditArticleForm(){
+interface iAppProps{  //this is on 5:21, not clear
+
+    data: {
+        slug: string;
+        title: string;
+        smallDescription: string
+        articleContent: any
+        id: string
+        image: string
+    }
+    }
+
+
+
+
+
+
+export function EditArticleForm({data}:iAppProps){
+
+
+
+    const [imageUrl, setImageUrl] = useState<undefined | string > (data.image) //so here data is passed as default value 5:21
+    const [value, setValue] = useState<JSONContent | undefined >(data.articleContent)
+    const [slug, setSlugValue] = useState<undefined|string>(data.slug)
+    const [title, setTitle] = useState<undefined|string>(data.title)
+
+
+    const [lastResult, action] = useActionState(CreatePostAction, undefined) //this is action to mutate article to database. 4:13 - youtube
+    const [form, fields] = useForm({
+        lastResult,
+
+        onValidate({formData}){
+            return parseWithZod(formData, {schema: PostSchema})
+        },
+        shouldValidate : `onBlur`,
+        shouldRevalidate: "onInput",
+    })
+
+     function handleSlugGeneration(){
+
+        const titleInput = title;
+
+        if(titleInput?.length === 0 || titleInput === undefined ) {  //This validtion of input interesting
+            return toast.error("Please create a title first") //do not forget to install this toast.
+        }
+        setSlugValue(slugify(title))
+
+        return toast.success("Slug has been created")
+
+    }
+
+
+
+
+
 
     return(
 
-         <Card>
+         <Card className="mt-5">
                 <CardHeader>
                     <CardTitle>
                         Article Details
@@ -35,11 +95,7 @@ export function EditArticleForm(){
                           onSubmit={form.onSubmit}
                           action={action}>  {/*this is a form submission*/}
 
-                        <input
-                            type="hidden"
-                            name="siteId"
-                            value={params.siteId}
-                        />
+
 
                         <div className="grid gap-2">
 
@@ -78,9 +134,10 @@ export function EditArticleForm(){
                             <Textarea
                                 key={fields.smallDescription.key}
                                 name={fields.smallDescription.name}
-                                defaultValue={fields.smallDescription.initialValue}
+                                defaultValue={data.smallDescription}
                                 placeholder="Small description for your blog..."
-                                className="h-32"/>
+                                className="h-32"
+                                        />
                             <p className="text-red-500 text-sm">{fields.smallDescription.errors}</p>
                         </div>
 
