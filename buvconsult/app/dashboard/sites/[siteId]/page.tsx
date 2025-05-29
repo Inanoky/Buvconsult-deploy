@@ -60,7 +60,8 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
 
                 </Button>
                  <Button asChild variant="secondary">
-                    <Link href="#">
+                     {/* 05:53*/}
+                    <Link href={`/dashboard/sites/${params.siteId}/settings`}>
                         <Settings className="size-4 mr-2"/>Settings</Link>
 
                 </Button>
