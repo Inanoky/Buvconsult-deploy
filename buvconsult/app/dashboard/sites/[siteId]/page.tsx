@@ -1,10 +1,20 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {Book, FileIcon, PlusCircle, Settings} from "lucide-react";
+import {Book, FileIcon, MoreHorizontal, PlusCircle, Settings} from "lucide-react";
 import {prisma} from "@/app/utils/db";
 import {getKindeServerSession} from "@kinde-oss/kinde-auth-nextjs/server";
 import {redirect} from "next/navigation";
-
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {TableCell, Table, TableBody, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import Image from 'next/image'
+import {Badge} from "@/components/ui/badge";
+import {
+    DropdownMenu,
+    DropdownMenuContent, DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 async function getData(userId, siteId){
     const data = await prisma.post.findMany ({
@@ -80,8 +90,82 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
 
 
                 </div>
-            ) : (
-                <h1>here is data</h1>
+            ) : ( //this is because there is a default state above, but below is what is happening when there is data
+                <div> {/* Here we start from 04:43:59 */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Article</CardTitle>
+                            <CardDescription>Manage you Articles in a simple and intuitive interface</CardDescription>
+
+
+                        </CardHeader>
+                        <CardContent>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Image</TableHead>
+                                        <TableHead>Title</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Created At</TableHead>
+                                        <TableHead className="text-right">Actions</TableHead>
+
+                                    </TableRow>
+
+                                </TableHeader>
+                                <TableBody>
+                                    {data.map((item) => (
+                                        <TableRow key={item.id}>
+                                            <TableCell>
+                                                <Image src={item.image} width={64} height={64}
+                                                alt="Article Cover Image"
+                                                className="size-16 rounded-md object-cover"/>
+                                            </TableCell>
+                                            <TableCell className="font-medium">
+                                                {item.title}
+                                            </TableCell>
+                                            <TableCell className="font-medium">
+                                                <Badge variant="outline"
+                                                       className="bg-green-500/10 text-green-500"
+
+                                                >Published</Badge>
+                                            </TableCell>
+                                            <TableCell>
+                                                {new Intl.DateTimeFormat("en-US",{
+                                                        dataStyle: "medium",
+                                                    }).format(item.createdAt)}
+                                            </TableCell>
+                                            <TableCell className="text-end">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button size="icon" variant="ghost">
+                                                            <MoreHorizontal className="Size-4"/>
+
+
+                                                        </Button>
+
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                        <DropdownMenuSeparator/>
+                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                                                    </DropdownMenuContent>
+
+
+                                                </DropdownMenu>
+                                            </TableCell>
+
+                                        </TableRow>
+                                    ))}
+
+                                </TableBody>
+
+                            </Table>
+                        </CardContent>
+
+                    </Card>
+
+                </div>
             )}
 
         </>
