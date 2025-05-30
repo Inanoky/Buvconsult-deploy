@@ -14,98 +14,75 @@ import {EmptyState} from "@/app/components/dashboard/EmptyState";
 
 
 
-async function getData(userId){
 
-    const data = await prisma.site.findMany({
-        where: {
-            userId: userId,
-        },
-        orderBy: {
-            createdAt: "desc"
-        }   ,
+async function getData(userId: string) {
+  const data = await prisma.site.findMany({
+    where: {
+      userId: userId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-    });
-
-    return data;
-
+  return data;
 }
 
+export default async function SitesRoute() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
 
+  if (!user) {
+    return redirect("/api/auth/login");
+  }
+  const data = await getData(user.id);
+  return (
+    <>
+      <div className="flex w-full justify-end">
+        <Button asChild>
+          <Link href={"/dashboard/sites/new"}>
+            <PlusCircle className="mr-2 size-4" /> Create Site
+          </Link>
+        </Button>
+      </div>
 
-export default async function SitesRoute(){
-    const {getUser} = getKindeServerSession()
-    const user = await getUser
+      {data === undefined || data.length === 0 ? (
+        <EmptyState
+          title="You dont have any Sites created"
+          description="You currently dont have any Sites. Please create some so that you can
+        see them right here!"
+          buttonText="Create Site"
+          href="/dashboard/sites/new"
+        />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+          {data.map((item) => (
+            <Card key={item.id}>
+              <Image
+                src={item.imageUrl ?? DefaultImage}
+                alt={item.name}
+                className="rounded-t-lg object-cover w-full h-[200px]"
+                width={400}
+                height={200}
+              />
+              <CardHeader>
+                <CardTitle className="truncate">{item.name}</CardTitle>
+                <CardDescription className="line-clamp-3">
+                  {item.description}
+                </CardDescription>
+              </CardHeader>
 
-
-
-
-    if(!user){
-        return redirect("/api/auth/login")
-    }
-
-    const data = await getData(user.id)
-
-    return(
-        <>
-        <div className="flex w-full justify-end">
-            <Button asChild>
-                <Link href={"/dashboard/sites/new"}>
-                    <PlusCircle className="mr-2 size-4"/>
-                    Create Project
-                </Link>
-
-            </Button>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link href={`/dashboard/sites/${item.id}`}>
+                    View Articles
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
-
-
-
-            {data === undefined || data.length === 0 ? (
-                <EmptyState
-                    title="You don't have any Sites created"
-                    description="You currently don't have any Projects. Please create some so that you can see them right here"
-                    buttonText="Create site"
-                    href="/dashboard/sites/new"
-                />
-
-            ): (
-               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-                   {data.map((item) =>(
-                <Card key={item.id}>
-                 <Image
-                     src={item.imageUrl ?? DefaultImage}
-                     alt={item.name}
-                     className = "rounded-t-lg object-cover w-full h-[200px]"
-                     width = {400}
-                     height = {200}
-                    />
-                    <CardHeader>
-
-
-                        <CardTitle>{item.name}</CardTitle>
-                        <CardDescription>{item.description}</CardDescription>
-
-
-
-                    </CardHeader>
-                    <CardFooter className="flex justify-between">
-
-                            <Button asChild>
-
-                                <Link href={`/dashboard/sites/${item.id}`}>View Articles</Link>
-
-                            </Button>
-
-                    </CardFooter>
-                </Card>
-
-
-                       )
-
-                   )}
-               </div>
-            )}
-        </>
-
-    )
-
+      )}
+    </>
+  );
 }

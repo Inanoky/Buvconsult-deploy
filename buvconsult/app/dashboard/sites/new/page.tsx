@@ -38,7 +38,7 @@ export default function NewSiteRoute(){
 
     return(
         <div className="flex flex-col flex-1 items-center justify-center">
-            <Card className="min-w-[450px]">
+            <Card className="max-w-[450px]">
               <CardHeader>
                     <CardTitle>Card Title</CardTitle>
                     <CardDescription>Card Description</CardDescription>

@@ -67,7 +67,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
 
     </div>
 
-            <Card>
+            <Card className="max-w-[500px]">
                 <CardHeader>
                     <CardTitle>
                         Article Details
