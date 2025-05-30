@@ -8,6 +8,7 @@ import Link from "next/link";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import {UploadImageForm} from "@/app/components/dashboard/forms/UploadImageForm";
+import {DeleteSite} from "@/app/actions";
 
 export default function SettingsSiteRoute({params}: {params:{
 
@@ -43,8 +44,12 @@ export default function SettingsSiteRoute({params}: {params:{
                     </CardDescription>
                 </CardHeader>
                 <CardFooter>
+                    <form action={DeleteSite}>
+                    <input type="hidden" name="siteId" value={params.siteId}/>
+
                     <SubmitButton text="Delete Everything" variant="destructive"/>
-                </CardFooter>
+                     </form>
+                    </CardFooter>
             </Card>
 
         </>

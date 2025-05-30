@@ -17,6 +17,7 @@ import {CreateSiteAction} from "@/app/actions";
 import {useForm} from "@conform-to/react";
 import {parseWithZod} from "@conform-to/zod";
 import {siteSchema} from "@/app/utils/zodSchemas";
+import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 
 
 
@@ -52,7 +53,7 @@ export default function NewSiteRoute(){
                               key={fields.name.key}
                               defaultValue={fields.name.initialValue}
                               placeholder="Site name"/>
-                          <p className="text-red-50 text-small">{fields.name.errors}</p>
+                          <p className="text-red-500 text-small">{fields.name.errors}</p>
                       </div>
                       <div className="grid gap-2">
                           <Label>Subdirectory</Label>
@@ -61,7 +62,7 @@ export default function NewSiteRoute(){
                               key={fields.subdirectory.key}
                               defaultValue={fields.subdirectory.initialValue}
                               placeholder="Subdirectory"/>
-                          <p className="text-red-50 text-small"> {fields.subdirectory.errors}</p>
+                          <p className="text-red-500 text-small"> {fields.subdirectory.errors}</p>
 
                       </div>
                       <div className="grid gap-2">
@@ -71,13 +72,13 @@ export default function NewSiteRoute(){
                               key={fields.description.key}
                               defaultValue={fields.description.initialValue}
                               placeholder="Small Description for your site"/>
-                          <p className="text-red-50 text-sm">{fields.description.errors}</p>
+                          <p className="text-red-500 text-sm">{fields.description.errors}</p>
 
                       </div>
                   </div>
               </CardContent>
                 <CardFooter>
-                    <Button>Submit</Button>
+                    <SubmitButton text="Create site"/>
                 </CardFooter>
 
               </form>
