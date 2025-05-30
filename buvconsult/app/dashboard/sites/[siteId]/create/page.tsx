@@ -67,7 +67,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
 
     </div>
 
-            <Card className="max-w-[500px]">
+            <Card className="max-w-screen-xl">
                 <CardHeader>
                     <CardTitle>
                         Article Details
@@ -178,7 +178,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                                defaultValue={fields.articleContent.initialValue}
                                value={JSON.stringify(value)} //here some weird sheaningas, i guess we stringify first, pass through zod? then json again before uploading to database.
                                />
-                        <TailwindEditor onChange={setValue} initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
+                        <TailwindEditor className="break-words overflow-hidden" onChange={setValue} initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
                         <p className="text-red-500 text-sm">
                             {fields.articleContent.errors}
                         </p>
