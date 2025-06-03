@@ -174,3 +174,13 @@ export async function DeleteSite(formData: FormData){
     })
     return redirect("/dashboard/sites")
 }
+
+//Stipe 08:$0
+
+export async function CreateSubscription(){
+
+    const user = await requireUser();
+
+
+
+}
