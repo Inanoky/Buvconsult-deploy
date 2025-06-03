@@ -86,8 +86,8 @@ export default async function BlogIndexPage({params}:{params: {name: string}}){
 
                       <CardFooter>
                           <Button asChild className="w-full">
-                              <Link href={`/dashboard/sites/${item.id}`}>
-                                  View Articles
+                              <Link href={`/blog/${params.name}/${item.slug}`}>
+                                  Read more
                               </Link>
                           </Button>
                       </CardFooter>
