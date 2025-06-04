@@ -2,6 +2,7 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import {Check} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
+import Link from "next/link";
 
 interface iAppProps{
 
@@ -125,7 +126,11 @@ export function PricingTable(){
 
 
                             ) : (
-                                <Button variant="outline" className="mt-5 w-full">Try for free</Button>
+                                <Button variant="outline" className="mt-5 w-full">
+                                         <Link href="/dashboard">
+                                    Try for free
+                                        </Link>
+                                </Button>
 
                             )}
 

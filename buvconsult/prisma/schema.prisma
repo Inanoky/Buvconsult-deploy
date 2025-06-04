@@ -21,6 +21,7 @@ model User {
   firstName    String
   lastName     String
   profileImage String
+  customerId String? @unique
 
   createdAt DateTime @default(now())
 
@@ -57,3 +58,5 @@ model Post {
   Site   Site?   @relation(fields: [siteId], references: [id], onDelete:Cascade) //06:16 - onDelete added
   siteId String?
 }
+
+
