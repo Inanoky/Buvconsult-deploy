@@ -3,6 +3,7 @@ import {Check} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import Link from "next/link";
+import {CreateSubscription} from "@/app/actions";
 
 interface iAppProps{
 
@@ -119,7 +120,7 @@ export function PricingTable(){
                         <CardFooter>
 
                             {item.id === 1 ? (
-                                <form className= "w-full">
+                                <form  className= "w-full" action={CreateSubscription}>
                                     <SubmitButton text="Buy Plan" className="mt-5 w-full"/>
                                 </form>
 
