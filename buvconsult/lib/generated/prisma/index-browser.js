@@ -154,6 +154,18 @@ exports.Prisma.PostScalarFieldEnum = {
   siteId: 'siteId'
 };
 
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  interval: 'interval',
+  status: 'status',
+  planId: 'planId',
+  currentPeriodStart: 'currentPeriodStart',
+  currentPeriodEnd: 'currentPeriodEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -183,7 +195,8 @@ exports.Prisma.JsonNullValueFilter = {
 exports.Prisma.ModelName = {
   User: 'User',
   Site: 'Site',
-  Post: 'Post'
+  Post: 'Post',
+  Subscription: 'Subscription'
 };
 
 /**
