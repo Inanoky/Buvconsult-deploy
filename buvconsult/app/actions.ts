@@ -18,6 +18,48 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
     const user = await requireUser();
 
 
+
+    //09:43 - subscription validation
+
+    const [subStatus, sites] = await Promise.all([
+
+        prisma.subscription.findUnique({
+            where:{
+                userId: user.id,
+            },
+            select:{
+
+                status:true,
+
+            },
+        }),
+        prisma.site.findMany({
+            where: {
+                userId: user.id,
+            }
+        })
+    ])
+
+
+
+    if(!subStatus || subStatus.status !== "active" ){
+
+        if(sites.length < 1){
+            //Allow creating a site
+            createSite()
+
+        } else {
+            //user already has one site don't allow
+            return redirect("/dashboard/pricing")
+        }
+
+    } else if (subStatus.status === "active"){
+        //user has an active plan he can create sites
+        createSite()
+    }
+
+    async function createSite(){
+
     const submission = await parseWithZod(formData, {
         schema: SiteCreationSchema({
             async isSubdirectoryUnique(){
@@ -49,6 +91,7 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
     });
 
     return redirect("/dashboard/sites")
+        }
 }
 
 
