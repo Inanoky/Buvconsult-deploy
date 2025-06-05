@@ -10,6 +10,12 @@ import Image from "next/image"
 import {RenderArticle} from "@/app/components/dashboard/RenderArticle";
 import {JSONContent} from "novel";
 
+type Props ={
+    params : {
+        slug : string;
+        name: string;
+    };
+}
 
 async function getData(slug:string){
 
@@ -40,11 +46,7 @@ async function getData(slug:string){
 
 
 
-export default async function SlugRoute({
-                                            params,
-                                        }:{
-    params:{slug:string; name: string};
-}) {
+export default async function SlugRoute({params}: Props) {
 
     const data = await getData(params.slug)
 
