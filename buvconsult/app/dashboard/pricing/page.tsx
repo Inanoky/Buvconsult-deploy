@@ -6,6 +6,8 @@ import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
+import {stripe} from "@/app/utils/stripe";
+import {redirect} from "next/navigation";
 
 
 //09:58 Customer control panel
@@ -38,6 +40,22 @@ export default async function PricingPage(){
 
     const data = await getData(user.id)
 
+
+    //10:04
+    async function createCustomerPortal(){
+        "use server"
+
+        const session = await stripe.billingPortal.sessions.create({
+
+            customer: data?.User?.customerId as string,
+            return_url: 'http://localhost:3000/dashboard',
+
+        })
+
+        return redirect(session.url)
+    }
+
+
     if(data?.status === "active"){
 
         return(
@@ -51,7 +69,7 @@ export default async function PricingPage(){
                         invoices at the same time
                     </CardDescription>
                     <CardContent >
-                        <form>
+                        <form action={createCustomerPortal}>
                             <SubmitButton className="justify-start" text="View Subscription Details"/>
                         </form>
 
