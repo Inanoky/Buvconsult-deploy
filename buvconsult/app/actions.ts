@@ -46,7 +46,7 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
 
         if(sites.length < 1){
             //Allow creating a site
-            createSite()
+           await createSite()
 
         } else {
             //user already has one site don't allow
@@ -55,7 +55,7 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
 
     } else if (subStatus.status === "active"){
         //user has an active plan he can create sites
-        createSite()
+        await createSite()
     }
 
     async function createSite(){
@@ -90,8 +90,9 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
 
     });
 
-    return redirect("/dashboard/sites")
+
         }
+     return redirect("/dashboard/sites")
 }
 
 
