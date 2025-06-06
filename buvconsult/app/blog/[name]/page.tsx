@@ -49,7 +49,7 @@ export default async function BlogIndexPage({
 }:{
     params: {name: string}}){
 
-    const {name} = await params
+    const {name} =  await params
 
 
 

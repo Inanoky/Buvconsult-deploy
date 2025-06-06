@@ -47,8 +47,8 @@ async function getData(slug:string){
 
 
 export default async function SlugRoute({params,
-                                        }:{
-    params:{slug:string; name: string};
+                                        }:
+                                            {params: Promise<{slug:string; name: string}>;
 }) {
 
     const {slug, name} = await params
