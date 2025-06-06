@@ -20,7 +20,7 @@ import {parseWithZod} from "@conform-to/zod";
 import {PostSchema} from "@/app/utils/zodSchemas";
 import slugify from "react-slugify";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
-import {use} from "react"
+
 
 //empty
 
@@ -28,7 +28,7 @@ export default function ArticleCreationRoute({params}:
 {params: Promise<{siteId:string}>
 }){
 
-    const {siteId} = use(params)
+    const {siteId} = params
     const [imageUrl, setImageUrl] = useState<undefined | string > (undefined)
     const [value, setValue] = useState<JSONContent | undefined >(undefined)
     const [slug, setSlugValue] = useState<undefined|string>(undefined)
