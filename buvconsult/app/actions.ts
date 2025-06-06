@@ -5,7 +5,7 @@
 
 import {redirect} from "next/navigation";
 import {parseWithZod} from '@conform-to/zod'
-import {PostSchema, SiteCreationSchema, siteSchema} from "@/app/utils/zodSchemas";
+import {PostSchema, SiteCreationSchema} from "@/app/utils/zodSchemas";
 import {prisma} from "@/app/utils/db";
 
 import {requireUser} from "@/app/utils/requireUser";
