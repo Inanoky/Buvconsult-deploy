@@ -13,7 +13,7 @@ import {stripe} from "@/app/utils/stripe";
 
 
 
-export async function CreateSiteAction(prevState: any,formData: FormData){
+export async function CreateSiteAction(prevState: unknown,formData: FormData){
 
     const user = await requireUser();
 
@@ -79,7 +79,7 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
         return submission.reply();
     }
 
-    const response = await prisma.site.create({
+    await prisma.site.create({
 
         data : {
             description: submission.value.description,
@@ -96,7 +96,7 @@ export async function CreateSiteAction(prevState: any,formData: FormData){
 }
 
 
-export async function CreatePostAction(prevState: any,formData : FormData){
+export async function CreatePostAction(prevState: unknown,formData : FormData){
 
     const user = await requireUser(); //user validation
 
@@ -110,7 +110,7 @@ export async function CreatePostAction(prevState: any,formData : FormData){
         return submission.reply();
     }
 
-    const data = await prisma.post.create({ //this is databse mutation
+    await prisma.post.create({ //this is databse mutation
         data : {
             title: submission.value.title,
             smallDescription :submission.value.smallDescription,
@@ -127,7 +127,7 @@ export async function CreatePostAction(prevState: any,formData : FormData){
 
 
 //this is for article edit. 05:24
-export async function EditPostActions(prevState: any, formData: FormData){
+export async function EditPostActions(prevState: unknown, formData: FormData){
 
     const user = await requireUser()
 
@@ -140,7 +140,7 @@ export async function EditPostActions(prevState: any, formData: FormData){
 
     }
 
-    const data = await prisma.post.update({
+    await prisma.post.update({
         where: {
             userId: user.id,
             id: formData.get('articleId') as string,
@@ -167,7 +167,7 @@ export async function DeletePost(formData: FormData){
 
     const user = await requireUser();
 
-    const data = await prisma.post.delete({
+    await prisma.post.delete({
 
         where: {
             userId: user.id,
@@ -185,7 +185,7 @@ export async function UpdateImage(formData: FormData){
 
      const user = await requireUser();
 
-     const data = await prisma.site.update({
+     await prisma.site.update({
 
          where: {
 
@@ -211,7 +211,7 @@ export async function DeleteSite(formData: FormData){
     const user = await requireUser();
 
 
-    const data = await prisma.site.delete({
+    await prisma.site.delete({
         where: {
             userId: user.id,
             id: formData.get('siteId') as string,
