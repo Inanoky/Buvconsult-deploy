@@ -6,10 +6,11 @@ import Link from "next/link";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import {DeletePost} from "@/app/actions";
 
-export default function DeleteForm({params}:
-{params: {siteId:string, articleId:string}
+export default async function DeleteForm({params}:
+{params: Promise<{siteId:string, articleId:string}>
 }){
 
+    const {siteId, articleId} = await params
 
 
     return (
@@ -23,12 +24,12 @@ export default function DeleteForm({params}:
                 </CardHeader>
                 <CardFooter className="w-full flex justify-between">
                     <Button variant="secondary" asChild>
-                        <Link href={`/dashboard/sites/${params.siteId}`}>Cancel</Link>
+                        <Link href={`/dashboard/sites/${siteId}`}>Cancel</Link>
                         </Button>
                     <form action={DeletePost}>
 
-                        <input type="hidden" name="articleId" value={params.articleId}/>
-                        <input type="hidden" name="siteId" value={params.siteId}/>
+                        <input type="hidden" name="articleId" value={articleId}/>
+                        <input type="hidden" name="siteId" value={siteId}/>
                         <SubmitButton variant="destructive" text="Delete Article"/>
                     </form>
 
