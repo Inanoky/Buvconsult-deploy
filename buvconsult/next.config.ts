@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PrismaPlugin } from "@prisma/nextjs-monorepo-workaround-plugin";
 
 const nextConfig: NextConfig = {
     images: {
@@ -14,7 +15,17 @@ const nextConfig: NextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
       },
+
+    webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins.push(new PrismaPlugin());
+    }
+    return config;
+  },
+
   /* config options here */
 };
+
+
 
 export default nextConfig;
