@@ -193,6 +193,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -210,6 +214,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -218,8 +223,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../lib/generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel User {\n  id           String  @id @unique\n  email        String\n  firstName    String\n  lastName     String\n  profileImage String\n  customerId   String? @unique\n\n  createdAt DateTime @default(now())\n\n  Site  Site[]\n  posts Post[]\n\n  Subscription Subscription?\n}\n\nmodel Site {\n  id           String   @id @default(uuid())\n  name         String\n  description  String\n  subdirectory String   @unique\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  imageUrl String?\n  User     User?   @relation(fields: [userId], references: [id])\n  userId   String?\n  posts    Post[]\n}\n\nmodel Post {\n  id               String   @id @default(uuid()) //Unique identified, msut have\n  title            String\n  articleContent   Json\n  smallDescription String\n  image            String\n  slug             String   @unique\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime @updatedAt\n\n  User   User?   @relation(fields: [userId], references: [id])\n  userId String?\n  Site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade) //06:16 - onDelete added\n  siteId String?\n}\n\nmodel Subscription {\n  stripeSubscriptionId String   @id @unique\n  interval             String\n  status               String\n  planId               String\n  currentPeriodStart   Int\n  currentPeriodEnd     Int\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n\n  User   User?   @relation(fields: [userId], references: [id])\n  userId String? @unique\n}\n",
-  "inlineSchemaHash": "a634f6c65a7730b12154d5ff6d7b0325ec48993232523181fc4e105bea7ee68e",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../lib/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel User {\n  id           String  @id @unique\n  email        String\n  firstName    String\n  lastName     String\n  profileImage String\n  customerId   String? @unique\n\n  createdAt DateTime @default(now())\n\n  Site  Site[]\n  posts Post[]\n\n  Subscription Subscription?\n}\n\nmodel Site {\n  id           String   @id @default(uuid())\n  name         String\n  description  String\n  subdirectory String   @unique\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  imageUrl String?\n  User     User?   @relation(fields: [userId], references: [id])\n  userId   String?\n  posts    Post[]\n}\n\nmodel Post {\n  id               String   @id @default(uuid()) //Unique identified, msut have\n  title            String\n  articleContent   Json\n  smallDescription String\n  image            String\n  slug             String   @unique\n  createdAt        DateTime @default(now())\n  updatedAt        DateTime @updatedAt\n\n  User   User?   @relation(fields: [userId], references: [id])\n  userId String?\n  Site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade) //06:16 - onDelete added\n  siteId String?\n}\n\nmodel Subscription {\n  stripeSubscriptionId String   @id @unique\n  interval             String\n  status               String\n  planId               String\n  currentPeriodStart   Int\n  currentPeriodEnd     Int\n  createdAt            DateTime @default(now())\n  updatedAt            DateTime @updatedAt\n\n  User   User?   @relation(fields: [userId], references: [id])\n  userId String? @unique\n}\n",
+  "inlineSchemaHash": "4c0d940fc7c99280331a532766301dc694fd71253d01f4123fba7629ed7f6419",
   "copyEngine": true
 }
 
@@ -260,6 +265,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "lib/generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-rhel-openssl-3.0.x.so.node");
+path.join(process.cwd(), "lib/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "lib/generated/prisma/schema.prisma")
