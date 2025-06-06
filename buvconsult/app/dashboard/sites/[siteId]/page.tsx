@@ -156,7 +156,7 @@ export default async function SiteIdRoute({params}:
                                             </TableCell>
                                             <TableCell>
                                                 {new Intl.DateTimeFormat("en-US",{
-                                                        dataStyle: "medium",
+                                                        dateStyle: "medium",
                                                     }).format(item.createdAt)}
                                             </TableCell>
                                             <TableCell className="text-end">
