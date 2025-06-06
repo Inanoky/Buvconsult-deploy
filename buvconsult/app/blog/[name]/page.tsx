@@ -46,8 +46,7 @@ async function getData(subDir:string){
 
 export default async function BlogIndexPage({
     params
-}:{
-    params: {name: string}}){
+}:{params: Promise< {name: string}>}){
 
     const {name} =  await params
 

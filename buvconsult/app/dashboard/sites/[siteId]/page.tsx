@@ -64,7 +64,11 @@ async function getData(userId, siteId){
     return data
 }
 
-export default async function SiteIdRoute({params}:{params : {siteId:string}}){
+export default async function SiteIdRoute({params}:
+
+{params : Promise <{siteId:string}>
+
+}){
 
     const {siteId} = await params
 
