@@ -23,7 +23,11 @@ import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 
 //empty
 
-export default function ArticleCreationRoute({params,}:{params: {siteId:string}}){
+export default async function ArticleCreationRoute({params,}:
+{params: Promise<{siteId:string}>
+}){
+
+    const {siteId} = await params
 
     const [imageUrl, setImageUrl] = useState<undefined | string > (undefined)
     const [value, setValue] = useState<JSONContent | undefined >(undefined)
@@ -57,7 +61,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
         <>
     <div className="flex items-center">
         <Button size ="icon" variant="outline" className="mr-3" asChild>
-            <Link href={`/dashboard/sites/${params.siteId}`}>
+            <Link href={`/dashboard/sites/${siteId}`}>
 
                 <ArrowLeft className="size-4"/>
 
@@ -85,7 +89,7 @@ export default function ArticleCreationRoute({params,}:{params: {siteId:string}}
                         <input
                             type="hidden"
                             name="siteId"
-                            value={params.siteId}
+                            value={siteId}
                         />
 
                         <div className="grid gap-2">
