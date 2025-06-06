@@ -10,18 +10,18 @@ import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import {UploadImageForm} from "@/app/components/dashboard/forms/UploadImageForm";
 import {DeleteSite} from "@/app/actions";
 
-export default function SettingsSiteRoute({params}: {params:{
+export default async function SettingsSiteRoute({params}:
+{params: Promise<{siteId: string }>
+}){
 
-    siteId: string
-
-    }}){
+    const {siteId} = await params
 
     return(
 
         <>
             <div className="flex items-center gap-x-2">
                 <Button variant="outline" size="icon">
-                    <Link href={`/dashboard/sites/${params.siteId}`}>
+                    <Link href={`/dashboard/sites/${siteId}`}>
                     <ChevronLeft className="size-4"/>
                         </Link>
                 </Button>
@@ -29,7 +29,7 @@ export default function SettingsSiteRoute({params}: {params:{
 
             </div>
             {/* 06:05 */}
-            <UploadImageForm siteId={params.siteId}/>
+            <UploadImageForm siteId={siteId}/>
 
 
             {/* 05:58 */}
@@ -45,7 +45,7 @@ export default function SettingsSiteRoute({params}: {params:{
                 </CardHeader>
                 <CardFooter>
                     <form action={DeleteSite}>
-                    <input type="hidden" name="siteId" value={params.siteId}/>
+                    <input type="hidden" name="siteId" value={siteId}/>
 
                     <SubmitButton text="Delete Everything" variant="destructive"/>
                      </form>
