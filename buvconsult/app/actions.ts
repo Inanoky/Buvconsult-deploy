@@ -241,7 +241,7 @@ export async function CreateSubscription(){
 
     if(!stripeUserId?.customerId){
         const stripeCustomer = await stripe.customers.create({
-            email: stripeUserId.email,
+            email: stripeUserId?.email,
             name: stripeUserId?.firstName,
 
 
