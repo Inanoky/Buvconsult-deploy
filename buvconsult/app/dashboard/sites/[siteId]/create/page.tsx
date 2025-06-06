@@ -25,7 +25,7 @@ import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 //empty
 
 export default function ArticleCreationRoute({params}:
-{params: Promise<{siteId:string}>
+{params: {siteId:string}
 }){
 
     const {siteId} = params
