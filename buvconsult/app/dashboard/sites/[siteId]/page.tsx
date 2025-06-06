@@ -66,6 +66,9 @@ async function getData(userId, siteId){
 
 export default async function SiteIdRoute({params}:{params : {siteId:string}}){
 
+    const {siteId} = await params
+
+
     const {getUser} = getKindeServerSession();
     const user = await getUser()
 
@@ -73,7 +76,7 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
         return redirect("/api/auth/login")
     }
 
-    const data = await getData(user.id, params.siteId );
+    const data = await getData(user.id, siteId);
 
 
 
@@ -89,12 +92,12 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
                 </Button>
                  <Button asChild variant="secondary">
                      {/* 05:53*/}
-                    <Link href={`/dashboard/sites/${params.siteId}/settings`}>
+                    <Link href={`/dashboard/sites/${siteId}/settings`}>
                         <Settings className="size-4 mr-2"/>Settings</Link>
 
                 </Button>
                 <Button asChild>
-                    <Link href={`/dashboard/sites/${params.siteId}/create`}>
+                    <Link href={`/dashboard/sites/${siteId}/create`}>
                         <PlusCircle className="size-4 mr-2"/>
                         Create Article</Link>
                 </Button>
@@ -106,7 +109,7 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
                   title="You don't have any articles created"
                   description="You currently don't have any articles"
                   buttonText="Create Article"
-                  href={`/dashboard/sites/${params.siteId}/create`}/>
+                  href={`/dashboard/sites/${siteId}/create`}/>
 
             ) : ( //this is because there is a default state above, but below is what is happening when there is data
                 <div> {/* Here we start from 04:43:59 */}
@@ -166,13 +169,13 @@ export default async function SiteIdRoute({params}:{params : {siteId:string}}){
                                                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                         <DropdownMenuSeparator/>
                                                         <DropdownMenuItem asChild>
-                                                            <Link href={`/dashboard/sites/${params.siteId}/${item.id}`}>
+                                                            <Link href={`/dashboard/sites/${siteId}/${item.id}`}>
                                                                 Edit
                                                             </Link>
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem asChild>
                                                             {/* below from 05:37*/}
-                                                            <Link href={`/dashboard/sites/${params.siteId}/${item.id}/delete`}>Delete</Link>
+                                                            <Link href={`/dashboard/sites/${siteId}/${item.id}/delete`}>Delete</Link>
                                                         </DropdownMenuItem>
                                                     </DropdownMenuContent>
 

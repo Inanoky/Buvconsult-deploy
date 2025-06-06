@@ -3,6 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/buvconsult" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/buvconsult/novel-editor-source" vcs="Git" />
   </component>
 </project>

@@ -44,9 +44,18 @@ async function getData(subDir:string){
 
 
 
-export default async function BlogIndexPage({params}:{params: {name: string}}){
+export default async function BlogIndexPage({
+    params
+}:{
+    params: {name: string}}){
 
-    const data = await getData(params.name);
+    const {name} = await params
+
+
+
+
+
+    const data = await getData(name);
 
   return (
 
@@ -86,7 +95,7 @@ export default async function BlogIndexPage({params}:{params: {name: string}}){
 
                       <CardFooter>
                           <Button asChild className="w-full">
-                              <Link href={`/blog/${params.name}/${item.slug}`}>
+                              <Link href={`/blog/${name}/${item.slug}`}>
                                   Read more
                               </Link>
                           </Button>
