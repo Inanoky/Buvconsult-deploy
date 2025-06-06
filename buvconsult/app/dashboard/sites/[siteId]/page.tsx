@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {EmptyState} from "@/app/components/dashboard/EmptyState";
 
-async function getData(userId, siteId){
+async function getData(userId:string, siteId:string){
     // const data = await prisma.post.findMany ({
     //     where:{
     //         userId: userId,
