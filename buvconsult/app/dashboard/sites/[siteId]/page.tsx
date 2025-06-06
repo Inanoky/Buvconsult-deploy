@@ -107,7 +107,7 @@ export default async function SiteIdRoute({params}:
                 </Button>
             </div>
 
-            {data.posts === undefined || data.posts.length === 0 ? (
+            {data?.posts === undefined || data.posts.length === 0 ? (
 
               <EmptyState
                   title="You don't have any articles created"
