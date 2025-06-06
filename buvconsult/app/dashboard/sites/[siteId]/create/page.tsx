@@ -20,15 +20,15 @@ import {parseWithZod} from "@conform-to/zod";
 import {PostSchema} from "@/app/utils/zodSchemas";
 import slugify from "react-slugify";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
+import {use} from "react"
 
 //empty
 
-export default async function ArticleCreationRoute({params,}:
+export default function ArticleCreationRoute({params}:
 {params: Promise<{siteId:string}>
 }){
 
-    const {siteId} = await params
-
+    const {siteId} = use(params)
     const [imageUrl, setImageUrl] = useState<undefined | string > (undefined)
     const [value, setValue] = useState<JSONContent | undefined >(undefined)
     const [slug, setSlugValue] = useState<undefined|string>(undefined)
@@ -182,7 +182,7 @@ export default async function ArticleCreationRoute({params,}:
                                defaultValue={fields.articleContent.initialValue}
                                value={JSON.stringify(value)} //here some weird sheaningas, i guess we stringify first, pass through zod? then json again before uploading to database.
                                />
-                        <TailwindEditor className="break-words overflow-hidden" onChange={setValue} initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
+                        <TailwindEditor onChange={setValue} initialValue={value}/> {/*Here we have a setter which sets value of value to the text inside Tailwind editor*/}
                         <p className="text-red-500 text-sm">
                             {fields.articleContent.errors}
                         </p>
