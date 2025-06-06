@@ -6,7 +6,11 @@ import Link from "next/link";
 import {SubmitButton} from "@/app/components/dashboard/SubmitButtons";
 import {DeletePost} from "@/app/actions";
 
-export default function DeleteForm({params}:{params:{siteId:string, articleId:string}}){
+export default function DeleteForm({params}:
+{params: {siteId:string, articleId:string}
+}){
+
+
 
     return (
         <div className="flex flex-1 items-center justify-center">
