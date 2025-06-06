@@ -75,7 +75,7 @@ export default function DashboardLayout({children} : {children: ReactNode}){
                                     <CircleUser className="h-5 w-5"/>
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent algin="end">
+                            <DropdownMenuContent align="end">
                                 <DropdownMenuItem asChild>
                                     <LogoutLink>Log out</LogoutLink>
 
