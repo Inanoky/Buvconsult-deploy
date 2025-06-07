@@ -181,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\user\\MVP\\Buvconsult\\buvconsult\\lib\\generated\\prisma",
+      "value": "C:\\Users\\user\\MVP\\Buvconsult-deploy\\buvconsult\\lib\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -199,7 +199,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\user\\MVP\\Buvconsult\\buvconsult\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\user\\MVP\\Buvconsult-deploy\\buvconsult\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
