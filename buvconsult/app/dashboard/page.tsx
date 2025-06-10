@@ -11,6 +11,7 @@ import DefaultImage from "@/public/default.png";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import OpenProjectButton from "@/components/provider/ButtonClient";
 
 async function getData(userId: string) {
   const [sites, articles] = await Promise.all([
@@ -68,11 +69,8 @@ export default async function DashboardIndexPage() {
               </CardHeader>
 
               <CardFooter>
-                <Button asChild className="w-full">
-                  <Link href={`/dashboard/sites/${item.id}`}>
-                    View Articles
-                  </Link>
-                </Button>
+                <OpenProjectButton projectId={item.id} projectName={item.name} />
+
               </CardFooter>
             </Card>
           ))}

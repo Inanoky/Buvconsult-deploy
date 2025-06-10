@@ -11,6 +11,7 @@ import DefaultImage from "@/public/default.png"
 
 import React from "react";
 import {EmptyState} from "@/app/components/dashboard/EmptyState";
+import OpenProjectButton from "@/components/provider/ButtonClient";
 
 
 
@@ -73,11 +74,8 @@ export default async function SitesRoute() {
               </CardHeader>
 
               <CardFooter>
-                <Button asChild className="w-full">
-                  <Link href={`/dashboard/sites/${item.id}`}>
-                    View Articles
-                  </Link>
-                </Button>
+                              <OpenProjectButton projectId={item.id} projectName={item.name} />
+
               </CardFooter>
             </Card>
           ))}

@@ -8,6 +8,7 @@ import {ThemeToggle} from "@/app/components/dashboard/ThemeToggle";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {LogoutLink} from '@kinde-oss/kinde-auth-nextjs/components'
+import {ProjectProvider} from "@/components/provider/ProjectProvider";
 
 export const navLinks = [
     {
@@ -37,6 +38,8 @@ export const navLinks = [
 export default function DashboardLayout({children} : {children: ReactNode}){
 
     return(
+
+        <ProjectProvider>
 
         <section className="grid min-h-screen w-full md:grid-cols-[220px_1fr]
         lg:grid-cols-[280px_1fr]">
@@ -91,6 +94,7 @@ export default function DashboardLayout({children} : {children: ReactNode}){
 
             </div>
         </section>
+            </ProjectProvider>
     )
 
 
