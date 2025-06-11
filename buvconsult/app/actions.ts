@@ -281,3 +281,42 @@ export async function CreateSubscription(){
 
 
 }
+
+//Saving fileUploads to database
+
+
+
+export const  saveInvoiceToDB = async (_: unknown, formData: FormData)=> {
+
+    const user = await requireUser();
+
+            console.log("FORM VALUES:", {
+            siteId: formData.get("siteId"),
+            fileUrls: formData.get("fileUrls"),
+            });
+
+
+
+
+    const siteId = formData.get("siteId") as string;
+    const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
+
+     await Promise.all(
+
+    urls.map((url) =>
+      prisma.invoices.create({
+        data: {
+          url,
+          name: "Uploaded Invoice",
+          type: "image",
+          size: 0,
+          uploadedBy: user.id,
+          userId: user.id,
+          SiteId: siteId,
+        },
+      })
+    )
+  );
+
+  return redirect(`/dashboard/sites/${formData.get("siteId")}`)
+}
