@@ -26,8 +26,9 @@ model User {
 
   createdAt DateTime @default(now())
 
-  Site  Site[]
-  posts Post[]
+  Site     Site[]
+  posts    Post[]
+  Invoices Invoices[]
 
   Subscription Subscription?
 }
@@ -41,25 +42,10 @@ model Site {
   updatedAt    DateTime @updatedAt
 
   imageUrl String?
-  User     User?   @relation(fields: [userId], references: [id])
+  User     User?      @relation(fields: [userId], references: [id])
   userId   String?
   posts    Post[]
-}
-
-model Post {
-  id               String   @id @default(uuid()) //Unique identified, msut have
-  title            String
-  articleContent   Json
-  smallDescription String
-  image            String
-  slug             String   @unique
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
-  Site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade) //06:16 - onDelete added
-  siteId String?
+  invoices Invoices[]
 }
 
 model Subscription {
@@ -74,4 +60,35 @@ model Subscription {
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String? @unique
+}
+
+model Invoices {
+  id         String   @id @default(cuid())
+  url        String
+  name       String
+  type       String
+  size       Int
+  uploadedBy String
+  uploadedAt DateTime @default(now())
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  Site   Site?   @relation(fields: [SiteId], references: [id], onDelete: Cascade)
+  SiteId String? @unique
+}
+
+model Post {
+  id               String   @id @default(uuid()) // Unique identified, msut have
+  title            String
+  articleContent   Json
+  smallDescription String
+  image            String
+  slug             String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  Site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade) // 06:16 - onDelete added
+  siteId String?
 }

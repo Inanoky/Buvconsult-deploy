@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../lib/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -17,17 +17,18 @@ datasource db {
 }
 
 model User {
-  id           String @id @unique
+  id           String  @id @unique
   email        String
   firstName    String
   lastName     String
   profileImage String
-  customerId String? @unique
+  customerId   String? @unique
 
   createdAt DateTime @default(now())
 
-  Site  Site[]
-  posts Post[]
+  Site     Site[]
+  posts    Post[]
+  Invoices Invoices[]
 
   Subscription Subscription?
 }
@@ -41,13 +42,43 @@ model Site {
   updatedAt    DateTime @updatedAt
 
   imageUrl String?
-  User     User?   @relation(fields: [userId], references: [id])
+  User     User?      @relation(fields: [userId], references: [id])
   userId   String?
   posts    Post[]
+  invoices Invoices[]
+}
+
+model Subscription {
+  stripeSubscriptionId String   @id @unique
+  interval             String
+  status               String
+  planId               String
+  currentPeriodStart   Int
+  currentPeriodEnd     Int
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @unique
+}
+
+model Invoices {
+  id         String   @id @default(cuid())
+  url        String
+  name       String
+  type       String
+  size       Int
+  uploadedBy String
+  uploadedAt DateTime @default(now())
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  Site   Site?   @relation(fields: [SiteId], references: [id], onDelete: Cascade)
+  SiteId String? @unique
 }
 
 model Post {
-  id               String   @id @default(uuid()) //Unique identified, msut have
+  id               String   @id @default(uuid()) // Unique identified, msut have
   title            String
   articleContent   Json
   smallDescription String
@@ -58,26 +89,6 @@ model Post {
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String?
-  Site   Site?   @relation(fields: [siteId], references: [id], onDelete:Cascade) //06:16 - onDelete added
+  Site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade) // 06:16 - onDelete added
   siteId String?
 }
-
-
-model Subscription {
-
-  stripeSubscriptionId String @id @unique
-  interval String
-  status String
-  planId String
-  currentPeriodStart Int
-  currentPeriodEnd Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  User User? @relation(fields: [userId], references: [id])
-  userId String? @unique
-
-
-
-}
-
