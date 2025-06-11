@@ -290,10 +290,6 @@ export const  saveInvoiceToDB = async (_: unknown, formData: FormData)=> {
 
     const user = await requireUser();
 
-            console.log("FORM VALUES:", {
-            siteId: formData.get("siteId"),
-            fileUrls: formData.get("fileUrls"),
-            });
 
 
 
@@ -319,4 +315,19 @@ export const  saveInvoiceToDB = async (_: unknown, formData: FormData)=> {
   );
 
   return redirect(`/dashboard/sites/${formData.get("siteId")}`)
+}
+
+export async function GetInvoicesFromDB(siteId: string){
+
+    const user = await requireUser();
+
+    const invoices = await prisma.invoices.findMany({
+
+        where: {
+            userId: user.id,
+            SiteId: siteId,
+        }
+    })
+    return invoices
+
 }
