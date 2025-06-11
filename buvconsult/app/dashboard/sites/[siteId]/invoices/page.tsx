@@ -14,6 +14,8 @@ import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import Link from "next/link";
 import {GetInvoicesFromDB} from "@/app/actions";
+import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
+
 
 export default async function InvoiceRoute({params}:
 
@@ -54,23 +56,11 @@ export default async function InvoiceRoute({params}:
               {invoices.map((inv) => (
                 <TableRow key={inv.id}>
                   <TableCell>
-                    <Image
-                      src={inv.url}
-                      width={64}
-                      height={64}
-                      alt={inv.name}
-                      className="rounded-md object-cover"
-                    />
+
                   </TableCell>
                   <TableCell>
-                        <Link
-                          href={inv.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 hover:underline"
-                        >
-                          {inv.name}
-                        </Link>
+                         <InvoiceHoverPreview url={inv.url} label={inv.name} />
+                        
                           </TableCell>
                   <TableCell>
                     <Badge variant="outline" className="capitalize">
