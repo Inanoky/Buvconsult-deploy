@@ -95,21 +95,21 @@ model Post {
 }
 
 model InvoiceItems {
-  id              String    @id @default(uuid())
-  date            DateTime?
-  ivnoiceNumber   String?
-  seller          String?
-  buyer           String?
-  item            String?
-  qunatity        String?
-  unit            String?
-  price           String?
-  sum             String?
-  currency        String
-  category        String?
-  commentsforAi   String?
-  commentsForUser String?
-  isInvoice       String?
-  invoiceId       String
-  invoice         Invoices  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  id                    String    @id @default(uuid())
+  date                  DateTime?
+  invoiceNumber         String?
+  sellerName            String?
+  buyerName             String?
+  item                  String?
+  quantity              String?
+  unitOfMeasure         String?
+  pricePerUnitOfMeasure String?
+  sum                   String?
+  currency              String
+  category              String?
+  commentsForAi         String?
+  commentsForUser       String?
+  isInvoice             String?
+  invoiceId             String
+  invoice               Invoices  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
 }

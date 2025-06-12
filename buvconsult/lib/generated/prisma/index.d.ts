@@ -7357,17 +7357,17 @@ export namespace Prisma {
   export type InvoiceItemsMinAggregateOutputType = {
     id: string | null
     date: Date | null
-    ivnoiceNumber: string | null
-    seller: string | null
-    buyer: string | null
+    invoiceNumber: string | null
+    sellerName: string | null
+    buyerName: string | null
     item: string | null
-    qunatity: string | null
-    unit: string | null
-    price: string | null
+    quantity: string | null
+    unitOfMeasure: string | null
+    pricePerUnitOfMeasure: string | null
     sum: string | null
     currency: string | null
     category: string | null
-    commentsforAi: string | null
+    commentsForAi: string | null
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string | null
@@ -7376,17 +7376,17 @@ export namespace Prisma {
   export type InvoiceItemsMaxAggregateOutputType = {
     id: string | null
     date: Date | null
-    ivnoiceNumber: string | null
-    seller: string | null
-    buyer: string | null
+    invoiceNumber: string | null
+    sellerName: string | null
+    buyerName: string | null
     item: string | null
-    qunatity: string | null
-    unit: string | null
-    price: string | null
+    quantity: string | null
+    unitOfMeasure: string | null
+    pricePerUnitOfMeasure: string | null
     sum: string | null
     currency: string | null
     category: string | null
-    commentsforAi: string | null
+    commentsForAi: string | null
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string | null
@@ -7395,17 +7395,17 @@ export namespace Prisma {
   export type InvoiceItemsCountAggregateOutputType = {
     id: number
     date: number
-    ivnoiceNumber: number
-    seller: number
-    buyer: number
+    invoiceNumber: number
+    sellerName: number
+    buyerName: number
     item: number
-    qunatity: number
-    unit: number
-    price: number
+    quantity: number
+    unitOfMeasure: number
+    pricePerUnitOfMeasure: number
     sum: number
     currency: number
     category: number
-    commentsforAi: number
+    commentsForAi: number
     commentsForUser: number
     isInvoice: number
     invoiceId: number
@@ -7416,17 +7416,17 @@ export namespace Prisma {
   export type InvoiceItemsMinAggregateInputType = {
     id?: true
     date?: true
-    ivnoiceNumber?: true
-    seller?: true
-    buyer?: true
+    invoiceNumber?: true
+    sellerName?: true
+    buyerName?: true
     item?: true
-    qunatity?: true
-    unit?: true
-    price?: true
+    quantity?: true
+    unitOfMeasure?: true
+    pricePerUnitOfMeasure?: true
     sum?: true
     currency?: true
     category?: true
-    commentsforAi?: true
+    commentsForAi?: true
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
@@ -7435,17 +7435,17 @@ export namespace Prisma {
   export type InvoiceItemsMaxAggregateInputType = {
     id?: true
     date?: true
-    ivnoiceNumber?: true
-    seller?: true
-    buyer?: true
+    invoiceNumber?: true
+    sellerName?: true
+    buyerName?: true
     item?: true
-    qunatity?: true
-    unit?: true
-    price?: true
+    quantity?: true
+    unitOfMeasure?: true
+    pricePerUnitOfMeasure?: true
     sum?: true
     currency?: true
     category?: true
-    commentsforAi?: true
+    commentsForAi?: true
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
@@ -7454,17 +7454,17 @@ export namespace Prisma {
   export type InvoiceItemsCountAggregateInputType = {
     id?: true
     date?: true
-    ivnoiceNumber?: true
-    seller?: true
-    buyer?: true
+    invoiceNumber?: true
+    sellerName?: true
+    buyerName?: true
     item?: true
-    qunatity?: true
-    unit?: true
-    price?: true
+    quantity?: true
+    unitOfMeasure?: true
+    pricePerUnitOfMeasure?: true
     sum?: true
     currency?: true
     category?: true
-    commentsforAi?: true
+    commentsForAi?: true
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
@@ -7546,17 +7546,17 @@ export namespace Prisma {
   export type InvoiceItemsGroupByOutputType = {
     id: string
     date: Date | null
-    ivnoiceNumber: string | null
-    seller: string | null
-    buyer: string | null
+    invoiceNumber: string | null
+    sellerName: string | null
+    buyerName: string | null
     item: string | null
-    qunatity: string | null
-    unit: string | null
-    price: string | null
+    quantity: string | null
+    unitOfMeasure: string | null
+    pricePerUnitOfMeasure: string | null
     sum: string | null
     currency: string
     category: string | null
-    commentsforAi: string | null
+    commentsForAi: string | null
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string
@@ -7582,17 +7582,17 @@ export namespace Prisma {
   export type InvoiceItemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    ivnoiceNumber?: boolean
-    seller?: boolean
-    buyer?: boolean
+    invoiceNumber?: boolean
+    sellerName?: boolean
+    buyerName?: boolean
     item?: boolean
-    qunatity?: boolean
-    unit?: boolean
-    price?: boolean
+    quantity?: boolean
+    unitOfMeasure?: boolean
+    pricePerUnitOfMeasure?: boolean
     sum?: boolean
     currency?: boolean
     category?: boolean
-    commentsforAi?: boolean
+    commentsForAi?: boolean
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
@@ -7602,17 +7602,17 @@ export namespace Prisma {
   export type InvoiceItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    ivnoiceNumber?: boolean
-    seller?: boolean
-    buyer?: boolean
+    invoiceNumber?: boolean
+    sellerName?: boolean
+    buyerName?: boolean
     item?: boolean
-    qunatity?: boolean
-    unit?: boolean
-    price?: boolean
+    quantity?: boolean
+    unitOfMeasure?: boolean
+    pricePerUnitOfMeasure?: boolean
     sum?: boolean
     currency?: boolean
     category?: boolean
-    commentsforAi?: boolean
+    commentsForAi?: boolean
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
@@ -7622,17 +7622,17 @@ export namespace Prisma {
   export type InvoiceItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    ivnoiceNumber?: boolean
-    seller?: boolean
-    buyer?: boolean
+    invoiceNumber?: boolean
+    sellerName?: boolean
+    buyerName?: boolean
     item?: boolean
-    qunatity?: boolean
-    unit?: boolean
-    price?: boolean
+    quantity?: boolean
+    unitOfMeasure?: boolean
+    pricePerUnitOfMeasure?: boolean
     sum?: boolean
     currency?: boolean
     category?: boolean
-    commentsforAi?: boolean
+    commentsForAi?: boolean
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
@@ -7642,23 +7642,23 @@ export namespace Prisma {
   export type InvoiceItemsSelectScalar = {
     id?: boolean
     date?: boolean
-    ivnoiceNumber?: boolean
-    seller?: boolean
-    buyer?: boolean
+    invoiceNumber?: boolean
+    sellerName?: boolean
+    buyerName?: boolean
     item?: boolean
-    qunatity?: boolean
-    unit?: boolean
-    price?: boolean
+    quantity?: boolean
+    unitOfMeasure?: boolean
+    pricePerUnitOfMeasure?: boolean
     sum?: boolean
     currency?: boolean
     category?: boolean
-    commentsforAi?: boolean
+    commentsForAi?: boolean
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
   }
 
-  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "ivnoiceNumber" | "seller" | "buyer" | "item" | "qunatity" | "unit" | "price" | "sum" | "currency" | "category" | "commentsforAi" | "commentsForUser" | "isInvoice" | "invoiceId", ExtArgs["result"]["invoiceItems"]>
+  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "invoiceNumber" | "sellerName" | "buyerName" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "commentsForAi" | "commentsForUser" | "isInvoice" | "invoiceId", ExtArgs["result"]["invoiceItems"]>
   export type InvoiceItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
   }
@@ -7677,17 +7677,17 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       date: Date | null
-      ivnoiceNumber: string | null
-      seller: string | null
-      buyer: string | null
+      invoiceNumber: string | null
+      sellerName: string | null
+      buyerName: string | null
       item: string | null
-      qunatity: string | null
-      unit: string | null
-      price: string | null
+      quantity: string | null
+      unitOfMeasure: string | null
+      pricePerUnitOfMeasure: string | null
       sum: string | null
       currency: string
       category: string | null
-      commentsforAi: string | null
+      commentsForAi: string | null
       commentsForUser: string | null
       isInvoice: string | null
       invoiceId: string
@@ -8117,17 +8117,17 @@ export namespace Prisma {
   interface InvoiceItemsFieldRefs {
     readonly id: FieldRef<"InvoiceItems", 'String'>
     readonly date: FieldRef<"InvoiceItems", 'DateTime'>
-    readonly ivnoiceNumber: FieldRef<"InvoiceItems", 'String'>
-    readonly seller: FieldRef<"InvoiceItems", 'String'>
-    readonly buyer: FieldRef<"InvoiceItems", 'String'>
+    readonly invoiceNumber: FieldRef<"InvoiceItems", 'String'>
+    readonly sellerName: FieldRef<"InvoiceItems", 'String'>
+    readonly buyerName: FieldRef<"InvoiceItems", 'String'>
     readonly item: FieldRef<"InvoiceItems", 'String'>
-    readonly qunatity: FieldRef<"InvoiceItems", 'String'>
-    readonly unit: FieldRef<"InvoiceItems", 'String'>
-    readonly price: FieldRef<"InvoiceItems", 'String'>
+    readonly quantity: FieldRef<"InvoiceItems", 'String'>
+    readonly unitOfMeasure: FieldRef<"InvoiceItems", 'String'>
+    readonly pricePerUnitOfMeasure: FieldRef<"InvoiceItems", 'String'>
     readonly sum: FieldRef<"InvoiceItems", 'String'>
     readonly currency: FieldRef<"InvoiceItems", 'String'>
     readonly category: FieldRef<"InvoiceItems", 'String'>
-    readonly commentsforAi: FieldRef<"InvoiceItems", 'String'>
+    readonly commentsForAi: FieldRef<"InvoiceItems", 'String'>
     readonly commentsForUser: FieldRef<"InvoiceItems", 'String'>
     readonly isInvoice: FieldRef<"InvoiceItems", 'String'>
     readonly invoiceId: FieldRef<"InvoiceItems", 'String'>
@@ -8635,17 +8635,17 @@ export namespace Prisma {
   export const InvoiceItemsScalarFieldEnum: {
     id: 'id',
     date: 'date',
-    ivnoiceNumber: 'ivnoiceNumber',
-    seller: 'seller',
-    buyer: 'buyer',
+    invoiceNumber: 'invoiceNumber',
+    sellerName: 'sellerName',
+    buyerName: 'buyerName',
     item: 'item',
-    qunatity: 'qunatity',
-    unit: 'unit',
-    price: 'price',
+    quantity: 'quantity',
+    unitOfMeasure: 'unitOfMeasure',
+    pricePerUnitOfMeasure: 'pricePerUnitOfMeasure',
     sum: 'sum',
     currency: 'currency',
     category: 'category',
-    commentsforAi: 'commentsforAi',
+    commentsForAi: 'commentsForAi',
     commentsForUser: 'commentsForUser',
     isInvoice: 'isInvoice',
     invoiceId: 'invoiceId'
@@ -9171,17 +9171,17 @@ export namespace Prisma {
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
     date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
-    ivnoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    seller?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyer?: StringNullableFilter<"InvoiceItems"> | string | null
+    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
+    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
+    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    qunatity?: StringNullableFilter<"InvoiceItems"> | string | null
-    unit?: StringNullableFilter<"InvoiceItems"> | string | null
-    price?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
     currency?: StringFilter<"InvoiceItems"> | string
     category?: StringNullableFilter<"InvoiceItems"> | string | null
-    commentsforAi?: StringNullableFilter<"InvoiceItems"> | string | null
+    commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
@@ -9191,17 +9191,17 @@ export namespace Prisma {
   export type InvoiceItemsOrderByWithRelationInput = {
     id?: SortOrder
     date?: SortOrderInput | SortOrder
-    ivnoiceNumber?: SortOrderInput | SortOrder
-    seller?: SortOrderInput | SortOrder
-    buyer?: SortOrderInput | SortOrder
+    invoiceNumber?: SortOrderInput | SortOrder
+    sellerName?: SortOrderInput | SortOrder
+    buyerName?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
-    qunatity?: SortOrderInput | SortOrder
-    unit?: SortOrderInput | SortOrder
-    price?: SortOrderInput | SortOrder
+    quantity?: SortOrderInput | SortOrder
+    unitOfMeasure?: SortOrderInput | SortOrder
+    pricePerUnitOfMeasure?: SortOrderInput | SortOrder
     sum?: SortOrderInput | SortOrder
     currency?: SortOrder
     category?: SortOrderInput | SortOrder
-    commentsforAi?: SortOrderInput | SortOrder
+    commentsForAi?: SortOrderInput | SortOrder
     commentsForUser?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
@@ -9214,17 +9214,17 @@ export namespace Prisma {
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
-    ivnoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    seller?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyer?: StringNullableFilter<"InvoiceItems"> | string | null
+    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
+    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
+    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    qunatity?: StringNullableFilter<"InvoiceItems"> | string | null
-    unit?: StringNullableFilter<"InvoiceItems"> | string | null
-    price?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
     currency?: StringFilter<"InvoiceItems"> | string
     category?: StringNullableFilter<"InvoiceItems"> | string | null
-    commentsforAi?: StringNullableFilter<"InvoiceItems"> | string | null
+    commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
@@ -9234,17 +9234,17 @@ export namespace Prisma {
   export type InvoiceItemsOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrderInput | SortOrder
-    ivnoiceNumber?: SortOrderInput | SortOrder
-    seller?: SortOrderInput | SortOrder
-    buyer?: SortOrderInput | SortOrder
+    invoiceNumber?: SortOrderInput | SortOrder
+    sellerName?: SortOrderInput | SortOrder
+    buyerName?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
-    qunatity?: SortOrderInput | SortOrder
-    unit?: SortOrderInput | SortOrder
-    price?: SortOrderInput | SortOrder
+    quantity?: SortOrderInput | SortOrder
+    unitOfMeasure?: SortOrderInput | SortOrder
+    pricePerUnitOfMeasure?: SortOrderInput | SortOrder
     sum?: SortOrderInput | SortOrder
     currency?: SortOrder
     category?: SortOrderInput | SortOrder
-    commentsforAi?: SortOrderInput | SortOrder
+    commentsForAi?: SortOrderInput | SortOrder
     commentsForUser?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
@@ -9259,17 +9259,17 @@ export namespace Prisma {
     NOT?: InvoiceItemsScalarWhereWithAggregatesInput | InvoiceItemsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvoiceItems"> | string
     date?: DateTimeNullableWithAggregatesFilter<"InvoiceItems"> | Date | string | null
-    ivnoiceNumber?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    seller?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    buyer?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    invoiceNumber?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    sellerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    buyerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     item?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    qunatity?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    unit?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    price?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    quantity?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    unitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     sum?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     currency?: StringWithAggregatesFilter<"InvoiceItems"> | string
     category?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    commentsforAi?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    commentsForAi?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     invoiceId?: StringWithAggregatesFilter<"InvoiceItems"> | string
@@ -9706,17 +9706,17 @@ export namespace Prisma {
   export type InvoiceItemsCreateInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
@@ -9725,17 +9725,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedCreateInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
     invoiceId: string
@@ -9744,17 +9744,17 @@ export namespace Prisma {
   export type InvoiceItemsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
@@ -9763,17 +9763,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
@@ -9782,17 +9782,17 @@ export namespace Prisma {
   export type InvoiceItemsCreateManyInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
     invoiceId: string
@@ -9801,17 +9801,17 @@ export namespace Prisma {
   export type InvoiceItemsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9819,17 +9819,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
@@ -10271,17 +10271,17 @@ export namespace Prisma {
   export type InvoiceItemsCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    ivnoiceNumber?: SortOrder
-    seller?: SortOrder
-    buyer?: SortOrder
+    invoiceNumber?: SortOrder
+    sellerName?: SortOrder
+    buyerName?: SortOrder
     item?: SortOrder
-    qunatity?: SortOrder
-    unit?: SortOrder
-    price?: SortOrder
+    quantity?: SortOrder
+    unitOfMeasure?: SortOrder
+    pricePerUnitOfMeasure?: SortOrder
     sum?: SortOrder
     currency?: SortOrder
     category?: SortOrder
-    commentsforAi?: SortOrder
+    commentsForAi?: SortOrder
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
@@ -10290,17 +10290,17 @@ export namespace Prisma {
   export type InvoiceItemsMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    ivnoiceNumber?: SortOrder
-    seller?: SortOrder
-    buyer?: SortOrder
+    invoiceNumber?: SortOrder
+    sellerName?: SortOrder
+    buyerName?: SortOrder
     item?: SortOrder
-    qunatity?: SortOrder
-    unit?: SortOrder
-    price?: SortOrder
+    quantity?: SortOrder
+    unitOfMeasure?: SortOrder
+    pricePerUnitOfMeasure?: SortOrder
     sum?: SortOrder
     currency?: SortOrder
     category?: SortOrder
-    commentsforAi?: SortOrder
+    commentsForAi?: SortOrder
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
@@ -10309,17 +10309,17 @@ export namespace Prisma {
   export type InvoiceItemsMinOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    ivnoiceNumber?: SortOrder
-    seller?: SortOrder
-    buyer?: SortOrder
+    invoiceNumber?: SortOrder
+    sellerName?: SortOrder
+    buyerName?: SortOrder
     item?: SortOrder
-    qunatity?: SortOrder
-    unit?: SortOrder
-    price?: SortOrder
+    quantity?: SortOrder
+    unitOfMeasure?: SortOrder
+    pricePerUnitOfMeasure?: SortOrder
     sum?: SortOrder
     currency?: SortOrder
     category?: SortOrder
-    commentsforAi?: SortOrder
+    commentsForAi?: SortOrder
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
@@ -11495,17 +11495,17 @@ export namespace Prisma {
   export type InvoiceItemsCreateWithoutInvoiceInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
   }
@@ -11513,17 +11513,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedCreateWithoutInvoiceInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
   }
@@ -11632,17 +11632,17 @@ export namespace Prisma {
     NOT?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
     date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
-    ivnoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    seller?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyer?: StringNullableFilter<"InvoiceItems"> | string | null
+    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
+    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
+    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    qunatity?: StringNullableFilter<"InvoiceItems"> | string | null
-    unit?: StringNullableFilter<"InvoiceItems"> | string | null
-    price?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
     currency?: StringFilter<"InvoiceItems"> | string
     category?: StringNullableFilter<"InvoiceItems"> | string | null
-    commentsforAi?: StringNullableFilter<"InvoiceItems"> | string | null
+    commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
@@ -12079,17 +12079,17 @@ export namespace Prisma {
   export type InvoiceItemsCreateManyInvoiceInput = {
     id?: string
     date?: Date | string | null
-    ivnoiceNumber?: string | null
-    seller?: string | null
-    buyer?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
     item?: string | null
-    qunatity?: string | null
-    unit?: string | null
-    price?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
     sum?: string | null
     currency: string
     category?: string | null
-    commentsforAi?: string | null
+    commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
   }
@@ -12097,17 +12097,17 @@ export namespace Prisma {
   export type InvoiceItemsUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12115,17 +12115,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12133,17 +12133,17 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateManyWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ivnoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    seller?: NullableStringFieldUpdateOperationsInput | string | null
-    buyer?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    qunatity?: NullableStringFieldUpdateOperationsInput | string | null
-    unit?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
     currency?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    commentsforAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
   }

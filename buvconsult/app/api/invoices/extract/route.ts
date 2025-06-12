@@ -25,10 +25,23 @@ export default async function gptResponse(){
     });
 
     const invoiceItem = z.object({
-        item: z.string(),
-        invoiceDate: z.string(),
-        sum: z.string(),
-        currency: z.string()
+
+            date: z.string(),
+            invoiceNumber: z.string(),
+            sellerName: z.string(),
+            buyerName: z.string(),
+            item: z.string(),
+            quantity: z.string(),
+            unitOfMeasure: z.string(),
+            pricePerUnitOfMeasure: z.string(),
+            sum: z.string(),
+            currency: z.string(),
+            category: z.string(),
+            commentsForAi: z.string(),
+            commentsForUser: z.string(),
+            isInvoice: z.string(),
+            invoiceId: z.string(),
+
     })
 
     const responseSchema = z.object({
@@ -49,7 +62,8 @@ export default async function gptResponse(){
                     },
                     {
                         type: "input_text",
-                        text: "Extract invoice information for each item in the invoice",
+                        text: "Extract invoice information for each item in the invoice. If some information not present - keep the field blank, do not" +
+                            "halucinate. In commentsForAi field leave a description of what this item most likely is  ",
                     },
                 ],
             },
