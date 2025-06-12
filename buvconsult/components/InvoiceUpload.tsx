@@ -26,7 +26,7 @@ export default function InvoiceUpload({params}:
               <input type="hidden" name="fileUrls" value={JSON.stringify(fileUrls)}/>
 
 
-              <div className="max-w-md mx-auto mt-10">
+              <div className="max-w-md mb-10 mx-auto mt-10">
 
                   <UploadDropzone
                       endpoint="fileUploader"
@@ -42,7 +42,9 @@ export default function InvoiceUpload({params}:
                   />
 
               </div>
+              <div className = "flex justify-center">
               <SubmitButton text={"save to database"}/>
+                  </div>
           </form>
 
 

@@ -28,6 +28,7 @@ export default async function InvoiceRoute({params}:
   return (
     <>
       {/* 2️⃣ Your client upload form */}
+
       <InvoiceUpload params={Promise.resolve({ siteId })} />
 
       {/* 3️⃣ Render the table of invoices */}
@@ -60,7 +61,7 @@ export default async function InvoiceRoute({params}:
                   </TableCell>
                   <TableCell>
                          <InvoiceHoverPreview url={inv.url} label={inv.name} />
-                        
+
                           </TableCell>
                   <TableCell>
                     <Badge variant="outline" className="capitalize">
