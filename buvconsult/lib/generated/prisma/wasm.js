@@ -194,7 +194,8 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
   commentsForAi: 'commentsForAi',
   commentsForUser: 'commentsForUser',
   isInvoice: 'isInvoice',
-  invoiceId: 'invoiceId'
+  invoiceId: 'invoiceId',
+  siteId: 'siteId'
 };
 
 exports.Prisma.SortOrder = {

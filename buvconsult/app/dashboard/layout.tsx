@@ -35,67 +35,45 @@ export const navLinks = [
 ]
 
 
-export default function DashboardLayout({children} : {children: ReactNode}){
-
-    return(
-
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+    return (
         <ProjectProvider>
-
-        <section className="grid min-h-screen w-full md:grid-cols-[220px_1fr]
-        lg:grid-cols-[280px_1fr]">
-
-            <div className="hidden border-r bg-muted/40 md:block">
-                <div className="flex h-full max-h-s flex-col gap-2">
-                    <div className="flex h-14 items-center border-b px-4 lg:h-[60px]
-                    lg:px-6">
-                        <Link href="/" className="flex items-center gap-2 font-semibold">
-                            <Image src={Logo} alt="Logo" className="size-16"/>
-                            <h3 className="text-2xl">
-                                Buv<span className="text-primary">consult</span></h3>
-
-                        </Link>
-                    </div>
-
-            <div className="flex-1">
-                <nav className="grid items-start px-2 font-medium lg:px-4">
-                    <DashboardItems/>
-
-                </nav>
-
-            </div>
-                </div>
-            </div>
-
-            <div className="flex flex-col">
-                <header className="flex h-14 items-center gap-4 border-b bg-muted/40
-                px-4 lg:h-[60px] lg:px-6">
-
-                    <div className="ml-auto flex items-center gap-x-5">
-                       <ThemeToggle/>
+            <section className="min-h-screen w-full flex flex-col">
+                {/* Top Navigation Bar */}
+                <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-8">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-2 font-semibold">
+                        <Image src={Logo} alt="Logo" className="size-12" />
+                        <h3 className="text-2xl">
+                            Buv<span className="text-primary">consult</span>
+                        </h3>
+                    </Link>
+                    {/* Navigation - all dashboard items */}
+                    <nav className="flex gap-2 items-center flex-1 ml-6">
+                        <DashboardItems />
+                    </nav>
+                    {/* Theme/User menu */}
+                    <div className="flex items-center gap-x-5">
+                        <ThemeToggle />
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="secondary" size="icon" className="rounded-full">
-                                    <CircleUser className="h-5 w-5"/>
+                                    <CircleUser className="h-5 w-5" />
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                                 <DropdownMenuItem asChild>
                                     <LogoutLink>Log out</LogoutLink>
-
                                 </DropdownMenuItem>
-
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
                 </header>
+                {/* Main content */}
                 <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
                     {children}
                 </main>
-
-            </div>
-        </section>
-            </ProjectProvider>
-    )
-
-
+            </section>
+        </ProjectProvider>
+    );
 }

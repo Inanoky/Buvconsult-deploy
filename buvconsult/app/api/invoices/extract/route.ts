@@ -12,69 +12,61 @@ const client = new OpenAI({
 
 
 
-export default async function gptResponse(){
+export default async function gptResponse(fileUrl) {
+  const response = await fetch(fileUrl);
+  const blob = await response.blob();
+  const file = new File([blob], "invoice.pdf", { type: "application/pdf" });
 
-    const fileUrl ="https://utfs.io/f/HPU3nx2LdstJAe15BRtVIJdLxERjSyzpwCNvQkno4gbqhHuB"
-    const response = await fetch(fileUrl)
-    const blob = await response.blob()
-    const file = new File([blob], "invoice.pdf", { type: "application/pdf" });
-
-    const uploadedFile = await client.files.create({
+  const uploadedFile = await client.files.create({
     file,
     purpose: "user_data",
-    });
+  });
 
-    const invoiceItem = z.object({
+  // ... keep your zod schema code as before ...
 
-            date: z.string(),
-            invoiceNumber: z.string(),
-            sellerName: z.string(),
-            buyerName: z.string(),
-            item: z.string(),
-            quantity: z.string(),
-            unitOfMeasure: z.string(),
-            pricePerUnitOfMeasure: z.string(),
-            sum: z.string(),
-            currency: z.string(),
-            category: z.string(),
-            commentsForAi: z.string(),
-            commentsForUser: z.string(),
-            isInvoice: z.string(),
-            invoiceId: z.string(),
+  const invoiceItem = z.object({
+    date: z.string(),
+    invoiceNumber: z.string(),
+    sellerName: z.string(),
+    buyerName: z.string(),
+    item: z.string(),
+    quantity: z.string(),
+    unitOfMeasure: z.string(),
+    pricePerUnitOfMeasure: z.string(),
+    sum: z.string(),
+    currency: z.string(),
+    category: z.string(),
+    commentsForAi: z.string(),
+    commentsForUser: z.string(),
+    isInvoice: z.string(),
+    invoiceId: z.string(),
+  });
 
-    })
+  const responseSchema = z.object({
+    items: z.array(invoiceItem),
+  });
 
-    const responseSchema = z.object({
-
-        items: z.array(invoiceItem)
-    })
-
-
-    const gptResponse = await client.responses.create({
-        model: "gpt-4.1",
-        input: [
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "input_file",
-                        file_id: uploadedFile.id,
-                    },
-                    {
-                        type: "input_text",
-                        text: "Extract invoice information for each item in the invoice. If some information not present - keep the field blank, do not" +
-                            "halucinate. In commentsForAi field leave a description of what this item most likely is  ",
-                    },
-                ],
-            },
+  const gptResponse = await client.responses.create({
+    model: "gpt-4.1",
+    input: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "input_file",
+            file_id: uploadedFile.id,
+          },
+          {
+            type: "input_text",
+            text: "Extract invoice information for each item in the invoice. If some information not present - keep the field blank, do not halucinate. In commentsForAi field leave a description of what this item most likely is",
+          },
         ],
-        text: {
-            format: zodTextFormat(responseSchema, "event")
-        }
-    });
+      },
+    ],
+    text: {
+      format: zodTextFormat(responseSchema, "event"),
+    },
+  });
 
-    return gptResponse.output_text
-
-
+  return gptResponse.output_text;
 }
-

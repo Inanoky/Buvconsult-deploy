@@ -1375,11 +1375,13 @@ export namespace Prisma {
   export type SiteCountOutputType = {
     posts: number
     invoices: number
+    InvoiceItems: number
   }
 
   export type SiteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | SiteCountOutputTypeCountPostsArgs
     invoices?: boolean | SiteCountOutputTypeCountInvoicesArgs
+    InvoiceItems?: boolean | SiteCountOutputTypeCountInvoiceItemsArgs
   }
 
   // Custom InputTypes
@@ -1405,6 +1407,13 @@ export namespace Prisma {
    */
   export type SiteCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoicesWhereInput
+  }
+
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeCountInvoiceItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvoiceItemsWhereInput
   }
 
 
@@ -2809,6 +2818,7 @@ export namespace Prisma {
     User?: boolean | Site$UserArgs<ExtArgs>
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
+    InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
@@ -2852,6 +2862,7 @@ export namespace Prisma {
     User?: boolean | Site$UserArgs<ExtArgs>
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
+    InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2867,6 +2878,7 @@ export namespace Prisma {
       User: Prisma.$UserPayload<ExtArgs> | null
       posts: Prisma.$PostPayload<ExtArgs>[]
       invoices: Prisma.$InvoicesPayload<ExtArgs>[]
+      InvoiceItems: Prisma.$InvoiceItemsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3274,6 +3286,7 @@ export namespace Prisma {
     User<T extends Site$UserArgs<ExtArgs> = {}>(args?: Subset<T, Site$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     posts<T extends Site$postsArgs<ExtArgs> = {}>(args?: Subset<T, Site$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Site$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Site$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    InvoiceItems<T extends Site$InvoiceItemsArgs<ExtArgs> = {}>(args?: Subset<T, Site$InvoiceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3771,6 +3784,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoicesScalarFieldEnum | InvoicesScalarFieldEnum[]
+  }
+
+  /**
+   * Site.InvoiceItems
+   */
+  export type Site$InvoiceItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InvoiceItems
+     */
+    select?: InvoiceItemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InvoiceItems
+     */
+    omit?: InvoiceItemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InvoiceItemsInclude<ExtArgs> | null
+    where?: InvoiceItemsWhereInput
+    orderBy?: InvoiceItemsOrderByWithRelationInput | InvoiceItemsOrderByWithRelationInput[]
+    cursor?: InvoiceItemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvoiceItemsScalarFieldEnum | InvoiceItemsScalarFieldEnum[]
   }
 
   /**
@@ -7356,7 +7393,7 @@ export namespace Prisma {
 
   export type InvoiceItemsMinAggregateOutputType = {
     id: string | null
-    date: Date | null
+    date: string | null
     invoiceNumber: string | null
     sellerName: string | null
     buyerName: string | null
@@ -7371,11 +7408,12 @@ export namespace Prisma {
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string | null
+    siteId: string | null
   }
 
   export type InvoiceItemsMaxAggregateOutputType = {
     id: string | null
-    date: Date | null
+    date: string | null
     invoiceNumber: string | null
     sellerName: string | null
     buyerName: string | null
@@ -7390,6 +7428,7 @@ export namespace Prisma {
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string | null
+    siteId: string | null
   }
 
   export type InvoiceItemsCountAggregateOutputType = {
@@ -7409,6 +7448,7 @@ export namespace Prisma {
     commentsForUser: number
     isInvoice: number
     invoiceId: number
+    siteId: number
     _all: number
   }
 
@@ -7430,6 +7470,7 @@ export namespace Prisma {
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
+    siteId?: true
   }
 
   export type InvoiceItemsMaxAggregateInputType = {
@@ -7449,6 +7490,7 @@ export namespace Prisma {
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
+    siteId?: true
   }
 
   export type InvoiceItemsCountAggregateInputType = {
@@ -7468,6 +7510,7 @@ export namespace Prisma {
     commentsForUser?: true
     isInvoice?: true
     invoiceId?: true
+    siteId?: true
     _all?: true
   }
 
@@ -7545,7 +7588,7 @@ export namespace Prisma {
 
   export type InvoiceItemsGroupByOutputType = {
     id: string
-    date: Date | null
+    date: string | null
     invoiceNumber: string | null
     sellerName: string | null
     buyerName: string | null
@@ -7560,6 +7603,7 @@ export namespace Prisma {
     commentsForUser: string | null
     isInvoice: string | null
     invoiceId: string
+    siteId: string | null
     _count: InvoiceItemsCountAggregateOutputType | null
     _min: InvoiceItemsMinAggregateOutputType | null
     _max: InvoiceItemsMaxAggregateOutputType | null
@@ -7596,7 +7640,9 @@ export namespace Prisma {
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
+    siteId?: boolean
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }, ExtArgs["result"]["invoiceItems"]>
 
   export type InvoiceItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7616,7 +7662,9 @@ export namespace Prisma {
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
+    siteId?: boolean
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }, ExtArgs["result"]["invoiceItems"]>
 
   export type InvoiceItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7636,7 +7684,9 @@ export namespace Prisma {
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
+    siteId?: boolean
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }, ExtArgs["result"]["invoiceItems"]>
 
   export type InvoiceItemsSelectScalar = {
@@ -7656,27 +7706,32 @@ export namespace Prisma {
     commentsForUser?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
+    siteId?: boolean
   }
 
-  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "invoiceNumber" | "sellerName" | "buyerName" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "commentsForAi" | "commentsForUser" | "isInvoice" | "invoiceId", ExtArgs["result"]["invoiceItems"]>
+  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "invoiceNumber" | "sellerName" | "buyerName" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "commentsForAi" | "commentsForUser" | "isInvoice" | "invoiceId" | "siteId", ExtArgs["result"]["invoiceItems"]>
   export type InvoiceItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }
   export type InvoiceItemsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }
   export type InvoiceItemsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
+    Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
   }
 
   export type $InvoiceItemsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "InvoiceItems"
     objects: {
       invoice: Prisma.$InvoicesPayload<ExtArgs>
+      Site: Prisma.$SitePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      date: Date | null
+      date: string | null
       invoiceNumber: string | null
       sellerName: string | null
       buyerName: string | null
@@ -7691,6 +7746,7 @@ export namespace Prisma {
       commentsForUser: string | null
       isInvoice: string | null
       invoiceId: string
+      siteId: string | null
     }, ExtArgs["result"]["invoiceItems"]>
     composites: {}
   }
@@ -8086,6 +8142,7 @@ export namespace Prisma {
   export interface Prisma__InvoiceItemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     invoice<T extends InvoicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InvoicesDefaultArgs<ExtArgs>>): Prisma__InvoicesClient<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Site<T extends InvoiceItems$SiteArgs<ExtArgs> = {}>(args?: Subset<T, InvoiceItems$SiteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8116,7 +8173,7 @@ export namespace Prisma {
    */
   interface InvoiceItemsFieldRefs {
     readonly id: FieldRef<"InvoiceItems", 'String'>
-    readonly date: FieldRef<"InvoiceItems", 'DateTime'>
+    readonly date: FieldRef<"InvoiceItems", 'String'>
     readonly invoiceNumber: FieldRef<"InvoiceItems", 'String'>
     readonly sellerName: FieldRef<"InvoiceItems", 'String'>
     readonly buyerName: FieldRef<"InvoiceItems", 'String'>
@@ -8131,6 +8188,7 @@ export namespace Prisma {
     readonly commentsForUser: FieldRef<"InvoiceItems", 'String'>
     readonly isInvoice: FieldRef<"InvoiceItems", 'String'>
     readonly invoiceId: FieldRef<"InvoiceItems", 'String'>
+    readonly siteId: FieldRef<"InvoiceItems", 'String'>
   }
     
 
@@ -8527,6 +8585,25 @@ export namespace Prisma {
   }
 
   /**
+   * InvoiceItems.Site
+   */
+  export type InvoiceItems$SiteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
+  }
+
+  /**
    * InvoiceItems without action
    */
   export type InvoiceItemsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8648,7 +8725,8 @@ export namespace Prisma {
     commentsForAi: 'commentsForAi',
     commentsForUser: 'commentsForUser',
     isInvoice: 'isInvoice',
-    invoiceId: 'invoiceId'
+    invoiceId: 'invoiceId',
+    siteId: 'siteId'
   };
 
   export type InvoiceItemsScalarFieldEnum = (typeof InvoiceItemsScalarFieldEnum)[keyof typeof InvoiceItemsScalarFieldEnum]
@@ -8861,6 +8939,7 @@ export namespace Prisma {
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
+    InvoiceItems?: InvoiceItemsListRelationFilter
   }
 
   export type SiteOrderByWithRelationInput = {
@@ -8875,6 +8954,7 @@ export namespace Prisma {
     User?: UserOrderByWithRelationInput
     posts?: PostOrderByRelationAggregateInput
     invoices?: InvoicesOrderByRelationAggregateInput
+    InvoiceItems?: InvoiceItemsOrderByRelationAggregateInput
   }
 
   export type SiteWhereUniqueInput = Prisma.AtLeast<{
@@ -8892,6 +8972,7 @@ export namespace Prisma {
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
+    InvoiceItems?: InvoiceItemsListRelationFilter
   }, "id" | "subdirectory">
 
   export type SiteOrderByWithAggregationInput = {
@@ -9170,7 +9251,7 @@ export namespace Prisma {
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
-    date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
+    date?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
     sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
     buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9185,7 +9266,9 @@ export namespace Prisma {
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
+    siteId?: StringNullableFilter<"InvoiceItems"> | string | null
     invoice?: XOR<InvoicesScalarRelationFilter, InvoicesWhereInput>
+    Site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
   }
 
   export type InvoiceItemsOrderByWithRelationInput = {
@@ -9205,7 +9288,9 @@ export namespace Prisma {
     commentsForUser?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
+    siteId?: SortOrderInput | SortOrder
     invoice?: InvoicesOrderByWithRelationInput
+    Site?: SiteOrderByWithRelationInput
   }
 
   export type InvoiceItemsWhereUniqueInput = Prisma.AtLeast<{
@@ -9213,7 +9298,7 @@ export namespace Prisma {
     AND?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
-    date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
+    date?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
     sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
     buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9228,7 +9313,9 @@ export namespace Prisma {
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
+    siteId?: StringNullableFilter<"InvoiceItems"> | string | null
     invoice?: XOR<InvoicesScalarRelationFilter, InvoicesWhereInput>
+    Site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
   }, "id">
 
   export type InvoiceItemsOrderByWithAggregationInput = {
@@ -9248,6 +9335,7 @@ export namespace Prisma {
     commentsForUser?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
+    siteId?: SortOrderInput | SortOrder
     _count?: InvoiceItemsCountOrderByAggregateInput
     _max?: InvoiceItemsMaxOrderByAggregateInput
     _min?: InvoiceItemsMinOrderByAggregateInput
@@ -9258,7 +9346,7 @@ export namespace Prisma {
     OR?: InvoiceItemsScalarWhereWithAggregatesInput[]
     NOT?: InvoiceItemsScalarWhereWithAggregatesInput | InvoiceItemsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvoiceItems"> | string
-    date?: DateTimeNullableWithAggregatesFilter<"InvoiceItems"> | Date | string | null
+    date?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     invoiceNumber?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     sellerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     buyerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
@@ -9273,6 +9361,7 @@ export namespace Prisma {
     commentsForUser?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     isInvoice?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     invoiceId?: StringWithAggregatesFilter<"InvoiceItems"> | string
+    siteId?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
   }
 
   export type UserCreateInput = {
@@ -9372,6 +9461,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateInput = {
@@ -9385,6 +9475,7 @@ export namespace Prisma {
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUpdateInput = {
@@ -9398,6 +9489,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateInput = {
@@ -9411,6 +9503,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteCreateManyInput = {
@@ -9705,7 +9798,7 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -9720,11 +9813,12 @@ export namespace Prisma {
     commentsForUser?: string | null
     isInvoice?: string | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
+    Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
   }
 
   export type InvoiceItemsUncheckedCreateInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -9739,11 +9833,12 @@ export namespace Prisma {
     commentsForUser?: string | null
     isInvoice?: string | null
     invoiceId: string
+    siteId?: string | null
   }
 
   export type InvoiceItemsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9758,11 +9853,12 @@ export namespace Prisma {
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
+    Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
   }
 
   export type InvoiceItemsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9777,11 +9873,12 @@ export namespace Prisma {
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceItemsCreateManyInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -9796,11 +9893,12 @@ export namespace Prisma {
     commentsForUser?: string | null
     isInvoice?: string | null
     invoiceId: string
+    siteId?: string | null
   }
 
   export type InvoiceItemsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9818,7 +9916,7 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9833,6 +9931,7 @@ export namespace Prisma {
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceId?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10001,6 +10100,16 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type InvoiceItemsListRelationFilter = {
+    every?: InvoiceItemsWhereInput
+    some?: InvoiceItemsWhereInput
+    none?: InvoiceItemsWhereInput
+  }
+
+  export type InvoiceItemsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type SiteCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -10110,16 +10219,6 @@ export namespace Prisma {
   export type SiteNullableScalarRelationFilter = {
     is?: SiteWhereInput | null
     isNot?: SiteWhereInput | null
-  }
-
-  export type InvoiceItemsListRelationFilter = {
-    every?: InvoiceItemsWhereInput
-    some?: InvoiceItemsWhereInput
-    none?: InvoiceItemsWhereInput
-  }
-
-  export type InvoiceItemsOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type InvoicesCountOrderByAggregateInput = {
@@ -10252,17 +10351,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type InvoicesScalarRelationFilter = {
     is?: InvoicesWhereInput
     isNot?: InvoicesWhereInput
@@ -10285,6 +10373,7 @@ export namespace Prisma {
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
+    siteId?: SortOrder
   }
 
   export type InvoiceItemsMaxOrderByAggregateInput = {
@@ -10304,6 +10393,7 @@ export namespace Prisma {
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
+    siteId?: SortOrder
   }
 
   export type InvoiceItemsMinOrderByAggregateInput = {
@@ -10323,20 +10413,7 @@ export namespace Prisma {
     commentsForUser?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+    siteId?: SortOrder
   }
 
   export type SiteCreateNestedManyWithoutUserInput = {
@@ -10529,6 +10606,13 @@ export namespace Prisma {
     connect?: InvoicesWhereUniqueInput | InvoicesWhereUniqueInput[]
   }
 
+  export type InvoiceItemsCreateNestedManyWithoutSiteInput = {
+    create?: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput> | InvoiceItemsCreateWithoutSiteInput[] | InvoiceItemsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
+    createMany?: InvoiceItemsCreateManySiteInputEnvelope
+    connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+  }
+
   export type PostUncheckedCreateNestedManyWithoutSiteInput = {
     create?: XOR<PostCreateWithoutSiteInput, PostUncheckedCreateWithoutSiteInput> | PostCreateWithoutSiteInput[] | PostUncheckedCreateWithoutSiteInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSiteInput | PostCreateOrConnectWithoutSiteInput[]
@@ -10541,6 +10625,13 @@ export namespace Prisma {
     connectOrCreate?: InvoicesCreateOrConnectWithoutSiteInput | InvoicesCreateOrConnectWithoutSiteInput[]
     createMany?: InvoicesCreateManySiteInputEnvelope
     connect?: InvoicesWhereUniqueInput | InvoicesWhereUniqueInput[]
+  }
+
+  export type InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput> | InvoiceItemsCreateWithoutSiteInput[] | InvoiceItemsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
+    createMany?: InvoiceItemsCreateManySiteInputEnvelope
+    connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutSiteNestedInput = {
@@ -10581,6 +10672,20 @@ export namespace Prisma {
     deleteMany?: InvoicesScalarWhereInput | InvoicesScalarWhereInput[]
   }
 
+  export type InvoiceItemsUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput> | InvoiceItemsCreateWithoutSiteInput[] | InvoiceItemsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
+    upsert?: InvoiceItemsUpsertWithWhereUniqueWithoutSiteInput | InvoiceItemsUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: InvoiceItemsCreateManySiteInputEnvelope
+    set?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    disconnect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    delete?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    update?: InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput | InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: InvoiceItemsUpdateManyWithWhereWithoutSiteInput | InvoiceItemsUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
+  }
+
   export type PostUncheckedUpdateManyWithoutSiteNestedInput = {
     create?: XOR<PostCreateWithoutSiteInput, PostUncheckedCreateWithoutSiteInput> | PostCreateWithoutSiteInput[] | PostUncheckedCreateWithoutSiteInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSiteInput | PostCreateOrConnectWithoutSiteInput[]
@@ -10607,6 +10712,20 @@ export namespace Prisma {
     update?: InvoicesUpdateWithWhereUniqueWithoutSiteInput | InvoicesUpdateWithWhereUniqueWithoutSiteInput[]
     updateMany?: InvoicesUpdateManyWithWhereWithoutSiteInput | InvoicesUpdateManyWithWhereWithoutSiteInput[]
     deleteMany?: InvoicesScalarWhereInput | InvoicesScalarWhereInput[]
+  }
+
+  export type InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput> | InvoiceItemsCreateWithoutSiteInput[] | InvoiceItemsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
+    upsert?: InvoiceItemsUpsertWithWhereUniqueWithoutSiteInput | InvoiceItemsUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: InvoiceItemsCreateManySiteInputEnvelope
+    set?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    disconnect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    delete?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+    update?: InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput | InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: InvoiceItemsUpdateManyWithWhereWithoutSiteInput | InvoiceItemsUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSubscriptionInput = {
@@ -10745,8 +10864,10 @@ export namespace Prisma {
     connect?: InvoicesWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type SiteCreateNestedOneWithoutInvoiceItemsInput = {
+    create?: XOR<SiteCreateWithoutInvoiceItemsInput, SiteUncheckedCreateWithoutInvoiceItemsInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutInvoiceItemsInput
+    connect?: SiteWhereUniqueInput
   }
 
   export type InvoicesUpdateOneRequiredWithoutItemsNestedInput = {
@@ -10755,6 +10876,16 @@ export namespace Prisma {
     upsert?: InvoicesUpsertWithoutItemsInput
     connect?: InvoicesWhereUniqueInput
     update?: XOR<XOR<InvoicesUpdateToOneWithWhereWithoutItemsInput, InvoicesUpdateWithoutItemsInput>, InvoicesUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type SiteUpdateOneWithoutInvoiceItemsNestedInput = {
+    create?: XOR<SiteCreateWithoutInvoiceItemsInput, SiteUncheckedCreateWithoutInvoiceItemsInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutInvoiceItemsInput
+    upsert?: SiteUpsertWithoutInvoiceItemsInput
+    disconnect?: SiteWhereInput | boolean
+    delete?: SiteWhereInput | boolean
+    connect?: SiteWhereUniqueInput
+    update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutInvoiceItemsInput, SiteUpdateWithoutInvoiceItemsInput>, SiteUncheckedUpdateWithoutInvoiceItemsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10916,31 +11047,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type SiteCreateWithoutUserInput = {
     id?: string
     name: string
@@ -10951,6 +11057,7 @@ export namespace Prisma {
     imageUrl?: string | null
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutUserInput = {
@@ -10963,6 +11070,7 @@ export namespace Prisma {
     imageUrl?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutUserInput = {
@@ -11295,6 +11403,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InvoiceItemsCreateWithoutSiteInput = {
+    id?: string
+    date?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
+    item?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
+    sum?: string | null
+    currency: string
+    category?: string | null
+    commentsForAi?: string | null
+    commentsForUser?: string | null
+    isInvoice?: string | null
+    invoice: InvoicesCreateNestedOneWithoutItemsInput
+  }
+
+  export type InvoiceItemsUncheckedCreateWithoutSiteInput = {
+    id?: string
+    date?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
+    item?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
+    sum?: string | null
+    currency: string
+    category?: string | null
+    commentsForAi?: string | null
+    commentsForUser?: string | null
+    isInvoice?: string | null
+    invoiceId: string
+  }
+
+  export type InvoiceItemsCreateOrConnectWithoutSiteInput = {
+    where: InvoiceItemsWhereUniqueInput
+    create: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput>
+  }
+
+  export type InvoiceItemsCreateManySiteInputEnvelope = {
+    data: InvoiceItemsCreateManySiteInput | InvoiceItemsCreateManySiteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutSiteInput = {
     update: XOR<UserUpdateWithoutSiteInput, UserUncheckedUpdateWithoutSiteInput>
     create: XOR<UserCreateWithoutSiteInput, UserUncheckedCreateWithoutSiteInput>
@@ -11362,6 +11518,45 @@ export namespace Prisma {
   export type InvoicesUpdateManyWithWhereWithoutSiteInput = {
     where: InvoicesScalarWhereInput
     data: XOR<InvoicesUpdateManyMutationInput, InvoicesUncheckedUpdateManyWithoutSiteInput>
+  }
+
+  export type InvoiceItemsUpsertWithWhereUniqueWithoutSiteInput = {
+    where: InvoiceItemsWhereUniqueInput
+    update: XOR<InvoiceItemsUpdateWithoutSiteInput, InvoiceItemsUncheckedUpdateWithoutSiteInput>
+    create: XOR<InvoiceItemsCreateWithoutSiteInput, InvoiceItemsUncheckedCreateWithoutSiteInput>
+  }
+
+  export type InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput = {
+    where: InvoiceItemsWhereUniqueInput
+    data: XOR<InvoiceItemsUpdateWithoutSiteInput, InvoiceItemsUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type InvoiceItemsUpdateManyWithWhereWithoutSiteInput = {
+    where: InvoiceItemsScalarWhereInput
+    data: XOR<InvoiceItemsUpdateManyMutationInput, InvoiceItemsUncheckedUpdateManyWithoutSiteInput>
+  }
+
+  export type InvoiceItemsScalarWhereInput = {
+    AND?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
+    OR?: InvoiceItemsScalarWhereInput[]
+    NOT?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
+    id?: StringFilter<"InvoiceItems"> | string
+    date?: StringNullableFilter<"InvoiceItems"> | string | null
+    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
+    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
+    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
+    item?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
+    sum?: StringNullableFilter<"InvoiceItems"> | string | null
+    currency?: StringFilter<"InvoiceItems"> | string
+    category?: StringNullableFilter<"InvoiceItems"> | string | null
+    commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
+    commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
+    isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
+    invoiceId?: StringFilter<"InvoiceItems"> | string
+    siteId?: StringNullableFilter<"InvoiceItems"> | string | null
   }
 
   export type UserCreateWithoutSubscriptionInput = {
@@ -11473,6 +11668,7 @@ export namespace Prisma {
     imageUrl?: string | null
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutInvoicesInput = {
@@ -11485,6 +11681,7 @@ export namespace Prisma {
     imageUrl?: string | null
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutInvoicesInput = {
@@ -11494,7 +11691,7 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateWithoutInvoiceInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -11508,11 +11705,12 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
+    Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
   }
 
   export type InvoiceItemsUncheckedCreateWithoutInvoiceInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -11526,6 +11724,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
+    siteId?: string | null
   }
 
   export type InvoiceItemsCreateOrConnectWithoutInvoiceInput = {
@@ -11596,6 +11795,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutInvoicesInput = {
@@ -11608,6 +11808,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type InvoiceItemsUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -11624,28 +11825,6 @@ export namespace Prisma {
   export type InvoiceItemsUpdateManyWithWhereWithoutInvoiceInput = {
     where: InvoiceItemsScalarWhereInput
     data: XOR<InvoiceItemsUpdateManyMutationInput, InvoiceItemsUncheckedUpdateManyWithoutInvoiceInput>
-  }
-
-  export type InvoiceItemsScalarWhereInput = {
-    AND?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
-    OR?: InvoiceItemsScalarWhereInput[]
-    NOT?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
-    id?: StringFilter<"InvoiceItems"> | string
-    date?: DateTimeNullableFilter<"InvoiceItems"> | Date | string | null
-    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
-    item?: StringNullableFilter<"InvoiceItems"> | string | null
-    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
-    unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    sum?: StringNullableFilter<"InvoiceItems"> | string | null
-    currency?: StringFilter<"InvoiceItems"> | string
-    category?: StringNullableFilter<"InvoiceItems"> | string | null
-    commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
-    commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
-    isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
-    invoiceId?: StringFilter<"InvoiceItems"> | string
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -11689,6 +11868,7 @@ export namespace Prisma {
     imageUrl?: string | null
     User?: UserCreateNestedOneWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutPostsInput = {
@@ -11701,6 +11881,7 @@ export namespace Prisma {
     imageUrl?: string | null
     userId?: string | null
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutPostsInput = {
@@ -11766,6 +11947,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutPostsInput = {
@@ -11778,6 +11960,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type InvoicesCreateWithoutItemsInput = {
@@ -11807,6 +11990,37 @@ export namespace Prisma {
   export type InvoicesCreateOrConnectWithoutItemsInput = {
     where: InvoicesWhereUniqueInput
     create: XOR<InvoicesCreateWithoutItemsInput, InvoicesUncheckedCreateWithoutItemsInput>
+  }
+
+  export type SiteCreateWithoutInvoiceItemsInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    User?: UserCreateNestedOneWithoutSiteInput
+    posts?: PostCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateWithoutInvoiceItemsInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    userId?: string | null
+    posts?: PostUncheckedCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteCreateOrConnectWithoutInvoiceItemsInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutInvoiceItemsInput, SiteUncheckedCreateWithoutInvoiceItemsInput>
   }
 
   export type InvoicesUpsertWithoutItemsInput = {
@@ -11842,6 +12056,43 @@ export namespace Prisma {
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SiteUpsertWithoutInvoiceItemsInput = {
+    update: XOR<SiteUpdateWithoutInvoiceItemsInput, SiteUncheckedUpdateWithoutInvoiceItemsInput>
+    create: XOR<SiteCreateWithoutInvoiceItemsInput, SiteUncheckedCreateWithoutInvoiceItemsInput>
+    where?: SiteWhereInput
+  }
+
+  export type SiteUpdateToOneWithWhereWithoutInvoiceItemsInput = {
+    where?: SiteWhereInput
+    data: XOR<SiteUpdateWithoutInvoiceItemsInput, SiteUncheckedUpdateWithoutInvoiceItemsInput>
+  }
+
+  export type SiteUpdateWithoutInvoiceItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: UserUpdateOneWithoutSiteNestedInput
+    posts?: PostUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateWithoutInvoiceItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteCreateManyUserInput = {
@@ -11887,6 +12138,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutUserInput = {
@@ -11899,6 +12151,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateManyWithoutUserInput = {
@@ -12005,6 +12258,25 @@ export namespace Prisma {
     userId?: string | null
   }
 
+  export type InvoiceItemsCreateManySiteInput = {
+    id?: string
+    date?: string | null
+    invoiceNumber?: string | null
+    sellerName?: string | null
+    buyerName?: string | null
+    item?: string | null
+    quantity?: string | null
+    unitOfMeasure?: string | null
+    pricePerUnitOfMeasure?: string | null
+    sum?: string | null
+    currency: string
+    category?: string | null
+    commentsForAi?: string | null
+    commentsForUser?: string | null
+    isInvoice?: string | null
+    invoiceId: string
+  }
+
   export type PostUpdateWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -12076,9 +12348,66 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type InvoiceItemsUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
+  }
+
+  export type InvoiceItemsUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type InvoiceItemsUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
+    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    currency?: StringFieldUpdateOperationsInput | string
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
+    commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type InvoiceItemsCreateManyInvoiceInput = {
     id?: string
-    date?: Date | string | null
+    date?: string | null
     invoiceNumber?: string | null
     sellerName?: string | null
     buyerName?: string | null
@@ -12092,11 +12421,12 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     isInvoice?: string | null
+    siteId?: string | null
   }
 
   export type InvoiceItemsUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12110,11 +12440,12 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
   }
 
   export type InvoiceItemsUncheckedUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12128,11 +12459,12 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceItemsUncheckedUpdateManyWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12146,6 +12478,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

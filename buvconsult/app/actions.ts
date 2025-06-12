@@ -10,6 +10,7 @@ import {prisma} from "@/app/utils/db";
 
 import {requireUser} from "@/app/utils/requireUser";
 import {stripe} from "@/app/utils/stripe";
+import gptResponse from "@/app/api/invoices/extract/route";
 
 
 
@@ -312,7 +313,44 @@ export const  saveInvoiceToDB = async (_: unknown, formData: FormData)=> {
         },
       })
     )
+
+
   );
+
+     const invoices = await prisma.invoices.findMany({
+  where: { SiteId: siteId }
+});
+
+     await Promise.all(
+  invoices.map(async (inv) => {
+    const gptOutput = await gptResponse(inv.url); // gptResponse should return a JSON string or object
+
+    // Parse GPT output if it's a JSON string
+    const parsed = typeof gptOutput === "string" ? JSON.parse(gptOutput) : gptOutput;
+    // Expecting: parsed.items = [ { ...fields matching InvoiceItems... }, ... ]
+
+    if (Array.isArray(parsed.items)) {
+      await Promise.all(
+        parsed.items.map(item =>
+          prisma.invoiceItems.create({
+            data: {
+              ...item, // Make sure field names match your model!
+              invoiceId: inv.id,
+                siteId: siteId,
+            }
+          })
+        )
+      );
+    }
+  })
+);
+
+
+
+
+
+
+
 
   return redirect(`/dashboard/sites/${formData.get("siteId")}`)
 }
@@ -329,5 +367,23 @@ export async function GetInvoicesFromDB(siteId: string){
         }
     })
     return invoices
+
+}
+
+
+export async function GetInvoiceItemsFromDB(siteId: string){
+
+
+
+    const user = await requireUser();
+
+    const invoiceItems = await prisma.invoiceItems.findMany({
+
+        where: {
+
+            siteId: siteId,
+        }
+    })
+    return invoiceItems
 
 }

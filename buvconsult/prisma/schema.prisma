@@ -41,11 +41,12 @@ model Site {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  imageUrl String?
-  User     User?      @relation(fields: [userId], references: [id])
-  userId   String?
-  posts    Post[]
-  invoices Invoices[]
+  imageUrl     String?
+  User         User?          @relation(fields: [userId], references: [id])
+  userId       String?
+  posts        Post[]
+  invoices     Invoices[]
+  InvoiceItems InvoiceItems[]
 }
 
 model Subscription {
@@ -95,8 +96,8 @@ model Post {
 }
 
 model InvoiceItems {
-  id                    String    @id @default(uuid())
-  date                  DateTime?
+  id                    String   @id @default(uuid())
+  date                  String?
   invoiceNumber         String?
   sellerName            String?
   buyerName             String?
@@ -111,5 +112,7 @@ model InvoiceItems {
   commentsForUser       String?
   isInvoice             String?
   invoiceId             String
-  invoice               Invoices  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoice               Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  Site                  Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  siteId                String?
 }
