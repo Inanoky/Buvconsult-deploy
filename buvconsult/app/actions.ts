@@ -395,3 +395,14 @@ export async function GetInvoiceItemsFromDB(siteId: string){
     return invoiceItems
 
 }
+
+
+export async function deleteInvoice(invoiceId: string) {
+  await prisma.invoices.delete({ where: { id: invoiceId } });
+  return { ok: true };
+}
+
+export async function deleteInvoiceItem(itemId: string) {
+  await prisma.invoiceItems.delete({ where: { id: itemId } });
+  return { ok: true };
+}
