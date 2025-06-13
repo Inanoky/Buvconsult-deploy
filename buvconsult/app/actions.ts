@@ -351,7 +351,7 @@ export const saveInvoiceToDB = async (_: unknown, formData: FormData) => {
       })
   );
 
-  return redirect(`/dashboard/sites/${siteId}`);
+  return
 };
 
 

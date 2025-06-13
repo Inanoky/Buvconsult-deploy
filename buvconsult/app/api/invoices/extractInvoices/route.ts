@@ -57,7 +57,8 @@ export default async function gptResponseInvoices(fileUrl) {
           {
              type: "input_text",
              text: "Check if uploaded documents is invoice or not. Update isInvoice accordingly. Extract required field. " +
-                 "For isCreditDebitOrProforma fill in Credit, Debit (if not credit or proforma), or Proforma accordingly ",
+                 "For isCreditDebitOrProforma fill in Credit, Debit (if not credit or proforma), or Proforma accordingly " +
+                 "return dates in ISO 8601 format",
 
           },
         ],

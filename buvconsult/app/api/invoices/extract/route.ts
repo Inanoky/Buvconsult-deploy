@@ -83,7 +83,8 @@ export default async function gptResponse(fileUrl) {
                   " If some information not present - keep the field blank, do not halucinate." +
                   " In commentsForAi field leave a description of what this item most likely is" +
                   "in isInvoice field is invoice credit, debit or proforma" +
-                 "do not use currency sign for currencies"
+                 "do not use currency sign for currencies" +
+                 "return dates in ISO 8601 format"
           },
         ],
       },
