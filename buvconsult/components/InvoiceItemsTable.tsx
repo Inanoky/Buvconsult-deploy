@@ -32,9 +32,14 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/pagination";
+import {useRouter} from "next/navigation";
+import { deleteInvoiceItem} from "@/app/actions";
+import {toast} from "sonner";
+
+import {InvoiceItemEditDialog} from "@/components/InvoiceItemEditDialog";
 
 // Row actions for edit/delete
-function RowActions({ siteId, itemId }) {
+function RowActions({ siteId, id, item, onDelete, onEdit }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,19 +50,62 @@ function RowActions({ siteId, itemId }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href={`/dashboard/sites/${siteId}/${itemId}`}>Edit</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={`/dashboard/sites/${siteId}/${itemId}/delete`}>Delete</Link>
+        <DropdownMenuItem onClick={() => onEdit(item)}>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onDelete(id)} className="cursor-pointer text-red-600">
+          Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
+
 export function InvoiceItemsDataTable({ data, siteId }) {
   const [globalFilter, setGlobalFilter] = React.useState("");
+
+
+    const router = useRouter();
+   // Add state for editing
+    const [editItem, setEditItem] = React.useState(null);
+    const [editOpen, setEditOpen] = React.useState(false);
+
+
+
+  async function handleDeleteItem(id) {
+    try {
+      await deleteInvoiceItem(id);
+      toast.success("Invoice item deleted");
+      router.refresh();
+    } catch (e) {
+      toast.error("Delete failed");
+    }
+  }
+
+  function handleEdit(item) {
+    setEditItem(item);
+    setEditOpen(true);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const columns = React.useMemo(
     () => [
       {
@@ -136,7 +184,15 @@ export function InvoiceItemsDataTable({ data, siteId }) {
       {
         id: "actions",
         header: "Actions",
-        cell: info => <RowActions siteId={siteId} itemId={info.row.original.id} />,
+        cell: info => (
+          <RowActions
+            siteId={siteId}
+            id={info.row.original.id}
+            item={info.row.original}
+            onDelete={handleDeleteItem}
+            onEdit={handleEdit}
+          />
+        ),
         enableSorting: false,
         enableFiltering: false,
       },
@@ -237,6 +293,18 @@ export function InvoiceItemsDataTable({ data, siteId }) {
           </PaginationContent>
         </Pagination>
       </div>
+
+     {/* ...table and pagination... */}
+       {/* ...filter, table, pagination... */}
+      {editItem && (
+        <InvoiceItemEditDialog
+          item={editItem}
+          open={editOpen}
+          onOpenChange={setEditOpen}
+        />
+      )}
+
+
     </div>
   );
 }

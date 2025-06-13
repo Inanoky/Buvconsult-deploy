@@ -39,7 +39,7 @@ export default async function gptResponse(fileUrl) {
     commentsForAi: z.string(),
     commentsForUser: z.string(),
     creditDebitOrProforma: z.string(),
-    isInvoice: z.string(),
+    isInvoice: z.boolean(),
     invoiceId: z.string(),
   });
 
@@ -51,7 +51,7 @@ export default async function gptResponse(fileUrl) {
       sellerName: z.string(),
       invoiceDate: z.string(),
       paymentDate: z.string(),
-      isInvoice: z.string(),
+      isInvoice: z.boolean(),
       isCreditDebitOrProforma: z.string(),
     })
 

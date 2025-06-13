@@ -113,7 +113,7 @@ model InvoiceItems {
   commentsForAi         String?
   commentsForUser       String?
   creditDebitOrProforma String?
-  isInvoice             String?
+  isInvoice             Boolean?
   invoiceId             String
   invoice               Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   Site                  Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)

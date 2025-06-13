@@ -402,7 +402,26 @@ export async function deleteInvoice(invoiceId: string) {
   return { ok: true };
 }
 
-export async function deleteInvoiceItem(itemId: string) {
-  await prisma.invoiceItems.delete({ where: { id: itemId } });
+export async function updateInvoice(id: string, data: any) {
+  await prisma.invoices.update({
+    where: { id },
+    data,
+  });
+  return { ok: true };
+}
+
+
+export async function updateInvoiceItem(id: string, data: any) {
+  await prisma.invoiceItems.update({
+    where: { id },
+    data,
+  });
+  return { ok: true };
+}
+
+export async function deleteInvoiceItem(id: string) {
+  await prisma.invoiceItems.delete({
+    where: { id },
+  });
   return { ok: true };
 }

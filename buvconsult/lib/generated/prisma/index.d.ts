@@ -7399,7 +7399,7 @@ export namespace Prisma {
     commentsForAi: string | null
     commentsForUser: string | null
     creditDebitOrProforma: string | null
-    isInvoice: string | null
+    isInvoice: boolean | null
     invoiceId: string | null
     siteId: string | null
   }
@@ -7420,7 +7420,7 @@ export namespace Prisma {
     commentsForAi: string | null
     commentsForUser: string | null
     creditDebitOrProforma: string | null
-    isInvoice: string | null
+    isInvoice: boolean | null
     invoiceId: string | null
     siteId: string | null
   }
@@ -7600,7 +7600,7 @@ export namespace Prisma {
     commentsForAi: string | null
     commentsForUser: string | null
     creditDebitOrProforma: string | null
-    isInvoice: string | null
+    isInvoice: boolean | null
     invoiceId: string
     siteId: string | null
     _count: InvoiceItemsCountAggregateOutputType | null
@@ -7748,7 +7748,7 @@ export namespace Prisma {
       commentsForAi: string | null
       commentsForUser: string | null
       creditDebitOrProforma: string | null
-      isInvoice: string | null
+      isInvoice: boolean | null
       invoiceId: string
       siteId: string | null
     }, ExtArgs["result"]["invoiceItems"]>
@@ -8191,7 +8191,7 @@ export namespace Prisma {
     readonly commentsForAi: FieldRef<"InvoiceItems", 'String'>
     readonly commentsForUser: FieldRef<"InvoiceItems", 'String'>
     readonly creditDebitOrProforma: FieldRef<"InvoiceItems", 'String'>
-    readonly isInvoice: FieldRef<"InvoiceItems", 'String'>
+    readonly isInvoice: FieldRef<"InvoiceItems", 'Boolean'>
     readonly invoiceId: FieldRef<"InvoiceItems", 'String'>
     readonly siteId: FieldRef<"InvoiceItems", 'String'>
   }
@@ -9288,7 +9288,7 @@ export namespace Prisma {
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
-    isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
+    isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
     invoice?: XOR<InvoicesScalarRelationFilter, InvoicesWhereInput>
@@ -9337,7 +9337,7 @@ export namespace Prisma {
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
-    isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
+    isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
     invoice?: XOR<InvoicesScalarRelationFilter, InvoicesWhereInput>
@@ -9387,7 +9387,7 @@ export namespace Prisma {
     commentsForAi?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     creditDebitOrProforma?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    isInvoice?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    isInvoice?: BoolNullableWithAggregatesFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringWithAggregatesFilter<"InvoiceItems"> | string
     siteId?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
   }
@@ -9854,7 +9854,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
     Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
   }
@@ -9875,7 +9875,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoiceId: string
     siteId?: string | null
   }
@@ -9896,7 +9896,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
     Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
   }
@@ -9917,7 +9917,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9938,7 +9938,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoiceId: string
     siteId?: string | null
   }
@@ -9959,7 +9959,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type InvoiceItemsUncheckedUpdateManyInput = {
@@ -9978,7 +9978,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -11509,7 +11509,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
   }
 
@@ -11529,7 +11529,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoiceId: string
   }
 
@@ -11647,7 +11647,7 @@ export namespace Prisma {
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
     creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
-    isInvoice?: StringNullableFilter<"InvoiceItems"> | string | null
+    isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
   }
@@ -11798,7 +11798,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
   }
 
@@ -11818,7 +11818,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     siteId?: string | null
   }
 
@@ -12387,7 +12387,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     invoiceId: string
   }
 
@@ -12484,7 +12484,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
   }
 
@@ -12504,7 +12504,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12524,7 +12524,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -12544,7 +12544,7 @@ export namespace Prisma {
     commentsForAi?: string | null
     commentsForUser?: string | null
     creditDebitOrProforma?: string | null
-    isInvoice?: string | null
+    isInvoice?: boolean | null
     siteId?: string | null
   }
 
@@ -12564,7 +12564,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
   }
 
@@ -12584,7 +12584,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -12604,7 +12604,7 @@ export namespace Prisma {
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
     creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
-    isInvoice?: NullableStringFieldUpdateOperationsInput | string | null
+    isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

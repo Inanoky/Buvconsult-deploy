@@ -30,11 +30,17 @@ import {
 } from "@/components/ui/pagination";
 
 
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { deleteInvoice, deleteInvoiceItem } from "@/app/actions";
+import {InvoiceEditDialog} from "@/components/ui/InvoiceEditDialog";
+
+
 
 
 
 // Row actions for edit/delete
-function RowActions({ siteId, id }) {
+function RowActions({ siteId, id, onDelete,invoice, onEdit }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,11 +51,11 @@ function RowActions({ siteId, id }) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href={`/dashboard/sites/${siteId}/${id}`}>Edit</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href={`/dashboard/sites/${siteId}/${id}/delete`}>Delete</Link>
+        <DropdownMenuItem onClick={() => onEdit(invoice)}>Edit</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onDelete(id)}
+                          className="cursor-pointer text-red-600"
+                            >
+          Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -58,27 +64,52 @@ function RowActions({ siteId, id }) {
 
 export function InvoicesDataTable({ data, siteId }) {
   const [globalFilter, setGlobalFilter] = React.useState("");
+
+   const router = useRouter();
+
+     // Add state for editing
+  const [editInvoice, setEditInvoice] = React.useState(null);
+  const [editOpen, setEditOpen] = React.useState(false);
+
+   async function handleDeleteInvoice(id) {
+
+  try {
+    await deleteInvoice(id);
+    toast.success("Invoice deleted");
+    router.refresh();
+  } catch (e) {
+    toast.error("Delete failed");
+  }
+}
+
+    function handleEdit(invoice) {
+        setEditInvoice(invoice);
+        setEditOpen(true);
+      }
+
+
+
+
+
+
+
   const columns = React.useMemo(
     () => [
-      {
-        accessorKey: "url",
-        header: "Preview",
+
+        {
+        accessorKey: "invoiceNumber",
+        header: "Invoice #",
         cell: info => (
-          <InvoiceHoverPreview url={info.row.original.url} label={info.row.original.sellerName || "Invoice"} />
+        <InvoiceHoverPreview url={info.row.original.url} label={info.row.original.invoiceNumber || "Invoice"} />
         ),
-        enableSorting: false,
-        enableFiltering: false,
-      },
+        },
+
       {
         accessorKey: "sellerName",
         header: "Seller",
         cell: info => info.getValue() || "",
       },
-      {
-        accessorKey: "invoiceNumber",
-        header: "Invoice #",
-        cell: info => info.getValue() || "",
-      },
+
       {
         accessorKey: "invoiceDate",
         header: "Invoice Date",
@@ -118,7 +149,13 @@ export function InvoicesDataTable({ data, siteId }) {
       {
         id: "actions",
         header: "Actions",
-        cell: info => <RowActions siteId={siteId} id={info.row.original.id} />,
+        cell: info => <RowActions
+            siteId={siteId}
+            id={info.row.original.id}
+            invoice={info.row.original}
+             onDelete={handleDeleteInvoice}
+            onEdit={handleEdit}
+        />,
         enableSorting: false,
         enableFiltering: false,
       },
@@ -213,7 +250,16 @@ export function InvoicesDataTable({ data, siteId }) {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
+
       </div>
+        {editInvoice && (
+        <InvoiceEditDialog
+          invoice={editInvoice}
+          open={editOpen}
+          onOpenChange={setEditOpen}
+        />
+      )}
+
     </div>
   );
 }
