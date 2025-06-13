@@ -382,7 +382,8 @@ export async function GetInvoiceItemsFromDB(siteId: string){
         where: {
 
             siteId: siteId,
-        }
+        },
+
     })
     return invoiceItems
 

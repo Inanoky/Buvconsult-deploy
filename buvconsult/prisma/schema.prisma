@@ -110,6 +110,7 @@ model InvoiceItems {
   category              String?
   commentsForAi         String?
   commentsForUser       String?
+  creditDebitOrProforma String?
   isInvoice             String?
   invoiceId             String
   invoice               Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)

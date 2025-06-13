@@ -38,6 +38,7 @@ export default async function gptResponse(fileUrl) {
     category: z.string(),
     commentsForAi: z.string(),
     commentsForUser: z.string(),
+    creditDebitOrProforma: z.string(),
     isInvoice: z.string(),
     invoiceId: z.string(),
   });
@@ -57,8 +58,14 @@ export default async function gptResponse(fileUrl) {
             file_id: uploadedFile.id,
           },
           {
-            type: "input_text",
-            text: "Extract invoice information for each item in the invoice. If some information not present - keep the field blank, do not halucinate. In commentsForAi field leave a description of what this item most likely is",
+             type: "input_text",
+             text: "Extract invoice information for each item in the invoice." +
+                 "Use coma as decimal separator" +
+                  " If not and invoice, fill isInvoice field with `not an invoice`." +
+                  " If some information not present - keep the field blank, do not halucinate." +
+                  " In commentsForAi field leave a description of what this item most likely is" +
+                  "in isInvoice field is invoice credit, debit or proforma" +
+                 "do not use currency sign for currencies"
           },
         ],
       },

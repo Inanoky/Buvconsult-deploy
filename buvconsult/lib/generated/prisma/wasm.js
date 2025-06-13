@@ -193,6 +193,7 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
   category: 'category',
   commentsForAi: 'commentsForAi',
   commentsForUser: 'commentsForUser',
+  creditDebitOrProforma: 'creditDebitOrProforma',
   isInvoice: 'isInvoice',
   invoiceId: 'invoiceId',
   siteId: 'siteId'
