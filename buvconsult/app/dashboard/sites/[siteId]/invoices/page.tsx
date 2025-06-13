@@ -159,11 +159,34 @@ export default async function InvoiceRoute({params}:
                                   {invoiceItems.length > 0 ? (
                                       invoiceItems.map((item) => (
                                           <TableRow key={item.id}>
-                                              {columns.map(col => (
-                                                  <TableCell key={col.key} className="whitespace-normal" >
-                                                      {item[col.key] || ""}
-                                                  </TableCell>
-                                              ))}
+
+                                                          {/* First column (e.g. Date) */}
+                                                            <TableCell className="whitespace-normal">
+                                                              {item[columns[0].key] || ""}
+                                                            </TableCell>
+
+                                                             <TableCell className="whitespace-normal">
+                                                                      {item.invoice?.url ? (
+                                                                        <InvoiceHoverPreview url={item.invoice.url} label={item.invoiceNumber || "Invoice"} />
+                                                                      ) : (
+                                                                        item[columns[1].key] || ""
+                                                                      )}
+                                                                    </TableCell>
+
+
+
+
+
+                                                 {columns.slice(2).map((col) => (
+                                                      <TableCell key={col.key} className="whitespace-normal">
+                                                        {item[col.key] || ""}
+                                                      </TableCell>
+                                                    ))}
+
+
+
+
+
                                               <TableCell className="text-right">
                                                   <DropdownMenu>
                                                       <DropdownMenuTrigger asChild>

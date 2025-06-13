@@ -383,6 +383,9 @@ export async function GetInvoiceItemsFromDB(siteId: string){
 
             siteId: siteId,
         },
+        include: {
+            invoice: true,
+        }
 
     })
     return invoiceItems
