@@ -55,7 +55,6 @@ export default async function InvoiceRoute({params}:
 
           <InvoiceUpload params={Promise.resolve({siteId})}/>
           <div>
-              {/* 3️⃣ Render the table of invoices */}
               <Card className="mt-10">
                   <CardHeader>
                       <CardTitle>Invoices</CardTitle>
@@ -63,36 +62,40 @@ export default async function InvoiceRoute({params}:
                           Manage your invoices for site <strong>{siteId}</strong>
                       </CardDescription>
                   </CardHeader>
-
                   <CardContent>
                       <Table>
                           <TableHeader>
                               <TableRow>
-                                  <TableHead>Preview</TableHead>
-                                  <TableHead>Name</TableHead>
+                                  <TableHead>Invoice Number</TableHead>
+                                  <TableHead>Seller</TableHead>
+                                  <TableHead>Invoice Date</TableHead>
+                                  <TableHead>Payment Date</TableHead>
                                   <TableHead>Type</TableHead>
-                                  <TableHead>Size</TableHead>
+                                  <TableHead>Is Invoice</TableHead>
                                   <TableHead>Uploaded At</TableHead>
                                   <TableHead className="text-right">Actions</TableHead>
                               </TableRow>
                           </TableHeader>
-
                           <TableBody>
                               {invoices.map((inv) => (
                                   <TableRow key={inv.id}>
+                                      {/* Preview PDF */}
                                       <TableCell>
-
+                                          <InvoiceHoverPreview url={inv.url} label={inv.invoiceNumber || inv.url}/>
                                       </TableCell>
-                                      <TableCell>
-                                          <InvoiceHoverPreview url={inv.url} label={inv.name}/>
-
-                                      </TableCell>
+                                      <TableCell>{inv.sellerName || ""}</TableCell>
+                                      <TableCell>{inv.invoiceDate || ""}</TableCell>
+                                      <TableCell>{inv.paymentDate || ""}</TableCell>
                                       <TableCell>
                                           <Badge variant="outline" className="capitalize">
-                                              {inv.type}
+                                              {inv.isCreditDebitOrProforma ? inv.isCreditDebitOrProforma : "-"}
                                           </Badge>
                                       </TableCell>
-                                      <TableCell>{inv.size.toLocaleString()} bytes</TableCell>
+                                      <TableCell>
+                                          <Badge variant={inv.isInvoice ? "default" : "outline"}>
+                                              {inv.isInvoice ? "Yes" : "No"}
+                                          </Badge>
+                                      </TableCell>
                                       <TableCell>
                                           {new Date(inv.uploadedAt).toLocaleDateString("en-US", {
                                               dateStyle: "medium",
@@ -109,24 +112,20 @@ export default async function InvoiceRoute({params}:
                                                   <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                   <DropdownMenuSeparator/>
                                                   <DropdownMenuItem asChild>
-                                                      <Link href={`/dashboard/sites/${siteId}/${inv.id}`}>
-                                                          Edit
-                                                      </Link>
+                                                      <Link href={`/dashboard/sites/${siteId}/${inv.id}`}>Edit</Link>
                                                   </DropdownMenuItem>
                                                   <DropdownMenuItem asChild>
-                                                      <Link href={`/dashboard/sites/${siteId}/${inv.id}/delete`}>
-                                                          Delete
-                                                      </Link>
+                                                      <Link
+                                                          href={`/dashboard/sites/${siteId}/${inv.id}/delete`}>Delete</Link>
                                                   </DropdownMenuItem>
                                               </DropdownMenuContent>
                                           </DropdownMenu>
                                       </TableCell>
                                   </TableRow>
                               ))}
-
                               {invoices.length === 0 && (
                                   <TableRow>
-                                      <TableCell colSpan={6} className="text-center">
+                                      <TableCell colSpan={8} className="text-center">
                                           No invoices found.
                                       </TableCell>
                                   </TableRow>
@@ -160,31 +159,26 @@ export default async function InvoiceRoute({params}:
                                       invoiceItems.map((item) => (
                                           <TableRow key={item.id}>
 
-                                                          {/* First column (e.g. Date) */}
-                                                            <TableCell className="whitespace-normal">
-                                                              {item[columns[0].key] || ""}
-                                                            </TableCell>
+                                              {/* First column (e.g. Date) */}
+                                              <TableCell className="whitespace-normal">
+                                                  {item[columns[0].key] || ""}
+                                              </TableCell>
 
-                                                             <TableCell className="whitespace-normal">
-                                                                      {item.invoice?.url ? (
-                                                                        <InvoiceHoverPreview url={item.invoice.url} label={item.invoiceNumber || "Invoice"} />
-                                                                      ) : (
-                                                                        item[columns[1].key] || ""
-                                                                      )}
-                                                                    </TableCell>
-
-
-
+                                              <TableCell className="whitespace-normal">
+                                                  {item.invoice?.url ? (
+                                                      <InvoiceHoverPreview url={item.invoice.url}
+                                                                           label={item.invoiceNumber || "Invoice"}/>
+                                                  ) : (
+                                                      item[columns[1].key] || ""
+                                                  )}
+                                              </TableCell>
 
 
-                                                 {columns.slice(2).map((col) => (
-                                                      <TableCell key={col.key} className="whitespace-normal">
-                                                        {item[col.key] || ""}
-                                                      </TableCell>
-                                                    ))}
-
-
-
+                                              {columns.slice(2).map((col) => (
+                                                  <TableCell key={col.key} className="whitespace-normal">
+                                                      {item[col.key] || ""}
+                                                  </TableCell>
+                                              ))}
 
 
                                               <TableCell className="text-right">

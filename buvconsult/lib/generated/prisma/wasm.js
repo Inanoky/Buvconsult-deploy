@@ -156,10 +156,12 @@ exports.Prisma.SubscriptionScalarFieldEnum = {
 exports.Prisma.InvoicesScalarFieldEnum = {
   id: 'id',
   url: 'url',
-  name: 'name',
-  type: 'type',
-  size: 'size',
-  uploadedBy: 'uploadedBy',
+  invoiceNumber: 'invoiceNumber',
+  sellerName: 'sellerName',
+  invoiceDate: 'invoiceDate',
+  paymentDate: 'paymentDate',
+  isInvoice: 'isInvoice',
+  isCreditDebitOrProforma: 'isCreditDebitOrProforma',
   uploadedAt: 'uploadedAt',
   userId: 'userId',
   SiteId: 'SiteId'

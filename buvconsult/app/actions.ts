@@ -11,6 +11,7 @@ import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
 import {stripe} from "@/app/utils/stripe";
 import gptResponse from "@/app/api/invoices/extract/route";
+import gptResponseInvoices from "@/app/api/invoices/extractInvoices/route";
 
 
 
@@ -287,73 +288,76 @@ export async function CreateSubscription(){
 
 
 
-export const  saveInvoiceToDB = async (_: unknown, formData: FormData)=> {
+export const saveInvoiceToDB = async (_: unknown, formData: FormData) => {
+  const user = await requireUser();
+  const siteId = formData.get("siteId") as string;
+  const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
 
-    const user = await requireUser();
-
-
-
-
-
-    const siteId = formData.get("siteId") as string;
-    const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
-
-     await Promise.all(
-
-    urls.map((url) =>
-      prisma.invoices.create({
-        data: {
-          url,
-          name: "Uploaded Invoice",
-          type: "image",
-          size: 0,
-          uploadedBy: user.id,
-          userId: user.id,
-          SiteId: siteId,
-        },
-      })
-    )
-
-
-  );
-
-     const invoices = await prisma.invoices.findMany({
-  where: { SiteId: siteId }
-});
-
-     await Promise.all(
-  invoices.map(async (inv) => {
-    const gptOutput = await gptResponse(inv.url); // gptResponse should return a JSON string or object
-
-    // Parse GPT output if it's a JSON string
-    const parsed = typeof gptOutput === "string" ? JSON.parse(gptOutput) : gptOutput;
-    // Expecting: parsed.items = [ { ...fields matching InvoiceItems... }, ... ]
-
-    if (Array.isArray(parsed.items)) {
-      await Promise.all(
-        parsed.items.map(item =>
-          prisma.invoiceItems.create({
-            data: {
-              ...item, // Make sure field names match your model!
-              invoiceId: inv.id,
-                siteId: siteId,
-            }
-          })
-        )
-      );
-    }
+  // 1. GPT response for each url (could be 1+ invoices per file!)
+  const invoiceResponses = await Promise.all(
+  urls.map(async (url: string) => {
+    const gptRespString = await gptResponseInvoices(url);
+    const gptResp = typeof gptRespString === "string" ? JSON.parse(gptRespString) : gptRespString;
+    return (gptResp.items || []).map(item => ({ ...item, url }));
   })
 );
 
+  const allInvoices = invoiceResponses.flat();
+
+  // 2. Save invoices to db
+  await Promise.all(
+    allInvoices.map((inv) =>
+      prisma.invoices.create({
+        data: {
+                url: inv.url,
+                invoiceNumber: inv.invoiceNumber,
+                sellerName: inv.sellerName,
+                invoiceDate: inv.invoiceDate,
+                paymentDate: inv.paymentDate,
+                isInvoice: inv.isInvoice,
+                isCreditDebitOrProforma: inv.isCreditDebitOrProforma,
+                userId: user.id,
+                SiteId: siteId,
+        }
+      })
+    )
+  );
+
+  // 3. Get all invoices for site (with IDs, so you can link items)
+  const invoices = await prisma.invoices.findMany({ where: { SiteId: siteId } });
+
+  // 4. For each invoice with isInvoice true, send url to gptResponse and save items
+  await Promise.all(
+    invoices
+      .filter(inv => inv.isInvoice)
+      .map(async (inv) => {
+        const gptOutput = await gptResponse(inv.url);
+        const parsed = typeof gptOutput === "string" ? JSON.parse(gptOutput) : gptOutput;
+        if (Array.isArray(parsed.items)) {
+          await Promise.all(
+            parsed.items.map(item =>
+              prisma.invoiceItems.create({
+                data: {
+                  ...item,
+                invoiceNumber: inv.invoiceNumber,
+                  sellerName: inv.sellerName, // Always take from parent invoice!
+                  invoiceId: inv.id,
+                  siteId: siteId,
+                }
+              })
+            )
+          );
+        }
+      })
+  );
+
+  return redirect(`/dashboard/sites/${siteId}`);
+};
 
 
 
 
 
-
-
-  return redirect(`/dashboard/sites/${formData.get("siteId")}`)
-}
 
 export async function GetInvoicesFromDB(siteId: string){
 

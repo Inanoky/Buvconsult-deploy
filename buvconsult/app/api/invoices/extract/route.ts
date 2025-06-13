@@ -43,10 +43,28 @@ export default async function gptResponse(fileUrl) {
     invoiceId: z.string(),
   });
 
+  //Schema for invoices
+
+  const invoices = z.object({
+
+
+      sellerName: z.string(),
+      invoiceDate: z.string(),
+      paymentDate: z.string(),
+      isInvoice: z.string(),
+      isCreditDebitOrProforma: z.string(),
+    })
+
+  const invoiceResponseSchema = z.object({
+    items: z.array(invoices)
+  })
+
   const responseSchema = z.object({
     items: z.array(invoiceItem),
   });
 
+
+  //gpt respone for invoice items
   const gptResponse = await client.responses.create({
     model: "gpt-4.1",
     input: [
