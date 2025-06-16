@@ -24,47 +24,44 @@ export default async function gptResponse(fileUrl) {
 
   // ... keep your zod schema code as before ...
 
-  const invoiceItem = z.object({
-    date: z.string(),
-    invoiceNumber: z.string(),
-    sellerName: z.string(),
-    buyerName: z.string(),
-    item: z.string(),
-    quantity: z.string(),
-    unitOfMeasure: z.string(),
-    pricePerUnitOfMeasure: z.string(),
-    sum: z.string(),
-    currency: z.string(),
-    category: z.string(),
-    commentsForAi: z.string(),
-    commentsForUser: z.string(),
-    creditDebitOrProforma: z.string(),
-    isInvoice: z.boolean(),
-    invoiceId: z.string(),
-  });
-
-  //Schema for invoices
-
-  const invoices = z.object({
 
 
-      sellerName: z.string(),
-      invoiceDate: z.string(),
-      paymentDate: z.string(),
-      isInvoice: z.boolean(),
-      isCreditDebitOrProforma: z.string(),
-    })
+  const invoiceItemSchema = z.object({
+  item: z.string(),
+  quantity: z.string(),
+  unitOfMeasure: z.string(),
+  pricePerUnitOfMeasure: z.string(),
+  sum: z.string(),
+  currency: z.string(),
+  category: z.string(),
+  commentsForAi: z.string(),
+  // Add more fields if you wish
+});
 
-  const invoiceResponseSchema = z.object({
-    items: z.array(invoices)
-  })
+  const invoiceSchema = z.object({
+  invoiceNumber: z.string(),
+  sellerName: z.string(),
+  buyerName: z.string(),
+  invoiceTotalSumNoVat: z.string(),
+  invoiceTotalSumWithVat: z.string(),
+  invoiceDate: z.string(),
+  paymentDate: z.string(),
+  isInvoice: z.boolean(),
+  isCreditDebitProformaOrAdvanced: z.string(),
+  items: z.array(invoiceItemSchema),
+});
 
-  const responseSchema = z.object({
-    items: z.array(invoiceItem),
+
+
+
+
+
+  const gptInvoicesSchema = z.object({
+    items: z.array(invoiceSchema),
   });
 
 
-  //gpt respone for invoice items
+  //gpt response for invoice items
   const gptResponse = await client.responses.create({
     model: "gpt-4.1",
     input: [
@@ -77,22 +74,24 @@ export default async function gptResponse(fileUrl) {
           },
           {
              type: "input_text",
-             text: "Extract invoice information for each item in the invoice." +
+             text: "Extract general invoice metadata and information for each item in the invoice." +
                  "Use coma as decimal separator" +
                   " If not and invoice, fill isInvoice field with `not an invoice`." +
                   " If some information not present - keep the field blank, do not halucinate." +
                   " In commentsForAi field leave a description of what this item most likely is" +
                   "in isInvoice field is invoice credit, debit or proforma" +
                  "do not use currency sign for currencies" +
+                 "isCreditDebitProformaOrAdvanced field should be with the type of documents, if it is not credit, debit, proforma or advanced invoice - write unknown" +
                  "return dates in ISO 8601 format"
           },
         ],
       },
     ],
     text: {
-      format: zodTextFormat(responseSchema, "event"),
+      format: zodTextFormat(gptInvoicesSchema, "event"),
     },
   });
+
 
   return gptResponse.output_text;
 }

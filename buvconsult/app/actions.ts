@@ -11,7 +11,7 @@ import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
 import {stripe} from "@/app/utils/stripe";
 import gptResponse from "@/app/api/invoices/extract/route";
-import gptResponseInvoices from "@/app/api/invoices/extractInvoices/route";
+import gptInvoiceSchema from "@/app/api/invoices/extract/route"
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -292,72 +292,57 @@ export async function CreateSubscription(){
 
 
 
+
 export const saveInvoiceToDB = async (_: unknown, formData: FormData) => {
   const user = await requireUser();
   const siteId = formData.get("siteId") as string;
   const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
 
-  // 1. GPT response for each url (could be 1+ invoices per file!)
-  const invoiceResponses = await Promise.all(
-  urls.map(async (url: string) => {
-    const gptRespString = await gptResponseInvoices(url);
-    const gptResp = typeof gptRespString === "string" ? JSON.parse(gptRespString) : gptRespString;
-    return (gptResp.items || []).map(item => ({ ...item, url }));
-  })
-);
+  // 1️⃣ Run all GPT extraction calls in parallel
+  const gptResults = await Promise.all(
+    urls.map(async (url) => {
+      const gptRaw = await gptResponse(url);
+      const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
 
-  const allInvoices = invoiceResponses.flat();
 
-  // 2. Save invoices to db
+
+
+      return { url, gptResp };
+    })
+  );
+
+  // 2️⃣ Save invoices and items for all parsed GPT results, in parallel
   await Promise.all(
-    allInvoices.map((inv) =>
-      prisma.invoices.create({
+    gptResults.map(async ({ url, gptResp }) => {
+  if (!Array.isArray(gptResp.items)) return;
+  await Promise.all(
+    gptResp.items.map(async (inv) => {
+      // destructure to drop `items`
+      const { items, ...invoiceData } = inv;
+      const savedInvoice = await prisma.invoices.create({
         data: {
-                url: inv.url,
-                invoiceNumber: inv.invoiceNumber,
-                sellerName: inv.sellerName,
-                invoiceDate: inv.invoiceDate,
-                paymentDate: inv.paymentDate,
-                isInvoice: inv.isInvoice,
-                isCreditDebitOrProforma: inv.isCreditDebitOrProforma,
-                userId: user.id,
-                SiteId: siteId,
+          ...invoiceData,
+          url,
+          userId: user.id,
+          SiteId: siteId,
         }
-      })
-    )
+      });
+      if (Array.isArray(items) && items.length > 0) {
+        await prisma.invoiceItems.createMany({
+          data: items.map(item => ({
+            ...item,
+            invoiceId: savedInvoice.id,
+            siteId: siteId,
+          }))
+        });
+      }
+    })
+  );
+})
   );
 
-  // 3. Get all invoices for site (with IDs, so you can link items)
-  const invoices = await prisma.invoices.findMany({ where: { SiteId: siteId } });
-
-  // 4. For each invoice with isInvoice true, send url to gptResponse and save items
-  await Promise.all(
-    invoices
-      .filter(inv => inv.isInvoice)
-      .map(async (inv) => {
-        const gptOutput = await gptResponse(inv.url);
-        const parsed = typeof gptOutput === "string" ? JSON.parse(gptOutput) : gptOutput;
-        if (Array.isArray(parsed.items)) {
-          await Promise.all(
-            parsed.items.map(item =>
-              prisma.invoiceItems.create({
-                data: {
-                  ...item,
-                invoiceNumber: inv.invoiceNumber,
-                  sellerName: inv.sellerName, // Always take from parent invoice!
-                  invoiceId: inv.id,
-                  siteId: siteId,
-                }
-              })
-            )
-          );
-        }
-      })
-  );
-
-  return
+  return;
 };
-
 
 
 
@@ -437,7 +422,7 @@ export async function askInvoiceGpt(siteId: string, question: string) {
     where: { SiteId: siteId },
     select: {
       id: true, sellerName: true, invoiceNumber: true, invoiceDate: true,
-      isInvoice: true, isCreditDebitOrProforma: true
+      isInvoice: true, isCreditDebitProformaOrAdvanced: true
     }
   });
   const items = await prisma.invoiceItems.findMany({

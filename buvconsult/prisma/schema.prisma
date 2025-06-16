@@ -64,15 +64,18 @@ model Subscription {
 }
 
 model Invoices {
-  id                      String   @id @default(cuid())
-  url                     String
-  invoiceNumber           String?
-  sellerName              String?
-  invoiceDate             String?
-  paymentDate             String?
-  isInvoice               Boolean?
-  isCreditDebitOrProforma String?
-  uploadedAt              DateTime @default(now())
+  id                              String   @id @default(cuid())
+  url                             String
+  invoiceNumber                   String?
+  sellerName                      String?
+  invoiceTotalSumNoVat            String?
+  invoiceTotalSumWithVat          String?
+  buyerName                       String?
+  invoiceDate                     String?
+  paymentDate                     String?
+  isInvoice                       Boolean?
+  isCreditDebitProformaOrAdvanced String?
+  uploadedAt                      DateTime @default(now())
 
   User   User?          @relation(fields: [userId], references: [id])
   userId String?
@@ -100,19 +103,15 @@ model Post {
 model InvoiceItems {
   id                    String   @id @default(uuid())
   date                  String?
-  invoiceNumber         String?
-  sellerName            String?
-  buyerName             String?
   item                  String?
   quantity              String?
   unitOfMeasure         String?
   pricePerUnitOfMeasure String?
   sum                   String?
-  currency              String
+  currency              String?
   category              String?
   commentsForAi         String?
   commentsForUser       String?
-  creditDebitOrProforma String?
   isInvoice             Boolean?
   invoiceId             String
   invoice               Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)

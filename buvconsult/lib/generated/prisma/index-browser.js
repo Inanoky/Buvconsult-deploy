@@ -158,10 +158,13 @@ exports.Prisma.InvoicesScalarFieldEnum = {
   url: 'url',
   invoiceNumber: 'invoiceNumber',
   sellerName: 'sellerName',
+  invoiceTotalSumNoVat: 'invoiceTotalSumNoVat',
+  invoiceTotalSumWithVat: 'invoiceTotalSumWithVat',
+  buyerName: 'buyerName',
   invoiceDate: 'invoiceDate',
   paymentDate: 'paymentDate',
   isInvoice: 'isInvoice',
-  isCreditDebitOrProforma: 'isCreditDebitOrProforma',
+  isCreditDebitProformaOrAdvanced: 'isCreditDebitProformaOrAdvanced',
   uploadedAt: 'uploadedAt',
   userId: 'userId',
   SiteId: 'SiteId'
@@ -183,9 +186,6 @@ exports.Prisma.PostScalarFieldEnum = {
 exports.Prisma.InvoiceItemsScalarFieldEnum = {
   id: 'id',
   date: 'date',
-  invoiceNumber: 'invoiceNumber',
-  sellerName: 'sellerName',
-  buyerName: 'buyerName',
   item: 'item',
   quantity: 'quantity',
   unitOfMeasure: 'unitOfMeasure',
@@ -195,7 +195,6 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
   category: 'category',
   commentsForAi: 'commentsForAi',
   commentsForUser: 'commentsForUser',
-  creditDebitOrProforma: 'creditDebitOrProforma',
   isInvoice: 'isInvoice',
   invoiceId: 'invoiceId',
   siteId: 'siteId'

@@ -5011,10 +5011,13 @@ export namespace Prisma {
     url: string | null
     invoiceNumber: string | null
     sellerName: string | null
+    invoiceTotalSumNoVat: string | null
+    invoiceTotalSumWithVat: string | null
+    buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
     isInvoice: boolean | null
-    isCreditDebitOrProforma: string | null
+    isCreditDebitProformaOrAdvanced: string | null
     uploadedAt: Date | null
     userId: string | null
     SiteId: string | null
@@ -5025,10 +5028,13 @@ export namespace Prisma {
     url: string | null
     invoiceNumber: string | null
     sellerName: string | null
+    invoiceTotalSumNoVat: string | null
+    invoiceTotalSumWithVat: string | null
+    buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
     isInvoice: boolean | null
-    isCreditDebitOrProforma: string | null
+    isCreditDebitProformaOrAdvanced: string | null
     uploadedAt: Date | null
     userId: string | null
     SiteId: string | null
@@ -5039,10 +5045,13 @@ export namespace Prisma {
     url: number
     invoiceNumber: number
     sellerName: number
+    invoiceTotalSumNoVat: number
+    invoiceTotalSumWithVat: number
+    buyerName: number
     invoiceDate: number
     paymentDate: number
     isInvoice: number
-    isCreditDebitOrProforma: number
+    isCreditDebitProformaOrAdvanced: number
     uploadedAt: number
     userId: number
     SiteId: number
@@ -5055,10 +5064,13 @@ export namespace Prisma {
     url?: true
     invoiceNumber?: true
     sellerName?: true
+    invoiceTotalSumNoVat?: true
+    invoiceTotalSumWithVat?: true
+    buyerName?: true
     invoiceDate?: true
     paymentDate?: true
     isInvoice?: true
-    isCreditDebitOrProforma?: true
+    isCreditDebitProformaOrAdvanced?: true
     uploadedAt?: true
     userId?: true
     SiteId?: true
@@ -5069,10 +5081,13 @@ export namespace Prisma {
     url?: true
     invoiceNumber?: true
     sellerName?: true
+    invoiceTotalSumNoVat?: true
+    invoiceTotalSumWithVat?: true
+    buyerName?: true
     invoiceDate?: true
     paymentDate?: true
     isInvoice?: true
-    isCreditDebitOrProforma?: true
+    isCreditDebitProformaOrAdvanced?: true
     uploadedAt?: true
     userId?: true
     SiteId?: true
@@ -5083,10 +5098,13 @@ export namespace Prisma {
     url?: true
     invoiceNumber?: true
     sellerName?: true
+    invoiceTotalSumNoVat?: true
+    invoiceTotalSumWithVat?: true
+    buyerName?: true
     invoiceDate?: true
     paymentDate?: true
     isInvoice?: true
-    isCreditDebitOrProforma?: true
+    isCreditDebitProformaOrAdvanced?: true
     uploadedAt?: true
     userId?: true
     SiteId?: true
@@ -5170,10 +5188,13 @@ export namespace Prisma {
     url: string
     invoiceNumber: string | null
     sellerName: string | null
+    invoiceTotalSumNoVat: string | null
+    invoiceTotalSumWithVat: string | null
+    buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
     isInvoice: boolean | null
-    isCreditDebitOrProforma: string | null
+    isCreditDebitProformaOrAdvanced: string | null
     uploadedAt: Date
     userId: string | null
     SiteId: string | null
@@ -5201,10 +5222,13 @@ export namespace Prisma {
     url?: boolean
     invoiceNumber?: boolean
     sellerName?: boolean
+    invoiceTotalSumNoVat?: boolean
+    invoiceTotalSumWithVat?: boolean
+    buyerName?: boolean
     invoiceDate?: boolean
     paymentDate?: boolean
     isInvoice?: boolean
-    isCreditDebitOrProforma?: boolean
+    isCreditDebitProformaOrAdvanced?: boolean
     uploadedAt?: boolean
     userId?: boolean
     SiteId?: boolean
@@ -5219,10 +5243,13 @@ export namespace Prisma {
     url?: boolean
     invoiceNumber?: boolean
     sellerName?: boolean
+    invoiceTotalSumNoVat?: boolean
+    invoiceTotalSumWithVat?: boolean
+    buyerName?: boolean
     invoiceDate?: boolean
     paymentDate?: boolean
     isInvoice?: boolean
-    isCreditDebitOrProforma?: boolean
+    isCreditDebitProformaOrAdvanced?: boolean
     uploadedAt?: boolean
     userId?: boolean
     SiteId?: boolean
@@ -5235,10 +5262,13 @@ export namespace Prisma {
     url?: boolean
     invoiceNumber?: boolean
     sellerName?: boolean
+    invoiceTotalSumNoVat?: boolean
+    invoiceTotalSumWithVat?: boolean
+    buyerName?: boolean
     invoiceDate?: boolean
     paymentDate?: boolean
     isInvoice?: boolean
-    isCreditDebitOrProforma?: boolean
+    isCreditDebitProformaOrAdvanced?: boolean
     uploadedAt?: boolean
     userId?: boolean
     SiteId?: boolean
@@ -5251,16 +5281,19 @@ export namespace Prisma {
     url?: boolean
     invoiceNumber?: boolean
     sellerName?: boolean
+    invoiceTotalSumNoVat?: boolean
+    invoiceTotalSumWithVat?: boolean
+    buyerName?: boolean
     invoiceDate?: boolean
     paymentDate?: boolean
     isInvoice?: boolean
-    isCreditDebitOrProforma?: boolean
+    isCreditDebitProformaOrAdvanced?: boolean
     uploadedAt?: boolean
     userId?: boolean
     SiteId?: boolean
   }
 
-  export type InvoicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "invoiceNumber" | "sellerName" | "invoiceDate" | "paymentDate" | "isInvoice" | "isCreditDebitOrProforma" | "uploadedAt" | "userId" | "SiteId", ExtArgs["result"]["invoices"]>
+  export type InvoicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "invoiceNumber" | "sellerName" | "invoiceTotalSumNoVat" | "invoiceTotalSumWithVat" | "buyerName" | "invoiceDate" | "paymentDate" | "isInvoice" | "isCreditDebitProformaOrAdvanced" | "uploadedAt" | "userId" | "SiteId", ExtArgs["result"]["invoices"]>
   export type InvoicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | Invoices$UserArgs<ExtArgs>
     Site?: boolean | Invoices$SiteArgs<ExtArgs>
@@ -5288,10 +5321,13 @@ export namespace Prisma {
       url: string
       invoiceNumber: string | null
       sellerName: string | null
+      invoiceTotalSumNoVat: string | null
+      invoiceTotalSumWithVat: string | null
+      buyerName: string | null
       invoiceDate: string | null
       paymentDate: string | null
       isInvoice: boolean | null
-      isCreditDebitOrProforma: string | null
+      isCreditDebitProformaOrAdvanced: string | null
       uploadedAt: Date
       userId: string | null
       SiteId: string | null
@@ -5725,10 +5761,13 @@ export namespace Prisma {
     readonly url: FieldRef<"Invoices", 'String'>
     readonly invoiceNumber: FieldRef<"Invoices", 'String'>
     readonly sellerName: FieldRef<"Invoices", 'String'>
+    readonly invoiceTotalSumNoVat: FieldRef<"Invoices", 'String'>
+    readonly invoiceTotalSumWithVat: FieldRef<"Invoices", 'String'>
+    readonly buyerName: FieldRef<"Invoices", 'String'>
     readonly invoiceDate: FieldRef<"Invoices", 'String'>
     readonly paymentDate: FieldRef<"Invoices", 'String'>
     readonly isInvoice: FieldRef<"Invoices", 'Boolean'>
-    readonly isCreditDebitOrProforma: FieldRef<"Invoices", 'String'>
+    readonly isCreditDebitProformaOrAdvanced: FieldRef<"Invoices", 'String'>
     readonly uploadedAt: FieldRef<"Invoices", 'DateTime'>
     readonly userId: FieldRef<"Invoices", 'String'>
     readonly SiteId: FieldRef<"Invoices", 'String'>
@@ -7386,9 +7425,6 @@ export namespace Prisma {
   export type InvoiceItemsMinAggregateOutputType = {
     id: string | null
     date: string | null
-    invoiceNumber: string | null
-    sellerName: string | null
-    buyerName: string | null
     item: string | null
     quantity: string | null
     unitOfMeasure: string | null
@@ -7398,7 +7434,6 @@ export namespace Prisma {
     category: string | null
     commentsForAi: string | null
     commentsForUser: string | null
-    creditDebitOrProforma: string | null
     isInvoice: boolean | null
     invoiceId: string | null
     siteId: string | null
@@ -7407,9 +7442,6 @@ export namespace Prisma {
   export type InvoiceItemsMaxAggregateOutputType = {
     id: string | null
     date: string | null
-    invoiceNumber: string | null
-    sellerName: string | null
-    buyerName: string | null
     item: string | null
     quantity: string | null
     unitOfMeasure: string | null
@@ -7419,7 +7451,6 @@ export namespace Prisma {
     category: string | null
     commentsForAi: string | null
     commentsForUser: string | null
-    creditDebitOrProforma: string | null
     isInvoice: boolean | null
     invoiceId: string | null
     siteId: string | null
@@ -7428,9 +7459,6 @@ export namespace Prisma {
   export type InvoiceItemsCountAggregateOutputType = {
     id: number
     date: number
-    invoiceNumber: number
-    sellerName: number
-    buyerName: number
     item: number
     quantity: number
     unitOfMeasure: number
@@ -7440,7 +7468,6 @@ export namespace Prisma {
     category: number
     commentsForAi: number
     commentsForUser: number
-    creditDebitOrProforma: number
     isInvoice: number
     invoiceId: number
     siteId: number
@@ -7451,9 +7478,6 @@ export namespace Prisma {
   export type InvoiceItemsMinAggregateInputType = {
     id?: true
     date?: true
-    invoiceNumber?: true
-    sellerName?: true
-    buyerName?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7463,7 +7487,6 @@ export namespace Prisma {
     category?: true
     commentsForAi?: true
     commentsForUser?: true
-    creditDebitOrProforma?: true
     isInvoice?: true
     invoiceId?: true
     siteId?: true
@@ -7472,9 +7495,6 @@ export namespace Prisma {
   export type InvoiceItemsMaxAggregateInputType = {
     id?: true
     date?: true
-    invoiceNumber?: true
-    sellerName?: true
-    buyerName?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7484,7 +7504,6 @@ export namespace Prisma {
     category?: true
     commentsForAi?: true
     commentsForUser?: true
-    creditDebitOrProforma?: true
     isInvoice?: true
     invoiceId?: true
     siteId?: true
@@ -7493,9 +7512,6 @@ export namespace Prisma {
   export type InvoiceItemsCountAggregateInputType = {
     id?: true
     date?: true
-    invoiceNumber?: true
-    sellerName?: true
-    buyerName?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7505,7 +7521,6 @@ export namespace Prisma {
     category?: true
     commentsForAi?: true
     commentsForUser?: true
-    creditDebitOrProforma?: true
     isInvoice?: true
     invoiceId?: true
     siteId?: true
@@ -7587,19 +7602,15 @@ export namespace Prisma {
   export type InvoiceItemsGroupByOutputType = {
     id: string
     date: string | null
-    invoiceNumber: string | null
-    sellerName: string | null
-    buyerName: string | null
     item: string | null
     quantity: string | null
     unitOfMeasure: string | null
     pricePerUnitOfMeasure: string | null
     sum: string | null
-    currency: string
+    currency: string | null
     category: string | null
     commentsForAi: string | null
     commentsForUser: string | null
-    creditDebitOrProforma: string | null
     isInvoice: boolean | null
     invoiceId: string
     siteId: string | null
@@ -7625,9 +7636,6 @@ export namespace Prisma {
   export type InvoiceItemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    invoiceNumber?: boolean
-    sellerName?: boolean
-    buyerName?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7637,7 +7645,6 @@ export namespace Prisma {
     category?: boolean
     commentsForAi?: boolean
     commentsForUser?: boolean
-    creditDebitOrProforma?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
     siteId?: boolean
@@ -7648,9 +7655,6 @@ export namespace Prisma {
   export type InvoiceItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    invoiceNumber?: boolean
-    sellerName?: boolean
-    buyerName?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7660,7 +7664,6 @@ export namespace Prisma {
     category?: boolean
     commentsForAi?: boolean
     commentsForUser?: boolean
-    creditDebitOrProforma?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
     siteId?: boolean
@@ -7671,9 +7674,6 @@ export namespace Prisma {
   export type InvoiceItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     date?: boolean
-    invoiceNumber?: boolean
-    sellerName?: boolean
-    buyerName?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7683,7 +7683,6 @@ export namespace Prisma {
     category?: boolean
     commentsForAi?: boolean
     commentsForUser?: boolean
-    creditDebitOrProforma?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
     siteId?: boolean
@@ -7694,9 +7693,6 @@ export namespace Prisma {
   export type InvoiceItemsSelectScalar = {
     id?: boolean
     date?: boolean
-    invoiceNumber?: boolean
-    sellerName?: boolean
-    buyerName?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7706,13 +7702,12 @@ export namespace Prisma {
     category?: boolean
     commentsForAi?: boolean
     commentsForUser?: boolean
-    creditDebitOrProforma?: boolean
     isInvoice?: boolean
     invoiceId?: boolean
     siteId?: boolean
   }
 
-  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "invoiceNumber" | "sellerName" | "buyerName" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "commentsForAi" | "commentsForUser" | "creditDebitOrProforma" | "isInvoice" | "invoiceId" | "siteId", ExtArgs["result"]["invoiceItems"]>
+  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "commentsForAi" | "commentsForUser" | "isInvoice" | "invoiceId" | "siteId", ExtArgs["result"]["invoiceItems"]>
   export type InvoiceItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
     Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
@@ -7735,19 +7730,15 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       date: string | null
-      invoiceNumber: string | null
-      sellerName: string | null
-      buyerName: string | null
       item: string | null
       quantity: string | null
       unitOfMeasure: string | null
       pricePerUnitOfMeasure: string | null
       sum: string | null
-      currency: string
+      currency: string | null
       category: string | null
       commentsForAi: string | null
       commentsForUser: string | null
-      creditDebitOrProforma: string | null
       isInvoice: boolean | null
       invoiceId: string
       siteId: string | null
@@ -8178,9 +8169,6 @@ export namespace Prisma {
   interface InvoiceItemsFieldRefs {
     readonly id: FieldRef<"InvoiceItems", 'String'>
     readonly date: FieldRef<"InvoiceItems", 'String'>
-    readonly invoiceNumber: FieldRef<"InvoiceItems", 'String'>
-    readonly sellerName: FieldRef<"InvoiceItems", 'String'>
-    readonly buyerName: FieldRef<"InvoiceItems", 'String'>
     readonly item: FieldRef<"InvoiceItems", 'String'>
     readonly quantity: FieldRef<"InvoiceItems", 'String'>
     readonly unitOfMeasure: FieldRef<"InvoiceItems", 'String'>
@@ -8190,7 +8178,6 @@ export namespace Prisma {
     readonly category: FieldRef<"InvoiceItems", 'String'>
     readonly commentsForAi: FieldRef<"InvoiceItems", 'String'>
     readonly commentsForUser: FieldRef<"InvoiceItems", 'String'>
-    readonly creditDebitOrProforma: FieldRef<"InvoiceItems", 'String'>
     readonly isInvoice: FieldRef<"InvoiceItems", 'Boolean'>
     readonly invoiceId: FieldRef<"InvoiceItems", 'String'>
     readonly siteId: FieldRef<"InvoiceItems", 'String'>
@@ -8688,10 +8675,13 @@ export namespace Prisma {
     url: 'url',
     invoiceNumber: 'invoiceNumber',
     sellerName: 'sellerName',
+    invoiceTotalSumNoVat: 'invoiceTotalSumNoVat',
+    invoiceTotalSumWithVat: 'invoiceTotalSumWithVat',
+    buyerName: 'buyerName',
     invoiceDate: 'invoiceDate',
     paymentDate: 'paymentDate',
     isInvoice: 'isInvoice',
-    isCreditDebitOrProforma: 'isCreditDebitOrProforma',
+    isCreditDebitProformaOrAdvanced: 'isCreditDebitProformaOrAdvanced',
     uploadedAt: 'uploadedAt',
     userId: 'userId',
     SiteId: 'SiteId'
@@ -8719,9 +8709,6 @@ export namespace Prisma {
   export const InvoiceItemsScalarFieldEnum: {
     id: 'id',
     date: 'date',
-    invoiceNumber: 'invoiceNumber',
-    sellerName: 'sellerName',
-    buyerName: 'buyerName',
     item: 'item',
     quantity: 'quantity',
     unitOfMeasure: 'unitOfMeasure',
@@ -8731,7 +8718,6 @@ export namespace Prisma {
     category: 'category',
     commentsForAi: 'commentsForAi',
     commentsForUser: 'commentsForUser',
-    creditDebitOrProforma: 'creditDebitOrProforma',
     isInvoice: 'isInvoice',
     invoiceId: 'invoiceId',
     siteId: 'siteId'
@@ -9103,10 +9089,13 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
     isInvoice?: BoolNullableFilter<"Invoices"> | boolean | null
-    isCreditDebitOrProforma?: StringNullableFilter<"Invoices"> | string | null
+    isCreditDebitProformaOrAdvanced?: StringNullableFilter<"Invoices"> | string | null
     uploadedAt?: DateTimeFilter<"Invoices"> | Date | string
     userId?: StringNullableFilter<"Invoices"> | string | null
     SiteId?: StringNullableFilter<"Invoices"> | string | null
@@ -9120,10 +9109,13 @@ export namespace Prisma {
     url?: SortOrder
     invoiceNumber?: SortOrderInput | SortOrder
     sellerName?: SortOrderInput | SortOrder
+    invoiceTotalSumNoVat?: SortOrderInput | SortOrder
+    invoiceTotalSumWithVat?: SortOrderInput | SortOrder
+    buyerName?: SortOrderInput | SortOrder
     invoiceDate?: SortOrderInput | SortOrder
     paymentDate?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
-    isCreditDebitOrProforma?: SortOrderInput | SortOrder
+    isCreditDebitProformaOrAdvanced?: SortOrderInput | SortOrder
     uploadedAt?: SortOrder
     userId?: SortOrderInput | SortOrder
     SiteId?: SortOrderInput | SortOrder
@@ -9140,10 +9132,13 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
     isInvoice?: BoolNullableFilter<"Invoices"> | boolean | null
-    isCreditDebitOrProforma?: StringNullableFilter<"Invoices"> | string | null
+    isCreditDebitProformaOrAdvanced?: StringNullableFilter<"Invoices"> | string | null
     uploadedAt?: DateTimeFilter<"Invoices"> | Date | string
     userId?: StringNullableFilter<"Invoices"> | string | null
     SiteId?: StringNullableFilter<"Invoices"> | string | null
@@ -9157,10 +9152,13 @@ export namespace Prisma {
     url?: SortOrder
     invoiceNumber?: SortOrderInput | SortOrder
     sellerName?: SortOrderInput | SortOrder
+    invoiceTotalSumNoVat?: SortOrderInput | SortOrder
+    invoiceTotalSumWithVat?: SortOrderInput | SortOrder
+    buyerName?: SortOrderInput | SortOrder
     invoiceDate?: SortOrderInput | SortOrder
     paymentDate?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
-    isCreditDebitOrProforma?: SortOrderInput | SortOrder
+    isCreditDebitProformaOrAdvanced?: SortOrderInput | SortOrder
     uploadedAt?: SortOrder
     userId?: SortOrderInput | SortOrder
     SiteId?: SortOrderInput | SortOrder
@@ -9177,10 +9175,13 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Invoices"> | string
     invoiceNumber?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     sellerName?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
+    invoiceTotalSumWithVat?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
+    buyerName?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     paymentDate?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     isInvoice?: BoolNullableWithAggregatesFilter<"Invoices"> | boolean | null
-    isCreditDebitOrProforma?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
+    isCreditDebitProformaOrAdvanced?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     uploadedAt?: DateTimeWithAggregatesFilter<"Invoices"> | Date | string
     userId?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     SiteId?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
@@ -9275,19 +9276,15 @@ export namespace Prisma {
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
     date?: StringNullableFilter<"InvoiceItems"> | string | null
-    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: StringNullableFilter<"InvoiceItems"> | string | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
-    currency?: StringFilter<"InvoiceItems"> | string
+    currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
-    creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9298,19 +9295,15 @@ export namespace Prisma {
   export type InvoiceItemsOrderByWithRelationInput = {
     id?: SortOrder
     date?: SortOrderInput | SortOrder
-    invoiceNumber?: SortOrderInput | SortOrder
-    sellerName?: SortOrderInput | SortOrder
-    buyerName?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
     quantity?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
     pricePerUnitOfMeasure?: SortOrderInput | SortOrder
     sum?: SortOrderInput | SortOrder
-    currency?: SortOrder
+    currency?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     commentsForAi?: SortOrderInput | SortOrder
     commentsForUser?: SortOrderInput | SortOrder
-    creditDebitOrProforma?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrderInput | SortOrder
@@ -9324,19 +9317,15 @@ export namespace Prisma {
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     date?: StringNullableFilter<"InvoiceItems"> | string | null
-    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: StringNullableFilter<"InvoiceItems"> | string | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
-    currency?: StringFilter<"InvoiceItems"> | string
+    currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
-    creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9347,19 +9336,15 @@ export namespace Prisma {
   export type InvoiceItemsOrderByWithAggregationInput = {
     id?: SortOrder
     date?: SortOrderInput | SortOrder
-    invoiceNumber?: SortOrderInput | SortOrder
-    sellerName?: SortOrderInput | SortOrder
-    buyerName?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
     quantity?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
     pricePerUnitOfMeasure?: SortOrderInput | SortOrder
     sum?: SortOrderInput | SortOrder
-    currency?: SortOrder
+    currency?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     commentsForAi?: SortOrderInput | SortOrder
     commentsForUser?: SortOrderInput | SortOrder
-    creditDebitOrProforma?: SortOrderInput | SortOrder
     isInvoice?: SortOrderInput | SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrderInput | SortOrder
@@ -9374,19 +9359,15 @@ export namespace Prisma {
     NOT?: InvoiceItemsScalarWhereWithAggregatesInput | InvoiceItemsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvoiceItems"> | string
     date?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    invoiceNumber?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    sellerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    buyerName?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     item?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     quantity?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     unitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     pricePerUnitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     sum?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    currency?: StringWithAggregatesFilter<"InvoiceItems"> | string
+    currency?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     category?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    creditDebitOrProforma?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     isInvoice?: BoolNullableWithAggregatesFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringWithAggregatesFilter<"InvoiceItems"> | string
     siteId?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
@@ -9654,10 +9635,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     User?: UserCreateNestedOneWithoutInvoicesInput
     Site?: SiteCreateNestedOneWithoutInvoicesInput
@@ -9669,10 +9653,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     userId?: string | null
     SiteId?: string | null
@@ -9684,10 +9671,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneWithoutInvoicesNestedInput
     Site?: SiteUpdateOneWithoutInvoicesNestedInput
@@ -9699,10 +9689,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9714,10 +9707,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     userId?: string | null
     SiteId?: string | null
@@ -9728,10 +9724,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9740,10 +9739,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9841,19 +9843,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
     Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
@@ -9862,19 +9860,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedCreateInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoiceId: string
     siteId?: string | null
@@ -9883,19 +9877,15 @@ export namespace Prisma {
   export type InvoiceItemsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
     Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
@@ -9904,19 +9894,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9925,19 +9911,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateManyInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoiceId: string
     siteId?: string | null
@@ -9946,38 +9928,30 @@ export namespace Prisma {
   export type InvoiceItemsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type InvoiceItemsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10280,10 +10254,13 @@ export namespace Prisma {
     url?: SortOrder
     invoiceNumber?: SortOrder
     sellerName?: SortOrder
+    invoiceTotalSumNoVat?: SortOrder
+    invoiceTotalSumWithVat?: SortOrder
+    buyerName?: SortOrder
     invoiceDate?: SortOrder
     paymentDate?: SortOrder
     isInvoice?: SortOrder
-    isCreditDebitOrProforma?: SortOrder
+    isCreditDebitProformaOrAdvanced?: SortOrder
     uploadedAt?: SortOrder
     userId?: SortOrder
     SiteId?: SortOrder
@@ -10294,10 +10271,13 @@ export namespace Prisma {
     url?: SortOrder
     invoiceNumber?: SortOrder
     sellerName?: SortOrder
+    invoiceTotalSumNoVat?: SortOrder
+    invoiceTotalSumWithVat?: SortOrder
+    buyerName?: SortOrder
     invoiceDate?: SortOrder
     paymentDate?: SortOrder
     isInvoice?: SortOrder
-    isCreditDebitOrProforma?: SortOrder
+    isCreditDebitProformaOrAdvanced?: SortOrder
     uploadedAt?: SortOrder
     userId?: SortOrder
     SiteId?: SortOrder
@@ -10308,10 +10288,13 @@ export namespace Prisma {
     url?: SortOrder
     invoiceNumber?: SortOrder
     sellerName?: SortOrder
+    invoiceTotalSumNoVat?: SortOrder
+    invoiceTotalSumWithVat?: SortOrder
+    buyerName?: SortOrder
     invoiceDate?: SortOrder
     paymentDate?: SortOrder
     isInvoice?: SortOrder
-    isCreditDebitOrProforma?: SortOrder
+    isCreditDebitProformaOrAdvanced?: SortOrder
     uploadedAt?: SortOrder
     userId?: SortOrder
     SiteId?: SortOrder
@@ -10419,9 +10402,6 @@ export namespace Prisma {
   export type InvoiceItemsCountOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    invoiceNumber?: SortOrder
-    sellerName?: SortOrder
-    buyerName?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -10431,7 +10411,6 @@ export namespace Prisma {
     category?: SortOrder
     commentsForAi?: SortOrder
     commentsForUser?: SortOrder
-    creditDebitOrProforma?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrder
@@ -10440,9 +10419,6 @@ export namespace Prisma {
   export type InvoiceItemsMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    invoiceNumber?: SortOrder
-    sellerName?: SortOrder
-    buyerName?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -10452,7 +10428,6 @@ export namespace Prisma {
     category?: SortOrder
     commentsForAi?: SortOrder
     commentsForUser?: SortOrder
-    creditDebitOrProforma?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrder
@@ -10461,9 +10436,6 @@ export namespace Prisma {
   export type InvoiceItemsMinOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
-    invoiceNumber?: SortOrder
-    sellerName?: SortOrder
-    buyerName?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -10473,7 +10445,6 @@ export namespace Prisma {
     category?: SortOrder
     commentsForAi?: SortOrder
     commentsForUser?: SortOrder
-    creditDebitOrProforma?: SortOrder
     isInvoice?: SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrder
@@ -11202,10 +11173,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     Site?: SiteCreateNestedOneWithoutInvoicesInput
     items?: InvoiceItemsCreateNestedManyWithoutInvoiceInput
@@ -11216,10 +11190,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     SiteId?: string | null
     items?: InvoiceItemsUncheckedCreateNestedManyWithoutInvoiceInput
@@ -11348,10 +11325,13 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
     isInvoice?: BoolNullableFilter<"Invoices"> | boolean | null
-    isCreditDebitOrProforma?: StringNullableFilter<"Invoices"> | string | null
+    isCreditDebitProformaOrAdvanced?: StringNullableFilter<"Invoices"> | string | null
     uploadedAt?: DateTimeFilter<"Invoices"> | Date | string
     userId?: StringNullableFilter<"Invoices"> | string | null
     SiteId?: StringNullableFilter<"Invoices"> | string | null
@@ -11460,10 +11440,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     User?: UserCreateNestedOneWithoutInvoicesInput
     items?: InvoiceItemsCreateNestedManyWithoutInvoiceInput
@@ -11474,10 +11457,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     userId?: string | null
     items?: InvoiceItemsUncheckedCreateNestedManyWithoutInvoiceInput
@@ -11496,19 +11482,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateWithoutSiteInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoice: InvoicesCreateNestedOneWithoutItemsInput
   }
@@ -11516,19 +11498,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedCreateWithoutSiteInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoiceId: string
   }
@@ -11634,19 +11612,15 @@ export namespace Prisma {
     NOT?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
     date?: StringNullableFilter<"InvoiceItems"> | string | null
-    invoiceNumber?: StringNullableFilter<"InvoiceItems"> | string | null
-    sellerName?: StringNullableFilter<"InvoiceItems"> | string | null
-    buyerName?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: StringNullableFilter<"InvoiceItems"> | string | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
     sum?: StringNullableFilter<"InvoiceItems"> | string | null
-    currency?: StringFilter<"InvoiceItems"> | string
+    currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForUser?: StringNullableFilter<"InvoiceItems"> | string | null
-    creditDebitOrProforma?: StringNullableFilter<"InvoiceItems"> | string | null
     isInvoice?: BoolNullableFilter<"InvoiceItems"> | boolean | null
     invoiceId?: StringFilter<"InvoiceItems"> | string
     siteId?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -11785,19 +11759,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateWithoutInvoiceInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     Site?: SiteCreateNestedOneWithoutInvoiceItemsInput
   }
@@ -11805,19 +11775,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedCreateWithoutInvoiceInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     siteId?: string | null
   }
@@ -12063,10 +12029,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     User?: UserCreateNestedOneWithoutInvoicesInput
     Site?: SiteCreateNestedOneWithoutInvoicesInput
@@ -12077,10 +12046,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     userId?: string | null
     SiteId?: string | null
@@ -12138,10 +12110,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneWithoutInvoicesNestedInput
     Site?: SiteUpdateOneWithoutInvoicesNestedInput
@@ -12152,10 +12127,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12225,10 +12203,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     SiteId?: string | null
   }
@@ -12310,10 +12291,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Site?: SiteUpdateOneWithoutInvoicesNestedInput
     items?: InvoiceItemsUpdateManyWithoutInvoiceNestedInput
@@ -12324,10 +12308,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
     items?: InvoiceItemsUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -12338,10 +12325,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12363,10 +12353,13 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
+    invoiceTotalSumNoVat?: string | null
+    invoiceTotalSumWithVat?: string | null
+    buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
     isInvoice?: boolean | null
-    isCreditDebitOrProforma?: string | null
+    isCreditDebitProformaOrAdvanced?: string | null
     uploadedAt?: Date | string
     userId?: string | null
   }
@@ -12374,19 +12367,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateManySiteInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     invoiceId: string
   }
@@ -12432,10 +12421,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     User?: UserUpdateOneWithoutInvoicesNestedInput
     items?: InvoiceItemsUpdateManyWithoutInvoiceNestedInput
@@ -12446,10 +12438,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     items?: InvoiceItemsUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -12460,10 +12455,13 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCreditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
+    isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12471,19 +12469,15 @@ export namespace Prisma {
   export type InvoiceItemsUpdateWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoice?: InvoicesUpdateOneRequiredWithoutItemsNestedInput
   }
@@ -12491,19 +12485,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
   }
@@ -12511,19 +12501,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateManyWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     invoiceId?: StringFieldUpdateOperationsInput | string
   }
@@ -12531,19 +12517,15 @@ export namespace Prisma {
   export type InvoiceItemsCreateManyInvoiceInput = {
     id?: string
     date?: string | null
-    invoiceNumber?: string | null
-    sellerName?: string | null
-    buyerName?: string | null
     item?: string | null
     quantity?: string | null
     unitOfMeasure?: string | null
     pricePerUnitOfMeasure?: string | null
     sum?: string | null
-    currency: string
+    currency?: string | null
     category?: string | null
     commentsForAi?: string | null
     commentsForUser?: string | null
-    creditDebitOrProforma?: string | null
     isInvoice?: boolean | null
     siteId?: string | null
   }
@@ -12551,19 +12533,15 @@ export namespace Prisma {
   export type InvoiceItemsUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     Site?: SiteUpdateOneWithoutInvoiceItemsNestedInput
   }
@@ -12571,19 +12549,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12591,19 +12565,15 @@ export namespace Prisma {
   export type InvoiceItemsUncheckedUpdateManyWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableStringFieldUpdateOperationsInput | string | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
     sum?: NullableStringFieldUpdateOperationsInput | string | null
-    currency?: StringFieldUpdateOperationsInput | string
+    currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForUser?: NullableStringFieldUpdateOperationsInput | string | null
-    creditDebitOrProforma?: NullableStringFieldUpdateOperationsInput | string | null
     isInvoice?: NullableBoolFieldUpdateOperationsInput | boolean | null
     siteId?: NullableStringFieldUpdateOperationsInput | string | null
   }

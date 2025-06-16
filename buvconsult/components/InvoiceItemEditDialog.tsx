@@ -10,11 +10,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 export function InvoiceItemEditDialog({ item, open, onOpenChange }) {
-  const [form, setForm] = React.useState({
+  // Only fields belonging to InvoiceItems!
+  const initialForm = {
     date: item.date || "",
-    invoiceNumber: item.invoiceNumber || "",
-    sellerName: item.sellerName || "",
-    buyerName: item.buyerName || "",
     item: item.item || "",
     quantity: item.quantity || "",
     unitOfMeasure: item.unitOfMeasure || "",
@@ -22,10 +20,20 @@ export function InvoiceItemEditDialog({ item, open, onOpenChange }) {
     sum: item.sum || "",
     currency: item.currency || "",
     category: item.category || "",
+    commentsForAi: item.commentsForAi || "",
+    commentsForUser: item.commentsForUser || "",
     isInvoice: item.isInvoice ? "true" : "false",
-  });
+  };
+
+  const [form, setForm] = React.useState(initialForm);
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
+
+  // Ensure form resets when a new item is opened
+  React.useEffect(() => {
+    if (open) setForm(initialForm);
+    // eslint-disable-next-line
+  }, [open, item.id]);
 
   function handleChange(e) {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -55,17 +63,46 @@ export function InvoiceItemEditDialog({ item, open, onOpenChange }) {
           <DialogTitle>Edit Invoice Item</DialogTitle>
         </DialogHeader>
         <div className="space-y-2 max-h-[50vh] overflow-auto">
-          <Input name="date" value={form.date} onChange={handleChange} placeholder="Date" />
-          <Input name="invoiceNumber" value={form.invoiceNumber} onChange={handleChange} placeholder="Invoice #" />
-          <Input name="sellerName" value={form.sellerName} onChange={handleChange} placeholder="Seller" />
-          <Input name="buyerName" value={form.buyerName} onChange={handleChange} placeholder="Buyer" />
-          <Input name="item" value={form.item} onChange={handleChange} placeholder="Item" />
+
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Date : </span>
+            <Input name="date" value={form.date} onChange={handleChange} placeholder="Date"/>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Item : </span>
+            <Input name="item" value={form.item} onChange={handleChange} placeholder="Item"/>
+          </div>
+
+
           <Input name="quantity" value={form.quantity} onChange={handleChange} placeholder="Quantity" />
+
+
+
           <Input name="unitOfMeasure" value={form.unitOfMeasure} onChange={handleChange} placeholder="Unit" />
+
+
+
           <Input name="pricePerUnitOfMeasure" value={form.pricePerUnitOfMeasure} onChange={handleChange} placeholder="Unit Price" />
+
+
+
           <Input name="sum" value={form.sum} onChange={handleChange} placeholder="Sum" />
+
+
+
           <Input name="currency" value={form.currency} onChange={handleChange} placeholder="Currency" />
+
+
+
           <Input name="category" value={form.category} onChange={handleChange} placeholder="Category" />
+
+
+
+          <Input name="commentsForAi" value={form.commentsForAi} onChange={handleChange} placeholder="AI Comments" />
+
+
+
+          <Input name="commentsForUser" value={form.commentsForUser} onChange={handleChange} placeholder="User Comments" />
           <select name="isInvoice" value={form.isInvoice} onChange={handleChange} className="w-full border rounded px-2 py-1">
             <option value="true">Is Invoice</option>
             <option value="false">Not Invoice</option>

@@ -38,6 +38,32 @@ import {toast} from "sonner";
 
 import {InvoiceItemEditDialog} from "@/components/InvoiceItemEditDialog";
 
+
+
+
+// --- Global Filter Function ---
+const globalFilterFn: FilterFn<any> = (row, columnId, filterValue) => {
+  if (!filterValue) return true;
+  const flatString = [
+    ...Object.values(row.original), // top-level fields
+    ...(row.original.invoice ? Object.values(row.original.invoice) : [])
+  ]
+    .filter(v => typeof v === "string" || typeof v === "number" || typeof v === "boolean")
+    .join(" ")
+    .toLowerCase();
+  return flatString.includes(filterValue.toLowerCase());
+};
+
+
+
+
+
+
+
+
+
+
+
 // Row actions for edit/delete
 function RowActions({ siteId, id, item, onDelete, onEdit }) {
   return (
@@ -109,35 +135,26 @@ export function InvoiceItemsDataTable({ data, siteId }) {
   const columns = React.useMemo(
     () => [
       {
-        accessorKey: "date",
-        header: "Date",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "invoiceNumber",
-        header: "Invoice #",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "invoice",
-        header: "Preview",
-        cell: info => {
-          const row = info.row.original;
-          return row.invoice?.url
-            ? <InvoiceHoverPreview url={row.invoice.url} label={row.invoiceNumber || "Invoice"} />
-            : null;
+          accessorKey: "invoice.invoiceDate", // This will NOT work by default!
+          header: "Date",
+          cell: info => info.row.original.invoice?.invoiceDate || "",
         },
-      },
+
+     {
+  header: "Invoice#",
+  cell: info => {
+    const invoice = info.row.original.invoice;
+    return invoice?.url
+      ? <InvoiceHoverPreview url={invoice.url} label={invoice.invoiceNumber || "Invoice"} />
+      : invoice?.invoiceNumber || "";
+  }
+},
       {
         accessorKey: "sellerName",
         header: "Seller",
-        cell: info => info.getValue() || "",
+        cell: info => info.row.original.invoice?.sellerName || "",
       },
-      {
-        accessorKey: "buyerName",
-        header: "Buyer",
-        cell: info => info.getValue() || "",
-      },
+
       {
         accessorKey: "item",
         header: "Item",
@@ -209,6 +226,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn,
     // Set page size here if you want
     initialState: { pagination: { pageSize: 20 } },
   });

@@ -33,7 +33,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { deleteInvoice, deleteInvoiceItem } from "@/app/actions";
-import {InvoiceEditDialog} from "@/components/ui/InvoiceEditDialog";
+import {InvoiceEditDialog} from "@/components/InvoiceEditDialog";
 
 
 
@@ -96,6 +96,18 @@ export function InvoicesDataTable({ data, siteId }) {
   const columns = React.useMemo(
     () => [
 
+
+        {
+        accessorKey: "invoiceDate",
+        header: "Invoice Date",
+        cell: info => info.getValue() || "",
+      },
+      {
+        accessorKey: "paymentDate",
+        header: "Payment Date",
+        cell: info => info.getValue() || "",
+      },
+
         {
         accessorKey: "invoiceNumber",
         header: "Invoice #",
@@ -109,19 +121,15 @@ export function InvoicesDataTable({ data, siteId }) {
         header: "Seller",
         cell: info => info.getValue() || "",
       },
+         {
+        accessorKey: "invoiceTotalSumNoVat",
+        header: "Total exl. VAT",
+        cell: info => info.getValue() || "",
+      },
+
 
       {
-        accessorKey: "invoiceDate",
-        header: "Invoice Date",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "paymentDate",
-        header: "Payment Date",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "isCreditDebitOrProforma",
+        accessorKey: "isCreditDebitProformaOrAdvanced",
         header: "Type",
         cell: info => (
           <Badge variant="outline" className="capitalize">
@@ -143,7 +151,11 @@ export function InvoicesDataTable({ data, siteId }) {
         header: "Uploaded At",
         cell: info =>
           info.getValue()
-            ? new Date(info.getValue()).toLocaleDateString("en-US", { dateStyle: "medium" })
+            ? new Date(info.getValue()).toLocaleString("en-GB", {
+                dateStyle: "medium",
+                timeStyle: "short",
+
+            })
             : "",
       },
       {

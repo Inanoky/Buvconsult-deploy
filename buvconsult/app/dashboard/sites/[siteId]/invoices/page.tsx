@@ -15,7 +15,7 @@ import {MoreHorizontal} from "lucide-react";
 import Link from "next/link";
 import {GetInvoiceItemsFromDB, GetInvoicesFromDB} from "@/app/actions";
 import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
-import {InvoiceItemsDataTable} from "@/components/InvoiceItemsTable";
+import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
 import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
 
@@ -27,7 +27,11 @@ export default async function InvoiceRoute({params}:
 
     const {siteId} = await params
     const invoices = await GetInvoicesFromDB(siteId)
-    const invoiceItems = await GetInvoiceItemsFromDB(siteId)
+    let invoiceItems = await GetInvoiceItemsFromDB(siteId);
+    invoiceItems = invoiceItems.filter(item => item.invoice?.isInvoice !== false); // filter out items with invoice.isInvoice === false
+
+
+
 
     //columns for the second table
 
