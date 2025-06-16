@@ -17,6 +17,7 @@ import {GetInvoiceItemsFromDB, GetInvoicesFromDB} from "@/app/actions";
 import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
 import {InvoiceItemsDataTable} from "@/components/InvoiceItemsTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
+import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
 
 export default async function InvoiceRoute({params}:
 
@@ -53,8 +54,10 @@ export default async function InvoiceRoute({params}:
   return (
       <>
           {/* 2️⃣ Your client upload form */}
-
+            <div className="flex justify-between">
           <InvoiceUpload params={Promise.resolve({siteId})}/>
+          <InvoiceChatBox siteId={siteId} />
+                </div>
           <div>
              <Card className="mt-10">
   <CardHeader>
