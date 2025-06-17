@@ -154,10 +154,18 @@ export function InvoicesDataTable({ data, siteId }) {
         cell: info => info.getValue() || "",
       },
       {
-        accessorKey: "invoiceTotalSumNoVat",
-        header: "Total excl. VAT",
-        cell: info => info.getValue() || "",
-      },
+  accessorKey: "invoiceTotalSumNoVat",
+  header: "Total excl. VAT",
+  cell: info => {
+    const value = info.getValue();
+    return typeof value === "number"
+      ? value.toLocaleString("fr-FR", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+      : "";
+  },
+},
       {
         accessorKey: "isCreditDebitProformaOrAdvanced",
         header: "Type",

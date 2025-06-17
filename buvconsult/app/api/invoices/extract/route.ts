@@ -28,10 +28,10 @@ export default async function gptResponse(fileUrl) {
 
   const invoiceItemSchema = z.object({
   item: z.string(),
-  quantity: z.string(),
+  quantity: z.number(),
   unitOfMeasure: z.string(),
-  pricePerUnitOfMeasure: z.string(),
-  sum: z.string(),
+  pricePerUnitOfMeasure: z.number(),
+  sum: z.number(),
   currency: z.string(),
   category: z.string(),
   commentsForAi: z.string(),
@@ -42,8 +42,8 @@ export default async function gptResponse(fileUrl) {
   invoiceNumber: z.string(),
   sellerName: z.string(),
   buyerName: z.string(),
-  invoiceTotalSumNoVat: z.string(),
-  invoiceTotalSumWithVat: z.string(),
+  invoiceTotalSumNoVat: z.number(),
+  invoiceTotalSumWithVat: z.number(),
   invoiceDate: z.string(),
   paymentDate: z.string(),
   isInvoice: z.boolean(),
@@ -75,7 +75,7 @@ export default async function gptResponse(fileUrl) {
           {
              type: "input_text",
              text: "Extract general invoice metadata and information for each item in the invoice." +
-                 "Use coma as decimal separator" +
+                 "Use dot as decimal separator" +
                   " If not and invoice, fill isInvoice field with `not an invoice`." +
                   " If some information not present - keep the field blank, do not halucinate." +
                   " In commentsForAi field leave a description of what this item most likely is" +

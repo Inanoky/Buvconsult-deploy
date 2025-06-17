@@ -17,7 +17,7 @@ export const navLinks = [
         icon: Home
     },
     {
-        name: 'Sites',
+        name: 'Projects',
         href: '/dashboard/sites',
         icon: Globe,
     },

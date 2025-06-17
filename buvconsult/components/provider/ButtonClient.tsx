@@ -20,7 +20,7 @@ export default function OpenProjectButton({ projectId, projectName }: Props) {
 
   return (
     <Button asChild className="w-full">
-      <Link href={`/dashboard/sites/${projectId}`} onClick={handleClick}>
+      <Link href={`/dashboard/sites/${projectId}/invoices`} onClick={handleClick}>
         Open Project
       </Link>
     </Button>

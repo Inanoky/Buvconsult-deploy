@@ -68,8 +68,8 @@ model Invoices {
   url                             String
   invoiceNumber                   String?
   sellerName                      String?
-  invoiceTotalSumNoVat            String?
-  invoiceTotalSumWithVat          String?
+  invoiceTotalSumNoVat            Float?
+  invoiceTotalSumWithVat          Float?
   buyerName                       String?
   invoiceDate                     String?
   paymentDate                     String?
@@ -104,10 +104,10 @@ model InvoiceItems {
   id                    String   @id @default(uuid())
   date                  String?
   item                  String?
-  quantity              String?
+  quantity              Float?
   unitOfMeasure         String?
-  pricePerUnitOfMeasure String?
-  sum                   String?
+  pricePerUnitOfMeasure Float?
+  sum                   Float?
   currency              String?
   category              String?
   commentsForAi         String?

@@ -5002,8 +5002,20 @@ export namespace Prisma {
 
   export type AggregateInvoices = {
     _count: InvoicesCountAggregateOutputType | null
+    _avg: InvoicesAvgAggregateOutputType | null
+    _sum: InvoicesSumAggregateOutputType | null
     _min: InvoicesMinAggregateOutputType | null
     _max: InvoicesMaxAggregateOutputType | null
+  }
+
+  export type InvoicesAvgAggregateOutputType = {
+    invoiceTotalSumNoVat: number | null
+    invoiceTotalSumWithVat: number | null
+  }
+
+  export type InvoicesSumAggregateOutputType = {
+    invoiceTotalSumNoVat: number | null
+    invoiceTotalSumWithVat: number | null
   }
 
   export type InvoicesMinAggregateOutputType = {
@@ -5011,8 +5023,8 @@ export namespace Prisma {
     url: string | null
     invoiceNumber: string | null
     sellerName: string | null
-    invoiceTotalSumNoVat: string | null
-    invoiceTotalSumWithVat: string | null
+    invoiceTotalSumNoVat: number | null
+    invoiceTotalSumWithVat: number | null
     buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
@@ -5028,8 +5040,8 @@ export namespace Prisma {
     url: string | null
     invoiceNumber: string | null
     sellerName: string | null
-    invoiceTotalSumNoVat: string | null
-    invoiceTotalSumWithVat: string | null
+    invoiceTotalSumNoVat: number | null
+    invoiceTotalSumWithVat: number | null
     buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
@@ -5058,6 +5070,16 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type InvoicesAvgAggregateInputType = {
+    invoiceTotalSumNoVat?: true
+    invoiceTotalSumWithVat?: true
+  }
+
+  export type InvoicesSumAggregateInputType = {
+    invoiceTotalSumNoVat?: true
+    invoiceTotalSumWithVat?: true
+  }
 
   export type InvoicesMinAggregateInputType = {
     id?: true
@@ -5149,6 +5171,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: InvoicesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoicesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: InvoicesMinAggregateInputType
@@ -5179,6 +5213,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: InvoicesCountAggregateInputType | true
+    _avg?: InvoicesAvgAggregateInputType
+    _sum?: InvoicesSumAggregateInputType
     _min?: InvoicesMinAggregateInputType
     _max?: InvoicesMaxAggregateInputType
   }
@@ -5188,8 +5224,8 @@ export namespace Prisma {
     url: string
     invoiceNumber: string | null
     sellerName: string | null
-    invoiceTotalSumNoVat: string | null
-    invoiceTotalSumWithVat: string | null
+    invoiceTotalSumNoVat: number | null
+    invoiceTotalSumWithVat: number | null
     buyerName: string | null
     invoiceDate: string | null
     paymentDate: string | null
@@ -5199,6 +5235,8 @@ export namespace Prisma {
     userId: string | null
     SiteId: string | null
     _count: InvoicesCountAggregateOutputType | null
+    _avg: InvoicesAvgAggregateOutputType | null
+    _sum: InvoicesSumAggregateOutputType | null
     _min: InvoicesMinAggregateOutputType | null
     _max: InvoicesMaxAggregateOutputType | null
   }
@@ -5321,8 +5359,8 @@ export namespace Prisma {
       url: string
       invoiceNumber: string | null
       sellerName: string | null
-      invoiceTotalSumNoVat: string | null
-      invoiceTotalSumWithVat: string | null
+      invoiceTotalSumNoVat: number | null
+      invoiceTotalSumWithVat: number | null
       buyerName: string | null
       invoiceDate: string | null
       paymentDate: string | null
@@ -5761,8 +5799,8 @@ export namespace Prisma {
     readonly url: FieldRef<"Invoices", 'String'>
     readonly invoiceNumber: FieldRef<"Invoices", 'String'>
     readonly sellerName: FieldRef<"Invoices", 'String'>
-    readonly invoiceTotalSumNoVat: FieldRef<"Invoices", 'String'>
-    readonly invoiceTotalSumWithVat: FieldRef<"Invoices", 'String'>
+    readonly invoiceTotalSumNoVat: FieldRef<"Invoices", 'Float'>
+    readonly invoiceTotalSumWithVat: FieldRef<"Invoices", 'Float'>
     readonly buyerName: FieldRef<"Invoices", 'String'>
     readonly invoiceDate: FieldRef<"Invoices", 'String'>
     readonly paymentDate: FieldRef<"Invoices", 'String'>
@@ -7418,18 +7456,32 @@ export namespace Prisma {
 
   export type AggregateInvoiceItems = {
     _count: InvoiceItemsCountAggregateOutputType | null
+    _avg: InvoiceItemsAvgAggregateOutputType | null
+    _sum: InvoiceItemsSumAggregateOutputType | null
     _min: InvoiceItemsMinAggregateOutputType | null
     _max: InvoiceItemsMaxAggregateOutputType | null
+  }
+
+  export type InvoiceItemsAvgAggregateOutputType = {
+    quantity: number | null
+    pricePerUnitOfMeasure: number | null
+    sum: number | null
+  }
+
+  export type InvoiceItemsSumAggregateOutputType = {
+    quantity: number | null
+    pricePerUnitOfMeasure: number | null
+    sum: number | null
   }
 
   export type InvoiceItemsMinAggregateOutputType = {
     id: string | null
     date: string | null
     item: string | null
-    quantity: string | null
+    quantity: number | null
     unitOfMeasure: string | null
-    pricePerUnitOfMeasure: string | null
-    sum: string | null
+    pricePerUnitOfMeasure: number | null
+    sum: number | null
     currency: string | null
     category: string | null
     commentsForAi: string | null
@@ -7443,10 +7495,10 @@ export namespace Prisma {
     id: string | null
     date: string | null
     item: string | null
-    quantity: string | null
+    quantity: number | null
     unitOfMeasure: string | null
-    pricePerUnitOfMeasure: string | null
-    sum: string | null
+    pricePerUnitOfMeasure: number | null
+    sum: number | null
     currency: string | null
     category: string | null
     commentsForAi: string | null
@@ -7474,6 +7526,18 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type InvoiceItemsAvgAggregateInputType = {
+    quantity?: true
+    pricePerUnitOfMeasure?: true
+    sum?: true
+  }
+
+  export type InvoiceItemsSumAggregateInputType = {
+    quantity?: true
+    pricePerUnitOfMeasure?: true
+    sum?: true
+  }
 
   export type InvoiceItemsMinAggregateInputType = {
     id?: true
@@ -7565,6 +7629,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: InvoiceItemsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InvoiceItemsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: InvoiceItemsMinAggregateInputType
@@ -7595,6 +7671,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: InvoiceItemsCountAggregateInputType | true
+    _avg?: InvoiceItemsAvgAggregateInputType
+    _sum?: InvoiceItemsSumAggregateInputType
     _min?: InvoiceItemsMinAggregateInputType
     _max?: InvoiceItemsMaxAggregateInputType
   }
@@ -7603,10 +7681,10 @@ export namespace Prisma {
     id: string
     date: string | null
     item: string | null
-    quantity: string | null
+    quantity: number | null
     unitOfMeasure: string | null
-    pricePerUnitOfMeasure: string | null
-    sum: string | null
+    pricePerUnitOfMeasure: number | null
+    sum: number | null
     currency: string | null
     category: string | null
     commentsForAi: string | null
@@ -7615,6 +7693,8 @@ export namespace Prisma {
     invoiceId: string
     siteId: string | null
     _count: InvoiceItemsCountAggregateOutputType | null
+    _avg: InvoiceItemsAvgAggregateOutputType | null
+    _sum: InvoiceItemsSumAggregateOutputType | null
     _min: InvoiceItemsMinAggregateOutputType | null
     _max: InvoiceItemsMaxAggregateOutputType | null
   }
@@ -7731,10 +7811,10 @@ export namespace Prisma {
       id: string
       date: string | null
       item: string | null
-      quantity: string | null
+      quantity: number | null
       unitOfMeasure: string | null
-      pricePerUnitOfMeasure: string | null
-      sum: string | null
+      pricePerUnitOfMeasure: number | null
+      sum: number | null
       currency: string | null
       category: string | null
       commentsForAi: string | null
@@ -8170,10 +8250,10 @@ export namespace Prisma {
     readonly id: FieldRef<"InvoiceItems", 'String'>
     readonly date: FieldRef<"InvoiceItems", 'String'>
     readonly item: FieldRef<"InvoiceItems", 'String'>
-    readonly quantity: FieldRef<"InvoiceItems", 'String'>
+    readonly quantity: FieldRef<"InvoiceItems", 'Float'>
     readonly unitOfMeasure: FieldRef<"InvoiceItems", 'String'>
-    readonly pricePerUnitOfMeasure: FieldRef<"InvoiceItems", 'String'>
-    readonly sum: FieldRef<"InvoiceItems", 'String'>
+    readonly pricePerUnitOfMeasure: FieldRef<"InvoiceItems", 'Float'>
+    readonly sum: FieldRef<"InvoiceItems", 'Float'>
     readonly currency: FieldRef<"InvoiceItems", 'String'>
     readonly category: FieldRef<"InvoiceItems", 'String'>
     readonly commentsForAi: FieldRef<"InvoiceItems", 'String'>
@@ -8814,6 +8894,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -8831,20 +8925,6 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -9089,8 +9169,8 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: FloatNullableFilter<"Invoices"> | number | null
+    invoiceTotalSumWithVat?: FloatNullableFilter<"Invoices"> | number | null
     buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
@@ -9132,8 +9212,8 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: FloatNullableFilter<"Invoices"> | number | null
+    invoiceTotalSumWithVat?: FloatNullableFilter<"Invoices"> | number | null
     buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
@@ -9163,8 +9243,10 @@ export namespace Prisma {
     userId?: SortOrderInput | SortOrder
     SiteId?: SortOrderInput | SortOrder
     _count?: InvoicesCountOrderByAggregateInput
+    _avg?: InvoicesAvgOrderByAggregateInput
     _max?: InvoicesMaxOrderByAggregateInput
     _min?: InvoicesMinOrderByAggregateInput
+    _sum?: InvoicesSumOrderByAggregateInput
   }
 
   export type InvoicesScalarWhereWithAggregatesInput = {
@@ -9175,8 +9257,8 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Invoices"> | string
     invoiceNumber?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     sellerName?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
-    invoiceTotalSumNoVat?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
-    invoiceTotalSumWithVat?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: FloatNullableWithAggregatesFilter<"Invoices"> | number | null
+    invoiceTotalSumWithVat?: FloatNullableWithAggregatesFilter<"Invoices"> | number | null
     buyerName?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
     paymentDate?: StringNullableWithAggregatesFilter<"Invoices"> | string | null
@@ -9277,10 +9359,10 @@ export namespace Prisma {
     id?: StringFilter<"InvoiceItems"> | string
     date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    sum?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: FloatNullableFilter<"InvoiceItems"> | number | null
+    sum?: FloatNullableFilter<"InvoiceItems"> | number | null
     currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9318,10 +9400,10 @@ export namespace Prisma {
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    sum?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: FloatNullableFilter<"InvoiceItems"> | number | null
+    sum?: FloatNullableFilter<"InvoiceItems"> | number | null
     currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9349,8 +9431,10 @@ export namespace Prisma {
     invoiceId?: SortOrder
     siteId?: SortOrderInput | SortOrder
     _count?: InvoiceItemsCountOrderByAggregateInput
+    _avg?: InvoiceItemsAvgOrderByAggregateInput
     _max?: InvoiceItemsMaxOrderByAggregateInput
     _min?: InvoiceItemsMinOrderByAggregateInput
+    _sum?: InvoiceItemsSumOrderByAggregateInput
   }
 
   export type InvoiceItemsScalarWhereWithAggregatesInput = {
@@ -9360,10 +9444,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"InvoiceItems"> | string
     date?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     item?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    quantity?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    quantity?: FloatNullableWithAggregatesFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    pricePerUnitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
-    sum?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: FloatNullableWithAggregatesFilter<"InvoiceItems"> | number | null
+    sum?: FloatNullableWithAggregatesFilter<"InvoiceItems"> | number | null
     currency?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     category?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
@@ -9635,8 +9719,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -9653,8 +9737,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -9671,8 +9755,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9689,8 +9773,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9707,8 +9791,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -9724,8 +9808,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9739,8 +9823,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9844,10 +9928,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -9861,10 +9945,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -9878,10 +9962,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9895,10 +9979,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9912,10 +9996,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -9929,10 +10013,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9944,10 +10028,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10239,6 +10323,17 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -10264,6 +10359,11 @@ export namespace Prisma {
     uploadedAt?: SortOrder
     userId?: SortOrder
     SiteId?: SortOrder
+  }
+
+  export type InvoicesAvgOrderByAggregateInput = {
+    invoiceTotalSumNoVat?: SortOrder
+    invoiceTotalSumWithVat?: SortOrder
   }
 
   export type InvoicesMaxOrderByAggregateInput = {
@@ -10298,6 +10398,27 @@ export namespace Prisma {
     uploadedAt?: SortOrder
     userId?: SortOrder
     SiteId?: SortOrder
+  }
+
+  export type InvoicesSumOrderByAggregateInput = {
+    invoiceTotalSumNoVat?: SortOrder
+    invoiceTotalSumWithVat?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10416,6 +10537,12 @@ export namespace Prisma {
     siteId?: SortOrder
   }
 
+  export type InvoiceItemsAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    pricePerUnitOfMeasure?: SortOrder
+    sum?: SortOrder
+  }
+
   export type InvoiceItemsMaxOrderByAggregateInput = {
     id?: SortOrder
     date?: SortOrder
@@ -10448,6 +10575,12 @@ export namespace Prisma {
     isInvoice?: SortOrder
     invoiceId?: SortOrder
     siteId?: SortOrder
+  }
+
+  export type InvoiceItemsSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    pricePerUnitOfMeasure?: SortOrder
+    sum?: SortOrder
   }
 
   export type SiteCreateNestedManyWithoutUserInput = {
@@ -10812,6 +10945,14 @@ export namespace Prisma {
     connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
   }
@@ -11062,9 +11203,36 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11173,8 +11341,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -11190,8 +11358,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -11325,8 +11493,8 @@ export namespace Prisma {
     url?: StringFilter<"Invoices"> | string
     invoiceNumber?: StringNullableFilter<"Invoices"> | string | null
     sellerName?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumNoVat?: StringNullableFilter<"Invoices"> | string | null
-    invoiceTotalSumWithVat?: StringNullableFilter<"Invoices"> | string | null
+    invoiceTotalSumNoVat?: FloatNullableFilter<"Invoices"> | number | null
+    invoiceTotalSumWithVat?: FloatNullableFilter<"Invoices"> | number | null
     buyerName?: StringNullableFilter<"Invoices"> | string | null
     invoiceDate?: StringNullableFilter<"Invoices"> | string | null
     paymentDate?: StringNullableFilter<"Invoices"> | string | null
@@ -11440,8 +11608,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -11457,8 +11625,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -11483,10 +11651,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -11499,10 +11667,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -11613,10 +11781,10 @@ export namespace Prisma {
     id?: StringFilter<"InvoiceItems"> | string
     date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
-    quantity?: StringNullableFilter<"InvoiceItems"> | string | null
+    quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    pricePerUnitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
-    sum?: StringNullableFilter<"InvoiceItems"> | string | null
+    pricePerUnitOfMeasure?: FloatNullableFilter<"InvoiceItems"> | number | null
+    sum?: FloatNullableFilter<"InvoiceItems"> | number | null
     currency?: StringNullableFilter<"InvoiceItems"> | string | null
     category?: StringNullableFilter<"InvoiceItems"> | string | null
     commentsForAi?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -11760,10 +11928,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -11776,10 +11944,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -12029,8 +12197,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -12046,8 +12214,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -12110,8 +12278,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12127,8 +12295,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12203,8 +12371,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -12291,8 +12459,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12308,8 +12476,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12325,8 +12493,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12353,8 +12521,8 @@ export namespace Prisma {
     url: string
     invoiceNumber?: string | null
     sellerName?: string | null
-    invoiceTotalSumNoVat?: string | null
-    invoiceTotalSumWithVat?: string | null
+    invoiceTotalSumNoVat?: number | null
+    invoiceTotalSumWithVat?: number | null
     buyerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
@@ -12368,10 +12536,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -12421,8 +12589,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12438,8 +12606,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12455,8 +12623,8 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumNoVat?: NullableStringFieldUpdateOperationsInput | string | null
-    invoiceTotalSumWithVat?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceTotalSumNoVat?: NullableFloatFieldUpdateOperationsInput | number | null
+    invoiceTotalSumWithVat?: NullableFloatFieldUpdateOperationsInput | number | null
     buyerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12470,10 +12638,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12486,10 +12654,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12502,10 +12670,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12518,10 +12686,10 @@ export namespace Prisma {
     id?: string
     date?: string | null
     item?: string | null
-    quantity?: string | null
+    quantity?: number | null
     unitOfMeasure?: string | null
-    pricePerUnitOfMeasure?: string | null
-    sum?: string | null
+    pricePerUnitOfMeasure?: number | null
+    sum?: number | null
     currency?: string | null
     category?: string | null
     commentsForAi?: string | null
@@ -12534,10 +12702,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12550,10 +12718,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12566,10 +12734,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
-    quantity?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    pricePerUnitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
-    sum?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnitOfMeasure?: NullableFloatFieldUpdateOperationsInput | number | null
+    sum?: NullableFloatFieldUpdateOperationsInput | number | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     commentsForAi?: NullableStringFieldUpdateOperationsInput | string | null
