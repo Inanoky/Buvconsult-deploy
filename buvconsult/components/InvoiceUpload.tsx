@@ -45,7 +45,7 @@ export default function InvoiceUpload({ params }: { params: Promise<{ siteId: st
               "border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition",
           }}
         />
-        {isLoading && <div className="text-center mt-4 text-sm text-muted-foreground">Processing invoices...</div>}
+        {isLoading && <div className="text-center mt-4 text-sm text-muted-foreground">Processing invoices with AI. May take up to 10 minutes... Do not refresh page</div>}
       </div>
     </div>
   );

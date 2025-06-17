@@ -73,40 +73,52 @@ export function InvoiceItemEditDialog({ item, open, onOpenChange }) {
             <Input name="item" value={form.item} onChange={handleChange} placeholder="Item"/>
           </div>
 
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Quantity : </span>
+            <Input name="quantity" value={form.quantity} onChange={handleChange} placeholder="Quantity"/>
+          </div>
 
-          <Input name="quantity" value={form.quantity} onChange={handleChange} placeholder="Quantity" />
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Units : </span>
+            <Input name="unitOfMeasure" value={form.unitOfMeasure} onChange={handleChange} placeholder="Unit"/>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Unit price : </span>
+            <Input name="pricePerUnitOfMeasure" value={form.pricePerUnitOfMeasure} onChange={handleChange}
+                   placeholder="Unit Price"/>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Cost : </span>
+            <Input name="sum" value={form.sum} onChange={handleChange} placeholder="Sum"/>
+          </div>
 
 
-
-          <Input name="unitOfMeasure" value={form.unitOfMeasure} onChange={handleChange} placeholder="Unit" />
-
-
-
-          <Input name="pricePerUnitOfMeasure" value={form.pricePerUnitOfMeasure} onChange={handleChange} placeholder="Unit Price" />
-
-
-
-          <Input name="sum" value={form.sum} onChange={handleChange} placeholder="Sum" />
-
-
+             <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Currency : </span>
 
           <Input name="currency" value={form.currency} onChange={handleChange} placeholder="Currency" />
+             </div>
 
 
+          <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Category : </span>
 
           <Input name="category" value={form.category} onChange={handleChange} placeholder="Category" />
+          </div>
 
 
 
-          <Input name="commentsForAi" value={form.commentsForAi} onChange={handleChange} placeholder="AI Comments" />
 
 
-
-          <Input name="commentsForUser" value={form.commentsForUser} onChange={handleChange} placeholder="User Comments" />
+           <div className="flex items-center gap-2">
+            <span className="w-32 text-right">Status : </span>
           <select name="isInvoice" value={form.isInvoice} onChange={handleChange} className="w-full border rounded px-2 py-1">
             <option value="true">Is Invoice</option>
             <option value="false">Not Invoice</option>
           </select>
+           </div>
         </div>
         <DialogFooter>
           <DialogClose asChild>

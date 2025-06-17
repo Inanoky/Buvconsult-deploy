@@ -84,7 +84,10 @@ export default async function InvoiceRoute({params}:
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
+                          <div className="min-h-[300px]">
                         <InvoiceItemsDataTable data={invoiceItems} siteId={siteId} />
+                          </div>
+
                       </CardContent>
                     </Card>
           </div>

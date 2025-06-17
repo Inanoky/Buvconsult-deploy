@@ -81,7 +81,7 @@ export default async function gptResponse(fileUrl) {
                   " In commentsForAi field leave a description of what this item most likely is" +
                   "in isInvoice field is invoice credit, debit or proforma" +
                  "do not use currency sign for currencies" +
-                 "isCreditDebitProformaOrAdvanced field should be with the type of documents, if it is not credit, debit, proforma or advanced invoice - write unknown" +
+                 "Determine if invoice is debit, credit, proforma, advanced or unknown and fill in isCreditDebitProformaOrAdvanced " +
                  "return dates in ISO 8601 format"
           },
         ],

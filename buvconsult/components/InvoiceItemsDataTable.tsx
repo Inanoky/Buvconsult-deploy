@@ -8,10 +8,12 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  RowSelectionState
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
@@ -22,7 +24,6 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
-import Link from "next/link";
 import { InvoiceHoverPreview } from "@/components/ui/InvoiceHoverPreview";
 import {
   Pagination,
@@ -32,17 +33,13 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/pagination";
-import {useRouter} from "next/navigation";
-import { deleteInvoiceItem} from "@/app/actions";
-import {toast} from "sonner";
-
-import {InvoiceItemEditDialog} from "@/components/InvoiceItemEditDialog";
-
-
-
+import { useRouter } from "next/navigation";
+import { deleteInvoiceItem } from "@/app/actions";
+import { toast } from "sonner";
+import { InvoiceItemEditDialog } from "@/components/InvoiceItemEditDialog";
 
 // --- Global Filter Function ---
-const globalFilterFn: FilterFn<any> = (row, columnId, filterValue) => {
+const globalFilterFn = (row, columnId, filterValue) => {
   if (!filterValue) return true;
   const flatString = [
     ...Object.values(row.original), // top-level fields
@@ -53,16 +50,6 @@ const globalFilterFn: FilterFn<any> = (row, columnId, filterValue) => {
     .toLowerCase();
   return flatString.includes(filterValue.toLowerCase());
 };
-
-
-
-
-
-
-
-
-
-
 
 // Row actions for edit/delete
 function RowActions({ siteId, id, item, onDelete, onEdit }) {
@@ -85,17 +72,12 @@ function RowActions({ siteId, id, item, onDelete, onEdit }) {
   );
 }
 
-
 export function InvoiceItemsDataTable({ data, siteId }) {
   const [globalFilter, setGlobalFilter] = React.useState("");
-
-
-    const router = useRouter();
-   // Add state for editing
-    const [editItem, setEditItem] = React.useState(null);
-    const [editOpen, setEditOpen] = React.useState(false);
-
-
+  const [rowSelection, setRowSelection] = React.useState({});
+  const router = useRouter();
+  const [editItem, setEditItem] = React.useState(null);
+  const [editOpen, setEditOpen] = React.useState(false);
 
   async function handleDeleteItem(id) {
     try {
@@ -112,84 +94,71 @@ export function InvoiceItemsDataTable({ data, siteId }) {
     setEditOpen(true);
   }
 
+  // BULK DELETE HANDLER
+  async function handleBulkDelete() {
+    const ids = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
+    if (ids.length === 0) return;
+    if (!window.confirm(`Delete ${ids.length} selected items?`)) return;
+    try {
+      await Promise.all(ids.map(id => deleteInvoiceItem(id)));
+      toast.success(`Deleted ${ids.length} items`);
+      setRowSelection({}); // clear selection
+      router.refresh();
+    } catch (e) {
+      toast.error("Bulk delete failed");
+    }
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const columns = React.useMemo(
+  const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
-          accessorKey: "invoice.invoiceDate", // This will NOT work by default!
-          header: "Date",
-          cell: info => info.row.original.invoice?.invoiceDate || "",
-        },
-
-     {
-  header: "Invoice#",
-  cell: info => {
-    const invoice = info.row.original.invoice;
-    return invoice?.url
-      ? <InvoiceHoverPreview url={invoice.url} label={invoice.invoiceNumber || "Invoice"} />
-      : invoice?.invoiceNumber || "";
-  }
-},
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={value => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false
+      },
+      {
+        accessorKey: "invoice.invoiceDate",
+        header: "Date",
+        cell: info => info.row.original.invoice?.invoiceDate || ""
+      },
+      {
+        header: "Invoice#",
+        cell: info => {
+          const invoice = info.row.original.invoice;
+          return invoice?.url
+            ? <InvoiceHoverPreview url={invoice.url} label={invoice.invoiceNumber || "Invoice"} />
+            : invoice?.invoiceNumber || "";
+        }
+      },
       {
         accessorKey: "sellerName",
         header: "Seller",
-        cell: info => info.row.original.invoice?.sellerName || "",
+        cell: info => info.row.original.invoice?.sellerName || ""
       },
-
-      {
-        accessorKey: "item",
-        header: "Item",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "quantity",
-        header: "Qty",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "unitOfMeasure",
-        header: "Unit",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "pricePerUnitOfMeasure",
-        header: "Unit Price",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "sum",
-        header: "Sum",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "currency",
-        header: "Currency",
-        cell: info => info.getValue() || "",
-      },
-      {
-        accessorKey: "category",
-        header: "Category",
-        cell: info => info.getValue() || "",
-      },
+      { accessorKey: "item", header: "Item", cell: info => info.getValue() || "" },
+      { accessorKey: "quantity", header: "Qty", cell: info => info.getValue() || "" },
+      { accessorKey: "unitOfMeasure", header: "Unit", cell: info => info.getValue() || "" },
+      { accessorKey: "pricePerUnitOfMeasure", header: "Unit Price", cell: info => info.getValue() || "" },
+      { accessorKey: "sum", header: "Sum", cell: info => info.getValue() || "" },
+      { accessorKey: "currency", header: "Currency", cell: info => info.getValue() || "" },
+      { accessorKey: "category", header: "Category", cell: info => info.getValue() || "" },
       {
         accessorKey: "isInvoice",
         header: "Is Invoice",
@@ -211,8 +180,8 @@ export function InvoiceItemsDataTable({ data, siteId }) {
           />
         ),
         enableSorting: false,
-        enableFiltering: false,
-      },
+        enableFiltering: false
+      }
     ],
     [siteId]
   );
@@ -220,40 +189,87 @@ export function InvoiceItemsDataTable({ data, siteId }) {
   const table = useReactTable({
     data,
     columns,
-    state: { globalFilter },
+    state: { globalFilter, rowSelection },
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
     globalFilterFn,
-    // Set page size here if you want
-    initialState: { pagination: { pageSize: 20 } },
+    initialState: { pagination: { pageSize: 20 } }
   });
+
+  // --- Pagination logic as before (with ellipsis, etc.) ---
+  function renderPagination() {
+    const pageCount = table.getPageCount();
+    const current = table.getState().pagination.pageIndex;
+    const maxPages = 10;
+    let start = 0;
+    let end = Math.min(pageCount, maxPages);
+
+    if (pageCount > maxPages) {
+      if (current > Math.floor(maxPages / 2)) {
+        start = Math.max(0, Math.min(current - Math.floor(maxPages / 2), pageCount - maxPages));
+        end = start + maxPages;
+      }
+    }
+
+    const items = Array.from({ length: end - start }, (_, i) => {
+      const pageIdx = start + i;
+      return (
+        <PaginationItem key={pageIdx}>
+          <PaginationLink
+            isActive={table.getState().pagination.pageIndex === pageIdx}
+            onClick={() => table.setPageIndex(pageIdx)}
+          >
+            {pageIdx + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    });
+
+    if (end < pageCount) {
+      items.push(
+        <PaginationItem key="ellipsis">
+          <span className="px-2 select-none text-muted-foreground">…</span>
+        </PaginationItem>
+      );
+    }
+    return items;
+  }
 
   return (
     <div className="w-full overflow-x-auto">
-      {/* Filtering input */}
+      {/* Bulk Delete Button */}
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search invoice items..."
-          value={globalFilter ?? ""}
-          onChange={e => setGlobalFilter(e.target.value)}
-          className="max-w-sm"
+            placeholder="Search invoice items..."
+            value={globalFilter ?? ""}
+            onChange={e => setGlobalFilter(e.target.value)}
+            className="max-w-sm"
         />
+        {table.getFilteredSelectedRowModel().rows.length > 0 && (
+            <Button
+                variant="destructive"
+                className="ml-4"
+                onClick={handleBulkDelete}
+            >
+              Delete Selected
+            </Button>
+        )}
       </div>
-
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <TableHead
-                  key={header.id}
-                  onClick={header.column.getToggleSortingHandler?.()}
-                  className="cursor-pointer select-none whitespace-nowrap"
-                >
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                    <TableHead
+                        key={header.id}
+                        onClick={header.column.getToggleSortingHandler?.()}
+                        className="cursor-pointer select-none whitespace-nowrap"
+                    >
+                    {flexRender(header.column.columnDef.header, header.getContext())}
                   {header.column.getIsSorted() === "asc" && " 🔼"}
                   {header.column.getIsSorted() === "desc" && " 🔽"}
                 </TableHead>
@@ -264,7 +280,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
         <TableBody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map(row => (
-              <TableRow key={row.id}>
+              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id} className="whitespace-normal">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -281,7 +297,6 @@ export function InvoiceItemsDataTable({ data, siteId }) {
           )}
         </TableBody>
       </Table>
-
       {/* Pagination always bottom right */}
       <div className="flex justify-end mt-4">
         <Pagination>
@@ -292,16 +307,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
                 disabled={!table.getCanPreviousPage()}
               />
             </PaginationItem>
-            {Array.from({ length: table.getPageCount() }, (_, idx) => (
-              <PaginationItem key={idx}>
-                <PaginationLink
-                  isActive={table.getState().pagination.pageIndex === idx}
-                  onClick={() => table.setPageIndex(idx)}
-                >
-                  {idx + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {renderPagination()}
             <PaginationItem>
               <PaginationNext
                 onClick={() => table.nextPage()}
@@ -311,9 +317,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
           </PaginationContent>
         </Pagination>
       </div>
-
-     {/* ...table and pagination... */}
-       {/* ...filter, table, pagination... */}
+      {/* Edit Dialog */}
       {editItem && (
         <InvoiceItemEditDialog
           item={editItem}
@@ -321,8 +325,6 @@ export function InvoiceItemsDataTable({ data, siteId }) {
           onOpenChange={setEditOpen}
         />
       )}
-
-
     </div>
   );
 }

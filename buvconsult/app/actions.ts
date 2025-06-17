@@ -399,6 +399,13 @@ export async function updateInvoice(id: string, data: any) {
   return { ok: true };
 }
 
+export async function bulkSetIsInvoice(ids: string[], value: boolean) {
+  await prisma.invoices.updateMany({
+    where: { id: { in: ids } },
+    data: { isInvoice: value }
+  });
+}
+
 
 export async function updateInvoiceItem(id: string, data: any) {
   await prisma.invoiceItems.update({
@@ -419,17 +426,24 @@ export async function deleteInvoiceItem(id: string) {
 export async function askInvoiceGpt(siteId: string, question: string) {
   // 1. Fetch relevant data (summary for best results)
   const invoices = await prisma.invoices.findMany({
-    where: { SiteId: siteId },
+    where: { SiteId: siteId, isInvoice: true},
     select: {
       id: true, sellerName: true, invoiceNumber: true, invoiceDate: true,
       isInvoice: true, isCreditDebitProformaOrAdvanced: true
     }
   });
+
+  const invoiceIds = invoices.map(inv => inv.id);
+
   const items = await prisma.invoiceItems.findMany({
-    where: { siteId },
+    where: {
+        siteId,
+        invoiceId: {in: invoiceIds}
+
+
+    },
     select: {
-        invoiceNumber: true,
-        sellerName: true,
+        invoiceId: true,
         item: true,
         quantity: true,
         unitOfMeasure: true,
@@ -447,7 +461,7 @@ export async function askInvoiceGpt(siteId: string, question: string) {
     "Here is a summary of the invoices and invoice items from my project database.",
     `Invoices: ${JSON.stringify(invoices)}`,
     `InvoiceItems: ${JSON.stringify(items)}`,
-    "InvoiceItems are extracted items from Invoices, related by InvoiceNumber" +
+    "InvoiceItems are extracted items from Invoices, related by invoiceId" +
     "Use the data to get helpful insight for the user. Deeply analyze data. If some spendings are not clear" +
     "you can make educated guesses " +
     "be concise and try to be specific",
