@@ -42,6 +42,7 @@
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "react-slugify": "^4.0.1",
+    "remark-gfm": "^4.0.1",
     "sonner": "^2.0.3",
     "stripe": "^18.2.1",
     "tailwind-merge": "^3.3.0",

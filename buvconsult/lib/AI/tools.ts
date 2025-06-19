@@ -21,3 +21,25 @@ export const queryDatabase = tool({
     }
   },
 });
+
+export const describeSchema = tool({
+  description: "Returns the list of all tables and their columns.",
+  parameters: z.object({}),
+  execute: async () => {
+    const schema = `
+              You are an assistant that can answer questions about the following database schema.
+              **Table and column names are case-sensitive and must be used as shown. Always use double quotes for table names with capital letters.**
+              
+              - **"User"**
+                - id (String), email (String), firstName (String), lastName (String), profileImage (String), customerId (String, optional), createdAt (DateTime)
+              - **"Site"**
+                - id (String), name (String), description (String), subdirectory (String), createdAt (DateTime), updatedAt (DateTime), imageUrl (String, optional), userId (String, FK), etc.
+              - **"Invoices"**
+                - id (String), url (String), invoiceNumber (String?), sellerName (String?), invoiceTotalSumNoVat (Float?), invoiceTotalSumWithVat (Float?), buyerName (String?), invoiceDate (String?), paymentDate (String?), isInvoice (Boolean?), isCreditDebitProformaOrAdvanced (String?), uploadedAt (DateTime), userId (String, FK), SiteId (String, FK)
+              - **"InvoiceItems"**
+                - id (String), date (String?), item (String?), quantity (Float?), unitOfMeasure (String?), pricePerUnitOfMeasure (Float?), sum (Float?), currency (String?), category (String?), commentsForAi (String?), commentsForUser (String?), isInvoice (Boolean?), invoiceId (String, FK), siteId (String, FK)
+              - ... (etc. for Subscription, Post)
+              `
+    return schema ;
+  }
+});
