@@ -1,68 +1,45 @@
-"use server"
+"use server";
+import { prisma } from "@/app/utils/db";
+import OpenAI from "openai";
+
+// Initialize OpenAI
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 
+//Code to add embeddings. Manually button in Programm for now.
+export async function backfillInvoiceEmbeddings() {
+  // Get InvoiceItems without embedding (limit for batching)
+  const items = await prisma.$queryRawUnsafe(`
+    SELECT id, item, category, "commentsForAi", "commentsForUser"
+    FROM "InvoiceItems"
+    WHERE embedding IS NULL
+    LIMIT 500
+  `);
 
+  if (!items.length) {
+    return { status: "no items to embed" };
+  }
 
-import {Agent, run, tool} from '@openai/agents';
-import {z} from "zod";
+  // Process items one by one (for simplicity—can parallelize later)
+  for (const row of items as any[]) {
+    const inputText = [row.item, row.category, row.commentsForAi, row.commentsForUser]
+      .filter(Boolean)
+      .join(" ");
 
-export default async function aIAgent(){
+    // Create embedding
+    const response = await openai.embeddings.create({
+      model: "text-embedding-3-small",
+      input: inputText,
+    });
+    const embedding = response.data[0].embedding; // number[]
 
-        const myName = tool({
-                name: 'myName',
-                description: 'my name is Slava, use my name',
-                parameters: z.object({}),
-                async execute({}){
-                        return 'My name'
-                }
+    // Save embedding (pass as array, NOT string)
+    await prisma.$executeRawUnsafe(
+      `UPDATE "InvoiceItems" SET embedding = $1 WHERE id = $2`,
+      embedding,
+      row.id
+    );
+  }
 
-        })
-
-
-
-
-        const agent = new Agent({
-        name: 'Assistant',
-        instructions: 'You are a helpful assistant',
-
-        tools: [myName]
-        });
-
-        const result = await run(
-          agent,
-          'Write a haiku about pizza and use my Name.',
-        );
-        console.log(result.finalOutput);
-
-
-
-    return result.finalOutput
-
-
-
+  return { status: "done", count: items.length };
 }
-
-
-const queryDatabase = tool({
-  description: "queries the database with sql and returns the result",
-  parameters: z.object({ sql_query: z.string() }),
-  execute: async ({ sql_query }) => {
-    // we can now read the agent context from the ALS store
-    const agent = agentContext.getStore();
-    if (!agent) throw new Error("No agent found");
-
-    console.log(`running query: ${sql_query}`);
-    try {
-      const connectionString = agent.getEnv().HYPERDRIVE.connectionString;
-      const client = new Client({ connectionString });
-      await client.connect();
-
-      const result = await client.query(sql_query);
-      await client.end();
-      return JSON.stringify(result);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  },
-});

@@ -75,7 +75,8 @@ model Invoices {
   paymentDate                     String?
   isInvoice                       Boolean?
   isCreditDebitProformaOrAdvanced String?
-  uploadedAt                      DateTime @default(now())
+
+  uploadedAt DateTime @default(now())
 
   User   User?          @relation(fields: [userId], references: [id])
   userId String?

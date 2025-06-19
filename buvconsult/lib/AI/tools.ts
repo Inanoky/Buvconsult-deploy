@@ -1,7 +1,9 @@
 import { tool } from "ai"; // Or your AI agent framework
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
+import OpenAI from "openai";
 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 export const queryDatabase = tool({
   description: "Queries the database with a SELECT SQL query and returns the result." +
       "All SQL table and column names are lowercase snake_case (e.g., invoice_items, invoice_total_sum_with_vat)." +
@@ -42,4 +44,28 @@ export const describeSchema = tool({
               `
     return schema ;
   }
+});
+
+export const semanticSearch = tool({
+  description: "Semantic search over invoice items. Finds the most relevant invoice rows for a query.",
+  parameters: z.object({ query: z.string() }),
+  execute: async ({ query }) => {
+    // 1. Create embedding for the query
+    const embeddingResp = await openai.embeddings.create({
+      model: "text-embedding-3-small",
+      input: query,
+    });
+    const embedding = embeddingResp.data[0].embedding;
+    // 2. Convert to Postgres array literal
+    const pgEmbedding = `'[${embedding.join(",")}]'`;
+    // 3. Query for closest rows
+    const result = await prisma.$queryRawUnsafe(`
+      SELECT id, item, category, "commentsForAi", "commentsForUser"
+      FROM "InvoiceItems"
+      WHERE embedding IS NOT NULL
+      ORDER BY embedding <-> ${pgEmbedding}
+      LIMIT 5
+    `);
+    return { rows: result };
+  },
 });
