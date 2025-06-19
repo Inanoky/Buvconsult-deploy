@@ -10,10 +10,19 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 export async function backfillInvoiceEmbeddings() {
   // Get InvoiceItems without embedding (limit for batching)
   const items = await prisma.$queryRawUnsafe(`
-    SELECT id, item, category, "commentsForAi", "commentsForUser"
+    SELECT "InvoiceItems".id,
+           "InvoiceItems".item,
+           "InvoiceItems".category,
+           "InvoiceItems"."commentsForAi",
+           "InvoiceItems"."commentsForUser",
+           "Invoices"."sellerName",
+           "Invoices"."invoiceNumber",
+           "Invoices"."buyerName",
+           "Invoices"."invoiceDate"
     FROM "InvoiceItems"
-    WHERE embedding IS NULL
-    LIMIT 500
+    JOIN "Invoices" ON "InvoiceItems"."invoiceId" = "Invoices".id
+    WHERE "InvoiceItems".embedding IS NULL
+    LIMIT 1000
   `);
 
   if (!items.length) {
@@ -21,10 +30,17 @@ export async function backfillInvoiceEmbeddings() {
   }
 
   // Process items one by one (for simplicity—can parallelize later)
-  for (const row of items as any[]) {
-    const inputText = [row.item, row.category, row.commentsForAi, row.commentsForUser]
-      .filter(Boolean)
-      .join(" ");
+   for (const row of items) {
+    const inputText = [
+      row.item ? `Item: ${row.item}` : "",
+      row.category ? `Category: ${row.category}` : "",
+      row.commentsForAi ? `AI Comment: ${row.commentsForAi}` : "",
+      row.commentsForUser ? `User Comment: ${row.commentsForUser}` : "",
+      row.sellerName ? `Seller: ${row.sellerName}` : "",
+      row.invoiceNumber ? `Invoice Number: ${row.invoiceNumber}` : "",
+      row.buyerName ? `Buyer: ${row.buyerName}` : "",
+      row.invoiceDate ? `Invoice Date: ${row.invoiceDate}` : "",
+    ].filter(Boolean).join('\n');
 
     // Create embedding
     const response = await openai.embeddings.create({

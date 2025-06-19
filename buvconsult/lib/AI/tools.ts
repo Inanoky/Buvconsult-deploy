@@ -50,22 +50,37 @@ export const semanticSearch = tool({
   description: "Semantic search over invoice items. Finds the most relevant invoice rows for a query.",
   parameters: z.object({ query: z.string() }),
   execute: async ({ query }) => {
-    // 1. Create embedding for the query
-    const embeddingResp = await openai.embeddings.create({
-      model: "text-embedding-3-small",
-      input: query,
-    });
-    const embedding = embeddingResp.data[0].embedding;
-    // 2. Convert to Postgres array literal
-    const pgEmbedding = `'[${embedding.join(",")}]'`;
-    // 3. Query for closest rows
-    const result = await prisma.$queryRawUnsafe(`
-      SELECT id, item, category, "commentsForAi", "commentsForUser"
-      FROM "InvoiceItems"
-      WHERE embedding IS NOT NULL
-      ORDER BY embedding <-> ${pgEmbedding}
-      LIMIT 5
-    `);
-    return { rows: result };
+    try {
+      // 1. Create embedding for the query
+      const embeddingResp = await openai.embeddings.create({
+        model: "text-embedding-3-small",
+        input: query,
+      });
+      const embedding = embeddingResp.data[0].embedding;
+      // 2. Query for closest rows with expanded fields
+      const result = await prisma.$queryRawUnsafe(
+        `
+        SELECT "InvoiceItems".id,
+               "InvoiceItems".item,
+               "InvoiceItems".category,
+               "InvoiceItems"."commentsForAi",
+               "InvoiceItems"."commentsForUser",
+               "Invoices"."sellerName",
+               "Invoices"."invoiceNumber",
+               "Invoices"."buyerName",
+               "Invoices"."invoiceDate",
+               embedding <-> $1 AS distance
+        FROM "InvoiceItems"
+        JOIN "Invoices" ON "InvoiceItems"."invoiceId" = "Invoices".id
+        WHERE "InvoiceItems".embedding IS NOT NULL
+        ORDER BY embedding <-> $1
+        LIMIT 5
+        `,
+        embedding // passed as a parameter, avoids string interpolation
+      );
+      return { rows: result };
+    } catch (e) {
+      return { error: e.message };
+    }
   },
 });
