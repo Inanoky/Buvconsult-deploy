@@ -15,10 +15,16 @@ export async function backfillInvoiceEmbeddings() {
            "InvoiceItems".category,
            "InvoiceItems"."commentsForAi",
            "InvoiceItems"."commentsForUser",
+           "InvoiceItems"."unitOfMeasure",
+           "InvoiceItems"."pricePerUnitOfMeasure",
+           "InvoiceItems"."quantity",
+           "InvoiceItems"."currency",
+           "InvoiceItems"."sum",
            "Invoices"."sellerName",
            "Invoices"."invoiceNumber",
            "Invoices"."buyerName",
-           "Invoices"."invoiceDate"
+           "Invoices"."invoiceDate",
+           "Invoices"."paymentDate"
     FROM "InvoiceItems"
     JOIN "Invoices" ON "InvoiceItems"."invoiceId" = "Invoices".id
     WHERE "InvoiceItems".embedding IS NULL
@@ -32,14 +38,20 @@ export async function backfillInvoiceEmbeddings() {
   // Process items one by one (for simplicity—can parallelize later)
    for (const row of items) {
     const inputText = [
-      row.item ? `Item: ${row.item}` : "",
-      row.category ? `Category: ${row.category}` : "",
-      row.commentsForAi ? `AI Comment: ${row.commentsForAi}` : "",
-      row.commentsForUser ? `User Comment: ${row.commentsForUser}` : "",
-      row.sellerName ? `Seller: ${row.sellerName}` : "",
-      row.invoiceNumber ? `Invoice Number: ${row.invoiceNumber}` : "",
-      row.buyerName ? `Buyer: ${row.buyerName}` : "",
-      row.invoiceDate ? `Invoice Date: ${row.invoiceDate}` : "",
+            row.item ? `Item: ${row.item}` : "",
+            row.category ? `Category: ${row.category}` : "",
+            row.commentsForAi ? `AI Comment: ${row.commentsForAi}` : "",
+            row.commentsForUser ? `User Comment: ${row.commentsForUser}` : "",
+            row.unitOfMeasure ? `Unit of Measure: ${row.unitOfMeasure }` : "",
+            row.pricePerUnitOfMeasure ? `Price per unit of measure: ${row.pricePerUnitOfMeasure}` : "",
+            row.quantity  ? `Quantity: ${row.quantity}` : "",
+            row.currency ? `Currency: ${row.currency}` : "",
+            row.sum ? `Sum: ${row.sum}` : "",
+            row.sellerName ? `Seller: ${row.sellerName}` : "",
+            row.invoiceNumber ? `Invoice Number: ${row.invoiceNumber}` : "",
+            row.buyerName ? `Buyer: ${row.buyerName}` : "",
+            row.invoiceDate ? `Invoice Date: ${row.invoiceDate}` : "",
+            row.paymentDate ? `Payment Date: ${row.paymentDate}` : "",
     ].filter(Boolean).join('\n');
 
     // Create embedding

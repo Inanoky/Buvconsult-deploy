@@ -57,6 +57,10 @@ export const semanticSearch = tool({
         input: query,
       });
       const embedding = embeddingResp.data[0].embedding;
+
+      // Convert embedding to Postgres vector literal string
+      const pgEmbedding = `[${embedding.join(",")}]`;
+
       // 2. Query for closest rows with expanded fields
       const result = await prisma.$queryRawUnsafe(
         `
@@ -65,18 +69,24 @@ export const semanticSearch = tool({
                "InvoiceItems".category,
                "InvoiceItems"."commentsForAi",
                "InvoiceItems"."commentsForUser",
+               "InvoiceItems"."unitOfMeasure",
+               "InvoiceItems"."pricePerUnitOfMeasure",
+               "InvoiceItems"."quantity",
+               "InvoiceItems"."currency",
+               "InvoiceItems"."sum",        
                "Invoices"."sellerName",
                "Invoices"."invoiceNumber",
                "Invoices"."buyerName",
                "Invoices"."invoiceDate",
-               embedding <-> $1 AS distance
+               "Invoices"."paymentDate",
+               "InvoiceItems".embedding <-> $1::vector AS distance
         FROM "InvoiceItems"
         JOIN "Invoices" ON "InvoiceItems"."invoiceId" = "Invoices".id
         WHERE "InvoiceItems".embedding IS NOT NULL
-        ORDER BY embedding <-> $1
+        ORDER BY "InvoiceItems".embedding <-> $1::vector
         LIMIT 5
         `,
-        embedding // passed as a parameter, avoids string interpolation
+        pgEmbedding // << string, not array
       );
       return { rows: result };
     } catch (e) {
@@ -84,3 +94,4 @@ export const semanticSearch = tool({
     }
   },
 });
+

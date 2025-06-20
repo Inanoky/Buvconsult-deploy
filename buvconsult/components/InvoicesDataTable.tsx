@@ -289,7 +289,35 @@ export function InvoicesDataTable({ data, siteId }) {
           )}
         </TableBody>
       </Table>
-      {/* ...pagination code remains as before... */}
+      <div className="flex justify-end mt-4">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              />
+            </PaginationItem>
+            {Array.from({ length: table.getPageCount() }, (_, idx) => (
+              <PaginationItem key={idx}>
+                <PaginationLink
+                  isActive={table.getState().pagination.pageIndex === idx}
+                  onClick={() => table.setPageIndex(idx)}
+                >
+                  {idx + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+
+      </div>
       {/* ...edit dialog code remains as before... */}
       {editInvoice && (
         <InvoiceEditDialog
