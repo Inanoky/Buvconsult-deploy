@@ -215,7 +215,7 @@ const graph = workflow.compile()
 
 const res = await graph.invoke({
 
-    message: "Find and list all tools which where bought. Those includes hand tools and power tools"
+    message: "Find all cost related to concrete"
 
 })
 
