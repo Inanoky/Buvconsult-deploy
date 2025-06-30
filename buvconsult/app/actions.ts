@@ -13,6 +13,7 @@ import {stripe} from "@/app/utils/stripe";
 import gptResponse from "@/app/api/invoices/extract/route";
 import gptInvoiceSchema from "@/app/api/invoices/extract/route"
 import OpenAI from "openai";
+import { chunk } from "lodash";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -298,48 +299,72 @@ export const saveInvoiceToDB = async (_: unknown, formData: FormData) => {
   const siteId = formData.get("siteId") as string;
   const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
 
-  // 1️⃣ Run all GPT extraction calls in parallel
-  const gptResults = await Promise.all(
-    urls.map(async (url) => {
-      const gptRaw = await gptResponse(url);
-      const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
+
+  //Here we have all fields names from invoices which we also copy ot invoiceItems for later agentic
+    //analysis
+
+const INVOICE_FIELDS_TO_COPY = [
+  "invoiceNumber",
+  "sellerName",
+  // "invoiceTotalSumNoVat",
+  // "invoiceTotalSumWithVat",
+  // "buyerName",
+  "invoiceDate",
+  "paymentDate",
+];
 
 
 
+  // Split URLs into batches of 15
+  const urlBatches = chunk(urls, 15);
 
-      return { url, gptResp };
-    })
-  );
+  for (const batch of urlBatches) {
+    // 1️⃣ GPT Extraction for each batch in parallel
+    const gptResults = await Promise.all(
+      batch.map(async (url) => {
+        const gptRaw = await gptResponse(url);
+        const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
+        return { url, gptResp };
+      })
+    );
 
-  // 2️⃣ Save invoices and items for all parsed GPT results, in parallel
-  await Promise.all(
-    gptResults.map(async ({ url, gptResp }) => {
-  if (!Array.isArray(gptResp.items)) return;
-  await Promise.all(
-    gptResp.items.map(async (inv) => {
-      // destructure to drop `items`
-      const { items, ...invoiceData } = inv;
-      const savedInvoice = await prisma.invoices.create({
-        data: {
-          ...invoiceData,
-          url,
-          userId: user.id,
-          SiteId: siteId,
-        }
-      });
-      if (Array.isArray(items) && items.length > 0) {
-        await prisma.invoiceItems.createMany({
-          data: items.map(item => ({
-            ...item,
-            invoiceId: savedInvoice.id,
-            siteId: siteId,
-          }))
-        });
-      }
-    })
-  );
-})
-  );
+    // 2️⃣ Save invoices/items for all GPT results in this batch, in parallel
+    await Promise.all(
+      gptResults.map(async ({ url, gptResp }) => {
+        if (!Array.isArray(gptResp.items)) return;
+        await Promise.all(
+          gptResp.items.map(async (inv) => {
+            // destructure to drop `items`
+            const { items, ...invoiceData } = inv;
+            const savedInvoice = await prisma.invoices.create({
+              data: {
+                ...invoiceData,
+                url,
+                userId: user.id,
+                SiteId: siteId,
+              },
+            });
+            if (Array.isArray(items) && items.length > 0) {
+              await prisma.invoiceItems.createMany({
+                data: items.map(item => ({
+                  ...item,
+                  invoiceId: savedInvoice.id,
+                  siteId: siteId,
+
+                    //This acutally copies fileds from invoices to invoiceItems
+
+                    ...INVOICE_FIELDS_TO_COPY.reduce((acc, field) => {
+                    acc[field] = savedInvoice[field];
+                    return acc;
+                  }, {}),
+                })),
+              });
+            }
+          })
+        );
+      })
+    );
+  }
 
   return;
 };
@@ -450,7 +475,7 @@ export async function askInvoiceGpt(siteId: string, question: string) {
         pricePerUnitOfMeasure: true,
         sum: true,
         date: true,
-        commentsForAi:true
+        itemDescription:true
     }
   });
 

@@ -102,7 +102,9 @@ model Post {
 }
 
 model InvoiceItems {
-  id                    String   @id @default(uuid())
+  // Invoice items
+  id String @id @default(uuid())
+
   date                  String?
   item                  String?
   quantity              Float?
@@ -111,11 +113,21 @@ model InvoiceItems {
   sum                   Float?
   currency              String?
   category              String?
-  commentsForAi         String?
+  itemDescription       String?
   commentsForUser       String?
   isInvoice             Boolean?
   invoiceId             String
   invoice               Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   Site                  Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
   siteId                String?
+
+  // Invoice information
+
+  invoiceNumber String?
+  sellerName    String?
+  // invoiceTotalSumNoVat   Float?
+  // invoiceTotalSumWithVat Float?
+  // buyerName              String?
+  invoiceDate   String?
+  paymentDate   String?
 }

@@ -193,11 +193,15 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
   sum: 'sum',
   currency: 'currency',
   category: 'category',
-  commentsForAi: 'commentsForAi',
+  itemDescription: 'itemDescription',
   commentsForUser: 'commentsForUser',
   isInvoice: 'isInvoice',
   invoiceId: 'invoiceId',
-  siteId: 'siteId'
+  siteId: 'siteId',
+  invoiceNumber: 'invoiceNumber',
+  sellerName: 'sellerName',
+  invoiceDate: 'invoiceDate',
+  paymentDate: 'paymentDate'
 };
 
 exports.Prisma.SortOrder = {

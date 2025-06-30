@@ -55,8 +55,8 @@ export default function ChatAgent() {
   const [messages, setMessages] = useState([
     {
       role: "user",
-      content:
-        "I would like you to answer my question using information in database.",
+      content: "Ask your question"
+
     },
   ]);
   const [backfilling, setBackfilling] = useState(false);

@@ -20,7 +20,7 @@ export function InvoiceItemEditDialog({ item, open, onOpenChange }) {
     sum: item.sum || "",
     currency: item.currency || "",
     category: item.category || "",
-    commentsForAi: item.commentsForAi || "",
+    itemDescription: item.itemDescription || "",
     commentsForUser: item.commentsForUser || "",
     isInvoice: item.isInvoice ? "true" : "false",
   };

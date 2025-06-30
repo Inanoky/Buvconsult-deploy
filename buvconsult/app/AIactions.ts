@@ -13,7 +13,7 @@ export async function backfillInvoiceEmbeddings() {
     SELECT "InvoiceItems".id,
            "InvoiceItems".item,
            "InvoiceItems".category,
-           "InvoiceItems"."commentsForAi",
+           "InvoiceItems"."itemDescription",
            "InvoiceItems"."commentsForUser",
            "InvoiceItems"."unitOfMeasure",
            "InvoiceItems"."pricePerUnitOfMeasure",
@@ -28,7 +28,7 @@ export async function backfillInvoiceEmbeddings() {
     FROM "InvoiceItems"
     JOIN "Invoices" ON "InvoiceItems"."invoiceId" = "Invoices".id
     WHERE "InvoiceItems".embedding IS NULL
-    LIMIT 1000
+    LIMIT 3000
   `);
 
   if (!items.length) {
@@ -40,7 +40,7 @@ export async function backfillInvoiceEmbeddings() {
     const inputText = [
             row.item ? `Item: ${row.item}` : "",
             row.category ? `Category: ${row.category}` : "",
-            row.commentsForAi ? `AI Comment: ${row.commentsForAi}` : "",
+            row.itemDescription ? `AI Comment: ${row.itemDescription}` : "",
             row.commentsForUser ? `User Comment: ${row.commentsForUser}` : "",
             row.unitOfMeasure ? `Unit of Measure: ${row.unitOfMeasure }` : "",
             row.pricePerUnitOfMeasure ? `Price per unit of measure: ${row.pricePerUnitOfMeasure}` : "",

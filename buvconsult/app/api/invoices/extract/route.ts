@@ -34,7 +34,7 @@ export default async function gptResponse(fileUrl) {
   sum: z.number(),
   currency: z.string(),
   category: z.string(),
-  commentsForAi: z.string(),
+  itemDescription: z.string(),
   // Add more fields if you wish
 });
 
@@ -74,11 +74,28 @@ export default async function gptResponse(fileUrl) {
           },
           {
              type: "input_text",
-             text: "Extract general invoice metadata and information for each item in the invoice." +
+             text: "Extract general construction invoice metadata and information for each item in the invoice." +
+                 "Translate to english " +
+                 "unitsOfMeasure and itemDescription fields return in English " +
+                 "" +
+                 "" +
+                 "for itemDescription include thorough description of an item, what item likely used for, " +
+                 "it's cost, amounts, what is it made of" +
+                 "" +
+                 "for categories use : " +
+                 "heavy machinery, " +
+                 "hand tools," +
+                 "heavy building materials," +
+                 "small building materials" +
+                 "services," +
+                 "insurances" +
+                 "overheads " +
+                 "office supplies " +
+                 " " +
                  "Use dot as decimal separator" +
                   " If not and invoice, fill isInvoice field with `not an invoice`." +
                   " If some information not present - keep the field blank, do not halucinate." +
-                  " In commentsForAi field leave a description of what this item most likely is" +
+                  " In itemDescription field leave a description of what this item most likely is" +
                   "in isInvoice field is invoice credit, debit or proforma" +
                  "do not use currency sign for currencies" +
                  "Determine if invoice is debit, credit, proforma, advanced or unknown and fill in isCreditDebitProformaOrAdvanced " +
