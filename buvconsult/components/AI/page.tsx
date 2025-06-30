@@ -19,8 +19,10 @@ import { SuggestedQueries } from "@/components/VercelChatComponents/suggested-qu
 import { QueryViewer } from "@/components/VercelChatComponents/query-viewer";
 import { Search } from "@/components/VercelChatComponents/search";
 import { Header } from "@/components/VercelChatComponents/header";
+import createGraph from "@/components/AI/graph";
+import graphQuery from "@/components/AI/graph";
 
-export default function Page() {
+export default function AIassistant() {
   const [inputValue, setInputValue] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState<Result[]>([]);
@@ -40,8 +42,21 @@ export default function Page() {
     setLoading(true);
     setLoadingStep(1);
     setActiveQuery("");
+
+    //So now those are mine shenanigans below.
+
+    const graphResult = await graphQuery(question)
+
+
     try {
-      const query = await generateQuery(question);  // this generates query.
+
+
+      // const query = await generateQuery(question);  // this generates query (ORIGINAL).
+
+      //I substitue with this
+      const query = graphResult.sql
+
+
       if (query === undefined) {
         toast.error("An error occurred. Please try again.");
         setLoading(false);
@@ -49,7 +64,19 @@ export default function Page() {
       }
       setActiveQuery(query);
       setLoadingStep(2);
-      const companies = await runGenerateSQLQuery(query);
+
+
+
+
+
+
+
+
+
+      const companies = graphResult.result; //I can just pass graph.ts logic here I think
+
+
+
       const columns = companies.length > 0 ? Object.keys(companies[0]) : [];
       setResults(companies);
       setColumns(columns);
@@ -155,7 +182,7 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <ProjectInfo />
+
         </motion.div>
       </div>
     </div>

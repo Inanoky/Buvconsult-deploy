@@ -18,6 +18,7 @@ import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
 import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
 import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
+import AIassistant from "@/components/AI/page";
 
 export default async function InvoiceRoute({params}:
 
@@ -60,7 +61,7 @@ export default async function InvoiceRoute({params}:
           {/* 2️⃣ Your client upload form */}
             <div className="flex justify-between">
           <InvoiceUpload params={Promise.resolve({siteId})}/>
-          <InvoiceChatBox siteId={siteId} />
+          <AIassistant/>
                 </div>
           <div>
              <Card className="mt-10">

@@ -170,7 +170,7 @@ export const generateChartConfig = async (
 
       Here is an example complete config:
       export const chartConfig = {
-        type: "pie",
+        type: "bar",
         xKey: "month",
         yKeys: ["sales", "profit", "expenses"],
         colors: {

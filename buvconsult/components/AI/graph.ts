@@ -1,10 +1,12 @@
+"use server"
+
 // graph.ts
 import { Annotation, StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
 
-
+export default async function graphQuery(question){
 
 const schema = `
                                             model "InvoiceItems" {
@@ -213,13 +215,26 @@ const workflow = new StateGraph(state)
 
 const graph = workflow.compile()
 
-const res = await graph.invoke({
 
-    message: "Find all cost related to concrete"
+const graphResult = await graph.invoke({
+            message: `${question}`
+             })
 
-})
 
-console.log(res)
+
+// This below to start with but graph.ts
+// const res = await graph.invoke({
+//
+//     message: "Find my largest expense"
+//
+// })
+//
+// console.log(res.sql)
+
+return graphResult
+
+
+}
 
 
 
