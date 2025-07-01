@@ -59,10 +59,11 @@ export default async function InvoiceRoute({params}:
   return (
       <>
           {/* 2️⃣ Your client upload form */}
-            <div className="flex justify-between">
+
           <InvoiceUpload params={Promise.resolve({siteId})}/>
           <AIassistant/>
-                </div>
+
+
           <div>
              <Card className="mt-10">
   <CardHeader>
