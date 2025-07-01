@@ -18,7 +18,7 @@ import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
 import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
 import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
-import AIassistant from "@/components/AI/page";
+import AIassistant from "@/components/AI/aiAssistant";
 
 export default async function InvoiceRoute({params}:
 

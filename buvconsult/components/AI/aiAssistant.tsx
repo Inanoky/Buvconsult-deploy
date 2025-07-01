@@ -113,7 +113,7 @@ export default function AIassistant() {
 
   return (
     <div className="bg-neutral-50 dark:bg-neutral-900 flex items-start justify-center p-0 sm:p-8">
-      <div className="w-full max-w-4xl min-h-dvh sm:min-h-0 flex flex-col ">
+      <div className="w-full max-w-8xl sm:min-h-0 flex flex-col ">
         <motion.div
           className="bg-card rounded-xl sm:border sm:border-border flex-grow flex flex-col"
           initial={{ opacity: 0 }}
@@ -131,7 +131,7 @@ export default function AIassistant() {
             />
             <div
               id="main-container"
-              className="flex-grow flex flex-col sm:min-h-[420px]"
+              className="flex-grow flex flex-col "
             >
               <div className="flex-grow h-full">
                 <AnimatePresence mode="wait">
