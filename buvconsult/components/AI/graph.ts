@@ -144,6 +144,8 @@ const SQLconstruct = async (state) => {
     };
 };
 
+//USE BELOW AS TEMPLATE
+
 const SQLformat = async(state) => {
 
     const llm = new ChatOpenAI({
@@ -163,6 +165,7 @@ const SQLformat = async(state) => {
             sql : z.string().describe("You are given SQL query, human request and PostgreSQL schema." +
                 " Determine, which fields would be the most relevant to the user and modify SQL command accordingly" +
                 "All columns and fields names should be in double quotes" +
+                "id must always be included " +
                 "For WHERE statements always use ILIKE %%" +
                 "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
                 "fields than that. "),
@@ -184,7 +187,6 @@ const SQLformat = async(state) => {
 
 }
 
-//USE BELOW AS TEMPLATE
 
 // SQLexecute - this executes the SQL. fullResult - only used here, later we sanitize and final result
 // will only have 4 fileds max.
@@ -281,11 +283,88 @@ const returnBestFitFields = async(state) => {
 
 }
 
+
+//So, this one we can take a fullResult, batch it (say 20 objects in one go
+// then we will ask GPT to compare if query fit is a good fit for user request or not.
+// we will ask only to return values which it thinks is a good fit,
+    // Step 1 : batch fullResult to 20 objects
+    // Step 2 : send those with promise.all to GPT, tell it to return only those who are good fit
+    // Step 3 : collect in a new fullResult
+    // Step 4 : proceed with steps
+
+const qualityControl = async (state) => {
+  const batchSize = 20; // Set batch size here
+
+  const llm = new ChatOpenAI({
+    temperature: 0.1,
+    model: "gpt-4.1",
+    system: `
+You compare if received data is a good fit for user's query.
+Return only an array of IDs for objects that are a good fit.
+    `,
+  });
+
+  const structuredLlm = llm.withStructuredOutput(
+    z.object({
+      idArray: z.array(z.string()).describe("Return array of ID of only items which are good fit for user query"),
+      reason: z.string().describe("based on what you made your decisions")
+    })
+  );
+
+  const allData = state.fullResult;
+  const batches = [];
+  for (let i = 0; i < allData.length; i += batchSize) {
+    batches.push(allData.slice(i, i + batchSize));
+  }
+
+  const userQuestion = typeof question !== 'undefined' ? question : (state.message || state.userRequest || '');
+
+  // Create all prompts for each batch
+  const prompts = batches.map(batch => `
+User question: ${userQuestion}
+Data batch: ${JSON.stringify(batch, null, 2)}
+Return only an array of IDs for objects that are a good fit for the user's request.
+  `);
+
+  // Fire off all LLM requests in parallel
+  const responses = await Promise.all(
+    prompts.map((prompt, idx) =>
+      structuredLlm.invoke(["human", prompt]).then(res => ({
+        res,
+        batch: batches[idx]
+      }))
+    )
+  );
+
+  // Filter all results according to ids per batch
+  const filtered = [];
+  responses.forEach(({ res, batch }) => {
+    const batchFiltered = batch.filter(item => res.idArray.includes(item.id));
+    filtered.push(...batchFiltered);
+  });
+
+  console.log("Quality control, total filtered:", filtered.length);
+
+  return {
+    ...state,
+    fullResult: filtered
+  };
+};
+
+
+
+
+
+
+
+
+
 const workflow = new StateGraph(state)
     .addNode("query-analysis", queryAnalysis)
     .addNode("sql-construct", SQLconstruct)
     .addNode("sql-format", SQLformat)
     .addNode("sql-execute", SQLexecute)
+    .addNode("qualityControl", qualityControl)
     //Here I will add node to rate of the fields by relevance and returned most 4 most relevant fileds to the query.
     .addNode("return-best-fit-fields", returnBestFitFields)
     // .addNode("sql-result-format", SQLResultFormat)
@@ -297,7 +376,8 @@ const workflow = new StateGraph(state)
     )
     .addEdge("sql-construct", "sql-format")
     .addEdge("sql-format", "sql-execute")
-    .addEdge("sql-execute","return-best-fit-fields")
+    .addEdge("sql-execute", "qualityControl")
+    .addEdge("qualityControl","return-best-fit-fields")
     .addEdge("return-best-fit-fields", "__end__")
     .addEdge("handle-vector","__end__")
 
