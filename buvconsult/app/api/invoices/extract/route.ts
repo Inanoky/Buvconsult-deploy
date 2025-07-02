@@ -4,6 +4,7 @@
 import OpenAI from "openai";
 import {z} from "zod";
 import {zodTextFormat} from "openai/helpers/zod";
+import {constructionCategories} from "@/components/AI/ConstructionCategories";
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
@@ -82,16 +83,8 @@ export default async function gptResponse(fileUrl) {
                  "for itemDescription include thorough description of an item, what item likely used for, " +
                  "it's cost, amounts, what is it made of" +
                  "" +
-                 "for categories use : " +
-                 "heavy machinery, " +
-                 "hand tools," +
-                 "heavy building materials," +
-                 "small building materials" +
-                 "services," +
-                 "insurances" +
-                 "overheads " +
-                 "office supplies " +
-                 " " +
+                 `for categories use ${JSON.stringify(constructionCategories)} ` +
+
                  "Use dot as decimal separator" +
                   " If not and invoice, fill isInvoice field with `not an invoice`." +
                   " If some information not present - keep the field blank, do not halucinate." +
