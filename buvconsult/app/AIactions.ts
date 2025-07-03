@@ -1,6 +1,12 @@
 "use server";
 import { prisma } from "@/app/utils/db";
 import OpenAI from "openai";
+import {ChatOpenAI} from "@langchain/openai";
+import {aiSQLsearch, aiSQLsearcher} from "@/lib/AI/tools";
+import {createOpenAIFunctionsAgent} from "langchain/agents";
+import {ChatPromptTemplate, MessagesPlaceholder} from "@langchain/core/prompts";
+import {createReactAgent} from "@langchain/langgraph/prebuilt";
+import {tool} from "@langchain/core/tools";
 
 // Initialize OpenAI
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -71,3 +77,45 @@ export async function backfillInvoiceEmbeddings() {
 
   return { status: "done", count: items.length };
 }
+
+
+
+
+export async function aiChatAction(messages) {
+    console.log("Action called")
+
+
+  const llm = new ChatOpenAI({
+    model: "gpt-4o", // Or "gpt-3.5-turbo"
+    temperature: 0.2,
+  })
+
+
+    const getWeather = tool((input) => {
+  if (["sf", "san francisco"].includes(input.location.toLowerCase())) {
+    return "It's 60 degrees and foggy.";
+  } else {
+    return "It's 90 degrees and sunny.";
+  }
+}, {
+  name: "get_weather",
+  description: "Call to get the current weather.",
+  schema: z.object({
+    location: z.string().describe("Location to get the weather for."),
+  })
+})
+
+    const agent = createReactAgent({
+
+        llm: llm,
+        tools: [aiSQLsearch]
+    })
+
+  const result = await agent.invoke(
+      {messages}
+  )
+
+
+  return { result: result.content };
+}
+

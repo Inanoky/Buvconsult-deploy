@@ -1,10 +1,11 @@
 "use server"
 
-// graph.ts
+// aiSQLsearcher.ts
 import { Annotation, StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
+import {constructionCategories} from "@/components/AI/ConstructionCategories";
 
 export default async function graphQuery(question){
 
@@ -80,6 +81,7 @@ const state = Annotation.Root({
 });
 
 const queryAnalysis = async (state) => {
+    console.log("STATE RECEIVED IN queryAnalysis:", state)
     const llm = new ChatOpenAI({
         temperature: 0,
         model: "gpt-4.1",
@@ -113,16 +115,27 @@ const SQLconstruct = async (state) => {
         temperature: 0,
         model: "gpt-4.1",
         system:
-            `Table names and field names in a query always enclose in double quotes. 
+            `You are intelligent construction project management, estimation specialsist
+            and also you are postgreSQL database specialist
+            
+            You are given :
+            
+            1) User question
+            2) Database schema
+            3) List of available categories
+            
+            Create an SQL request to provide best match for the user result. 
+            
+            
+            
+            Table names and field names in a query always enclose in double quotes. 
             For WHERE statements always use ILIKE %%
-            You are an expert in SQL and Prisma/Postgres. Given the Prisma schema and user question,
-             write a SQL query for Postgres (do not explain, just give the SQL query)
+            
+            
+            
              
              
-             return in a format {
-             sql: string
-             reason: string
-             }`,
+            `,
     });
 
     const structuredLlm = llm.withStructuredOutput(
@@ -134,7 +147,8 @@ const SQLconstruct = async (state) => {
         })
     )
 
-    const prompt = `Schema:\n${schema}\nUser query: ${state.message}\nWrite a valid PostgreSQL SQL query (no explanation).`;
+    const prompt = `Schema:\n${schema}\nUser question: ${state.message}\nWrite a valid PostgreSQL SQL query (no explanation).
+    categories : ${JSON.stringify(constructionCategories)}`;
 
     const res = await structuredLlm.invoke(["human", prompt]);
     console.log("SQLconstruct  ", res)
@@ -387,7 +401,7 @@ const graph = workflow.compile()
 // -------------------- TEST -----------------------
 
 
-// This below to start with but graph.ts
+// This below to start with but aiSQLsearcher.ts
 // const res = await graph.invoke({
 //
 //     message: "Find my 5 largest expenses"
@@ -401,7 +415,7 @@ const graph = workflow.compile()
 
 
 const graphResult = await graph.invoke({
-    message: `${question}`
+    message: question
      })
 
 

@@ -97,4 +97,3 @@ export const constructionCategories = [
   }
 ]
 
-console.log(constructionCategories)

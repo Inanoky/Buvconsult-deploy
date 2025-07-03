@@ -78,12 +78,12 @@ export default async function gptResponse(fileUrl) {
              text: "Extract general construction invoice metadata and information for each item in the invoice." +
                  "Translate to english " +
                  "unitsOfMeasure and itemDescription fields return in English " +
-                 "" +
+                 "for item field extract item description from the invoice" +
                  "" +
                  "for itemDescription include thorough description of an item, what item likely used for, " +
                  "it's cost, amounts, what is it made of" +
                  "" +
-                 `for categories use ${JSON.stringify(constructionCategories)} ` +
+                 `for categories use ${JSON.stringify(constructionCategories)}, but keep hierarchy intact` +
 
                  "Use dot as decimal separator" +
                   " If not and invoice, fill isInvoice field with `not an invoice`." +
