@@ -25,7 +25,7 @@ export default function AIChatGeneral() {
     setInput("");
     try {
       const result = await aiGeneral(input);
-      const botMsg = { sender: "bot", text: result.answer || "Sorry, I didn't get that." };
+      const botMsg = { sender: "bot", text: JSON.stringify(result.answer) || "Sorry, I didn't get that." };
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {
       setMessages((msgs) => [

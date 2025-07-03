@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "@/app/components/dashboard/ThemeProvider";
 import {Toaster} from "@/components/ui/sonner"
+import AIChatGeneral from "@/components/AI/AIwidget";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         {children}
+           <AIChatGeneral/>
            <Toaster richColors closeButton/>
            </ThemeProvider>
       </body>
