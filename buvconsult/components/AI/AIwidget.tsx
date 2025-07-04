@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Card, CardHeader, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -7,12 +7,51 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, User, SendHorizonal } from "lucide-react";
 import aiGeneral from "@/components/AI/aiGeneral";
 import { Separator } from "@/components/ui/separator";
+import * as XLSX from "xlsx";
+
+// -- Helper to get unique values for column filtering --
+function getUniqueValues(data, key) {
+  return Array.from(new Set(data.map(row => row[key] ?? "")));
+}
+
+// -- Excel export using SheetJS --
+function exportToExcel(headers, rows) {
+  const worksheetData = [
+    headers,
+    ...rows.map(row => headers.map(h => row[h] ?? ""))
+  ];
+  const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+  XLSX.writeFile(workbook, "table_data.xlsx");
+}
 
 // -- Table modal component --
 function TableModal({ data, onClose }) {
   if (!Array.isArray(data) || data.length === 0) return null;
   const headers = Object.keys(data[0]);
-  const sumTotal = data.reduce((acc, row) => acc + (parseFloat(row.sum) || 0), 0);
+  const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState({});
+
+  // Filtering and searching
+  const filteredData = useMemo(() => {
+    return data.filter(row =>
+      headers.every(
+        (h) =>
+          (!filters[h] || filters[h] === "" || row[h] === filters[h]) &&
+          (search === "" ||
+            Object.values(row)
+              .join(" ")
+              .toLowerCase()
+              .includes(search.toLowerCase()))
+      )
+    );
+  }, [data, filters, search, headers]);
+
+  const sumTotal = filteredData.reduce(
+    (acc, row) => acc + (parseFloat(row.sum) || 0),
+    0
+  );
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[99] flex items-center justify-center">
@@ -20,22 +59,61 @@ function TableModal({ data, onClose }) {
         <button
           className="absolute right-4 top-4 text-3xl text-gray-700 hover:text-red-500 font-bold"
           onClick={onClose}
-        >×</button>
+        >
+          ×
+        </button>
         <h3 className="mb-4 text-2xl font-bold">RESULTS</h3>
+        <div className="flex flex-wrap gap-2 mb-2">
+          <Input
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="max-w-xs"
+          />
+          <Button
+            onClick={() => exportToExcel(headers, filteredData)}
+            variant="outline"
+          >
+            Export to Excel
+          </Button>
+        </div>
         <div className="overflow-x-auto max-h-[80vh]">
           <table className="min-w-full border border-gray-300 text-base">
             <thead>
               <tr>
                 {headers.map((h) => (
-                  <th key={h} className="border-b px-4 py-3 text-left font-semibold bg-gray-50">{h}</th>
+                  <th
+                    key={h}
+                    className="border-b px-4 py-3 text-left font-semibold bg-gray-50"
+                  >
+                    <div className="flex flex-col">
+                      <span>{h}</span>
+                      <select
+                        className="mt-1 text-xs px-1 py-0.5 border rounded"
+                        value={filters[h] || ""}
+                        onChange={(e) =>
+                          setFilters((f) => ({ ...f, [h]: e.target.value }))
+                        }
+                      >
+                        <option value="">All</option>
+                        {getUniqueValues(data, h).map((v) => (
+                          <option key={v} value={v}>
+                            {v}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {data.map((row, i) => (
+              {filteredData.map((row, i) => (
                 <tr key={i}>
                   {headers.map((h) => (
-                    <td key={h} className="border-b px-4 py-2">{row[h]}</td>
+                    <td key={h} className="border-b px-4 py-2">
+                      {row[h]}
+                    </td>
                   ))}
                 </tr>
               ))}
@@ -43,11 +121,21 @@ function TableModal({ data, onClose }) {
               <tr className="bg-gray-100 font-bold">
                 {headers.map((h) =>
                   h === "sum" ? (
-                    <td key={h} className="px-4 py-2 border-t border-b border-gray-400 text-right">
-                      Subtotal: {sumTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    <td
+                      key={h}
+                      className="px-4 py-2 border-t border-b border-gray-400 text-right"
+                    >
+                      Subtotal:{" "}
+                      {sumTotal.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </td>
                   ) : (
-                    <td key={h} className="px-4 py-2 border-t border-b border-gray-400"></td>
+                    <td
+                      key={h}
+                      className="px-4 py-2 border-t border-b border-gray-400"
+                    ></td>
                   )
                 )}
               </tr>
@@ -59,10 +147,9 @@ function TableModal({ data, onClose }) {
   );
 }
 
-
 export default function AIChatGeneral() {
   const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hi! 👋 How can I help you today?" },
+    { sender: "bot", aiComment: "Hi! 👋 How can I help you today?", answer: "" },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -79,16 +166,17 @@ export default function AIChatGeneral() {
     setInput("");
     try {
       const result = await aiGeneral(input);
-      // Store as string
+      // Always store both aiComment and answer
       const botMsg = {
         sender: "bot",
-        text: typeof result.answer === "string" ? result.answer : JSON.stringify(result.answer) || "Sorry, I didn't get that.",
+        aiComment: result.aiComment ?? "",
+        answer: result.answer ?? ""
       };
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {
       setMessages((msgs) => [
         ...msgs,
-        { sender: "bot", text: "Something went wrong." },
+        { sender: "bot", aiComment: "Something went wrong.", answer: "" },
       ]);
     }
     setLoading(false);
@@ -99,33 +187,54 @@ export default function AIChatGeneral() {
     if (e.key === "Enter" && !loading) handleSend();
   };
 
-  // Renders message, checks for JSON array and shows hyperlink if valid
+  // Always render aiComment : answer (as link if answer is table)
   function renderMessage(msg) {
-    if (
-      msg.sender === "bot" &&
-      typeof msg.text === "string"
-    ) {
-      try {
-        const data = JSON.parse(msg.text);
-        if (Array.isArray(data) && typeof data[0] === "object") {
-          return (
-            <span>
-              <Bot size={18} className="inline mr-2" />
-              <button
-                className="text-blue-700 underline hover:text-blue-900"
-                onClick={() => setExpandedData(data)}
-              >
-                View data table
-              </button>
-            </span>
-          );
+    if (msg.sender === "bot" && msg.aiComment !== undefined) {
+      // Detect table: answer is array of objects
+      let isTable = false;
+      let tableData = null;
+      if (msg.answer) {
+        if (Array.isArray(msg.answer) && typeof msg.answer[0] === "object") {
+          isTable = true;
+          tableData = msg.answer;
+        } else {
+          // Support stringified array as well
+          try {
+            const parsed = JSON.parse(msg.answer);
+            if (Array.isArray(parsed) && typeof parsed[0] === "object") {
+              isTable = true;
+              tableData = parsed;
+            }
+          } catch {}
         }
-      } catch {}
+      }
+      return (
+        <span>
+          <Bot size={18} className="inline mr-2" />
+          <span className="font-medium">{msg.aiComment}</span>
+          <span>: </span>
+          {isTable ? (
+            <button
+              className="text-blue-700 underline hover:text-blue-900 ml-1"
+              onClick={() => setExpandedData(tableData)}
+            >
+              View table
+            </button>
+          ) : (
+            <span className="ml-1">{String(msg.answer)}</span>
+          )}
+        </span>
+      );
     }
-    // Otherwise, render as plain text
+
+    // User message or fallback
     return (
       <span>
-        {msg.sender === "user" ? <User size={18} className="inline mr-2" /> : <Bot size={18} className="inline mr-2" />}
+        {msg.sender === "user" ? (
+          <User size={18} className="inline mr-2" />
+        ) : (
+          <Bot size={18} className="inline mr-2" />
+        )}
         {msg.text}
       </span>
     );
@@ -164,7 +273,11 @@ export default function AIChatGeneral() {
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
-                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                    className={`flex ${
+                      msg.sender === "user"
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
                   >
                     <div
                       className={`rounded-2xl px-4 py-2 max-w-[70%] ${
@@ -197,7 +310,11 @@ export default function AIChatGeneral() {
                 onKeyDown={handleKeyDown}
                 className="flex-1"
               />
-              <Button onClick={handleSend} disabled={loading || !input.trim()} size="icon">
+              <Button
+                onClick={handleSend}
+                disabled={loading || !input.trim()}
+                size="icon"
+              >
                 <SendHorizonal size={20} />
               </Button>
             </CardFooter>

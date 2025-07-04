@@ -23,6 +23,7 @@ const state = Annotation.Root({
     }),
     answer: Annotation<string>(),
     call_db_agent: Annotation<string>(),
+    aiComment: Annotation<string>(),
 
 });
 
@@ -49,7 +50,8 @@ const generalQuestion = async (state) => {
     return {
         ...state,
         call_db_agent : res.call_db_agent,
-        answer : res.answer
+        aiComment : res.answer
+        //Here we can store User message I think
     };
 };
 
@@ -84,9 +86,12 @@ const SQLquery = async (state) => {
 
     const response = await graphQuery(state.message)
 
+    //I think maybe here I actually need some like conclusion?
+
     return {
         ...state,
-        answer : response.result
+        answer : response.result,
+        aiComment: "This is your response"
     }
 
 
