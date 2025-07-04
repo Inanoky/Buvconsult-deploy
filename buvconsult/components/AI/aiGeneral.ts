@@ -22,6 +22,7 @@ const state = Annotation.Root({
     }),
     answer: Annotation<string>(),
     continue: Annotation<string>(),
+
 });
 
 const generalQuestion = async (state) => {
@@ -30,13 +31,17 @@ const generalQuestion = async (state) => {
         temperature: 0.5,
         model: "gpt-4.1",
         system:
-            "Your are database specialist and have access to construction database"
+            "Your are database specialist and have access to construction database" +
+            "You will have query from user. " +
+            "If you can - answer straight away, if not, you can pass this question further" +
+            "and next agent will retreive information from database"
     });
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
             answer: z.string().describe("Give your answer"),
-            continue : z.enum(["yes","no"]).describe("If asked to fetch info from database - return `yes` otherwise 'no`")
+            continue : z.enum(["yes","no"]).describe("If asked to fetch info from database - return `yes` otherwise 'no`"),
+            reason: z.string().describe("Give your reason for your decision")
         })
     );
 

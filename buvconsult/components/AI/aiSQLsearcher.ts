@@ -176,9 +176,11 @@ const SQLformat = async(state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            sql : z.string().describe("You are given SQL query, human request and PostgreSQL schema." +
+            newSQL : z.string().describe("You are given SQL query, human request and PostgreSQL schema." +
                 " Determine, which fields would be the most relevant to the user and modify SQL command accordingly" +
+                "Return adjusted SQL." +
                 "All columns and fields names should be in double quotes" +
+                "If user query is somehow related dates/periods - switch to searching FROM`Invoices` table " +
                 "id must always be included " +
                 "For WHERE statements always use ILIKE %%" +
                 "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
@@ -195,7 +197,7 @@ const SQLformat = async(state) => {
 
     return {
         ...state,
-        sql: res.sql,
+        sql: res.newSQL,
     };
 
 

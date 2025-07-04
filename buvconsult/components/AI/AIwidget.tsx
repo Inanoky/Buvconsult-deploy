@@ -1,12 +1,64 @@
 "use client";
 import { useState, useRef } from "react";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, User, SendHorizonal, MessageCircle } from "lucide-react";
+import { Bot, User, SendHorizonal } from "lucide-react";
 import aiGeneral from "@/components/AI/aiGeneral";
 import { Separator } from "@/components/ui/separator";
+
+// -- Table modal component --
+function TableModal({ data, onClose }) {
+  if (!Array.isArray(data) || data.length === 0) return null;
+  const headers = Object.keys(data[0]);
+  const sumTotal = data.reduce((acc, row) => acc + (parseFloat(row.sum) || 0), 0);
+
+  return (
+    <div className="fixed inset-0 bg-black/40 z-[99] flex items-center justify-center">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 relative">
+        <button
+          className="absolute right-4 top-4 text-3xl text-gray-700 hover:text-red-500 font-bold"
+          onClick={onClose}
+        >×</button>
+        <h3 className="mb-4 text-2xl font-bold">JSON Data Table</h3>
+        <div className="overflow-x-auto max-h-[80vh]">
+          <table className="min-w-full border border-gray-300 text-base">
+            <thead>
+              <tr>
+                {headers.map((h) => (
+                  <th key={h} className="border-b px-4 py-3 text-left font-semibold bg-gray-50">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row, i) => (
+                <tr key={i}>
+                  {headers.map((h) => (
+                    <td key={h} className="border-b px-4 py-2">{row[h]}</td>
+                  ))}
+                </tr>
+              ))}
+              {/* Subtotal row */}
+              <tr className="bg-gray-100 font-bold">
+                {headers.map((h) =>
+                  h === "sum" ? (
+                    <td key={h} className="px-4 py-2 border-t border-b border-gray-400 text-right">
+                      Subtotal: {sumTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </td>
+                  ) : (
+                    <td key={h} className="px-4 py-2 border-t border-b border-gray-400"></td>
+                  )
+                )}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 export default function AIChatGeneral() {
   const [messages, setMessages] = useState([
@@ -14,7 +66,9 @@ export default function AIChatGeneral() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false); // Controls widget open/close
+  const [open, setOpen] = useState(false);
+  const [expandedData, setExpandedData] = useState(null); // For modal
+
   const inputRef = useRef();
 
   const handleSend = async () => {
@@ -25,7 +79,11 @@ export default function AIChatGeneral() {
     setInput("");
     try {
       const result = await aiGeneral(input);
-      const botMsg = { sender: "bot", text: JSON.stringify(result.answer) || "Sorry, I didn't get that." };
+      // Store as string
+      const botMsg = {
+        sender: "bot",
+        text: typeof result.answer === "string" ? result.answer : JSON.stringify(result.answer) || "Sorry, I didn't get that.",
+      };
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {
       setMessages((msgs) => [
@@ -41,7 +99,38 @@ export default function AIChatGeneral() {
     if (e.key === "Enter" && !loading) handleSend();
   };
 
-  // --- Floating Button & Widget ---
+  // Renders message, checks for JSON array and shows hyperlink if valid
+  function renderMessage(msg) {
+    if (
+      msg.sender === "bot" &&
+      typeof msg.text === "string"
+    ) {
+      try {
+        const data = JSON.parse(msg.text);
+        if (Array.isArray(data) && typeof data[0] === "object") {
+          return (
+            <span>
+              <Bot size={18} className="inline mr-2" />
+              <button
+                className="text-blue-700 underline hover:text-blue-900"
+                onClick={() => setExpandedData(data)}
+              >
+                View data table
+              </button>
+            </span>
+          );
+        }
+      } catch {}
+    }
+    // Otherwise, render as plain text
+    return (
+      <span>
+        {msg.sender === "user" ? <User size={18} className="inline mr-2" /> : <Bot size={18} className="inline mr-2" />}
+        {msg.text}
+      </span>
+    );
+  }
+
   return (
     <>
       {/* Floating Button */}
@@ -84,10 +173,7 @@ export default function AIChatGeneral() {
                           : "bg-gray-200 text-gray-900"
                       }`}
                     >
-                      <div className="flex items-center gap-2">
-                        {msg.sender === "user" ? <User size={18} /> : <Bot size={18} />}
-                        <span>{msg.text}</span>
-                      </div>
+                      {renderMessage(msg)}
                     </div>
                   </div>
                 ))}
@@ -117,6 +203,11 @@ export default function AIChatGeneral() {
             </CardFooter>
           </Card>
         </div>
+      )}
+
+      {/* Modal for data table */}
+      {expandedData && (
+        <TableModal data={expandedData} onClose={() => setExpandedData(null)} />
       )}
     </>
   );
