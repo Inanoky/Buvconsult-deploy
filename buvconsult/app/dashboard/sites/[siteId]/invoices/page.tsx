@@ -48,7 +48,6 @@ export default async function InvoiceRoute({params}:
     { key: "sum", label: "Sum" },
     { key: "currency", label: "Currency" },
     { key: "category", label: "Category" },
-
     { key: "isInvoice", label: "Is Invoice" },
   ];
 
@@ -61,7 +60,7 @@ export default async function InvoiceRoute({params}:
           {/* 2️⃣ Your client upload form */}
 
           <InvoiceUpload params={Promise.resolve({siteId})}/>
-          <AIassistant/>
+
 
 
           <div>

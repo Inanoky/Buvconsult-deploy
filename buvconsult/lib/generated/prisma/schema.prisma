@@ -105,7 +105,6 @@ model InvoiceItems {
   // Invoice items
   id String @id @default(uuid())
 
-  date                  String?
   item                  String?
   quantity              Float?
   unitOfMeasure         String?

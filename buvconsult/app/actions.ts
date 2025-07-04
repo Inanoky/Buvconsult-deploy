@@ -306,7 +306,7 @@ export const saveInvoiceToDB = async (_: unknown, formData: FormData) => {
 const INVOICE_FIELDS_TO_COPY = [
   "invoiceNumber",
   "sellerName",
-  // "invoiceTotalSumNoVat",
+  "invoiceDate",
   // "invoiceTotalSumWithVat",
   // "buyerName",
   "invoiceDate",

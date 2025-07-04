@@ -16,12 +16,12 @@ function TableModal({ data, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[99] flex items-center justify-center">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-4xl w-full mx-4 relative">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-8xl w-full mx-4 relative">
         <button
           className="absolute right-4 top-4 text-3xl text-gray-700 hover:text-red-500 font-bold"
           onClick={onClose}
         >×</button>
-        <h3 className="mb-4 text-2xl font-bold">JSON Data Table</h3>
+        <h3 className="mb-4 text-2xl font-bold">RESULTS</h3>
         <div className="overflow-x-auto max-h-[80vh]">
           <table className="min-w-full border border-gray-300 text-base">
             <thead>

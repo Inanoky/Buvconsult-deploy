@@ -7476,7 +7476,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMinAggregateOutputType = {
     id: string | null
-    date: string | null
     item: string | null
     quantity: number | null
     unitOfMeasure: string | null
@@ -7497,7 +7496,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMaxAggregateOutputType = {
     id: string | null
-    date: string | null
     item: string | null
     quantity: number | null
     unitOfMeasure: string | null
@@ -7518,7 +7516,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCountAggregateOutputType = {
     id: number
-    date: number
     item: number
     quantity: number
     unitOfMeasure: number
@@ -7553,7 +7550,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMinAggregateInputType = {
     id?: true
-    date?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7574,7 +7570,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMaxAggregateInputType = {
     id?: true
-    date?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7595,7 +7590,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCountAggregateInputType = {
     id?: true
-    date?: true
     item?: true
     quantity?: true
     unitOfMeasure?: true
@@ -7703,7 +7697,6 @@ export namespace Prisma {
 
   export type InvoiceItemsGroupByOutputType = {
     id: string
-    date: string | null
     item: string | null
     quantity: number | null
     unitOfMeasure: string | null
@@ -7743,7 +7736,6 @@ export namespace Prisma {
 
   export type InvoiceItemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7766,7 +7758,6 @@ export namespace Prisma {
 
   export type InvoiceItemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7789,7 +7780,6 @@ export namespace Prisma {
 
   export type InvoiceItemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    date?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7812,7 +7802,6 @@ export namespace Prisma {
 
   export type InvoiceItemsSelectScalar = {
     id?: boolean
-    date?: boolean
     item?: boolean
     quantity?: boolean
     unitOfMeasure?: boolean
@@ -7831,7 +7820,7 @@ export namespace Prisma {
     paymentDate?: boolean
   }
 
-  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "itemDescription" | "commentsForUser" | "isInvoice" | "invoiceId" | "siteId" | "invoiceNumber" | "sellerName" | "invoiceDate" | "paymentDate", ExtArgs["result"]["invoiceItems"]>
+  export type InvoiceItemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "item" | "quantity" | "unitOfMeasure" | "pricePerUnitOfMeasure" | "sum" | "currency" | "category" | "itemDescription" | "commentsForUser" | "isInvoice" | "invoiceId" | "siteId" | "invoiceNumber" | "sellerName" | "invoiceDate" | "paymentDate", ExtArgs["result"]["invoiceItems"]>
   export type InvoiceItemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     invoice?: boolean | InvoicesDefaultArgs<ExtArgs>
     Site?: boolean | InvoiceItems$SiteArgs<ExtArgs>
@@ -7853,7 +7842,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      date: string | null
       item: string | null
       quantity: number | null
       unitOfMeasure: string | null
@@ -8296,7 +8284,6 @@ export namespace Prisma {
    */
   interface InvoiceItemsFieldRefs {
     readonly id: FieldRef<"InvoiceItems", 'String'>
-    readonly date: FieldRef<"InvoiceItems", 'String'>
     readonly item: FieldRef<"InvoiceItems", 'String'>
     readonly quantity: FieldRef<"InvoiceItems", 'Float'>
     readonly unitOfMeasure: FieldRef<"InvoiceItems", 'String'>
@@ -8840,7 +8827,6 @@ export namespace Prisma {
 
   export const InvoiceItemsScalarFieldEnum: {
     id: 'id',
-    date: 'date',
     item: 'item',
     quantity: 'quantity',
     unitOfMeasure: 'unitOfMeasure',
@@ -9413,7 +9399,6 @@ export namespace Prisma {
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
-    date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9436,7 +9421,6 @@ export namespace Prisma {
 
   export type InvoiceItemsOrderByWithRelationInput = {
     id?: SortOrder
-    date?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
     quantity?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
@@ -9462,7 +9446,6 @@ export namespace Prisma {
     AND?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
     OR?: InvoiceItemsWhereInput[]
     NOT?: InvoiceItemsWhereInput | InvoiceItemsWhereInput[]
-    date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -9485,7 +9468,6 @@ export namespace Prisma {
 
   export type InvoiceItemsOrderByWithAggregationInput = {
     id?: SortOrder
-    date?: SortOrderInput | SortOrder
     item?: SortOrderInput | SortOrder
     quantity?: SortOrderInput | SortOrder
     unitOfMeasure?: SortOrderInput | SortOrder
@@ -9514,7 +9496,6 @@ export namespace Prisma {
     OR?: InvoiceItemsScalarWhereWithAggregatesInput[]
     NOT?: InvoiceItemsScalarWhereWithAggregatesInput | InvoiceItemsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"InvoiceItems"> | string
-    date?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     item?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
     quantity?: FloatNullableWithAggregatesFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableWithAggregatesFilter<"InvoiceItems"> | string | null
@@ -10002,7 +9983,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -10023,7 +10003,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedCreateInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -10044,7 +10023,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10065,7 +10043,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10086,7 +10063,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateManyInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -10107,7 +10083,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10126,7 +10101,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10626,7 +10600,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCountOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -10653,7 +10626,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMaxOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -10674,7 +10646,6 @@ export namespace Prisma {
 
   export type InvoiceItemsMinOrderByAggregateInput = {
     id?: SortOrder
-    date?: SortOrder
     item?: SortOrder
     quantity?: SortOrder
     unitOfMeasure?: SortOrder
@@ -11765,7 +11736,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateWithoutSiteInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -11785,7 +11755,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedCreateWithoutSiteInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -11903,7 +11872,6 @@ export namespace Prisma {
     OR?: InvoiceItemsScalarWhereInput[]
     NOT?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
     id?: StringFilter<"InvoiceItems"> | string
-    date?: StringNullableFilter<"InvoiceItems"> | string | null
     item?: StringNullableFilter<"InvoiceItems"> | string | null
     quantity?: FloatNullableFilter<"InvoiceItems"> | number | null
     unitOfMeasure?: StringNullableFilter<"InvoiceItems"> | string | null
@@ -12054,7 +12022,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateWithoutInvoiceInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -12074,7 +12041,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedCreateWithoutInvoiceInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -12670,7 +12636,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateManySiteInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -12776,7 +12741,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUpdateWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12796,7 +12760,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12816,7 +12779,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateManyWithoutSiteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12836,7 +12798,6 @@ export namespace Prisma {
 
   export type InvoiceItemsCreateManyInvoiceInput = {
     id?: string
-    date?: string | null
     item?: string | null
     quantity?: number | null
     unitOfMeasure?: string | null
@@ -12856,7 +12817,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12876,7 +12836,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12896,7 +12855,6 @@ export namespace Prisma {
 
   export type InvoiceItemsUncheckedUpdateManyWithoutInvoiceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: NullableStringFieldUpdateOperationsInput | string | null
     item?: NullableStringFieldUpdateOperationsInput | string | null
     quantity?: NullableFloatFieldUpdateOperationsInput | number | null
     unitOfMeasure?: NullableStringFieldUpdateOperationsInput | string | null

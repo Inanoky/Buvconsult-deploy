@@ -7,6 +7,7 @@ import { z } from "zod";
 import { ToolNode } from '@langchain/langgraph/prebuilt';
 import {getCoolestCities} from "@/lib/AI/tools";
 import graphQuery from "@/components/AI/aiSQLsearcher";
+import {generalQuestionPrompts} from "@/components/AI/Prompts";
 
 export default async function aiGeneral(question){
 
@@ -21,7 +22,7 @@ const state = Annotation.Root({
         reducer: (currValue, updateValue) => currValue.concat(updateValue),
     }),
     answer: Annotation<string>(),
-    continue: Annotation<string>(),
+    call_db_agent: Annotation<string>(),
 
 });
 
@@ -30,17 +31,14 @@ const generalQuestion = async (state) => {
     const llm = new ChatOpenAI({
         temperature: 0.5,
         model: "gpt-4.1",
-        system:
-            "Your are database specialist and have access to construction database" +
-            "You will have query from user. " +
-            "If you can - answer straight away, if not, you can pass this question further" +
-            "and next agent will retreive information from database"
+        system: generalQuestionPrompts
+
     });
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
             answer: z.string().describe("Give your answer"),
-            continue : z.enum(["yes","no"]).describe("If asked to fetch info from database - return `yes` otherwise 'no`"),
+            call_db_agent : z.enum(["yes","no"]).describe("If asked need to call database agent - return `yes`"),
             reason: z.string().describe("Give your reason for your decision")
         })
     );
@@ -50,20 +48,19 @@ const generalQuestion = async (state) => {
     console.log("generalQuestion  ", res)
     return {
         ...state,
-        continue : res.continue,
+        call_db_agent : res.call_db_agent,
         answer : res.answer
     };
 };
 
 
-const coolestCity = async (state) => {
+const summarization = async (state) => {
 
     const llm = new ChatOpenAI({
         temperature: 0,
         model: "gpt-4.1",
-        system:
-            "You say Riga"
-    });
+        system: "You are data scientist which summarizes the data "
+                });
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
@@ -106,7 +103,7 @@ const workflow = new StateGraph(state)
     .addNode("SQLquery", SQLquery)
     .addEdge("__start__", "generalQuestion")
     .addConditionalEdges("generalQuestion", (state) =>
-        state.continue === "yes" ? "SQLquery" : "__end__"
+        state.call_db_agent === "yes" ? "SQLquery" : "__end__"
     )
     .addEdge("SQLquery","__end__")
 

@@ -6,6 +6,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
 import {constructionCategories} from "@/components/AI/ConstructionCategories";
+import {qualityControlPrompt, qualityControlSystemPrompt} from "@/components/AI/Prompts";
 
 export default async function graphQuery(question){
 
@@ -33,8 +34,7 @@ const allowedFieldKeys = [
 
 const schema = `
                                             model "InvoiceItems" {
-                                              id String @id @default(uuid())
-                                              date String? - Description : contains date of an invoice
+                                              id String @id @default(uuid())                                              
                                               item String? - Description : contain original description of an invoice item
                                               quantity Float? - 
                                               "unitOfMeasure" String?
@@ -51,7 +51,7 @@ const schema = `
                                               "siteId" String?
                                               "invoiceNumber" String?
                                               "sellerName" String? 
-                                              "invoiceDate" String?
+                                              "invoiceDate" String? - Description : contains date of an invoice
                                               "paymentDate" String?
                                             }`;
 
@@ -251,8 +251,8 @@ const returnBestFitFields = async(state) => {
         temperature: 0.1,
         model: "gpt-4.1",
         system:
-            `We need to present data to teh client. You will check the SQL query, database schema and and user query. You will rate the fields according to their 
-            relevance to the user query. You will have to choose 4 most relevant fields to display to user.
+            `We need to present data to the client. You will check the SQL query, database schema and and user query. You will rate the fields according to their 
+            relevance to the user query. You will have to choose 6 most relevant fields to display to user.
                        
             `,
 
@@ -264,8 +264,8 @@ const returnBestFitFields = async(state) => {
         z.object({
             userDisplayFields: z
                     .array(z.enum(allowedFieldKeys)) // only those strings allowed
-                    .max(4, "No more than 4 fields allowed")
-                    .describe("chose 4 FieldKeys which would be best to use to display data to the user "),
+                    .max(6, "No more than 6 fields allowed")
+                    .describe("chose 6 FieldKeys which would be best to use to display data to the user "),
             reason: z.string().describe("based on what you made your decisions")
         })
     )
@@ -309,21 +309,23 @@ const returnBestFitFields = async(state) => {
     // Step 4 : proceed with steps
 
 const qualityControl = async (state) => {
-  const batchSize = 20; // Set batch size here
+  const batchSize = 20;
 
   const llm = new ChatOpenAI({
     temperature: 0.1,
     model: "gpt-4.1",
-    system: `
-You compare if received data is a good fit for user's query.
-Return only an array of IDs for objects that are a good fit.
-    `,
+    system: qualityControlSystemPrompt,
   });
 
   const structuredLlm = llm.withStructuredOutput(
     z.object({
-      idArray: z.array(z.string()).describe("Return array of ID of only items which are good fit for user query"),
-      reason: z.string().describe("based on what you made your decisions")
+      results: z.array(
+        z.object({
+          id: z.string(),
+          accepted: z.boolean(),
+          reason: z.string(),
+        })
+      ),
     })
   );
 
@@ -333,39 +335,59 @@ Return only an array of IDs for objects that are a good fit.
     batches.push(allData.slice(i, i + batchSize));
   }
 
-  const userQuestion = typeof question !== 'undefined' ? question : (state.message || state.userRequest || '');
+  const userQuestion =
+    typeof question !== "undefined"
+      ? question
+      : state.message || state.userRequest || "";
 
-  // Create all prompts for each batch
-  const prompts = batches.map(batch => `
+  const prompts = batches.map(
+    (batch) => `
 User question: ${userQuestion}
 Data batch: ${JSON.stringify(batch, null, 2)}
-Return only an array of IDs for objects that are a good fit for the user's request.
-  `);
+${qualityControlPrompt}
+`
+  );
 
-  // Fire off all LLM requests in parallel
   const responses = await Promise.all(
     prompts.map((prompt, idx) =>
-      structuredLlm.invoke(["human", prompt]).then(res => ({
+      structuredLlm.invoke(["human", prompt]).then((res) => ({
         res,
-        batch: batches[idx]
+        batch: batches[idx],
       }))
     )
   );
 
-  // Filter all results according to ids per batch
-  const filtered = [];
+  // Collect all items with id, accepted, and reason
+  let allResults = [];
   responses.forEach(({ res, batch }) => {
-    const batchFiltered = batch.filter(item => res.idArray.includes(item.id));
-    filtered.push(...batchFiltered);
+    allResults = allResults.concat(
+      res.results.map((result) => {
+        const obj = batch.find((item) => item.id === result.id);
+        return {
+          ...result,
+          object: obj,
+        };
+      })
+    );
   });
 
-  console.log("Quality control, total filtered:", filtered.length);
+  // Log each result
+  allResults.forEach((r) => {
+    console.log(
+      `ID: ${r.id} | Accepted: ${r.accepted} | Reason: ${r.reason}`
+    );
+  });
+
+  // Filter accepted only if you want to update state.fullResult
+  const filtered = allResults.filter((r) => r.accepted).map((r) => r.object);
 
   return {
     ...state,
-    fullResult: filtered
+    fullResult: filtered,
+
   };
 };
+
 
 
 

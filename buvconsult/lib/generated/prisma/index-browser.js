@@ -185,7 +185,6 @@ exports.Prisma.PostScalarFieldEnum = {
 
 exports.Prisma.InvoiceItemsScalarFieldEnum = {
   id: 'id',
-  date: 'date',
   item: 'item',
   quantity: 'quantity',
   unitOfMeasure: 'unitOfMeasure',
