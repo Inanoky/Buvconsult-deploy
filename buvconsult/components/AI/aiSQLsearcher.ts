@@ -6,7 +6,17 @@ import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
 import {constructionCategories} from "@/components/AI/ConstructionCategories";
-import {qualityControlPrompt, qualityControlSystemPrompt} from "@/components/AI/Prompts";
+import {
+    databaseSchema,
+    newSQLDescriptionPrompt,
+    qualityControlPrompt,
+    qualityControlSystemPrompt,
+    queryAnalysisSystemPrompt,
+    returnBestFitFieldsPrompt,
+    returnBestFitFieldsSystemPrompt,
+    SQLConstructSystemPrompt,
+    SQLFormatSystemPrompt
+} from "@/components/AI/Prompts";
 
 export default async function graphQuery(question){
 
@@ -32,30 +42,7 @@ const allowedFieldKeys = [
   "paymentDate"
 ];
 
-const schema = `
-                                            model "InvoiceItems" {
-                                              id String @id @default(uuid())                                              
-                                              item String? - Description : contain original description of an invoice item
-                                              quantity Float? - 
-                                              "unitOfMeasure" String?
-                                              "pricePerUnitOfMeasure" Float?
-                                              sum Float?
-                                              currency String? 
-                                              category String? 
-                                              "itemDescription" String? - Description : detailed description of what this invoice item is
-                                              "commentsForUser" String?
-                                              "isInvoice" Boolean?
-                                              "invoiceId" String
-                                              invoice Invoices @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-                                              "Site" Site? @relation(fields: [siteId], references: [id], onDelete: Cascade)
-                                              "siteId" String?
-                                              "invoiceNumber" String?
-                                              "sellerName" String? 
-                                              "invoiceDate" String? - Description : contains date of an invoice
-                                              "paymentDate" String?
-                                            }`;
-
-
+const schema = databaseSchema
 
 
 //Types declaration
@@ -86,11 +73,8 @@ const queryAnalysis = async (state) => {
     const llm = new ChatOpenAI({
         temperature: 0,
         model: "gpt-4.1",
-        system:
-            "You are an expert in PostgreSQL and vector databases. " +
-            "You will receive : user query mean for construction data dataase, you need to decide if it is better to proceed with an SQL query for the database or with a vector query." +
-            "return VECTOR if query is not specific. " +
-            'Answer ONLY with JSON: {status: "SQL" | "VECTOR", reason: string}',
+        system: queryAnalysisSystemPrompt
+
     });
 
     const structuredLlm = llm.withStructuredOutput(
@@ -115,28 +99,8 @@ const SQLconstruct = async (state) => {
     const llm = new ChatOpenAI({
         temperature: 0,
         model: "gpt-4.1",
-        system:
-            `You are intelligent construction project management, estimation specialsist
-            and also you are postgreSQL database specialist
-            
-            You are given :
-            
-            1) User question
-            2) Database schema
-            3) List of available categories
-            
-            Create an SQL request to provide best match for the user result. 
-            
-            
-            
-            Table names and field names in a query always enclose in double quotes. 
-            For WHERE statements always use ILIKE %%
-            
-            
-            
-             
-             
-            `,
+        system: SQLConstructSystemPrompt
+
     });
 
     const structuredLlm = llm.withStructuredOutput(
@@ -166,10 +130,8 @@ const SQLformat = async(state) => {
     const llm = new ChatOpenAI({
         temperature: 0.1,
         model: "gpt-4.1",
-        system:
-            `You edit SQL queries. 
-            
-            `,
+        system: SQLFormatSystemPrompt,
+
 
 
     });
@@ -177,15 +139,7 @@ const SQLformat = async(state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            newSQL : z.string().describe("You are given SQL query, human request and PostgreSQL schema." +
-                " Determine, which fields would be the most relevant to the user and modify SQL command accordingly" +
-                "Return adjusted SQL." +
-                "All columns and fields names should be in double quotes" +
-                "If user query is somehow related dates/periods - switch to searching FROM`Invoices` table " +
-                "id must always be included " +
-                "For WHERE statements always use ILIKE %%" +
-                "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
-                "fields than that. "),
+            newSQL : z.string().describe(newSQLDescriptionPrompt),
             reason: z.string().describe("based on what you made your decisions")
         })
     )
@@ -251,11 +205,7 @@ const returnBestFitFields = async(state) => {
     const llm = new ChatOpenAI({
         temperature: 0.1,
         model: "gpt-4.1",
-        system:
-            `We need to present data to the client. You will check the SQL query, database schema and and user query. You will rate the fields according to their 
-            relevance to the user query. You will have to choose 6 most relevant fields to display to user.
-                       
-            `,
+        system: returnBestFitFieldsSystemPrompt
 
 
     });

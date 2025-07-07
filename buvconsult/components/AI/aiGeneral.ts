@@ -61,28 +61,6 @@ const generalQuestion = async (state) => {
 };
 
 
-const summarization = async (state) => {
-
-    const llm = new ChatOpenAI({
-        temperature: 0,
-        model: "gpt-4.1",
-        system: "You are data scientist which summarizes the data "
-                });
-
-    const structuredLlm = llm.withStructuredOutput(
-        z.object({
-            answer: z.string().describe("Just say Riga"),
-        })
-    );
-
-    const res = await structuredLlm.invoke(["human", `Say Riga`]);
-
-    console.log("coolestCity  ", res)
-    return {
-        ...state,
-        answer : res.answer
-    };
-};
 
 
 

@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import * as XLSX from "xlsx";
 import {
   ColumnDef,
   flexRender,
@@ -78,6 +79,31 @@ export function InvoiceItemsDataTable({ data, siteId }) {
   const router = useRouter();
   const [editItem, setEditItem] = React.useState(null);
   const [editOpen, setEditOpen] = React.useState(false);
+
+
+
+  function exportToExcel() {
+  // get only the currently filtered and paginated rows
+  const rows = table.getFilteredRowModel().rows.map(row => row.original);
+
+  // optionally flatten nested invoice fields for export
+  const data = rows.map(row => ({
+    ...row,
+    ...(row.invoice || {}), // flatten invoice fields into top level
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Invoice Items");
+  XLSX.writeFile(workbook, "invoice_items.xlsx");
+}
+
+
+
+
+
+
+
 
   async function handleDeleteItem(id) {
     try {
@@ -241,6 +267,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
 
   return (
     <div className="w-full overflow-x-auto">
+
       {/* Bulk Delete Button */}
       <div className="flex items-center py-4">
         <Input
@@ -257,7 +284,11 @@ export function InvoiceItemsDataTable({ data, siteId }) {
             >
               Delete Selected
             </Button>
+
         )}
+        <Button className="ml-2" variant="outline" onClick={exportToExcel}>
+          Export to Excel
+        </Button>
       </div>
       <Table>
         <TableHeader>

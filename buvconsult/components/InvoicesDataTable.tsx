@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import * as XLSX from "xlsx";
 import {
   ColumnDef,
   flexRender,
@@ -107,6 +108,15 @@ export function InvoicesDataTable({ data, siteId }) {
       toast.error("Bulk update failed");
     }
   }
+
+  function exportToExcel() {
+  const rows = table.getFilteredRowModel().rows.map(row => row.original);
+  const worksheet = XLSX.utils.json_to_sheet(rows);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Invoices");
+  XLSX.writeFile(workbook, "invoices.xlsx");
+}
+
 
   const columns = React.useMemo(
     () => [
@@ -236,6 +246,9 @@ export function InvoicesDataTable({ data, siteId }) {
           onChange={e => setGlobalFilter(e.target.value)}
           className="max-w-sm"
         />
+        <Button className="ml-2" variant="outline" onClick={exportToExcel}>
+            Export to Excel
+          </Button>
         {/* Bulk actions */}
         {table.getSelectedRowModel().rows.length > 0 && (
           <div className="flex gap-2">
