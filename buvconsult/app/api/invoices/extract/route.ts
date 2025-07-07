@@ -30,7 +30,9 @@ export default async function gptResponse(fileUrl) {
   const invoiceItemSchema = z.object({
   item: z.string(),
   quantity: z.number(),
-  unitOfMeasure: z.string(),
+  unitOfMeasure: z.enum(["pcs", "m3", "tn","kg",
+    "unit","hour","minutes",
+    "day","month","project"]),
   pricePerUnitOfMeasure: z.number(),
   sum: z.number(),
   currency: z.string(),
