@@ -203,12 +203,23 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
   paymentDate: 'paymentDate'
 };
 
+exports.Prisma.AIconversationScalarFieldEnum = {
+  id: 'id',
+  thread: 'thread',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -235,7 +246,8 @@ exports.Prisma.ModelName = {
   Subscription: 'Subscription',
   Invoices: 'Invoices',
   Post: 'Post',
-  InvoiceItems: 'InvoiceItems'
+  InvoiceItems: 'InvoiceItems',
+  AIconversation: 'AIconversation'
 };
 
 /**

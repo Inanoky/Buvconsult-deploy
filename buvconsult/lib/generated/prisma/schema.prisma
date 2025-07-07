@@ -31,7 +31,7 @@ model User {
   Invoices Invoices[]
 
   Subscription   Subscription?
-  aiConversation AIconversation?
+  AIconversation AIconversation?
 }
 
 model Site {
@@ -133,6 +133,8 @@ model InvoiceItems {
 }
 
 model AIconversation {
-  id     String  @id @default(uuid())
-  thread String?
+  id     String @id @default(uuid())
+  thread Json?
+  userId String @unique
+  User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

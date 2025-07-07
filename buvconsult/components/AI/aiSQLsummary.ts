@@ -11,8 +11,7 @@ import {generalQuestionPrompts} from "@/components/AI/Prompts";
 
 export default async function aiGeneral(question){
 
-const tools = [getCoolestCities]
-const toolNode = new ToolNode(tools)
+
 
 
 const state = Annotation.Root({
@@ -22,12 +21,11 @@ const state = Annotation.Root({
         reducer: (currValue, updateValue) => currValue.concat(updateValue),
     }),
     answer: Annotation<string>(),
-    call_db_agent: Annotation<string>(),
     aiComment: Annotation<string>(),
 
 });
 
-const generalQuestion = async (state) => {
+const summarization = async (state) => {
 
     const llm = new ChatOpenAI({
         temperature: 0.5,

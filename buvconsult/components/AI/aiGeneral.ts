@@ -8,6 +8,9 @@ import { ToolNode } from '@langchain/langgraph/prebuilt';
 import {getCoolestCities} from "@/lib/AI/tools";
 import graphQuery from "@/components/AI/aiSQLsearcher";
 import {generalQuestionPrompts} from "@/components/AI/Prompts";
+import {prisma} from "@/app/utils/db";
+import {requireUser} from "@/app/utils/requireUser";
+import { MemorySaver } from "@langchain/langgraph";
 
 export default async function aiGeneral(question){
 
@@ -41,6 +44,7 @@ const generalQuestion = async (state) => {
             answer: z.string().describe("Give your answer"),
             call_db_agent : z.enum(["yes","no"]).describe("If asked need to call database agent - return `yes`"),
             reason: z.string().describe("Give your reason for your decision")
+
         })
     );
 
@@ -49,6 +53,7 @@ const generalQuestion = async (state) => {
     console.log("generalQuestion  ", res)
     return {
         ...state,
+
         call_db_agent : res.call_db_agent,
         aiComment : res.answer
         //Here we can store User message I think
@@ -114,8 +119,9 @@ const workflow = new StateGraph(state)
 
 
 
-
+const checkpointer = new MemorySaver();
 const graph = workflow.compile()
+
 
 
 // -------------------- TEST -----------------------
@@ -133,12 +139,69 @@ const graph = workflow.compile()
 
 // -------------------- RUN -----------------------
 
+//fetch info from database :
+
+// const conversation = await prisma.
+//
+//
+// where: { userId: someUserId },
+// });
+
+//load from database
+
+
+//Checking if user is authenticated
+const user = await requireUser()
+
+
+//Fetching conversation from database
+
+let conversation = await prisma.aIconversation.findUnique({
+    where: {userId: user.id}
+})
+
+//If no conversation found, we create an empty array, if exist, we load it to history
+
+let history = conversation?.thread || []; //If conversation is emtpy, we create history - an empty array
+
+
+//Invoking graph, passing history + latest question
 
 const graphResult = await graph.invoke({
-    message: question
+    message: `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`,
+    
      })
 
+
+//We record latest user question and latest gpt reply to the newEntry object
+const newEntry = {user : question, GPT : graphResult.aiComment}
+
+
+//We push latest entry to the end of the history array
+history.push(newEntry)
+
+//Now we need to send to database
+
+if (conversation) {
+    await prisma.aIconversation.update({
+        where: {userId:user.id},
+        data: {thread: history}
+    }) } else{
+    await prisma.aIconversation.create({
+        data: {
+            userId: user.id,
+            thread: [newEntry]
+        }
+    })
+}
+
+
+
+
+console.log(history)
+
 console.log(graphResult)
+
 return graphResult
 
 

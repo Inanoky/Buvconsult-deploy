@@ -30,7 +30,8 @@ model User {
   posts    Post[]
   Invoices Invoices[]
 
-  Subscription Subscription?
+  Subscription   Subscription?
+  AIconversation AIconversation?
 }
 
 model Site {
@@ -129,4 +130,11 @@ model InvoiceItems {
   // buyerName              String?
   invoiceDate   String?
   paymentDate   String?
+}
+
+model AIconversation {
+  id     String @id @default(uuid())
+  thread Json?
+  userId String @unique
+  User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -390,7 +390,38 @@ ${qualityControlPrompt}
 
 
 
+const summary = async(state) => {
 
+    const llm = new ChatOpenAI({
+        temperature: 0.1,
+        model: "gpt-4.1",
+        system:
+            `You summarize SQL query and make a conclusion base on a SQL query result and user question`
+
+
+    });
+
+
+    const structuredLlm = llm.withStructuredOutput(
+        z.object({
+            newSQL : z.string().describe(),
+            reason: z.string().describe("based on what you made your decisions")
+        })
+    )
+
+    const prompt = `SQL command for checking : ${state.sql}, prisma schema ${schema}`
+
+    const res = await structuredLlm.invoke(["human", prompt]);
+
+    console.log("SQL format ", res)
+
+    return {
+        ...state,
+        sql: res.newSQL,
+    };
+
+
+}
 
 
 
@@ -407,6 +438,7 @@ const workflow = new StateGraph(state)
     .addNode("return-best-fit-fields", returnBestFitFields)
     // .addNode("sql-result-format", SQLResultFormat)
     .addNode("handle-vector", handleVector)
+    .addNode("summary",summary) //New node
 
     .addEdge("__start__", "query-analysis")
     .addConditionalEdges("query-analysis", (state) =>
