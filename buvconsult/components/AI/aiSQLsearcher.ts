@@ -73,6 +73,7 @@ const state = Annotation.Root({
     sql: Annotation<string | null>({ default: () => null }),
     fullResult: Annotation<any | null>({ default: () => null }),
     result: Annotation<any | null>({ default: () => null }),
+    aIComment: Annotation<any | null>(),
     userDisplayFields : Annotation<string[]>(),
     pastMessages: Annotation<string[]>({
         default: () => [],
@@ -404,20 +405,24 @@ const summary = async(state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            newSQL : z.string().describe(),
+            aIComment : z.string().describe("Summary"),
             reason: z.string().describe("based on what you made your decisions")
         })
     )
 
-    const prompt = `SQL command for checking : ${state.sql}, prisma schema ${schema}`
+    const prompt = `
+        SQL command for checking : ${state.sql},
+        prisma schema ${schema},
+        SQL query results ${JSON.stringify(state.fullResult)},
+        original user question ${state.message}`
 
     const res = await structuredLlm.invoke(["human", prompt]);
 
-    console.log("SQL format ", res)
+    console.log("summary ", res)
 
     return {
         ...state,
-        sql: res.newSQL,
+        aIComment : res.aIComment
     };
 
 
@@ -448,7 +453,8 @@ const workflow = new StateGraph(state)
     .addEdge("sql-format", "sql-execute")
     .addEdge("sql-execute", "qualityControl")
     .addEdge("qualityControl","return-best-fit-fields")
-    .addEdge("return-best-fit-fields", "__end__")
+    .addEdge("return-best-fit-fields", "summary")
+    .addEdge("summary", "__end__")
     .addEdge("handle-vector","__end__")
 
 const graph = workflow.compile()

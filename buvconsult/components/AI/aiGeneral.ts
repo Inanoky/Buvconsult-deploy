@@ -89,14 +89,14 @@ const summarization = async (state) => {
 const SQLquery = async (state) => {
 
 
-    const response = await graphQuery(state.message)
+    const response = await graphQuery(question) //Passing just user question to SQL agent
 
     //I think maybe here I actually need some like conclusion?
 
     return {
         ...state,
         answer : response.result,
-        aiComment: "This is your response"
+        aiComment: response.aIComment
     }
 
 
@@ -169,7 +169,7 @@ let history = conversation?.thread || []; //If conversation is emtpy, we create 
 
 const graphResult = await graph.invoke({
     message: `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`,
-    
+
      })
 
 
