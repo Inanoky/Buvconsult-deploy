@@ -68,17 +68,19 @@ export async function CreateSiteAction(prevState: unknown,formData: FormData){
     async function createSite(){
 
     const submission = await parseWithZod(formData, {
-        schema: SiteCreationSchema({
-            async isSubdirectoryUnique(){
-                const existingSubDirectory = await prisma.site.findUnique({
-                    where: {
-                        subdirectory :formData.get('subdirectory') as string,
-
-                    }
-                });
-                return !existingSubDirectory;
-            }
-        }),
+        schema: SiteCreationSchema(),
+        //This below also old validation, I think not needed
+        //     {
+        //     async isSubdirectoryUnique(){
+        //         const existingSubDirectory = await prisma.site.findUnique({
+        //             where: {
+        //                 subdirectory :formData.get('subdirectory') as string,
+        //
+        //             }
+        //         });
+        //         return !existingSubDirectory;
+        //     }
+        // }),
         async: true,
     });
 
