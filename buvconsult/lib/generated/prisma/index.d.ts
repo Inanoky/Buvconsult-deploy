@@ -1418,12 +1418,14 @@ export namespace Prisma {
     Site: number
     posts: number
     Invoices: number
+    AIconversation: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Site?: boolean | UserCountOutputTypeCountSiteArgs
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     Invoices?: boolean | UserCountOutputTypeCountInvoicesArgs
+    AIconversation?: boolean | UserCountOutputTypeCountAIconversationArgs
   }
 
   // Custom InputTypes
@@ -1456,6 +1458,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountInvoicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoicesWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAIconversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIconversationWhereInput
   }
 
 
@@ -1780,7 +1789,7 @@ export namespace Prisma {
       posts: Prisma.$PostPayload<ExtArgs>[]
       Invoices: Prisma.$InvoicesPayload<ExtArgs>[]
       Subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
-      AIconversation: Prisma.$AIconversationPayload<ExtArgs> | null
+      AIconversation: Prisma.$AIconversationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2188,7 +2197,7 @@ export namespace Prisma {
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Invoices<T extends User$InvoicesArgs<ExtArgs> = {}>(args?: Subset<T, User$InvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Subscription<T extends User$SubscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$SubscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    AIconversation<T extends User$AIconversationArgs<ExtArgs> = {}>(args?: Subset<T, User$AIconversationArgs<ExtArgs>>): Prisma__AIconversationClient<$Result.GetResult<Prisma.$AIconversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    AIconversation<T extends User$AIconversationArgs<ExtArgs> = {}>(args?: Subset<T, User$AIconversationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIconversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2720,6 +2729,11 @@ export namespace Prisma {
      */
     include?: AIconversationInclude<ExtArgs> | null
     where?: AIconversationWhereInput
+    orderBy?: AIconversationOrderByWithRelationInput | AIconversationOrderByWithRelationInput[]
+    cursor?: AIconversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIconversationScalarFieldEnum | AIconversationScalarFieldEnum[]
   }
 
   /**
@@ -2933,6 +2947,7 @@ export namespace Prisma {
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
     InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
+    AIconversation?: boolean | Site$AIconversationArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
@@ -2977,6 +2992,7 @@ export namespace Prisma {
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
     InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
+    AIconversation?: boolean | Site$AIconversationArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2993,6 +3009,7 @@ export namespace Prisma {
       posts: Prisma.$PostPayload<ExtArgs>[]
       invoices: Prisma.$InvoicesPayload<ExtArgs>[]
       InvoiceItems: Prisma.$InvoiceItemsPayload<ExtArgs>[]
+      AIconversation: Prisma.$AIconversationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3401,6 +3418,7 @@ export namespace Prisma {
     posts<T extends Site$postsArgs<ExtArgs> = {}>(args?: Subset<T, Site$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Site$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Site$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InvoiceItems<T extends Site$InvoiceItemsArgs<ExtArgs> = {}>(args?: Subset<T, Site$InvoiceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    AIconversation<T extends Site$AIconversationArgs<ExtArgs> = {}>(args?: Subset<T, Site$AIconversationArgs<ExtArgs>>): Prisma__AIconversationClient<$Result.GetResult<Prisma.$AIconversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3922,6 +3940,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoiceItemsScalarFieldEnum | InvoiceItemsScalarFieldEnum[]
+  }
+
+  /**
+   * Site.AIconversation
+   */
+  export type Site$AIconversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIconversation
+     */
+    select?: AIconversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AIconversation
+     */
+    omit?: AIconversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIconversationInclude<ExtArgs> | null
+    where?: AIconversationWhereInput
   }
 
   /**
@@ -8860,17 +8897,20 @@ export namespace Prisma {
   export type AIconversationMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    siteId: string | null
   }
 
   export type AIconversationMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    siteId: string | null
   }
 
   export type AIconversationCountAggregateOutputType = {
     id: number
     thread: number
     userId: number
+    siteId: number
     _all: number
   }
 
@@ -8878,17 +8918,20 @@ export namespace Prisma {
   export type AIconversationMinAggregateInputType = {
     id?: true
     userId?: true
+    siteId?: true
   }
 
   export type AIconversationMaxAggregateInputType = {
     id?: true
     userId?: true
+    siteId?: true
   }
 
   export type AIconversationCountAggregateInputType = {
     id?: true
     thread?: true
     userId?: true
+    siteId?: true
     _all?: true
   }
 
@@ -8968,6 +9011,7 @@ export namespace Prisma {
     id: string
     thread: JsonValue | null
     userId: string
+    siteId: string
     _count: AIconversationCountAggregateOutputType | null
     _min: AIconversationMinAggregateOutputType | null
     _max: AIconversationMaxAggregateOutputType | null
@@ -8991,49 +9035,61 @@ export namespace Prisma {
     id?: boolean
     thread?: boolean
     userId?: boolean
+    siteId?: boolean
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }, ExtArgs["result"]["aIconversation"]>
 
   export type AIconversationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     thread?: boolean
     userId?: boolean
+    siteId?: boolean
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }, ExtArgs["result"]["aIconversation"]>
 
   export type AIconversationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     thread?: boolean
     userId?: boolean
+    siteId?: boolean
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }, ExtArgs["result"]["aIconversation"]>
 
   export type AIconversationSelectScalar = {
     id?: boolean
     thread?: boolean
     userId?: boolean
+    siteId?: boolean
   }
 
-  export type AIconversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "thread" | "userId", ExtArgs["result"]["aIconversation"]>
+  export type AIconversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "thread" | "userId" | "siteId", ExtArgs["result"]["aIconversation"]>
   export type AIconversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }
   export type AIconversationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }
   export type AIconversationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | AIconversation$UserArgs<ExtArgs>
+    site?: boolean | AIconversation$siteArgs<ExtArgs>
   }
 
   export type $AIconversationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AIconversation"
     objects: {
       User: Prisma.$UserPayload<ExtArgs> | null
+      site: Prisma.$SitePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       thread: Prisma.JsonValue | null
       userId: string
+      siteId: string
     }, ExtArgs["result"]["aIconversation"]>
     composites: {}
   }
@@ -9429,6 +9485,7 @@ export namespace Prisma {
   export interface Prisma__AIconversationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     User<T extends AIconversation$UserArgs<ExtArgs> = {}>(args?: Subset<T, AIconversation$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    site<T extends AIconversation$siteArgs<ExtArgs> = {}>(args?: Subset<T, AIconversation$siteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9461,6 +9518,7 @@ export namespace Prisma {
     readonly id: FieldRef<"AIconversation", 'String'>
     readonly thread: FieldRef<"AIconversation", 'Json'>
     readonly userId: FieldRef<"AIconversation", 'String'>
+    readonly siteId: FieldRef<"AIconversation", 'String'>
   }
     
 
@@ -9876,6 +9934,25 @@ export namespace Prisma {
   }
 
   /**
+   * AIconversation.site
+   */
+  export type AIconversation$siteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
+  }
+
+  /**
    * AIconversation without action
    */
   export type AIconversationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10012,7 +10089,8 @@ export namespace Prisma {
   export const AIconversationScalarFieldEnum: {
     id: 'id',
     thread: 'thread',
-    userId: 'userId'
+    userId: 'userId',
+    siteId: 'siteId'
   };
 
   export type AIconversationScalarFieldEnum = (typeof AIconversationScalarFieldEnum)[keyof typeof AIconversationScalarFieldEnum]
@@ -10166,7 +10244,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     Invoices?: InvoicesListRelationFilter
     Subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
-    AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
+    AIconversation?: AIconversationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10181,7 +10259,7 @@ export namespace Prisma {
     posts?: PostOrderByRelationAggregateInput
     Invoices?: InvoicesOrderByRelationAggregateInput
     Subscription?: SubscriptionOrderByWithRelationInput
-    AIconversation?: AIconversationOrderByWithRelationInput
+    AIconversation?: AIconversationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10199,7 +10277,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     Invoices?: InvoicesListRelationFilter
     Subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
-    AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
+    AIconversation?: AIconversationListRelationFilter
   }, "id" | "id" | "customerId">
 
   export type UserOrderByWithAggregationInput = {
@@ -10244,6 +10322,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
     InvoiceItems?: InvoiceItemsListRelationFilter
+    AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
   }
 
   export type SiteOrderByWithRelationInput = {
@@ -10259,6 +10338,7 @@ export namespace Prisma {
     posts?: PostOrderByRelationAggregateInput
     invoices?: InvoicesOrderByRelationAggregateInput
     InvoiceItems?: InvoiceItemsOrderByRelationAggregateInput
+    AIconversation?: AIconversationOrderByWithRelationInput
   }
 
   export type SiteWhereUniqueInput = Prisma.AtLeast<{
@@ -10277,6 +10357,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
     InvoiceItems?: InvoiceItemsListRelationFilter
+    AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
   }, "id" | "subdirectory">
 
   export type SiteOrderByWithAggregationInput = {
@@ -10702,30 +10783,38 @@ export namespace Prisma {
     id?: StringFilter<"AIconversation"> | string
     thread?: JsonNullableFilter<"AIconversation">
     userId?: StringFilter<"AIconversation"> | string
+    siteId?: StringFilter<"AIconversation"> | string
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
   }
 
   export type AIconversationOrderByWithRelationInput = {
     id?: SortOrder
     thread?: SortOrderInput | SortOrder
     userId?: SortOrder
+    siteId?: SortOrder
     User?: UserOrderByWithRelationInput
+    site?: SiteOrderByWithRelationInput
   }
 
   export type AIconversationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
+    siteId?: string
+    userId_siteId?: AIconversationUserIdSiteIdCompoundUniqueInput
     AND?: AIconversationWhereInput | AIconversationWhereInput[]
     OR?: AIconversationWhereInput[]
     NOT?: AIconversationWhereInput | AIconversationWhereInput[]
     thread?: JsonNullableFilter<"AIconversation">
+    userId?: StringFilter<"AIconversation"> | string
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "userId">
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
+  }, "id" | "siteId" | "userId_siteId">
 
   export type AIconversationOrderByWithAggregationInput = {
     id?: SortOrder
     thread?: SortOrderInput | SortOrder
     userId?: SortOrder
+    siteId?: SortOrder
     _count?: AIconversationCountOrderByAggregateInput
     _max?: AIconversationMaxOrderByAggregateInput
     _min?: AIconversationMinOrderByAggregateInput
@@ -10738,6 +10827,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"AIconversation"> | string
     thread?: JsonNullableWithAggregatesFilter<"AIconversation">
     userId?: StringWithAggregatesFilter<"AIconversation"> | string
+    siteId?: StringWithAggregatesFilter<"AIconversation"> | string
   }
 
   export type UserCreateInput = {
@@ -10752,7 +10842,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10767,7 +10857,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10782,7 +10872,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10797,7 +10887,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10842,6 +10932,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUncheckedCreateInput = {
@@ -10856,6 +10947,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUpdateInput = {
@@ -10870,6 +10962,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateInput = {
@@ -10884,6 +10977,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteCreateManyInput = {
@@ -11353,30 +11447,35 @@ export namespace Prisma {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
     User?: UserCreateNestedOneWithoutAIconversationInput
+    site?: SiteCreateNestedOneWithoutAIconversationInput
   }
 
   export type AIconversationUncheckedCreateInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
     userId: string
+    siteId: string
   }
 
   export type AIconversationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     thread?: NullableJsonNullValueInput | InputJsonValue
     User?: UserUpdateOneWithoutAIconversationNestedInput
+    site?: SiteUpdateOneWithoutAIconversationNestedInput
   }
 
   export type AIconversationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     thread?: NullableJsonNullValueInput | InputJsonValue
     userId?: StringFieldUpdateOperationsInput | string
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AIconversationCreateManyInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
     userId: string
+    siteId: string
   }
 
   export type AIconversationUpdateManyMutationInput = {
@@ -11388,6 +11487,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     thread?: NullableJsonNullValueInput | InputJsonValue
     userId?: StringFieldUpdateOperationsInput | string
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -11454,9 +11554,10 @@ export namespace Prisma {
     isNot?: SubscriptionWhereInput | null
   }
 
-  export type AIconversationNullableScalarRelationFilter = {
-    is?: AIconversationWhereInput | null
-    isNot?: AIconversationWhereInput | null
+  export type AIconversationListRelationFilter = {
+    every?: AIconversationWhereInput
+    some?: AIconversationWhereInput
+    none?: AIconversationWhereInput
   }
 
   export type SortOrderInput = {
@@ -11473,6 +11574,10 @@ export namespace Prisma {
   }
 
   export type InvoicesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIconversationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11565,6 +11670,11 @@ export namespace Prisma {
     every?: InvoiceItemsWhereInput
     some?: InvoiceItemsWhereInput
     none?: InvoiceItemsWhereInput
+  }
+
+  export type AIconversationNullableScalarRelationFilter = {
+    is?: AIconversationWhereInput | null
+    isNot?: AIconversationWhereInput | null
   }
 
   export type InvoiceItemsOrderByRelationAggregateInput = {
@@ -11969,20 +12079,28 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type AIconversationUserIdSiteIdCompoundUniqueInput = {
+    userId: string
+    siteId: string
+  }
+
   export type AIconversationCountOrderByAggregateInput = {
     id?: SortOrder
     thread?: SortOrder
     userId?: SortOrder
+    siteId?: SortOrder
   }
 
   export type AIconversationMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    siteId?: SortOrder
   }
 
   export type AIconversationMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    siteId?: SortOrder
   }
   export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -12038,10 +12156,11 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput
   }
 
-  export type AIconversationCreateNestedOneWithoutUserInput = {
-    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput
-    connect?: AIconversationWhereUniqueInput
+  export type AIconversationCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput> | AIconversationCreateWithoutUserInput[] | AIconversationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput | AIconversationCreateOrConnectWithoutUserInput[]
+    createMany?: AIconversationCreateManyUserInputEnvelope
+    connect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
   }
 
   export type SiteUncheckedCreateNestedManyWithoutUserInput = {
@@ -12071,10 +12190,11 @@ export namespace Prisma {
     connect?: SubscriptionWhereUniqueInput
   }
 
-  export type AIconversationUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput
-    connect?: AIconversationWhereUniqueInput
+  export type AIconversationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput> | AIconversationCreateWithoutUserInput[] | AIconversationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput | AIconversationCreateOrConnectWithoutUserInput[]
+    createMany?: AIconversationCreateManyUserInputEnvelope
+    connect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12141,14 +12261,18 @@ export namespace Prisma {
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
   }
 
-  export type AIconversationUpdateOneWithoutUserNestedInput = {
-    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput
-    upsert?: AIconversationUpsertWithoutUserInput
-    disconnect?: AIconversationWhereInput | boolean
-    delete?: AIconversationWhereInput | boolean
-    connect?: AIconversationWhereUniqueInput
-    update?: XOR<XOR<AIconversationUpdateToOneWithWhereWithoutUserInput, AIconversationUpdateWithoutUserInput>, AIconversationUncheckedUpdateWithoutUserInput>
+  export type AIconversationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput> | AIconversationCreateWithoutUserInput[] | AIconversationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput | AIconversationCreateOrConnectWithoutUserInput[]
+    upsert?: AIconversationUpsertWithWhereUniqueWithoutUserInput | AIconversationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIconversationCreateManyUserInputEnvelope
+    set?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    disconnect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    delete?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    connect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    update?: AIconversationUpdateWithWhereUniqueWithoutUserInput | AIconversationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIconversationUpdateManyWithWhereWithoutUserInput | AIconversationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIconversationScalarWhereInput | AIconversationScalarWhereInput[]
   }
 
   export type SiteUncheckedUpdateManyWithoutUserNestedInput = {
@@ -12203,14 +12327,18 @@ export namespace Prisma {
     update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
   }
 
-  export type AIconversationUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
-    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput
-    upsert?: AIconversationUpsertWithoutUserInput
-    disconnect?: AIconversationWhereInput | boolean
-    delete?: AIconversationWhereInput | boolean
-    connect?: AIconversationWhereUniqueInput
-    update?: XOR<XOR<AIconversationUpdateToOneWithWhereWithoutUserInput, AIconversationUpdateWithoutUserInput>, AIconversationUncheckedUpdateWithoutUserInput>
+  export type AIconversationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput> | AIconversationCreateWithoutUserInput[] | AIconversationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIconversationCreateOrConnectWithoutUserInput | AIconversationCreateOrConnectWithoutUserInput[]
+    upsert?: AIconversationUpsertWithWhereUniqueWithoutUserInput | AIconversationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIconversationCreateManyUserInputEnvelope
+    set?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    disconnect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    delete?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    connect?: AIconversationWhereUniqueInput | AIconversationWhereUniqueInput[]
+    update?: AIconversationUpdateWithWhereUniqueWithoutUserInput | AIconversationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIconversationUpdateManyWithWhereWithoutUserInput | AIconversationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIconversationScalarWhereInput | AIconversationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSiteInput = {
@@ -12240,6 +12368,12 @@ export namespace Prisma {
     connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
   }
 
+  export type AIconversationCreateNestedOneWithoutSiteInput = {
+    create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+    connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
+    connect?: AIconversationWhereUniqueInput
+  }
+
   export type PostUncheckedCreateNestedManyWithoutSiteInput = {
     create?: XOR<PostCreateWithoutSiteInput, PostUncheckedCreateWithoutSiteInput> | PostCreateWithoutSiteInput[] | PostUncheckedCreateWithoutSiteInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSiteInput | PostCreateOrConnectWithoutSiteInput[]
@@ -12259,6 +12393,12 @@ export namespace Prisma {
     connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
     createMany?: InvoiceItemsCreateManySiteInputEnvelope
     connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+  }
+
+  export type AIconversationUncheckedCreateNestedOneWithoutSiteInput = {
+    create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+    connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
+    connect?: AIconversationWhereUniqueInput
   }
 
   export type UserUpdateOneWithoutSiteNestedInput = {
@@ -12313,6 +12453,16 @@ export namespace Prisma {
     deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
   }
 
+  export type AIconversationUpdateOneWithoutSiteNestedInput = {
+    create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+    connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
+    upsert?: AIconversationUpsertWithoutSiteInput
+    disconnect?: AIconversationWhereInput | boolean
+    delete?: AIconversationWhereInput | boolean
+    connect?: AIconversationWhereUniqueInput
+    update?: XOR<XOR<AIconversationUpdateToOneWithWhereWithoutSiteInput, AIconversationUpdateWithoutSiteInput>, AIconversationUncheckedUpdateWithoutSiteInput>
+  }
+
   export type PostUncheckedUpdateManyWithoutSiteNestedInput = {
     create?: XOR<PostCreateWithoutSiteInput, PostUncheckedCreateWithoutSiteInput> | PostCreateWithoutSiteInput[] | PostUncheckedCreateWithoutSiteInput[]
     connectOrCreate?: PostCreateOrConnectWithoutSiteInput | PostCreateOrConnectWithoutSiteInput[]
@@ -12353,6 +12503,16 @@ export namespace Prisma {
     update?: InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput | InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput[]
     updateMany?: InvoiceItemsUpdateManyWithWhereWithoutSiteInput | InvoiceItemsUpdateManyWithWhereWithoutSiteInput[]
     deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
+  }
+
+  export type AIconversationUncheckedUpdateOneWithoutSiteNestedInput = {
+    create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+    connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
+    upsert?: AIconversationUpsertWithoutSiteInput
+    disconnect?: AIconversationWhereInput | boolean
+    delete?: AIconversationWhereInput | boolean
+    connect?: AIconversationWhereUniqueInput
+    update?: XOR<XOR<AIconversationUpdateToOneWithWhereWithoutSiteInput, AIconversationUpdateWithoutSiteInput>, AIconversationUncheckedUpdateWithoutSiteInput>
   }
 
   export type UserCreateNestedOneWithoutSubscriptionInput = {
@@ -12533,6 +12693,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type SiteCreateNestedOneWithoutAIconversationInput = {
+    create?: XOR<SiteCreateWithoutAIconversationInput, SiteUncheckedCreateWithoutAIconversationInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutAIconversationInput
+    connect?: SiteWhereUniqueInput
+  }
+
   export type UserUpdateOneWithoutAIconversationNestedInput = {
     create?: XOR<UserCreateWithoutAIconversationInput, UserUncheckedCreateWithoutAIconversationInput>
     connectOrCreate?: UserCreateOrConnectWithoutAIconversationInput
@@ -12541,6 +12707,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAIconversationInput, UserUpdateWithoutAIconversationInput>, UserUncheckedUpdateWithoutAIconversationInput>
+  }
+
+  export type SiteUpdateOneWithoutAIconversationNestedInput = {
+    create?: XOR<SiteCreateWithoutAIconversationInput, SiteUncheckedCreateWithoutAIconversationInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutAIconversationInput
+    upsert?: SiteUpsertWithoutAIconversationInput
+    disconnect?: SiteWhereInput | boolean
+    delete?: SiteWhereInput | boolean
+    connect?: SiteWhereUniqueInput
+    update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutAIconversationInput, SiteUpdateWithoutAIconversationInput>, SiteUncheckedUpdateWithoutAIconversationInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12776,6 +12952,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutUserInput = {
@@ -12789,6 +12966,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutUserInput = {
@@ -12909,16 +13087,23 @@ export namespace Prisma {
   export type AIconversationCreateWithoutUserInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
+    site?: SiteCreateNestedOneWithoutAIconversationInput
   }
 
   export type AIconversationUncheckedCreateWithoutUserInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
+    siteId: string
   }
 
   export type AIconversationCreateOrConnectWithoutUserInput = {
     where: AIconversationWhereUniqueInput
     create: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIconversationCreateManyUserInputEnvelope = {
+    data: AIconversationCreateManyUserInput | AIconversationCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type SiteUpsertWithWhereUniqueWithoutUserInput = {
@@ -13052,25 +13237,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AIconversationUpsertWithoutUserInput = {
+  export type AIconversationUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIconversationWhereUniqueInput
     update: XOR<AIconversationUpdateWithoutUserInput, AIconversationUncheckedUpdateWithoutUserInput>
     create: XOR<AIconversationCreateWithoutUserInput, AIconversationUncheckedCreateWithoutUserInput>
-    where?: AIconversationWhereInput
   }
 
-  export type AIconversationUpdateToOneWithWhereWithoutUserInput = {
-    where?: AIconversationWhereInput
+  export type AIconversationUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIconversationWhereUniqueInput
     data: XOR<AIconversationUpdateWithoutUserInput, AIconversationUncheckedUpdateWithoutUserInput>
   }
 
-  export type AIconversationUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    thread?: NullableJsonNullValueInput | InputJsonValue
+  export type AIconversationUpdateManyWithWhereWithoutUserInput = {
+    where: AIconversationScalarWhereInput
+    data: XOR<AIconversationUpdateManyMutationInput, AIconversationUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type AIconversationUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    thread?: NullableJsonNullValueInput | InputJsonValue
+  export type AIconversationScalarWhereInput = {
+    AND?: AIconversationScalarWhereInput | AIconversationScalarWhereInput[]
+    OR?: AIconversationScalarWhereInput[]
+    NOT?: AIconversationScalarWhereInput | AIconversationScalarWhereInput[]
+    id?: StringFilter<"AIconversation"> | string
+    thread?: JsonNullableFilter<"AIconversation">
+    userId?: StringFilter<"AIconversation"> | string
+    siteId?: StringFilter<"AIconversation"> | string
   }
 
   export type UserCreateWithoutSiteInput = {
@@ -13084,7 +13274,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSiteInput = {
@@ -13098,7 +13288,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSiteInput = {
@@ -13232,6 +13422,23 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AIconversationCreateWithoutSiteInput = {
+    id?: string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    User?: UserCreateNestedOneWithoutAIconversationInput
+  }
+
+  export type AIconversationUncheckedCreateWithoutSiteInput = {
+    id?: string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    userId: string
+  }
+
+  export type AIconversationCreateOrConnectWithoutSiteInput = {
+    where: AIconversationWhereUniqueInput
+    create: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+  }
+
   export type UserUpsertWithoutSiteInput = {
     update: XOR<UserUpdateWithoutSiteInput, UserUncheckedUpdateWithoutSiteInput>
     create: XOR<UserCreateWithoutSiteInput, UserUncheckedCreateWithoutSiteInput>
@@ -13254,7 +13461,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSiteInput = {
@@ -13268,7 +13475,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostUpsertWithWhereUniqueWithoutSiteInput = {
@@ -13342,6 +13549,29 @@ export namespace Prisma {
     paymentDate?: StringNullableFilter<"InvoiceItems"> | string | null
   }
 
+  export type AIconversationUpsertWithoutSiteInput = {
+    update: XOR<AIconversationUpdateWithoutSiteInput, AIconversationUncheckedUpdateWithoutSiteInput>
+    create: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
+    where?: AIconversationWhereInput
+  }
+
+  export type AIconversationUpdateToOneWithWhereWithoutSiteInput = {
+    where?: AIconversationWhereInput
+    data: XOR<AIconversationUpdateWithoutSiteInput, AIconversationUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type AIconversationUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    User?: UserUpdateOneWithoutAIconversationNestedInput
+  }
+
+  export type AIconversationUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UserCreateWithoutSubscriptionInput = {
     id: string
     email: string
@@ -13353,7 +13583,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
-    AIconversation?: AIconversationCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -13367,7 +13597,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
-    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -13397,7 +13627,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
-    AIconversation?: AIconversationUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -13411,7 +13641,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
-    AIconversation?: AIconversationUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutInvoicesInput = {
@@ -13425,7 +13655,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInvoicesInput = {
@@ -13439,7 +13669,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInvoicesInput = {
@@ -13458,6 +13688,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutInvoicesInput = {
@@ -13471,6 +13702,7 @@ export namespace Prisma {
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutInvoicesInput = {
@@ -13548,7 +13780,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInvoicesInput = {
@@ -13562,7 +13794,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SiteUpsertWithoutInvoicesInput = {
@@ -13587,6 +13819,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutInvoicesInput = {
@@ -13600,6 +13833,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type InvoiceItemsUpsertWithWhereUniqueWithoutInvoiceInput = {
@@ -13629,7 +13863,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostsInput = {
@@ -13643,7 +13877,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
-    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostsInput = {
@@ -13662,6 +13896,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutPostsInput = {
@@ -13675,6 +13910,7 @@ export namespace Prisma {
     userId?: string | null
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutPostsInput = {
@@ -13704,7 +13940,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostsInput = {
@@ -13718,7 +13954,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-    AIconversation?: AIconversationUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SiteUpsertWithoutPostsInput = {
@@ -13743,6 +13979,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutPostsInput = {
@@ -13756,6 +13993,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type InvoicesCreateWithoutItemsInput = {
@@ -13808,6 +14046,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutInvoiceItemsInput = {
@@ -13821,6 +14060,7 @@ export namespace Prisma {
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutInvoiceItemsInput = {
@@ -13895,6 +14135,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutInvoiceItemsInput = {
@@ -13908,6 +14149,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type UserCreateWithoutAIconversationInput = {
@@ -13941,6 +14183,39 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutAIconversationInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAIconversationInput, UserUncheckedCreateWithoutAIconversationInput>
+  }
+
+  export type SiteCreateWithoutAIconversationInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    User?: UserCreateNestedOneWithoutSiteInput
+    posts?: PostCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateWithoutAIconversationInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    userId?: string | null
+    posts?: PostUncheckedCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteCreateOrConnectWithoutAIconversationInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutAIconversationInput, SiteUncheckedCreateWithoutAIconversationInput>
   }
 
   export type UserUpsertWithoutAIconversationInput = {
@@ -13982,6 +14257,45 @@ export namespace Prisma {
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
+  export type SiteUpsertWithoutAIconversationInput = {
+    update: XOR<SiteUpdateWithoutAIconversationInput, SiteUncheckedUpdateWithoutAIconversationInput>
+    create: XOR<SiteCreateWithoutAIconversationInput, SiteUncheckedCreateWithoutAIconversationInput>
+    where?: SiteWhereInput
+  }
+
+  export type SiteUpdateToOneWithWhereWithoutAIconversationInput = {
+    where?: SiteWhereInput
+    data: XOR<SiteUpdateWithoutAIconversationInput, SiteUncheckedUpdateWithoutAIconversationInput>
+  }
+
+  export type SiteUpdateWithoutAIconversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: UserUpdateOneWithoutSiteNestedInput
+    posts?: PostUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateWithoutAIconversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
   export type SiteCreateManyUserInput = {
     id?: string
     name: string
@@ -14020,6 +14334,12 @@ export namespace Prisma {
     SiteId?: string | null
   }
 
+  export type AIconversationCreateManyUserInput = {
+    id?: string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    siteId: string
+  }
+
   export type SiteUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -14031,6 +14351,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutUserInput = {
@@ -14044,6 +14365,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateManyWithoutUserInput = {
@@ -14140,6 +14462,24 @@ export namespace Prisma {
     isCreditDebitProformaOrAdvanced?: NullableStringFieldUpdateOperationsInput | string | null
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIconversationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    site?: SiteUpdateOneWithoutAIconversationNestedInput
+  }
+
+  export type AIconversationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    siteId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIconversationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    thread?: NullableJsonNullValueInput | InputJsonValue
+    siteId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PostCreateManySiteInput = {

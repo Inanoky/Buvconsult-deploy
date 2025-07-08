@@ -206,7 +206,8 @@ exports.Prisma.InvoiceItemsScalarFieldEnum = {
 exports.Prisma.AIconversationScalarFieldEnum = {
   id: 'id',
   thread: 'thread',
-  userId: 'userId'
+  userId: 'userId',
+  siteId: 'siteId'
 };
 
 exports.Prisma.SortOrder = {

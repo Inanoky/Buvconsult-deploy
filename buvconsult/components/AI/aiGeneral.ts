@@ -136,8 +136,13 @@ const user = await requireUser()
 //Fetching conversation from database
 
 let conversation = await prisma.aIconversation.findUnique({
-    where: {userId: user.id}
-})
+    where: {
+        userId_siteId: {
+            userId: user.id,
+            siteId: siteId
+        }
+    }
+});
 
 //If no conversation found, we create an empty array, if exist, we load it to history
 
@@ -161,18 +166,11 @@ history.push(newEntry)
 
 //Now we need to send to database
 
-if (conversation) {
-    await prisma.aIconversation.update({
-        where: {userId:user.id},
-        data: {thread: history}
-    }) } else{
-    await prisma.aIconversation.create({
-        data: {
-            userId: user.id,
-            thread: [newEntry]
-        }
-    })
-}
+await prisma.aIconversation.upsert({
+  where: { userId_siteId: { userId: user.id, siteId: siteId } }, // Compound key
+  update: { thread: history },
+  create: { userId: user.id, siteId: siteId, thread: [newEntry] }
+})
 
 
 

@@ -31,7 +31,7 @@ model User {
   Invoices Invoices[]
 
   Subscription   Subscription?
-  AIconversation AIconversation?
+  AIconversation AIconversation[] // User can have many conversations
 }
 
 model Site {
@@ -42,12 +42,13 @@ model Site {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  imageUrl     String?
-  User         User?          @relation(fields: [userId], references: [id])
-  userId       String?
-  posts        Post[]
-  invoices     Invoices[]
-  InvoiceItems InvoiceItems[]
+  imageUrl       String?
+  User           User?           @relation(fields: [userId], references: [id])
+  userId         String?
+  posts          Post[]
+  invoices       Invoices[]
+  InvoiceItems   InvoiceItems[]
+  AIconversation AIconversation? // Site can have one conversation
 }
 
 model Subscription {
@@ -135,6 +136,10 @@ model InvoiceItems {
 model AIconversation {
   id     String @id @default(uuid())
   thread Json?
-  userId String @unique
+  userId String
   User   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  siteId String @unique
+  site   Site?  @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, siteId])
 }
