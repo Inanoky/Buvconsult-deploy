@@ -147,7 +147,7 @@ function TableModal({ data, onClose }) {
   );
 }
 
-export default function AIChatGeneral() {
+export default function AIChatGeneral({siteId}) {
   const [messages, setMessages] = useState([
     { sender: "bot", aiComment: "Hi! 👋 How can I help you today?", answer: "" },
   ]);
@@ -165,7 +165,7 @@ export default function AIChatGeneral() {
     setLoading(true);
     setInput("");
     try {
-      const result = await aiGeneral(input);
+      const result = await aiGeneral(input,siteId);
       // Always store both aiComment and answer
       const botMsg = {
         sender: "bot",

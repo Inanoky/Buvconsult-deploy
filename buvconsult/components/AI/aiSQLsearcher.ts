@@ -17,8 +17,9 @@ import {
     SQLConstructSystemPrompt,
     SQLFormatSystemPrompt
 } from "@/components/AI/Prompts";
+import {requireUser} from "@/app/utils/requireUser";
 
-export default async function graphQuery(question){
+export default async function graphQuery(question, siteId){
 
 
 //Below are technical for validations.
@@ -127,6 +128,8 @@ const SQLconstruct = async (state) => {
 
 const SQLformat = async(state) => {
 
+    const user = await requireUser();
+
     const llm = new ChatOpenAI({
         temperature: 0.1,
         model: "gpt-4.1",
@@ -144,9 +147,25 @@ const SQLformat = async(state) => {
         })
     )
 
-    const prompt = `SQL command for checking : ${state.sql}, prisma schema ${schema}`
+    const prompt = `SQL command for checking : ${state.sql},
+     prisma schema ${schema},      
+     siteId" = '${siteId}
+     `
 
     const res = await structuredLlm.invoke(["human", prompt]);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     console.log("SQL format ", res)
 
@@ -162,7 +181,14 @@ const SQLformat = async(state) => {
 // SQLexecute - this executes the SQL. fullResult - only used here, later we sanitize and final result
 // will only have 4 fileds max.
 const SQLexecute = async (state) => {
-    const sql = state.sql;
+
+
+
+    // This below is filter to use userId and siteId
+
+
+    const sql = state.sql
+
     if (!sql) {
         return { ...state, fullResult: "No SQL generated." };
     }

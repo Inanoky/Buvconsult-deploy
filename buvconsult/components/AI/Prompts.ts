@@ -99,7 +99,18 @@ const newSQLDescriptionPrompt1 = "You are given SQL query, human request and Pos
                 "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
                 "fields than that. "
 
-export const newSQLDescriptionPrompt = newSQLDescriptionPrompt1
+const newSQLDescriptionPrompt2 = "You are given SQL query, human request and PostgreSQL schema." +
+                " Determine, which fields would be the most relevant to the user and modify SQL command accordingly" +
+                "Return adjusted SQL." +
+                "Always filter by siteId (provided in the user's prompts)" +
+                "All columns and fields names should be in double quotes" +
+                "If user query is somehow related dates/periods - switch to searching FROM`Invoices` table " +
+                "id must always be included " +
+                "For WHERE statements always use ILIKE %%" +
+                "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
+                "fields than that. "
+
+export const newSQLDescriptionPrompt = newSQLDescriptionPrompt2
 export const SQLFormatSystemPrompt = SQLFormatSystemPrompt1
 
 

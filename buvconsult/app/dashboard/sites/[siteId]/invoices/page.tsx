@@ -19,6 +19,7 @@ import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
 import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
 import AIassistant from "@/components/AI/aiAssistant";
+import AIChatGeneral from "@/components/AI/AIwidget";
 
 export default async function InvoiceRoute({params}:
 
@@ -92,7 +93,7 @@ export default async function InvoiceRoute({params}:
                       </CardContent>
                     </Card>
           </div>
-
+        <AIChatGeneral siteId={siteId}/>
       </>
   );
 

@@ -40,7 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         {children}
-           <AIChatGeneral/>
+           
            <Toaster richColors closeButton/>
            </ThemeProvider>
       </body>

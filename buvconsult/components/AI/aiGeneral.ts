@@ -12,13 +12,14 @@ import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
 import { MemorySaver } from "@langchain/langgraph";
 
-export default async function aiGeneral(question){
+export default async function aiGeneral(question,siteId){
 
 const tools = [getCoolestCities]
 const toolNode = new ToolNode(tools)
 
 
 const state = Annotation.Root({
+    siteId: Annotation<string>(),
     message: Annotation<string>(),
     pastMessages: Annotation<string[]>({
         default: () => [],
@@ -67,7 +68,7 @@ const generalQuestion = async (state) => {
 const SQLquery = async (state) => {
 
 
-    const response = await graphQuery(question) //Passing just user question to SQL agent
+    const response = await graphQuery(question, siteId) //Passing just user question to SQL agent
 
     //I think maybe here I actually need some like conclusion?
 
