@@ -6,32 +6,32 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useProject } from "@/components/provider/ProjectProvider";
-import { ChartBar, DollarSign, Globe, Home } from "lucide-react";
+import {HardHat,ChartBarBig, Clock8, ReceiptText, ChartBar, DollarSign, Globe, Home, ChartLine} from "lucide-react";
 
 export const projectNavLinks = [
   {
     name: "Invoices",
     href: "/dashboard",
     path: "invoices",
-    icon: Home,
+    icon: ReceiptText,
   },
   {
     name: "Timesheets",
     href: "/dashboard/sites",
     path: "timesheets",
-    icon: Globe,
+    icon: Clock8,
   },
   {
     name: "Program",
     href: "/dashboard/pricing",
     path: "program",
-    icon: DollarSign,
+    icon: ChartBarBig,
   },
   {
     name: "Analytics",
     href: "/dashboard/programm",
     path: "analytics",
-    icon: ChartBar,
+    icon: ChartLine,
   },
 ];
 

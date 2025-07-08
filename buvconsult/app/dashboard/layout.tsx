@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image";
 import Logo from "@/public/buvconsultLogo.svg"
 import {DashboardItems} from "@/app/components/dashboard/DashboardItems";
-import {ChartBar, CircleUser, DollarSign, Globe, Home} from "lucide-react"
+import {HardHat,ChartBar, CircleUser, DollarSign, Globe, Home} from "lucide-react"
 import {ThemeToggle} from "@/app/components/dashboard/ThemeToggle";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
@@ -19,7 +19,7 @@ export const navLinks = [
     {
         name: 'Projects',
         href: '/dashboard/sites',
-        icon: Globe,
+        icon: HardHat,
     },
     {
         name: 'Pricing',
