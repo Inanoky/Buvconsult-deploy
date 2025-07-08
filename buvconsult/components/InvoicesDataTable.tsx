@@ -100,7 +100,7 @@ export function InvoicesDataTable({ data, siteId }) {
     const ids = table.getSelectedRowModel().rows.map((row) => row.original.id);
     if (ids.length === 0) return;
     try {
-      await bulkSetIsInvoice(ids, value); // You should implement this server action
+      await bulkSetIsInvoice(ids, value);
       toast.success(`Invoices marked as isInvoice=${value}`);
       setRowSelection({});
       router.refresh();
@@ -110,15 +110,14 @@ export function InvoicesDataTable({ data, siteId }) {
   }
 
   function exportToExcel() {
-  const rows = table.getFilteredRowModel().rows.map(row => row.original);
-  const worksheet = XLSX.utils.json_to_sheet(rows);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Invoices");
-  XLSX.writeFile(workbook, "invoices.xlsx");
-}
+    const rows = table.getFilteredRowModel().rows.map(row => row.original);
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Invoices");
+    XLSX.writeFile(workbook, "invoices.xlsx");
+  }
 
-
-  const columns = React.useMemo(
+  const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
       {
         id: "select",
@@ -140,7 +139,6 @@ export function InvoicesDataTable({ data, siteId }) {
         enableSorting: false,
         enableHiding: false,
       },
-      // ... your existing columns, e.g.
       {
         accessorKey: "invoiceDate",
         header: "Invoice Date",
@@ -164,18 +162,18 @@ export function InvoicesDataTable({ data, siteId }) {
         cell: info => info.getValue() || "",
       },
       {
-  accessorKey: "invoiceTotalSumNoVat",
-  header: "Total excl. VAT",
-  cell: info => {
-    const value = info.getValue();
-    return typeof value === "number"
-      ? value.toLocaleString("fr-FR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })
-      : "";
-  },
-},
+        accessorKey: "invoiceTotalSumNoVat",
+        header: "Total excl. VAT",
+        cell: info => {
+          const value = info.getValue();
+          return typeof value === "number"
+            ? value.toLocaleString("fr-FR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            : "";
+        },
+      },
       {
         accessorKey: "isCreditDebitProformaOrAdvanced",
         header: "Type",
@@ -237,6 +235,57 @@ export function InvoicesDataTable({ data, siteId }) {
     initialState: { pagination: { pageSize: 10 } },
   });
 
+  // --- Windowed Pagination Logic (max 10 links, ellipsis) ---
+  function renderPagination() {
+    const pageCount = table.getPageCount();
+    const current = table.getState().pagination.pageIndex;
+    const maxPages = 10;
+    let start = 0;
+    let end = Math.min(pageCount, maxPages);
+
+    if (pageCount > maxPages) {
+      const half = Math.floor(maxPages / 2);
+      if (current > half) {
+        start = Math.max(0, Math.min(current - half, pageCount - maxPages));
+        end = start + maxPages;
+      }
+    }
+
+    const items = [];
+    for (let pageIdx = start; pageIdx < end; pageIdx++) {
+      items.push(
+        <PaginationItem key={pageIdx}>
+          <PaginationLink
+            isActive={table.getState().pagination.pageIndex === pageIdx}
+            onClick={() => table.setPageIndex(pageIdx)}
+          >
+            {pageIdx + 1}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    // Ellipsis at the end if needed
+    if (end < pageCount) {
+      items.push(
+        <PaginationItem key="ellipsis">
+          <span className="px-2 select-none text-muted-foreground">…</span>
+        </PaginationItem>
+      );
+    }
+
+    // Ellipsis at the start if needed
+    if (start > 0) {
+      items.unshift(
+        <PaginationItem key="start-ellipsis">
+          <span className="px-2 select-none text-muted-foreground">…</span>
+        </PaginationItem>
+      );
+    }
+
+    return items;
+  }
+
   return (
     <div className="w-full overflow-x-auto">
       <div className="flex items-center py-4 gap-4">
@@ -247,8 +296,8 @@ export function InvoicesDataTable({ data, siteId }) {
           className="max-w-sm"
         />
         <Button className="ml-2" variant="outline" onClick={exportToExcel}>
-            Export to Excel
-          </Button>
+          Export to Excel
+        </Button>
         {/* Bulk actions */}
         {table.getSelectedRowModel().rows.length > 0 && (
           <div className="flex gap-2">
@@ -311,16 +360,7 @@ export function InvoicesDataTable({ data, siteId }) {
                 disabled={!table.getCanPreviousPage()}
               />
             </PaginationItem>
-            {Array.from({ length: table.getPageCount() }, (_, idx) => (
-              <PaginationItem key={idx}>
-                <PaginationLink
-                  isActive={table.getState().pagination.pageIndex === idx}
-                  onClick={() => table.setPageIndex(idx)}
-                >
-                  {idx + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
+            {renderPagination()}
             <PaginationItem>
               <PaginationNext
                 onClick={() => table.nextPage()}
@@ -329,7 +369,6 @@ export function InvoicesDataTable({ data, siteId }) {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-
       </div>
       {/* ...edit dialog code remains as before... */}
       {editInvoice && (

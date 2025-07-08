@@ -42,7 +42,7 @@ export default async function SitesRoute() {
       <div className="flex w-full justify-end">
         <Button asChild>
           <Link href={"/dashboard/sites/new"}>
-            <PlusCircle className="mr-2 size-4" /> Create Site
+            <PlusCircle className="mr-2 size-4" /> Create Project
           </Link>
         </Button>
       </div>
@@ -52,7 +52,7 @@ export default async function SitesRoute() {
           title="You dont have any Sites created"
           description="You currently dont have any Sites. Please create some so that you can
         see them right here!"
-          buttonText="Create Site"
+          buttonText="Create Project"
           href="/dashboard/sites/new"
         />
       ) : (

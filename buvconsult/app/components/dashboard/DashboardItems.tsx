@@ -33,6 +33,12 @@ export const projectNavLinks = [
     path: "analytics",
     icon: ChartBar,
   },
+    {
+    name: "Settings",
+    href: "/dashboard/settings",
+    path: "settings",
+    icon: ChartBar,
+  },
 ];
 
 export function DashboardItems() {

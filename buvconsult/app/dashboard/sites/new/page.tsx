@@ -40,28 +40,28 @@ export default function NewSiteRoute(){
         <div className="flex flex-col flex-1 items-center justify-center">
             <Card className="max-w-[450px]">
               <CardHeader>
-                    <CardTitle>Card Title</CardTitle>
-                    <CardDescription>Card Description</CardDescription>
+                    <CardTitle>New Project</CardTitle>
+                    <CardDescription>Enter project information</CardDescription>
               </CardHeader>
               <form id={form.id} onSubmit={form.onSubmit} action={action}>
                   <CardContent>
                   <div className="flex flex-col gap-y-6">
                       <div className="grid gap-2">
-                          <Label>Site name</Label>
+                          <Label>Project name</Label>
                           <Input
                               name={fields.name.name}
                               key={fields.name.key}
                               defaultValue={fields.name.initialValue}
-                              placeholder="Site name"/>
+                              placeholder="Project name"/>
                           <p className="text-red-500 text-small">{fields.name.errors}</p>
                       </div>
                       <div className="grid gap-2">
-                          <Label>Subdirectory</Label>
+                          <Label>Project address</Label>
                           <Input
                               name={fields.subdirectory.name}
                               key={fields.subdirectory.key}
                               defaultValue={fields.subdirectory.initialValue}
-                              placeholder="Subdirectory"/>
+                              placeholder="Adress"/>
                           <p className="text-red-500 text-small"> {fields.subdirectory.errors}</p>
 
                       </div>
@@ -78,7 +78,7 @@ export default function NewSiteRoute(){
                   </div>
               </CardContent>
                 <CardFooter>
-                    <SubmitButton text="Create site"/>
+                    <SubmitButton text="Create Project"/>
                 </CardFooter>
 
               </form>
