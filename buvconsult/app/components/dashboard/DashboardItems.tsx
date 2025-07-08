@@ -33,71 +33,77 @@ export const projectNavLinks = [
     path: "analytics",
     icon: ChartBar,
   },
-    {
-    name: "Settings",
-    href: "/dashboard/settings",
-    path: "settings",
-    icon: ChartBar,
-  },
 ];
 
 export function DashboardItems() {
   const { projectId, projectName, setProject } = useProject();
   const pathname = usePathname();
 
-  // ⛔ Clear project if user is on /dashboard or /dashboard/sites
   useEffect(() => {
     const isAboveProject =
       pathname === "/dashboard" || pathname === "/dashboard/sites";
-
-    if (isAboveProject && (projectId || projectName)) {
-      setProject("", "");
-    }
+    if (isAboveProject && (projectId || projectName)) setProject("", "");
   }, [pathname]);
 
   return (
-    <>
-      {/* Main navigation (always visible) */}
-      {navLinks.map((item) => (
-        <Link
-          href={item.href}
-          key={item.name}
-          className={cn(
-            pathname === item.href
-              ? "bg-muted text-primary"
-              : "text-muted-foreground bg-none",
-            "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary/70"
-          )}
-        >
-          <item.icon className="size-4" />
-          {item.name}
-        </Link>
-      ))}
+    <div className="flex items-center w-full justify-between">
+      {/* LEFT: Main navigation links + project nav links if selected */}
+      <div className="flex items-center gap-1">
+        {navLinks.map((item) => (
+          <Link
+            href={item.href}
+            key={item.name}
+            className={cn(
+              pathname === item.href
+                ? "bg-muted text-primary"
+                : "text-muted-foreground bg-none",
+              "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary/70"
+            )}
+          >
+            <item.icon className="size-4" />
+            <span className="hidden md:inline-block">{item.name}</span>
+          </Link>
+        ))}
 
-      {/* Only show if project is selected */}
-      {projectName && (
-        <>
-          <h1 className="mt-4 px-3 text-sm font-medium text-muted-foreground">
-            Project: {projectName}
-          </h1>
-
-          {projectNavLinks.map((item) => (
-            <Link
-              href={`/dashboard/sites/${projectId}/${item.path}`}
-              key={item.name}
-              className={cn(
-                pathname === `/dashboard/sites/${projectId}/${item.path}`
-                  ? "bg-muted text-primary"
-                  : "text-muted-foreground bg-none",
-                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary/70"
-              )}
-            >
-              <item.icon className="size-4" />
-              {item.name}
-            </Link>
-          ))}
-        </>
+        {/* Only show project nav links when in a project subroute */}
+{projectName && projectId && /^\/dashboard\/sites\/[^\/]+/.test(pathname) &&
+  projectNavLinks.map((item) => (
+    <Link
+      href={`/dashboard/sites/${projectId}/${item.path}`}
+      key={item.name}
+      className={cn(
+        // Always blue, and slightly bolder on selected
+        "text-blue-500 ",
+        pathname === `/dashboard/sites/${projectId}/${item.path}`
+          ? "bg-muted"
+          : "bg-none",
+        "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-blue-700"
       )}
-    </>
+    >
+      <item.icon className="size-4" />
+      <span className="hidden md:inline-block">{item.name}</span>
+    </Link>
+  ))
+}
+
+      </div>
+
+      {/* RIGHT: Project name */}
+      {projectName && (
+        <div
+          className={cn(
+            "flex items-center gap-2 rounded-lg px-3 py-2",
+            "text-blue-600 font-semibold bg-none"
+          )}
+          style={{
+            pointerEvents: "none",
+            userSelect: "none",
+            maxWidth: "200px",
+          }}
+        >
+          <span className="truncate block">{projectName}</span>
+        </div>
+      )}
+    </div>
   );
 }
