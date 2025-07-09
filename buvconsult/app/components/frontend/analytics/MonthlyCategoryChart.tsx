@@ -20,16 +20,18 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A stacked bar chart with a legend"
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+
+export function MonthlyCategoryChart({data}) {
+
+
+
+  const description = "A stacked bar chart with a legend"
+
+const chartData = data
+  const categoryKeys = Object.keys(chartData[0] || {}).filter(key => key !== "month");
+
+
 
 const chartConfig = {
   desktop: {
@@ -40,13 +42,18 @@ const chartConfig = {
     label: "Mobile",
     color: "var(--chart-2)",
   },
+  other: {
+    label: "Other",
+    color: "var(--chart-3)", // Or pick a custom CSS var or color
+  },
 } satisfies ChartConfig
 
-export function MontlyCategoryChart() {
+
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Stacked + Legend</CardTitle>
+        <CardTitle>Spendigs by custom Categories</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
@@ -62,18 +69,16 @@ export function MontlyCategoryChart() {
             />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="desktop"
-              stackId="a"
-              fill="var(--color-desktop)"
-              radius={[0, 0, 4, 4]}
-            />
-            <Bar
-              dataKey="mobile"
-              stackId="a"
-              fill="var(--color-mobile)"
-              radius={[4, 4, 0, 0]}
-            />
+             {categoryKeys.map((catKey, i) => (
+              <Bar
+                key={catKey}
+                dataKey={catKey}
+                stackId="a"
+                fill={`var(--chart-${(i + 1) % 9 || 1})`}
+                radius={i === categoryKeys.length - 1 ? [4, 4, 0, 0] : [0, 0, 0, 0]}
+                name={catKey}
+              />
+            ))}
           </BarChart>
         </ChartContainer>
       </CardContent>

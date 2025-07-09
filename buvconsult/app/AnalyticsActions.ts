@@ -23,7 +23,7 @@ export async function getMonthlySpendings(siteId) {
     ORDER BY year, month;
   `;
 
-  console.log(`this is from SQL ${JSON.stringify(data)}`)
+
 
   // Format result as required
    const chartData = data.map(d => ({
@@ -31,7 +31,79 @@ export async function getMonthlySpendings(siteId) {
     spendings: Number(d.spendings).toFixed(0)
 }));
 
-  console.log(`this is after format  ${JSON.stringify(chartData)}`)
+
+
+  return chartData;
+}
+
+
+
+
+export async function getCategoryMonthlySpendings(siteId) {
+  const data = await prisma.$queryRaw`
+    SELECT
+      EXTRACT(YEAR FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS year,
+      EXTRACT(MONTH FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS month,
+      split_part("category", '.', 1) as parent_category,
+      SUM(COALESCE("sum",0)) AS spendings
+    FROM "InvoiceItems"
+    WHERE "invoiceDate" IS NOT NULL
+      AND "siteId" = ${siteId}
+    GROUP BY year, month, parent_category
+    ORDER BY year, month, parent_category;
+  `;
+
+  console.log(`this is MonthlyCategoryCahrt before Processing ${JSON.stringify(data)}`)
+
+ const MONTHS_SHORT = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+
+// Build sorted array of all months (labels) present in the data
+const uniqueMonths = Array.from(new Set(
+  data.map(d =>
+    `${MONTHS_SHORT[parseInt(d.month, 10) - 1]} ${String(d.year).slice(-2)}`
+  )
+)).sort((a, b) => {
+  // Sort by year, then month
+  const [aMon, aYr] = a.split(' ');
+  const [bMon, bYr] = b.split(' ');
+  return (
+    Number(`20${aYr}`) - Number(`20${bYr}`) ||
+    MONTHS_SHORT.indexOf(aMon) - MONTHS_SHORT.indexOf(bMon)
+  );
+});
+
+// Build array of all categories (handle "" as "Other")
+const uniqueCategories = Array.from(new Set(
+  data.map(d => d.parent_category && d.parent_category.trim() ? d.parent_category : "Other")
+));
+
+// Build final chartData for recharts
+const chartData = uniqueMonths.map(monthLabel => {
+  // Get numbers for year and month
+  const [mon, yr] = monthLabel.split(' ');
+  const monthNum = MONTHS_SHORT.indexOf(mon) + 1;
+  const yearNum = `20${yr}`;
+  // New row with dynamic keys
+  const row = { month: monthLabel };
+  for (const category of uniqueCategories) {
+    // Use "Other" for empty/blank
+    const catKey = category && category.trim() ? category : "Other";
+    // Find spendings for this month/category
+    const found = data.find(
+      d =>
+        ((d.parent_category && d.parent_category.trim()) ? d.parent_category : "Other") === catKey &&
+        String(d.month) === String(monthNum) &&
+        String(d.year).slice(-2) === yr
+    );
+    row[catKey] = found ? Number(found.spendings) : 0;
+  }
+  return row;
+});
+
+  console.log(`this is MonthlyCategoryCahrt data ${JSON.stringify(chartData)}`)
 
   return chartData;
 }

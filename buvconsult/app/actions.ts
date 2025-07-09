@@ -209,7 +209,8 @@ export async function UpdateImage(formData: FormData){
 
      })
 
-    return redirect(`/dashboard/sites/${formData.get("siteId")}`)
+    return redirect(`/dashboard/sites`)
+
 
 }
 
