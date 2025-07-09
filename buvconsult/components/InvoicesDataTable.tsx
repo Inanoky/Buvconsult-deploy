@@ -286,6 +286,13 @@ export function InvoicesDataTable({ data, siteId }) {
     return items;
   }
 
+  // ---- SUBTOTAL for invoiceTotalSumNoVat (filtered!) ----
+  const filteredRows = table.getFilteredRowModel().rows;
+  const subtotalNoVat = filteredRows.reduce(
+    (sum, row) => sum + (Number(row.original.invoiceTotalSumNoVat) || 0),
+    0
+  );
+
   return (
     <div className="w-full overflow-x-auto">
       <div className="flex items-center py-4 gap-4">
@@ -350,8 +357,39 @@ export function InvoicesDataTable({ data, siteId }) {
             </TableRow>
           )}
         </TableBody>
+        {/* SUBTOTAL ROW */}
+        {/*<tfoot>*/}
+        {/*  <TableRow className="font-semibold">*/}
+        {/*    /!* Select cell (empty) *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Invoice Date *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Payment Date *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Invoice Number *!/*/}
+        {/*    <TableCell>Total (filtered):</TableCell>*/}
+        {/*    /!* Seller *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Total excl. VAT (sum!) *!/*/}
+        {/*    <TableCell>*/}
+        {/*      {subtotalNoVat.toLocaleString("fr-FR", {*/}
+        {/*        minimumFractionDigits: 2,*/}
+        {/*        maximumFractionDigits: 2,*/}
+        {/*      })}*/}
+        {/*    </TableCell>*/}
+        {/*    /!* Type *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Is Invoice *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Uploaded At *!/*/}
+        {/*    <TableCell />*/}
+        {/*    /!* Actions *!/*/}
+        {/*    <TableCell />*/}
+        {/*  </TableRow>*/}
+        {/*</tfoot>*/}
       </Table>
-      <div className="flex justify-end mt-4">
+      {/* PAGINATION - bottom right */}
+      <div className="flex justify-end mt-2 pr-2">
         <Pagination>
           <PaginationContent>
             <PaginationItem>

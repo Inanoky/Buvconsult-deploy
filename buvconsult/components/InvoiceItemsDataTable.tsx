@@ -80,30 +80,18 @@ export function InvoiceItemsDataTable({ data, siteId }) {
   const [editItem, setEditItem] = React.useState(null);
   const [editOpen, setEditOpen] = React.useState(false);
 
-
-
   function exportToExcel() {
-  // get only the currently filtered and paginated rows
-  const rows = table.getFilteredRowModel().rows.map(row => row.original);
-
-  // optionally flatten nested invoice fields for export
-  const data = rows.map(row => ({
-    ...row,
-    ...(row.invoice || {}), // flatten invoice fields into top level
-  }));
-
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Invoice Items");
-  XLSX.writeFile(workbook, "invoice_items.xlsx");
-}
-
-
-
-
-
-
-
+    // get only the currently filtered rows
+    const rows = table.getFilteredRowModel().rows.map(row => row.original);
+    const data = rows.map(row => ({
+      ...row,
+      ...(row.invoice || {}),
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Invoice Items");
+    XLSX.writeFile(workbook, "invoice_items.xlsx");
+  }
 
   async function handleDeleteItem(id) {
     try {
@@ -265,26 +253,31 @@ export function InvoiceItemsDataTable({ data, siteId }) {
     return items;
   }
 
+  // --- Subtotal calculation (filtered rows only) ---
+  const filteredRows = table.getFilteredRowModel().rows;
+  const subtotalQty = filteredRows.reduce((sum, row) => sum + (parseFloat(row.original.quantity) || 0), 0);
+  const subtotalUnitPrice = filteredRows.reduce((sum, row) => sum + (parseFloat(row.original.pricePerUnitOfMeasure) || 0), 0);
+  const subtotalSum = filteredRows.reduce((sum, row) => sum + (parseFloat(row.original.sum) || 0), 0);
+
   return (
     <div className="w-full overflow-x-auto">
 
       {/* Bulk Delete Button */}
       <div className="flex items-center py-4">
         <Input
-            placeholder="Search invoice items..."
-            value={globalFilter ?? ""}
-            onChange={e => setGlobalFilter(e.target.value)}
-            className="max-w-sm"
+          placeholder="Search invoice items..."
+          value={globalFilter ?? ""}
+          onChange={e => setGlobalFilter(e.target.value)}
+          className="max-w-sm"
         />
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
-            <Button
-                variant="destructive"
-                className="ml-4"
-                onClick={handleBulkDelete}
-            >
-              Delete Selected
-            </Button>
-
+          <Button
+            variant="destructive"
+            className="ml-4"
+            onClick={handleBulkDelete}
+          >
+            Delete Selected
+          </Button>
         )}
         <Button className="ml-2" variant="outline" onClick={exportToExcel}>
           Export to Excel
@@ -293,14 +286,14 @@ export function InvoiceItemsDataTable({ data, siteId }) {
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
-                    <TableHead
-                        key={header.id}
-                        onClick={header.column.getToggleSortingHandler?.()}
-                        className="cursor-pointer select-none whitespace-nowrap"
-                    >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
+                <TableHead
+                  key={header.id}
+                  onClick={header.column.getToggleSortingHandler?.()}
+                  className="cursor-pointer select-none whitespace-nowrap"
+                >
+                  {flexRender(header.column.columnDef.header, header.getContext())}
                   {header.column.getIsSorted() === "asc" && " 🔼"}
                   {header.column.getIsSorted() === "desc" && " 🔽"}
                 </TableHead>
@@ -327,6 +320,24 @@ export function InvoiceItemsDataTable({ data, siteId }) {
             </TableRow>
           )}
         </TableBody>
+        {/* Subtotal row */}
+        <tfoot>
+          <TableRow className="font-semibold">
+            {/* select */}<TableCell />
+            {/* date */}<TableCell />
+            {/* Invoice# */}<TableCell />
+            {/* Seller */}<TableCell />
+            {/* Item */}<TableCell style={{textAlign:'right'}}>Totals:</TableCell>
+            {/* UnitOfMeasure */}<TableCell />
+            {/* Currency */}<TableCell />
+
+            {/* Category */}<TableCell />
+                      {/* Sum */}<TableCell>{subtotalSum.toLocaleString("en-US", {maximumFractionDigits:2})}</TableCell>
+
+            {/* Is Invoice */}<TableCell />
+            {/* Actions */}<TableCell />
+          </TableRow>
+        </tfoot>
       </Table>
       {/* Pagination always bottom right */}
       <div className="flex justify-end mt-4">
