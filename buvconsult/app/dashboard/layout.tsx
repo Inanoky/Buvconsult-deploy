@@ -11,11 +11,11 @@ import {LogoutLink} from '@kinde-oss/kinde-auth-nextjs/components'
 import {ProjectProvider} from "@/components/provider/ProjectProvider";
 
 export const navLinks = [
-    {
-        name: 'Dashboard',
-        href: '/dashboard',
-        icon: Home
-    },
+    // {
+    //     name: 'Dashboard',
+    //     href: '/dashboard',
+    //     icon: Home
+    // },
     {
         name: 'Projects',
         href: '/dashboard/sites',

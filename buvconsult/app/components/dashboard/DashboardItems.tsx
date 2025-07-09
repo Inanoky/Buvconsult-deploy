@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useProject } from "@/components/provider/ProjectProvider";
-import {HardHat,ChartBarBig, Clock8, ReceiptText, ChartBar, DollarSign, Globe, Home, ChartLine} from "lucide-react";
+import {Wrench, HardHat,ChartBarBig, Clock8, ReceiptText, ChartBar, DollarSign, Globe, Home, ChartLine} from "lucide-react";
 
 export const projectNavLinks = [
   {
@@ -32,6 +32,12 @@ export const projectNavLinks = [
     href: "/dashboard/programm",
     path: "analytics",
     icon: ChartLine,
+  },
+    {
+    name: "Settings",
+    href: "/dashboard/settings",
+    path: "settings",
+    icon: Wrench,
   },
 ];
 

@@ -51,9 +51,9 @@ export default async function DashboardIndexPage() {
     <div>
       <h1 className="text-2xl font-semibold mb-5">Your Sites</h1>
       {sites.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 auto-rows-fr">
           {sites.map((item) => (
-            <Card key={item.id}>
+            <Card key={item.id} className="pt-0 flex flex-col h-full min-h-[380px]">
               <Image
                 src={item.imageUrl ?? DefaultImage}
                 alt={item.name}
@@ -84,46 +84,6 @@ export default async function DashboardIndexPage() {
         />
       )}
 
-            <h1 className="text-2xl mt-10 font-semibold mb-5">Recent articles</h1>
-
-            {articles.length > 0 ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
-                    {articles.map((item) => (
-                        <Card key={item.id}>
-                            <Image
-                                src={item.image ?? DefaultImage}
-                                alt={item.title}
-                                className="rounded-t-lg object-cover w-full h-[200px]"
-                                width={400}
-                                height={200}
-                            />
-                            <CardHeader>
-                                <CardTitle className="truncate">{item.title}</CardTitle>
-                                <CardDescription className="line-clamp-3">
-                                    {item.smallDescription}
-                                </CardDescription>
-                            </CardHeader>
-
-                            <CardFooter>
-                                <Button asChild className="w-full">
-                                    <Link href={`/dashboard/sites/${item.siteId}/${item.id}`}>
-                                        Edit Article
-                                    </Link>
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
-            ) : (
-                <EmptyState
-                    title="You don't have any sites created"
-                    description="You currently don't have any Articles. Please
-                    create some so that you can see them right here"
-                    href="/dashboard/sites/"
-                    buttonText="Create Article"
-
-                />
-            )}
     </div>
   )
 
