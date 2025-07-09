@@ -1,6 +1,7 @@
 
 import Image from "next/image"
 import KindeLogo from '@/public/logos/kinde.svg'
+import DepromLogo from '@/public/logos/deprom.svg'
 import Nextjs from '@/public/logos/nextjs.svg'
 
 export function Logos(){
@@ -14,7 +15,7 @@ export function Logos(){
             gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
 
                 <Image
-                    src={KindeLogo}
+                    src={DepromLogo}
                     alt="Logo"
                     className="col-span-2 max-h-12 w-full
                     object-containt lg:col-span-1 dark:invert"/>
@@ -24,7 +25,7 @@ export function Logos(){
                     className="col-span-2 max-h-12 w-full
                     object-containt lg:col-span-1 dark:invert"/>
                 <Image
-                    src={KindeLogo}
+                    src={DepromLogo}
                     alt="Logo"
                     className="col-span-2 max-h-12 w-full
                     object-containt lg:col-span-1 dark:invert"/>
@@ -34,7 +35,7 @@ export function Logos(){
                     className="col-span-2 max-h-12 w-full
                     object-containt lg:col-span-1 dark:invert"/>
                 <Image
-                    src={KindeLogo}
+                    src={DepromLogo}
                     alt="Logo"
                     className="col-span-2 max-h-12 w-full
                     object-containt lg:col-span-1 dark:invert"/>

@@ -15,6 +15,7 @@ import gptInvoiceSchema from "@/app/api/invoices/extract/route"
 import OpenAI from "openai";
 import { chunk } from "lodash";
 
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -508,4 +509,34 @@ export async function askInvoiceGpt(siteId: string, question: string) {
   });
 
   return res.choices[0].message.content || "No answer";
+}
+
+///Settings
+
+
+export async function updateSiteAction(formData: FormData) {
+  const siteId = formData.get("siteId") as string;
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+  const subdirectory = formData.get("subdirectory") as string;
+
+  if (!siteId || !name || !description || !subdirectory) {
+    return { success: false, message: "Missing required fields" };
+  }
+
+  try {
+    await prisma.site.update({
+      where: { id: siteId },
+      data: {
+        name,
+        description,
+        subdirectory,
+      },
+    });
+
+    // Redirect to refresh the page (adjust path as needed)
+    redirect(`/dashboard/sites`);
+  } catch (err: any) {
+    return { success: false, message: err.message || "Update failed." };
+  }
 }

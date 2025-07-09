@@ -4,26 +4,26 @@ const features = [
 
     {
 
-        name: "Sign up for free",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        name: "Passive Data Capture",
+        description: "Workers check in via selfie + location. No manual timekeeping.",
         icon: CloudRain
     },
     {
 
-        name: "Blazing fast",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        name: "Invoice Auto-Parsing",
+        description: "Send invoices to email or chat. Our AI does the rest.",
         icon: CloudRain
     },
     {
 
-        name: "Super secure with kind ",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        name: "Visual Dashboards",
+        description: "Insightful analytics for cost, hours, and progress.",
         icon: CloudRain
     },
      {
 
-        name: "Easy to use",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        name: "Custom AI solution",
+        description: "We will tailor AI to your needs, so results are such as you expect",
         icon: CloudRain
     },
 
@@ -41,10 +41,9 @@ export function Features(){
 
             <div className="max-w-2xl mx-auto lg:text-center">
 
-                <p className="font-semibold leading-7 text-primary">Blog Faster</p>
-                <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Get your blog up and running in minutes</h1>
-                <p className="mt-6 text-base leading-snug text-muted-foreground">Right here you can create a blog in minutes. We make it easy for you
-                to create a blog in minutes. The blog is very fast and easy to create.</p>
+                <p className="font-semibold leading-7 text-primary">Control, effortless</p>
+                <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Get your project setup in minutes</h1>
+                <p className="mt-6 text-base leading-snug text-muted-foreground"></p>
 
             </div>
 

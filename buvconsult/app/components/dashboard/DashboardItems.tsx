@@ -15,6 +15,12 @@ export const projectNavLinks = [
     path: "invoices",
     icon: ReceiptText,
   },
+    {
+    name: "Analytics",
+    href: "/dashboard/programm",
+    path: "analytics",
+    icon: ChartLine,
+  },
   {
     name: "Timesheets",
     href: "/dashboard/sites",
@@ -27,12 +33,7 @@ export const projectNavLinks = [
     path: "program",
     icon: ChartBarBig,
   },
-  {
-    name: "Analytics",
-    href: "/dashboard/programm",
-    path: "analytics",
-    icon: ChartLine,
-  },
+
     {
     name: "Settings",
     href: "/dashboard/settings",

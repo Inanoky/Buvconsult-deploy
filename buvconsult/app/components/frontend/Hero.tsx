@@ -63,15 +63,16 @@ export function Hero(){
                     <div className="text-center">
 
                         <span className="text-sm text-primary font-medium tracking-tight bg-primary/10 px-4
-                        py-2 rounded-full">Ultimate Blogging Saas for Startups</span>
+                        py-2 rounded-full">Construction Project management solution </span>
 
                         <h1 className="mt-8 text-4x sm:text-6xl md:text-7xl lg:text-8xl
-                        font-medium leading-none">Setup your Blog <span className="block text-primary">in Minutes! </span>
+                        font-medium leading-none">Know your cost <span className="block text-primary">Talk to your project </span>
                         </h1>
                         <p className="max-w-xl mx-auto mt-4 text-base font-light lg:text-lg
                         text-muted-foreground tracking-tighter">
-                            Setting up your blog is hard and time consuming.
-                            We make it easy for you to create a blog in minutes
+                            Construction is notorious for poor site records and scattered data, making it hard to say how much things will actually cost. Poorly analyzed construction data will result in over bidding (losing bid) or under bidding (losing money) for the next project. Accurate records are costly and require a lot of tedious manual input from overworked site managers.
+
+Our Solution
                         </p>
 
                         <div className="flex items-center gap-x-5 w-full justify-center mt-5">

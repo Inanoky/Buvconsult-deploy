@@ -10343,12 +10343,12 @@ export namespace Prisma {
 
   export type SiteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    subdirectory?: string
     AND?: SiteWhereInput | SiteWhereInput[]
     OR?: SiteWhereInput[]
     NOT?: SiteWhereInput | SiteWhereInput[]
     name?: StringFilter<"Site"> | string
     description?: StringFilter<"Site"> | string
+    subdirectory?: StringFilter<"Site"> | string
     createdAt?: DateTimeFilter<"Site"> | Date | string
     updatedAt?: DateTimeFilter<"Site"> | Date | string
     imageUrl?: StringNullableFilter<"Site"> | string | null
@@ -10358,7 +10358,7 @@ export namespace Prisma {
     invoices?: InvoicesListRelationFilter
     InvoiceItems?: InvoiceItemsListRelationFilter
     AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
-  }, "id" | "subdirectory">
+  }, "id">
 
   export type SiteOrderByWithAggregationInput = {
     id?: SortOrder
