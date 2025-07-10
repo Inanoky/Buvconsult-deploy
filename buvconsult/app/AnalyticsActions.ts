@@ -107,3 +107,27 @@ const chartData = uniqueMonths.map(monthLabel => {
 
   return chartData;
 }
+
+//For the ChartAreaInteractive
+
+export async function getDailyAggregatedCosts(siteId: string) {
+  const data = await prisma.invoiceItems.groupBy({
+    by: ['invoiceDate'],
+    _sum: {
+      sum: true,
+    },
+    where: {
+      invoiceDate: { not: null },
+      sum: { not: null },
+      siteId, // will only return items matching this siteId
+    },
+    orderBy: {
+      invoiceDate: 'asc',
+    }
+  });
+
+  return data.map(row => ({
+    date: row.invoiceDate,
+    cost: Number(row._sum.sum) || 0,
+  }));
+}

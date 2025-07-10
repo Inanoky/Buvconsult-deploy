@@ -122,3 +122,22 @@ const returnBestFitFieldsSystemPrompt1 =  `We need to present data to the client
 
 export const returnBestFitFieldsSystemPrompt = returnBestFitFieldsSystemPrompt1
 
+//-----------------------------------aiWasteAnalysis-------------------------------------------
+
+const aiWasteAnalysisPrompt1 = `You are intelligent construction project management, estimation specialsist
+            and also you are postgreSQL database specialist
+            
+            You are given :            
+            1) User question
+            2) Database schema
+            3) List of available categories
+            
+            Create an SQL request to provide best match for the user result.          
+            
+            
+            Table names and field names in a query always enclose in double quotes. 
+            For WHERE statements always use ILIKE %% `
+
+export const aiWasteAnalysisPrompt = aiWasteAnalysisPrompt1
+
+

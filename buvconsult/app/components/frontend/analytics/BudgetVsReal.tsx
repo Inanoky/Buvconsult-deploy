@@ -105,9 +105,9 @@ export function BudgetVsReal({data}) {
             <Area
               dataKey="budget"
               type="natural"
-              fill="hsl(0, 80%, 60%)"
+              fill="hsl(0 73.7% 41.8%)"
               fillOpacity={0.4}
-              stroke="hsl(0, 80%, 60%)"
+              stroke="hsl(0 73.7% 41.8%)"
               stackId="a"
             />
           </AreaChart>

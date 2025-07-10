@@ -7,9 +7,13 @@ import { z } from "zod";
 import { ToolNode } from '@langchain/langgraph/prebuilt';
 import {getCoolestCities} from "@/lib/AI/tools";
 import graphQuery from "@/components/AI/aiSQLsearcher";
-import {generalQuestionPrompts} from "@/components/AI/Prompts";
+import {aiWasteAnalysisPrompt, databaseSchema, generalQuestionPrompts} from "@/components/AI/Prompts";
+import {constructionCategories} from "@/components/AI/ConstructionCategories";
 
-export default async function aiGeneral(question){
+
+
+//Here to pass siteId and question
+export default async function aiWasteAnalysis(question){
 
 
 
@@ -27,57 +31,38 @@ const state = Annotation.Root({
 
 
 
-const wastAnalysis = async (state) => {
+const wasteAnalysis = async (state) => {
 
     const llm = new ChatOpenAI({
         temperature: 0,
         model: "gpt-4.1",
-        system: "You are data scientist which analyzes construction invoice data for potential waste" +
-            "Search itemDescription for the following keywords :" +
-            "repairs," +
-            " loss," +
-            " waiting, additional time, delay" +
-            " fine," +
-            " DHL (this is express delivery, so can be considered a waste)," +
-            "express delivery," +
-            "rental materials," +
-            "" +
-            " "
+        system: aiWasteAnalysisPrompt
                 });
 
-    const structuredLlm = llm.withStructuredOutput(
+     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            answer: z.string().describe("Just say Riga"),
+            sql : z.string().describe("raw SQL query. All columns and fields names should be in double quotes" +
+                "alwayss use ILIKE %% with WHERE query."),
+            reason: z.string().describe("based on what you made your decisions")
+
         })
-    );
+    )
 
-    const res = await structuredLlm.invoke(["human", `Say Riga`]);
+    const prompt = `Prisma Schema:\n${databaseSchema}
+                            \nUser question: ${state.message}\n
+                            Write a valid PostgreSQL SQL query (no explanation).
+                            categories : ${JSON.stringify(constructionCategories)}`;
 
-    console.log("coolestCity  ", res)
+    const res = await structuredLlm.invoke(["human", prompt]);
+
+
+    console.log("aiWestAnalysis  ", res)
     return {
         ...state,
-        answer : res.answer
+        sql: res.sql,
     };
 };
 
-
-
-const SQLquery = async (state) => {
-
-
-    const response = await graphQuery(state.message)
-
-    //I think maybe here I actually need some like conclusion?
-
-    return {
-        ...state,
-        answer : response.result,
-        aiComment: "This is your response"
-    }
-
-
-
-};
 
 
 
@@ -85,13 +70,9 @@ const SQLquery = async (state) => {
 
 const workflow = new StateGraph(state)
 
-    .addNode("generalQuestion", generalQuestion)
-    .addNode("SQLquery", SQLquery)
-    .addEdge("__start__", "generalQuestion")
-    .addConditionalEdges("generalQuestion", (state) =>
-        state.call_db_agent === "yes" ? "SQLquery" : "__end__"
-    )
-    .addEdge("SQLquery","__end__")
+    .addNode("wasteAnalysis", wasteAnalysis)
+    .addEdge("__start__", "wasteAnalysis")
+    .addEdge("wasteAnalysis","__end__")
 
 
 

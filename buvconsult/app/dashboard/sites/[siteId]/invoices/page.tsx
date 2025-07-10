@@ -21,6 +21,9 @@ import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
 import AIassistant from "@/components/AI/aiAssistant";
 import AIChatGeneral from "@/components/AI/AIwidget";
 import {ChartAreaInteractive} from "@/app/components/frontend/analytics/ChartAreaInteractive";
+import {getDailyAggregatedCosts} from "@/app/AnalyticsActions";
+import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
+import {KeyMetricsDashboard} from "@/app/components/frontend/analytics/keyMetricsDashboard";
 
 export default async function InvoiceRoute({params}:
 
@@ -32,7 +35,7 @@ export default async function InvoiceRoute({params}:
     const invoices = await GetInvoicesFromDB(siteId)
     let invoiceItems = await GetInvoiceItemsFromDB(siteId);
     invoiceItems = invoiceItems.filter(item => item.invoice?.isInvoice !== false); // filter out items with invoice.isInvoice === false
-
+    const chartAreaInteractiveData = await getDailyAggregatedCosts(siteId)
 
 
 
@@ -61,7 +64,8 @@ export default async function InvoiceRoute({params}:
       <>
           {/* 2️⃣ Your client upload form */}
 
-          <ChartAreaInteractive/>
+            <KeyMetricsDashboard/>
+          <ChartAreaInteractive data={chartAreaInteractiveData}/>
 
 
 

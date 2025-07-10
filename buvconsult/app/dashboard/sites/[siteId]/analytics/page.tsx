@@ -4,6 +4,7 @@ import { MonthlySpendingsChart} from "@/app/components/frontend/analytics/Monthl
 import {MonthlyCategoryChart} from "@/app/components/frontend/analytics/MonthlyCategoryChart";
 import {BudgetVsReal} from "@/app/components/frontend/analytics/BudgetVsReal";
 import {PieCharTotals} from "@/app/components/frontend/analytics/PieCharTotals";
+import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
 
 export default async function Analytics({params}:
 
@@ -21,7 +22,7 @@ export default async function Analytics({params}:
                     <MonthlySpendingsChart data={data}/>
                     <MonthlyCategoryChart data={MonthlyCategoryChartData}/>
                     <BudgetVsReal data={data}/>
-                    <PieCharTotals/>
+                    <KeyMetrics/>
 
                 </div>
 
