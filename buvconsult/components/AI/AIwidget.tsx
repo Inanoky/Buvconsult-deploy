@@ -55,14 +55,14 @@ function TableModal({ data, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[99] flex items-center justify-center">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-8xl w-full mx-4 relative">
+      <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl max-w-8xl w-full mx-4 relative border border-gray-200 dark:border-gray-700">
         <button
-          className="absolute right-4 top-4 text-3xl text-gray-700 hover:text-red-500 font-bold"
+          className="absolute right-4 top-4 text-3xl text-gray-700 dark:text-gray-200 hover:text-red-500 font-bold"
           onClick={onClose}
         >
           ×
         </button>
-        <h3 className="mb-4 text-2xl font-bold">RESULTS</h3>
+        <h3 className="mb-4 text-2xl font-bold dark:text-gray-100">RESULTS</h3>
         <div className="flex flex-wrap gap-2 mb-2">
           <Input
             placeholder="Search..."
@@ -78,18 +78,18 @@ function TableModal({ data, onClose }) {
           </Button>
         </div>
         <div className="overflow-x-auto max-h-[80vh]">
-          <table className="min-w-full border border-gray-300 text-base">
+          <table className="min-w-full border border-gray-300 dark:border-gray-700 text-base">
             <thead>
               <tr>
                 {headers.map((h) => (
                   <th
                     key={h}
-                    className="border-b px-4 py-3 text-left font-semibold bg-gray-50"
+                    className="border-b px-4 py-3 text-left font-semibold bg-gray-50 dark:bg-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700"
                   >
                     <div className="flex flex-col">
                       <span>{h}</span>
                       <select
-                        className="mt-1 text-xs px-1 py-0.5 border rounded"
+                        className="mt-1 text-xs px-1 py-0.5 border rounded bg-white dark:bg-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700"
                         value={filters[h] || ""}
                         onChange={(e) =>
                           setFilters((f) => ({ ...f, [h]: e.target.value }))
@@ -111,19 +111,22 @@ function TableModal({ data, onClose }) {
               {filteredData.map((row, i) => (
                 <tr key={i}>
                   {headers.map((h) => (
-                    <td key={h} className="border-b px-4 py-2">
+                    <td
+                      key={h}
+                      className="border-b px-4 py-2 border-gray-300 dark:border-gray-700 dark:text-gray-100"
+                    >
                       {row[h]}
                     </td>
                   ))}
                 </tr>
               ))}
               {/* Subtotal row */}
-              <tr className="bg-gray-100 font-bold">
+              <tr className="bg-gray-100 dark:bg-gray-800 font-bold">
                 {headers.map((h) =>
                   h === "sum" ? (
                     <td
                       key={h}
-                      className="px-4 py-2 border-t border-b border-gray-400 text-right"
+                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600 text-right dark:text-gray-100"
                     >
                       Subtotal:{" "}
                       {sumTotal.toLocaleString(undefined, {
@@ -134,7 +137,7 @@ function TableModal({ data, onClose }) {
                   ) : (
                     <td
                       key={h}
-                      className="px-4 py-2 border-t border-b border-gray-400"
+                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600"
                     ></td>
                   )
                 )}
@@ -147,7 +150,7 @@ function TableModal({ data, onClose }) {
   );
 }
 
-export default function AIChatGeneral({siteId}) {
+export default function AIChatGeneral({ siteId }) {
   const [messages, setMessages] = useState([
     { sender: "bot", aiComment: "Hi! 👋 How can I help you today?", answer: "" },
   ]);
@@ -165,12 +168,12 @@ export default function AIChatGeneral({siteId}) {
     setLoading(true);
     setInput("");
     try {
-      const result = await aiGeneral(input,siteId);
+      const result = await aiGeneral(input, siteId);
       // Always store both aiComment and answer
       const botMsg = {
         sender: "bot",
         aiComment: result.aiComment ?? "",
-        answer: result.answer ?? ""
+        answer: result.answer ?? "",
       };
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {
@@ -215,7 +218,7 @@ export default function AIChatGeneral({siteId}) {
           <span>: </span>
           {isTable ? (
             <button
-              className="text-blue-700 underline hover:text-blue-900 ml-1"
+              className="text-blue-700 dark:text-blue-400 underline hover:text-blue-900 dark:hover:text-blue-300 ml-1"
               onClick={() => setExpandedData(tableData)}
             >
               View table
@@ -246,7 +249,7 @@ export default function AIChatGeneral({siteId}) {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-2xl transition"
+          className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 dark:bg-blue-800 dark:hover:bg-blue-700 text-white rounded-full p-4 shadow-2xl transition"
           aria-label="Open AI Assistant Chat"
         >
           <Bot size={28} />
@@ -255,13 +258,13 @@ export default function AIChatGeneral({siteId}) {
 
       {/* Chat Widget */}
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] max-w-[96vw] rounded-2xl shadow-2xl bg-white border border-gray-200 flex flex-col">
+        <div className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] max-w-[96vw] rounded-2xl shadow-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex flex-col">
           <Card className="w-full rounded-2xl shadow-none border-0 bg-transparent">
-            <CardHeader className="flex items-center justify-between py-3 px-4 bg-blue-600 text-white rounded-t-2xl">
+            <CardHeader className="flex items-center justify-between py-3 px-4 bg-blue-600 text-white dark:bg-blue-800 dark:text-white rounded-t-2xl">
               <span className="text-lg font-semibold">AI Assistant</span>
               <button
                 onClick={() => setOpen(false)}
-                className="text-white hover:text-gray-200 transition"
+                className="text-white hover:text-gray-200 dark:hover:text-gray-300 transition"
                 aria-label="Close Chat"
               >
                 ×
@@ -282,8 +285,8 @@ export default function AIChatGeneral({siteId}) {
                     <div
                       className={`rounded-2xl px-4 py-2 max-w-[70%] ${
                         msg.sender === "user"
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-200 text-gray-900"
+                          ? "bg-blue-500 text-white dark:bg-blue-600 dark:text-white"
+                          : "bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
                       }`}
                     >
                       {renderMessage(msg)}
@@ -292,7 +295,7 @@ export default function AIChatGeneral({siteId}) {
                 ))}
                 {loading && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-200 text-gray-900 rounded-2xl px-4 py-2 max-w-[70%] animate-pulse">
+                    <div className="bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100 rounded-2xl px-4 py-2 max-w-[70%] animate-pulse">
                       <Bot size={18} className="inline mr-2" /> ...
                     </div>
                   </div>
@@ -300,7 +303,7 @@ export default function AIChatGeneral({siteId}) {
               </div>
             </ScrollArea>
             <Separator />
-            <CardFooter className="flex gap-2">
+            <CardFooter className="flex gap-2 bg-white dark:bg-gray-900">
               <Input
                 ref={inputRef}
                 placeholder="Type your message…"
@@ -308,12 +311,13 @@ export default function AIChatGeneral({siteId}) {
                 disabled={loading}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="flex-1"
+                className="flex-1 bg-white dark:bg-gray-800 dark:text-gray-100"
               />
               <Button
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
                 size="icon"
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white"
               >
                 <SendHorizonal size={20} />
               </Button>

@@ -19,12 +19,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import {useProject} from "@/components/provider/ProjectProvider";
 
 
 
 export function MonthlyCategoryChart({data}) {
 
-
+const { projectName } = useProject();
 
   const description = "A stacked bar chart with a legend"
 
@@ -54,7 +55,7 @@ const chartConfig = {
     <Card>
       <CardHeader>
         <CardTitle>Spendigs by custom Categories</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription> Period {chartData[0]?.month} - {chartData[chartData.length - 1]?.month}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -84,10 +85,10 @@ const chartConfig = {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          {projectName}
         </div>
         <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
+          You can change categories to custom in project settings
         </div>
       </CardFooter>
     </Card>

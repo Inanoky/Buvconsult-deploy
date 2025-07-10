@@ -1,3 +1,5 @@
+import InvoiceUpload from "@/components/InvoiceUpload";
+
 export const revalidate = 0
 
 import {ChevronLeft} from "lucide-react";
@@ -86,6 +88,15 @@ export default async function SettingsSiteRoute({ params }: { params: Promise<{ 
                 </form>
             </Card>
 
+            <Card>
+                <CardHeader>
+
+                    <CardTitle>
+                    Upload invoices here
+                    </CardTitle>
+                </CardHeader>
+            <InvoiceUpload params={Promise.resolve({siteId})}/>
+            </Card>
             {/* Danger Card */}
             <Card className="border-red-500 bg-red-500/10">
                 <CardHeader>

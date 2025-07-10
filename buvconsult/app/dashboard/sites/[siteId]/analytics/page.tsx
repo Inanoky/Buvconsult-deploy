@@ -2,6 +2,8 @@ import {getCategoryMonthlySpendings, getMonthlySpendings} from "@/app/AnalyticsA
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { MonthlySpendingsChart} from "@/app/components/frontend/analytics/MonthlySpendingsChart";
 import {MonthlyCategoryChart} from "@/app/components/frontend/analytics/MonthlyCategoryChart";
+import {BudgetVsReal} from "@/app/components/frontend/analytics/BudgetVsReal";
+import {PieCharTotals} from "@/app/components/frontend/analytics/PieCharTotals";
 
 export default async function Analytics({params}:
 
@@ -16,9 +18,10 @@ export default async function Analytics({params}:
   return (
       <>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 auto-rows-fr">
-                  <MonthlySpendingsChart data={data}/>
+                    <MonthlySpendingsChart data={data}/>
                     <MonthlyCategoryChart data={MonthlyCategoryChartData}/>
-
+                    <BudgetVsReal data={data}/>
+                    <PieCharTotals/>
 
                 </div>
 

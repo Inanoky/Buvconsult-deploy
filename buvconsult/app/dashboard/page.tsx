@@ -22,7 +22,7 @@ async function getData(userId: string) {
       orderBy: {
         createdAt: "desc",
       },
-      take: 3,
+
     }),
     prisma.post.findMany({
       where: {
@@ -77,8 +77,8 @@ export default async function DashboardIndexPage() {
         </div>
       ) : (
         <EmptyState
-          title="You dont have any sites created"
-          description="You currently dont have any Sites. Please create some so that you can see them right here."
+          title="You dont have any Projects created"
+          description="You currently dont have any Projects. Please create some so that you can see them right here."
           href="/dashboard/sites/new"
           buttonText="Create Project"
         />
