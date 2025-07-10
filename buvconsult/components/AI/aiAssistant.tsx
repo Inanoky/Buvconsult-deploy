@@ -19,8 +19,8 @@ import { SuggestedQueries } from "@/components/VercelChatComponents/suggested-qu
 import { QueryViewer } from "@/components/VercelChatComponents/query-viewer";
 import { Search } from "@/components/VercelChatComponents/search";
 import { Header } from "@/components/VercelChatComponents/header";
-import createGraph from "@/components/AI/aiSQLsearcher";
-import graphQuery from "@/components/AI/aiSQLsearcher";
+import createGraph from "@/components/AI/aiDBsearcher";
+import graphQuery from "@/components/AI/aiDBsearcher";
 
 export default function AIassistant() {
   const [inputValue, setInputValue] = useState("");
@@ -73,7 +73,7 @@ export default function AIassistant() {
 
 
 
-      const companies = graphResult.result; //I can just pass aiSQLsearcher.ts logic here I think
+      const companies = graphResult.result; //I can just pass aiDBsearcher.ts logic here I think
 
 
 

@@ -52,7 +52,7 @@ export function ChartAreaInteractive({data}) {
 
 
   const chartData = data
-  console.log(`ChartAreaInteracivet data ${JSON.stringify(chartData)}}`)
+
 
 
 

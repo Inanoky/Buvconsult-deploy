@@ -1,40 +1,26 @@
 "use server"
 
 
-import { Annotation, StateGraph } from "@langchain/langgraph";
+import {  StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
-import { ToolNode } from '@langchain/langgraph/prebuilt';
-import {getCoolestCities} from "@/lib/AI/tools";
-import graphQuery from "@/components/AI/aiSQLsearcher";
-import {generalQuestionPrompts} from "@/components/AI/Prompts";
+import {call_db_agentSchemPrompt, generalQuestionPrompts, stateDefault} from "@/components/AI/Prompts";
 import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
-import { MemorySaver } from "@langchain/langgraph";
+import aiWasteAgent from "@/components/AI/aiWasteAgent";
+import aiSQLAgent from "@/components/AI/aiSQLagent";
+import aiDBsearch from "@/components/AI/aiDBsearcher";
 
 export default async function aiGeneral(question,siteId){
 
-const tools = [getCoolestCities]
-const toolNode = new ToolNode(tools)
 
 
-const state = Annotation.Root({
-    siteId: Annotation<string>(),
-    message: Annotation<string>(),
-    pastMessages: Annotation<string[]>({
-        default: () => [],
-        reducer: (currValue, updateValue) => currValue.concat(updateValue),
-    }),
-    answer: Annotation<string>(),
-    call_db_agent: Annotation<string>(),
-    aiComment: Annotation<string>(),
-
-});
+const state = stateDefault
 
 const generalQuestion = async (state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0.5,
+        temperature: 0.2,
         model: "gpt-4.1",
         system: generalQuestionPrompts
 
@@ -43,20 +29,22 @@ const generalQuestion = async (state) => {
     const structuredLlm = llm.withStructuredOutput(
         z.object({
             answer: z.string().describe("Give your answer"),
-            call_db_agent : z.enum(["yes","no"]).describe("If asked need to call database agent - return `yes`"),
+            choose_agent_to_call : z.enum(["call_db_agent","call_waste_analysis_agent","no"]).describe(call_db_agentSchemPrompt),
             reason: z.string().describe("Give your reason for your decision")
 
         })
     );
 
-    const res = await structuredLlm.invoke(["human", `${state.message}`]);
+    const response = await structuredLlm.invoke(["human", `${state.message}`]);
 
-    console.log("generalQuestion  ", res)
+
+    console.log("generalQuestion  ", response)
     return {
         ...state,
-
-        call_db_agent : res.call_db_agent,
-        aiComment : res.answer
+        message: question,
+        siteId: siteId,
+        choose_agent_to_call : response.choose_agent_to_call,
+        aiComment : response.answer
         //Here we can store User message I think
     };
 };
@@ -65,17 +53,16 @@ const generalQuestion = async (state) => {
 
 
 
-const SQLquery = async (state) => {
+const aiSQLAgentCall = async (state) => {
 
 
-    const response = await graphQuery(question, siteId) //Passing just user question to SQL agent
+    const response = await aiSQLAgent(state) //Passing just user question to SQL agent
 
-    //I think maybe here I actually need some like conclusion?
+    //Here I just need back SQL query
 
+    console.log("aiSQLAgentCall ", response)
     return {
-        ...state,
-        answer : response.result,
-        aiComment: response.aIComment
+        state : response
     }
 
 
@@ -83,50 +70,72 @@ const SQLquery = async (state) => {
 };
 
 
+const aiWasteAgentCall = async (state) => {
+
+
+    const response = await aiWasteAgent(state) //Passing just user question to SQL agent
+
+    //Here I just need back SQL query
+
+    console.log("aiWasteAgentCall : ", response)
+
+    return {
+
+        ...response
+    }
+
+
+
+};
+
+
+const aiDBsearchCall = async (state) => {
+
+
+    const response = await aiDBsearch(state) //Passing just user question to SQL agent
+
+    // aiDBsearch will execute SQL
+
+    // I basically need back data for table and summary from AI
+
+    console.log("aiDBsearchCall : ", response)
+
+    return {
+        ...response
+    }
+
+
+};
+
 
 
 
 const workflow = new StateGraph(state)
 
+
+
     .addNode("generalQuestion", generalQuestion)
-    .addNode("SQLquery", SQLquery)
+    .addNode("aiSQLAgentCall", aiSQLAgentCall)
+    .addNode("aiWasteAgentCall", aiWasteAgentCall)
+    .addNode("aiDBsearchCall",aiDBsearchCall)
     .addEdge("__start__", "generalQuestion")
-    .addConditionalEdges("generalQuestion", (state) =>
-        state.call_db_agent === "yes" ? "SQLquery" : "__end__"
-    )
-    .addEdge("SQLquery","__end__")
+    .addConditionalEdges("generalQuestion", (state) => {
+              if (state.choose_agent_to_call === "call_db_agent") return "aiSQLAgentCall";
+              if (state.choose_agent_to_call === "call_waste_analysis_agent") return "aiWasteAgentCall";
+              return "__end__"; // e.g., if "no" or anything else
+})
+
+    .addEdge("aiSQLAgentCall","aiDBsearchCall")
+    // .addEdge("aiSQLAgentCall","__end__")
+    .addEdge("aiWasteAgentCall","aiDBsearchCall")
+    .addEdge("aiDBsearchCall","__end__")
 
 
 
-const checkpointer = new MemorySaver();
+
+
 const graph = workflow.compile()
 
-
-
-// -------------------- TEST -----------------------
-
-
-// This below to start with bun aiSQLsearcher.ts
-// const res = await graph.invoke({
-//
-//     message: "How are you?"
-//     // message: "Find my largest expense"
-//
-// })
-//
-// console.log(res)
-
-// -------------------- RUN -----------------------
-
-//fetch info from database :
-
-// const conversation = await prisma.
-//
-//
-// where: { userId: someUserId },
-// });
-
-//load from database
 
 
 //Checking if user is authenticated
@@ -151,14 +160,16 @@ let history = conversation?.thread || []; //If conversation is emtpy, we create 
 
 //Invoking graph, passing history + latest question
 
-const graphResult = await graph.invoke({
+const response = await graph.invoke({
     message: `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`,
+
 
      })
 
+console.log(`Final response ${response}`)
 
 //We record latest user question and latest gpt reply to the newEntry object
-const newEntry = {user : question, GPT : graphResult.aiComment}
+const newEntry = {user : question, GPT : response.aiComment}
 
 
 //We push latest entry to the end of the history array
@@ -175,11 +186,11 @@ await prisma.aIconversation.upsert({
 
 
 
-console.log(history)
 
-console.log(graphResult)
 
-return graphResult
+console.log(`This is final response ${JSON.stringify(response)} `)
+
+return response
 
 
 }

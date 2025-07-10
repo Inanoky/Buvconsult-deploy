@@ -173,7 +173,7 @@ export default function AIChatGeneral({ siteId }) {
       const botMsg = {
         sender: "bot",
         aiComment: result.aiComment ?? "",
-        answer: result.answer ?? "",
+        answer: result.result?? "",
       };
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {

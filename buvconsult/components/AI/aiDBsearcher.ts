@@ -1,12 +1,13 @@
 "use server"
 
-// aiSQLsearcher.ts
+// aiDBsearcher.ts
 import { Annotation, StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import {prisma} from "@/app/utils/db";
 import {constructionCategories} from "@/components/AI/ConstructionCategories";
 import {
+    allowedFieldKeys, allowedFieldKeysPrompt,
     databaseSchema,
     newSQLDescriptionPrompt,
     qualityControlPrompt,
@@ -15,116 +16,19 @@ import {
     returnBestFitFieldsPrompt,
     returnBestFitFieldsSystemPrompt,
     SQLConstructSystemPrompt,
-    SQLFormatSystemPrompt
+    SQLFormatSystemPrompt, stateDefault
 } from "@/components/AI/Prompts";
 import {requireUser} from "@/app/utils/requireUser";
+import aiWasteAgent from "@/components/AI/aiWasteAgent";
 
-export default async function graphQuery(question, siteId){
+export default async function aiDBsearch(stateReceived){
 
+const state = stateDefault
 
-//Below are technical for validations.
-
-const allowedFieldKeys = [
-  "date",
-  "item",
-  "quantity",
-  "unitOfMeasure",
-  "pricePerUnitOfMeasure",
-  "sum",
-  "currency",
-  "category",
-  "itemDescription",
-  "commentsForUser",
-  "isInvoice",
-  "invoiceId",
-  "invoiceNumber",
-  "sellerName",
-  "invoiceDate",
-  "paymentDate"
-];
+const allowedFieldKeys = allowedFieldKeysPrompt
 
 const schema = databaseSchema
 
-
-//Types declaration
-
-type StatusType = "SQL" | "VECTOR";
-type Status = {
-    status: StatusType | null;
-    answer?: string;
-    reason?: string;
-};
-
-const state = Annotation.Root({
-    message: Annotation<string>(),
-    status: Annotation<Status>(),
-    sql: Annotation<string | null>({ default: () => null }),
-    fullResult: Annotation<any | null>({ default: () => null }),
-    result: Annotation<any | null>({ default: () => null }),
-    aIComment: Annotation<any | null>(),
-    userDisplayFields : Annotation<string[]>(),
-    pastMessages: Annotation<string[]>({
-        default: () => [],
-        reducer: (currValue, updateValue) => currValue.concat(updateValue),
-    }),
-});
-
-const queryAnalysis = async (state) => {
-    console.log("STATE RECEIVED IN queryAnalysis:", state)
-    const llm = new ChatOpenAI({
-        temperature: 0,
-        model: "gpt-4.1",
-        system: queryAnalysisSystemPrompt
-
-    });
-
-    const structuredLlm = llm.withStructuredOutput(
-        z.object({
-            status: z.enum(["SQL", "VECTOR"]).describe("If request is a better fit for SQL or vector query"),
-            reason: z.string().describe("Reason for the decision"),
-        })
-    );
-
-    const res = await structuredLlm.invoke(["human", `${state.message}`]);
-
-    console.log("queryAnalysis  ", res)
-    return {
-        ...state,
-        status: { status: res.status, reason: res.reason },
-    };
-};
-
-const SQLplanner = async (state) => state;
-
-const SQLconstruct = async (state) => {
-    const llm = new ChatOpenAI({
-        temperature: 0,
-        model: "gpt-4.1",
-        system: SQLConstructSystemPrompt
-
-    });
-
-    const structuredLlm = llm.withStructuredOutput(
-        z.object({
-            sql : z.string().describe("raw SQL query. All columns and fields names should be in double quotes" +
-                "alwyas use ILIKE %% with WHERE query."),
-            reason: z.string().describe("based on what you made your decisions")
-
-        })
-    )
-
-    const prompt = `Schema:\n${schema}\nUser question: ${state.message}\nWrite a valid PostgreSQL SQL query (no explanation).
-    categories : ${JSON.stringify(constructionCategories)}`;
-
-    const res = await structuredLlm.invoke(["human", prompt]);
-    console.log("SQLconstruct  ", res)
-    return {
-        ...state,
-        sql: res.sql,
-    };
-};
-
-//USE BELOW AS TEMPLATE
 
 const SQLformat = async(state) => {
 
@@ -149,20 +53,11 @@ const SQLformat = async(state) => {
 
     const prompt = `SQL command for checking : ${state.sql},
      prisma schema ${schema},      
-     siteId" = '${siteId}
+     siteId" = '${state.siteId},
+     question = ${state.message}
      `
 
     const res = await structuredLlm.invoke(["human", prompt]);
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -180,6 +75,8 @@ const SQLformat = async(state) => {
 
 // SQLexecute - this executes the SQL. fullResult - only used here, later we sanitize and final result
 // will only have 4 fileds max.
+
+
 const SQLexecute = async (state) => {
 
 
@@ -205,7 +102,8 @@ const SQLexecute = async (state) => {
                 invoiceDate
               }))
 );
-       console.log(`Prisma SQL query result: ${JSON.stringify(result, null, 2)}`);
+       // console.log(`Prisma SQL query result: ${JSON.stringify(result, null, 2)}`);
+        console.log("SQLexecute  : ", result)
         return {
             ...state,
            fullResult : result,
@@ -220,12 +118,7 @@ const SQLexecute = async (state) => {
     }
 };
 
-const handleVector = async (state) => ({
-    ...state,
-    result: "Sorry, your query cannot be handled via SQL. Please paraphrase or make your request more specific.",
-});
 
-//Currently this is a final step.
 const returnBestFitFields = async(state) => {
 
     const llm = new ChatOpenAI({
@@ -251,26 +144,26 @@ const returnBestFitFields = async(state) => {
                           prisma schema ${schema}
                           `
 
-    const res = await structuredLlm.invoke(["human", prompt]);
+    const response = await structuredLlm.invoke(["human", prompt]);
 
-    console.log("returnBestFitFields ", res)
-    console.log(state.userDisplayFields)
-    state.userDisplayFields = res.userDisplayFields;
+    console.log("returnBestFitFields ", response)
+
+    state.userDisplayFields = response.userDisplayFields;
 
 //This supposed to remove keys which are not important for the user
    const result = state.fullResult.map(obj =>
-  Object.fromEntries(
-    Object.entries(obj).filter(([field]) =>
-      state.userDisplayFields.includes(field)
-    )
-  )
-);
+          Object.fromEntries(
+            Object.entries(obj).filter(([field]) =>
+              state.userDisplayFields.includes(field)
+            )
+          )
+        );
 
 
     return {
         ...state,
         result: result,
-        useDisplayFields: res.userDisplayFields,
+        useDisplayFields: response.userDisplayFields,
     };
 
 
@@ -313,8 +206,8 @@ const qualityControl = async (state) => {
   }
 
   const userQuestion =
-    typeof question !== "undefined"
-      ? question
+    typeof state.message !== "undefined"
+      ? state.message
       : state.message || state.userRequest || "";
 
   const prompts = batches.map(
@@ -358,6 +251,8 @@ ${qualityControlPrompt}
   // Filter accepted only if you want to update state.fullResult
   const filtered = allResults.filter((r) => r.accepted).map((r) => r.object);
 
+
+
   return {
     ...state,
     fullResult: filtered,
@@ -398,7 +293,7 @@ const summary = async(state) => {
 
     return {
         ...state,
-        aIComment : res.aIComment
+        aiComment : res.aIComment
     };
 
 
@@ -410,53 +305,33 @@ const summary = async(state) => {
 
 
 const workflow = new StateGraph(state)
-    .addNode("query-analysis", queryAnalysis)
-    .addNode("sql-construct", SQLconstruct)
+
     .addNode("sql-format", SQLformat)
     .addNode("sql-execute", SQLexecute)
     .addNode("qualityControl", qualityControl)
     //Here I will add node to rate of the fields by relevance and returned most 4 most relevant fileds to the query.
     .addNode("return-best-fit-fields", returnBestFitFields)
     // .addNode("sql-result-format", SQLResultFormat)
-    .addNode("handle-vector", handleVector)
     .addNode("summary",summary) //New node
-
-    .addEdge("__start__", "query-analysis")
-    .addConditionalEdges("query-analysis", (state) =>
-        state.status.status === "SQL" ? "sql-construct" : "handle-vector"
-    )
-    .addEdge("sql-construct", "sql-format")
+    .addEdge("__start__", "sql-format")
     .addEdge("sql-format", "sql-execute")
     .addEdge("sql-execute", "qualityControl")
     .addEdge("qualityControl","return-best-fit-fields")
     .addEdge("return-best-fit-fields", "summary")
     .addEdge("summary", "__end__")
-    .addEdge("handle-vector","__end__")
+
+
 
 const graph = workflow.compile()
 
 
-// -------------------- TEST -----------------------
-
-
-// This below to start with but aiSQLsearcher.ts
-// const res = await graph.invoke({
-//
-//     message: "Find my 5 largest expenses"
-//     // message: "Find my largest expense"
-//
-// })
-//
-// console.log(res)
-
-// -------------------- RUN -----------------------
 
 
 const graphResult = await graph.invoke({
-    message: question
+    ...stateReceived
      })
 
-
+console.log(`This is final form aiDBsearcher ${JSON.stringify(graphResult)}`)
 return graphResult
 
 

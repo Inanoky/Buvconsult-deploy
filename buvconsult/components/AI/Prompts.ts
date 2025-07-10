@@ -1,5 +1,64 @@
+// State
+
+
+
+import {Annotation} from "@langchain/langgraph";
+
+
+type StatusType = "SQL" | "VECTOR";
+
+type Status = {
+    status: StatusType | null;
+    answer?: string;
+    reason?: string;
+};
+
+//Here are agent list
+
+type AgentToCall = "call_db_agent" | "call_waste_analysis_agent" | "agent_not_needed";
+
+
+
+export const stateDefault = Annotation.Root({
+    message: Annotation<string>(),
+    status: Annotation<Status>(),
+    sql: Annotation<string | null>({ default: () => null }),
+    fullResult: Annotation<any | null>({ default: () => null }),
+    result: Annotation<any | null>({ default: () => null }),
+    aiComment: Annotation<any | null>(),
+    userDisplayFields : Annotation<string[]>(),
+    siteId: Annotation<string[]>(),
+    choose_agent_to_call: Annotation<AgentToCall>(),
+    pastMessages: Annotation<string[]>({
+        default: () => [],
+        reducer: (currValue, updateValue) => currValue.concat(updateValue),
+    }),
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //aiGeneral.ts generalQuestion
+
+
+
 
 
 
@@ -27,6 +86,26 @@ export const databaseSchema = `
                                             }`;
 
 
+export const allowedFieldKeysPrompt = [
+  "date",
+  "item",
+  "quantity",
+  "unitOfMeasure",
+  "pricePerUnitOfMeasure",
+  "sum",
+  "currency",
+  "category",
+  "itemDescription",
+  "commentsForUser",
+  "isInvoice",
+  "invoiceId",
+  "invoiceNumber",
+  "sellerName",
+  "invoiceDate",
+  "paymentDate"
+];
+
+
 
 //system prompts
 //generalQuestion
@@ -38,7 +117,12 @@ const prompt1 =  "Your have access to the users construction cost databases. You
 const prompt2 =  "Your are data scientist and your job is to answer user's query. If you need access to the database," +
                         "You can call call_db_agent, which we handle SQL call for the query to retrieve necessary information "
 
+const call_db_agentSchemPrompt1 = "If asked need to call database agent - return `yes`"
+
+const call_db_agentSchemPrompt2 = "Choose appropriate agent to call, if not needed - pass `no` "
+
 export const generalQuestionPrompts = prompt2
+export const call_db_agentSchemPrompt = call_db_agentSchemPrompt2
 
 //aiSQLseearcher.ts prompts
 
@@ -77,7 +161,7 @@ const SQLConstructSystemPrompt1 = `You are intelligent construction project mana
             2) Database schema
             3) List of available categories
             
-            Create an SQL request to provide best match for the user result.          
+            Create an SQL request to provide best match for the user question.          
             
             
             Table names and field names in a query always enclose in double quotes. 
@@ -110,7 +194,13 @@ const newSQLDescriptionPrompt2 = "You are given SQL query, human request and Pos
                 "Query return should always include fields item, sum, invoiceNumber and sellerName, but include more" +
                 "fields than that. "
 
-export const newSQLDescriptionPrompt = newSQLDescriptionPrompt2
+const newSQLDescriptionPrompt3 = "You are given SQL query, human request and PostgreSQL schema." +
+
+                "Always filter by siteId (provided in the user's prompts)" +
+                "All columns and fields names should be in double quotes" +
+                "For WHERE statements always use ILIKE %%"
+
+export const newSQLDescriptionPrompt = newSQLDescriptionPrompt3
 export const SQLFormatSystemPrompt = SQLFormatSystemPrompt1
 
 
@@ -122,7 +212,7 @@ const returnBestFitFieldsSystemPrompt1 =  `We need to present data to the client
 
 export const returnBestFitFieldsSystemPrompt = returnBestFitFieldsSystemPrompt1
 
-//-----------------------------------aiWasteAnalysis-------------------------------------------
+//-----------------------------------aiWasteAgent-------------------------------------------
 
 const aiWasteAnalysisPrompt1 = `You are intelligent construction project management, estimation specialsist
             and also you are postgreSQL database specialist
@@ -132,11 +222,18 @@ const aiWasteAnalysisPrompt1 = `You are intelligent construction project managem
             2) Database schema
             3) List of available categories
             
-            Create an SQL request to provide best match for the user result.          
-            
-            
-            Table names and field names in a query always enclose in double quotes. 
-            For WHERE statements always use ILIKE %% `
+            Create an SQL request to provide search the database for pontetially wastefull expenses such as (included
+             but not limited to :
+             
+             1) repairs
+             2) delays
+             3) waiting times
+             4) rental equipment
+             5) fines
+             6) additional charge`
+
+
+
 
 export const aiWasteAnalysisPrompt = aiWasteAnalysisPrompt1
 

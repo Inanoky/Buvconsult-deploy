@@ -2,7 +2,7 @@
 // in .env OPENAI_API_KEY=
 
 import {Annotation, StateGraph} from "@langchain/langgraph";
-import {createGraph} from "./aiSQLsearcher";
+import {createGraph} from "./aiDBsearcher";
 
 
 // INBOX AGENT FOR A SAAS PRODUCT
