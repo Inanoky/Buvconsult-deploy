@@ -9,7 +9,7 @@ import {constructionCategories} from "@/components/AI/ConstructionCategories";
 import {
     allowedFieldKeys, allowedFieldKeysPrompt,
     databaseSchema,
-    newSQLDescriptionPrompt,
+    newSQLDescriptionPrompt, qualityControlAiWasteAgent,
     qualityControlPrompt,
     qualityControlSystemPrompt,
     queryAnalysisSystemPrompt,
@@ -37,7 +37,7 @@ const SQLformat = async(state) => {
     const llm = new ChatOpenAI({
         temperature: 0.1,
         model: "gpt-4.1",
-        system: SQLFormatSystemPrompt,
+
 
 
 
@@ -57,7 +57,9 @@ const SQLformat = async(state) => {
      question = ${state.message}
      `
 
-    const res = await structuredLlm.invoke(["human", prompt]);
+    const res = await structuredLlm.invoke([
+        ["system",SQLFormatSystemPrompt ],
+        ["human", prompt]]);
 
 
 
@@ -91,17 +93,7 @@ const SQLexecute = async (state) => {
     }
     try {
         const result = await prisma.$queryRawUnsafe(sql);
-       console.table(
-              result.map(({ item, quantity, pricePerUnitOfMeasure, sum, sellerName, invoiceDate }) => ({
 
-                item,
-                quantity,
-                pricePerUnitOfMeasure,
-                sum,
-                sellerName,
-                invoiceDate
-              }))
-);
        // console.log(`Prisma SQL query result: ${JSON.stringify(result, null, 2)}`);
         console.log("SQLexecute  : ", result)
         return {
@@ -179,12 +171,12 @@ const returnBestFitFields = async(state) => {
     // Step 4 : proceed with steps
 
 const qualityControl = async (state) => {
-  const batchSize = 20;
+  const batchSize = 50;
 
   const llm = new ChatOpenAI({
-    temperature: 0.1,
+    temperature: 0.5,
     model: "gpt-4.1",
-    system: qualityControlSystemPrompt,
+
   });
 
   const structuredLlm = llm.withStructuredOutput(
@@ -199,7 +191,10 @@ const qualityControl = async (state) => {
     })
   );
 
+  //This is all DB entries returned.
   const allData = state.fullResult;
+
+
   const batches = [];
   for (let i = 0; i < allData.length; i += batchSize) {
     batches.push(allData.slice(i, i + batchSize));
@@ -212,15 +207,16 @@ const qualityControl = async (state) => {
 
   const prompts = batches.map(
     (batch) => `
-User question: ${userQuestion}
-Data batch: ${JSON.stringify(batch, null, 2)}
-${qualityControlPrompt}
-`
+        User question: ${userQuestion}
+        Data batch: ${JSON.stringify(batch, null, 2)}`
   );
 
   const responses = await Promise.all(
     prompts.map((prompt, idx) =>
-      structuredLlm.invoke(["human", prompt]).then((res) => ({
+      structuredLlm.invoke([
+            ["system", qualityControlAiWasteAgent],
+            ["human", prompt]
+      ]).then((res) => ({
         res,
         batch: batches[idx],
       }))
@@ -242,11 +238,7 @@ ${qualityControlPrompt}
   });
 
   // Log each result
-  allResults.forEach((r) => {
-    console.log(
-      `ID: ${r.id} | Accepted: ${r.accepted} | Reason: ${r.reason}`
-    );
-  });
+  console.log(`This is results of Quality control : ${JSON.stringify(allResults)}`)
 
   // Filter accepted only if you want to update state.fullResult
   const filtered = allResults.filter((r) => r.accepted).map((r) => r.object);

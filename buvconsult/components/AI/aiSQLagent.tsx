@@ -39,25 +39,34 @@ const schema = databaseSchema
 const SQLconstruct = async (state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0,
+        temperature: 0.5,
         model: "gpt-4.1",
-        system: SQLConstructSystemPrompt
+
 
     });
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
             sql : z.string().describe("raw SQL query. All columns and fields names should be in double quotes" +
-                "alwyas use ILIKE %% with WHERE query."),
+                "always use ILIKE %% with WHERE query."),
+
             reason: z.string().describe("based on what you made your decisions")
 
         })
     )
 
-    const prompt = `Schema:\n${schema}\nUser question: ${state.message}\nWrite a valid PostgreSQL SQL query (no explanation).
+    const prompt =
+        `Schema:${schema}
+        User question: ${state.message}
+        Write a valid PostgreSQL SQL query (no explanation).        
     categories : ${JSON.stringify(constructionCategories)}`;
 
-    const response = await structuredLlm.invoke(["human", prompt]);
+    const response = await structuredLlm.invoke(
+
+        [
+            ["system", SQLConstructSystemPrompt],
+            ["human", prompt]
+        ]);
 
     //So here we just return SQL. Basically we can pass it on to aiDBsearcher
 

@@ -20,9 +20,9 @@ const state = stateDefault
 const generalQuestion = async (state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0.2,
+        temperature: 0.5,
         model: "gpt-4.1",
-        system: generalQuestionPrompts
+
 
     });
 
@@ -30,18 +30,21 @@ const generalQuestion = async (state) => {
         z.object({
             answer: z.string().describe("Give your answer"),
             choose_agent_to_call : z.enum(["call_db_agent","call_waste_analysis_agent","no"]).describe(call_db_agentSchemPrompt),
-            reason: z.string().describe("Give your reason for your decision")
+            reason: z.string().describe("Give your reason for your decision"),
+            message: z.string().describe("prompt for next agent")
 
         })
     );
 
-    const response = await structuredLlm.invoke(["human", `${state.message}`]);
+    const response = await structuredLlm.invoke([
+        ["human", `${state.message}`],
+        ["system",generalQuestionPrompts ]]);
 
 
     console.log("generalQuestion  ", response)
     return {
         ...state,
-        message: question,
+        message: response.message,
         siteId: siteId,
         choose_agent_to_call : response.choose_agent_to_call,
         aiComment : response.answer
@@ -62,7 +65,7 @@ const aiSQLAgentCall = async (state) => {
 
     console.log("aiSQLAgentCall ", response)
     return {
-        state : response
+        ...response
     }
 
 
@@ -156,7 +159,7 @@ let conversation = await prisma.aIconversation.findUnique({
 //If no conversation found, we create an empty array, if exist, we load it to history
 
 let history = conversation?.thread || []; //If conversation is emtpy, we create history - an empty array
-
+let prompt = `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`
 
 //Invoking graph, passing history + latest question
 
