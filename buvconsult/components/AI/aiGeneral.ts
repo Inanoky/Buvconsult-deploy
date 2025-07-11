@@ -101,7 +101,7 @@ const aiDBsearchCall = async (state) => {
 
     // I basically need back data for table and summary from AI
 
-    console.log("aiDBsearchCall : ", response)
+    console.log("aiDBsearchCall : ", response.message)
 
     return {
         ...response
@@ -169,7 +169,6 @@ const response = await graph.invoke({
 
      })
 
-console.log(`Final response ${response}`)
 
 //We record latest user question and latest gpt reply to the newEntry object
 const newEntry = {user : question, GPT : response.aiComment}
@@ -191,7 +190,7 @@ await prisma.aIconversation.upsert({
 
 
 
-console.log(`This is final response ${JSON.stringify(response)} `)
+console.log(`This is sent to frontend ${JSON.stringify(response.acceptedResults)}`)
 
 return response
 

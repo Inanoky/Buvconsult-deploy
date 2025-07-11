@@ -39,7 +39,7 @@ const schema = databaseSchema
 const SQLconstruct = async (state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0.5,
+        temperature: 0.1,
         model: "gpt-4.1",
 
 
@@ -47,10 +47,9 @@ const SQLconstruct = async (state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            sql : z.string().describe("raw SQL query. All columns and fields names should be in double quotes" +
-                "always use ILIKE %% with WHERE query."),
+            sql : z.string().describe("valid single SQL query"),
 
-            reason: z.string().describe("based on what you made your decisions")
+            reason: z.string().describe("explain if SQL query you made is valid or not")
 
         })
     )
@@ -58,7 +57,7 @@ const SQLconstruct = async (state) => {
     const prompt =
         `Schema:${schema}
         User question: ${state.message}
-        Write a valid PostgreSQL SQL query (no explanation).        
+        Write a valid PostgreSQL SQL query .        
     categories : ${JSON.stringify(constructionCategories)}`;
 
     const response = await structuredLlm.invoke(

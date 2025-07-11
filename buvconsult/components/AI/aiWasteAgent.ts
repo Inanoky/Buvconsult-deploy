@@ -49,7 +49,7 @@ const SQLconstruct = async (state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            sql : z.string().describe(`raw SQL query`),
+            sql : z.string().describe(`valid single SQL query`),
             reason: z.string().describe("based on what you made your decisions")
 
         })

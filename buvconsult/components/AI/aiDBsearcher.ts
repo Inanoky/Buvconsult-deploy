@@ -151,7 +151,7 @@ const returnBestFitFields = async(state) => {
           )
         );
 
-
+    console.log(`SQL execute ${result}`)
     return {
         ...state,
         result: result,
@@ -176,7 +176,6 @@ const qualityControl = async (state) => {
   const llm = new ChatOpenAI({
     temperature: 0.5,
     model: "gpt-4.1",
-
   });
 
   const structuredLlm = llm.withStructuredOutput(
@@ -191,73 +190,84 @@ const qualityControl = async (state) => {
     })
   );
 
-  //This is all DB entries returned.
-  const allData = state.fullResult;
+  // All items to check
+  const allData = state.fullResult || [];
 
-
+  // Split into batches
   const batches = [];
   for (let i = 0; i < allData.length; i += batchSize) {
     batches.push(allData.slice(i, i + batchSize));
   }
 
+  // Get user question, fallback logic
   const userQuestion =
     typeof state.message !== "undefined"
       ? state.message
       : state.message || state.userRequest || "";
 
+  // Prepare prompts per batch
   const prompts = batches.map(
     (batch) => `
-        User question: ${userQuestion}
-        Data batch: ${JSON.stringify(batch, null, 2)}`
+      User question: ${userQuestion}
+      Data batch: ${JSON.stringify(batch, null, 2)}
+    `
   );
 
+  // Call LLM for each batch in parallel
   const responses = await Promise.all(
     prompts.map((prompt, idx) =>
-      structuredLlm.invoke([
-            ["system", qualityControlAiWasteAgent],
-            ["human", prompt]
-      ]).then((res) => ({
-        res,
-        batch: batches[idx],
-      }))
+      structuredLlm
+        .invoke([
+          ["system", qualityControlAiWasteAgent],
+          ["human", prompt],
+        ])
+        .then((res) => ({
+          res,
+          batch: batches[idx],
+        }))
     )
   );
 
-  // Collect all items with id, accepted, and reason
-  let allResults = [];
+  // Collect ALL results from all batches
+  let acceptedResults = [];
   responses.forEach(({ res, batch }) => {
-    allResults = allResults.concat(
-      res.results.map((result) => {
+    res.results.forEach((result) => {
+      if (result.accepted) {
         const obj = batch.find((item) => item.id === result.id);
-        return {
-          ...result,
-          object: obj,
-        };
-      })
-    );
+        if (obj) {
+          acceptedResults.push({
+            ...obj,                 // original data
+            accepted: result.accepted,
+            reason: result.reason,  // add reason here!
+          });
+        }
+      }
+    });
   });
 
-  // Log each result
-  console.log(`This is results of Quality control : ${JSON.stringify(allResults)}`)
-
-  // Filter accepted only if you want to update state.fullResult
-  const filtered = allResults.filter((r) => r.accepted).map((r) => r.object);
 
 
+  // LOG EACH ACCEPTED RESULT ONE BY ONE
+  acceptedResults.forEach((r, i) => {
+    console.log(`Accepted result #${i + 1}:`, r);
+  });
 
+  // Optionally: If you still want only pure data objects in fullResult:
+  const filtered = acceptedResults.map(({accepted, reason, ...rest}) => rest);
+
+  // Return new state with acceptedResults (with reasons) for UI
   return {
     ...state,
-    fullResult: filtered,
-
+    acceptedResults: acceptedResults, // <-- for UI (accepted items + reasons)
+    fullResult: filtered, // (optional: only the pure objects)
   };
 };
-
 
 
 const summary = async(state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0.1,
+        temperature: 0.5,
         model: "gpt-4.1",
         system:
             `You summarize SQL query and make a conclusion base on a SQL query result and user question`
@@ -323,7 +333,7 @@ const graphResult = await graph.invoke({
     ...stateReceived
      })
 
-console.log(`This is final form aiDBsearcher ${JSON.stringify(graphResult)}`)
+// console.log(`This is final form aiDBsearcher ${JSON.stringify(graphResult)}`)
 return graphResult
 
 

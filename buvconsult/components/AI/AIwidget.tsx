@@ -29,7 +29,12 @@ function exportToExcel(headers, rows) {
 // -- Table modal component --
 function TableModal({ data, onClose }) {
   if (!Array.isArray(data) || data.length === 0) return null;
-  const headers = Object.keys(data[0]);
+  const hideFields = ["id", "accepted", "itemDescription"];
+  const headers = Array.from(
+    new Set(
+      data.flatMap(row => Object.keys(row))
+    )
+).filter(h => !hideFields.includes(h));
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({});
 
@@ -170,11 +175,16 @@ export default function AIChatGeneral({ siteId }) {
     try {
       const result = await aiGeneral(input, siteId);
       // Always store both aiComment and answer
+
+      console.log(`This is in the frontend ${JSON.stringify(result.acceptedResults)}`)
+
       const botMsg = {
         sender: "bot",
         aiComment: result.aiComment ?? "",
-        answer: result.result?? "",
+        answer: result.acceptedResults?? "",
+
       };
+
       setMessages((msgs) => [...msgs, botMsg]);
     } catch (e) {
       setMessages((msgs) => [

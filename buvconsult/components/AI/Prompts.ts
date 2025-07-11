@@ -25,6 +25,7 @@ export const stateDefault = Annotation.Root({
     sql: Annotation<string | null>({ default: () => null }),
     fullResult: Annotation<any | null>({ default: () => null }),
     result: Annotation<any | null>({ default: () => null }),
+    acceptedResults: Annotation<any | null>({ default: () => null }),
     aiComment: Annotation<any | null>(),
     userDisplayFields : Annotation<string[]>(),
     siteId: Annotation<string[]>(),
@@ -121,11 +122,18 @@ const prompt3_10_07_2025 =  "Your are data scientist and your job is to answer u
                         "You can call call_db_agent, which we handle SQL call for the query to retrieve necessary information " +
                             "The agents next to you are SQL agents, so construct a good prompts for them and pass in `message` field "
 
+const prompt3_11_07_2025 =  "Your are data scientist and your job is to answer user's query. If you need access to the database," +
+                        "You can call call_db_agent, which we handle SQL call for the query to retrieve necessary information " +
+                            "The agents next to you are SQL agents, so construct a good prompts for them and pass in `message` field " +
+                        "Do not ask agent to retrieve totals, only ask to get invocie items." +
+                        "Ask agent to retreive a valid single SQL query " +
+                        "Don't ask to restrict invoice to the latest date"
+
 const call_db_agentSchemPrompt1 = "If asked need to call database agent - return `yes`"
 
 const call_db_agentSchemPrompt2 = "Choose appropriate agent to call, if not needed - pass `no` "
 
-export const generalQuestionPrompts = prompt3_10_07_2025
+export const generalQuestionPrompts = prompt3_11_07_2025
 export const call_db_agentSchemPrompt = call_db_agentSchemPrompt2
 
 //aiSQLseearcher.ts prompts
@@ -139,8 +147,8 @@ const qualityControlSystemPrompt2 = "Return only an array of IDs for objects tha
 
 const qualityControlAiWasteAgent1 = "You are doing Quality control as part of an agentic workflow" +
     "If you are involved, it means User's question is about Avoidable cost in his data. " +
-    "Check the data you are being sent and return an array of IDs for objects that fit or loosely fit the user's request. " +
-    "Discard everything that is related to physical waste, we are talking economical waste here. "
+    "Check the data you and assess each item." +
+    "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field"
 
 export const qualityControlSystemPrompt = qualityControlSystemPrompt2
 
@@ -166,7 +174,9 @@ export const queryAnalysisSystemPrompt = queryAnalysisSystemPrompt1
 
 //SQL construct
 
-const SQLConstructSystemPrompt1 = `You are intelligent construction project management, estimation specialsist
+const SQLConstructSystemPrompt1 = `
+            RETURN SINGLE SQL QUERY OTHERWISE IT WILL BRAKE THE FLOW. 
+                You are intelligent construction project management, estimation specialsist
             and also you are postgreSQL database specialist
             
             
@@ -176,7 +186,10 @@ const SQLConstructSystemPrompt1 = `You are intelligent construction project mana
             2) Database schema
             3) List of available categories
             
-            Create an SQL request to provide best match for the user question.          
+            Create a valid SQL request to provide best match for the user question. 
+            Search should return list of items/itemDescription
+             
+                     
             
             
             Table names and field names in a query always enclose in double quotes. 
@@ -216,14 +229,23 @@ const newSQLDescriptionPrompt3 = "You are given SQL query, human request and Pos
                 "For WHERE statements always use ILIKE %%"
 
 
-const newSQLDescriptionPrompt4 = "You are given SQL query" +
+const newSQLDescriptionPrompt4 = "You are given SQL query and your job is to format it :" +
 
                 "Always filter by siteId (provided in the user's prompts)" +
                 "All columns and fields names should be in double quotes" +
-                "For WHERE statements always use ILIKE %%"
+                "For WHERE statements always use ILIKE %%" +
+                "Return a valid SQL single query"
+
+const newSQLDescriptionPrompt5_11_07_2025 = "You are given SQL query and your job is to format it :" +
+
+                "Always filter by siteId (provided in the user's prompts)" +
+                "All columns and fields names should be in double quotes" +
+                "For WHERE statements always use ILIKE %%" +
+                "If SQL consist of 2 queries, combine into one" +
+                "Return a valid SQL single query"
 
 export const newSQLDescriptionPrompt = newSQLDescriptionPrompt4
-export const SQLFormatSystemPrompt = newSQLDescriptionPrompt4
+export const SQLFormatSystemPrompt = newSQLDescriptionPrompt5_11_07_2025
 
 
 //--------------------------------------returnBestFitFields------------------------------------------
@@ -262,8 +284,8 @@ const aiWasteAnalysisPrompt2 = `You search for avoidable cost in the database
             2) Database schema
             3) List of available categories
             
-            Create an SQL request to provide search the database for avoidable cost.
-            Always include keywors :  
+            Create a valid, single SQL query to provide search the database for avoidable cost
+            Search should return list of all items/itemDescription which include keywords :  
              
              1) repairs
              2) delays
