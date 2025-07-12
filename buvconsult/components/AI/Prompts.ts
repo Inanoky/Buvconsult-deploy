@@ -150,9 +150,15 @@ const qualityControlAiWasteAgent1 = "You are doing Quality control as part of an
     "Check the data you and assess each item." +
     "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field"
 
+const qualityControlSQLAgent1 = "You are doing Quality control as part of an agentic workflow" +
+    "Check the data you and assess each item." +
+    "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field"
+
 export const qualityControlSystemPrompt = qualityControlSystemPrompt2
 
 export const qualityControlAiWasteAgent = qualityControlAiWasteAgent1
+
+export const qualityControlSQLAgent = qualityControlSQLAgent1
 
 
 
@@ -176,6 +182,7 @@ export const queryAnalysisSystemPrompt = queryAnalysisSystemPrompt1
 
 const SQLConstructSystemPrompt1 = `
             RETURN SINGLE SQL QUERY OTHERWISE IT WILL BRAKE THE FLOW. 
+            a
                 You are intelligent construction project management, estimation specialsist
             and also you are postgreSQL database specialist
             
@@ -188,6 +195,7 @@ const SQLConstructSystemPrompt1 = `
             
             Create a valid SQL request to provide best match for the user question. 
             Search should return list of items/itemDescription
+            List should always include id of invoice item
              
                      
             
@@ -240,6 +248,7 @@ const newSQLDescriptionPrompt5_11_07_2025 = "You are given SQL query and your jo
 
                 "Always filter by siteId (provided in the user's prompts)" +
                 "All columns and fields names should be in double quotes" +
+                "id and item fields should always be returned " +
                 "For WHERE statements always use ILIKE %%" +
                 "If SQL consist of 2 queries, combine into one" +
                 "Return a valid SQL single query"
