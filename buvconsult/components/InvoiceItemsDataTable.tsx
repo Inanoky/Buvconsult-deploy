@@ -38,6 +38,7 @@ import { useRouter } from "next/navigation";
 import { deleteInvoiceItem } from "@/app/actions";
 import { toast } from "sonner";
 import { InvoiceItemEditDialog } from "@/components/InvoiceItemEditDialog";
+import {useProject} from "@/components/provider/ProjectProvider";
 
 // --- Global Filter Function ---
 const globalFilterFn = (row, columnId, filterValue) => {

@@ -100,7 +100,7 @@ export default async function aiDBsearch(stateReceived) {
     const batchSize = 50;
 
     const llm = new ChatOpenAI({
-        temperature: 0.5,
+        temperature: 0.7,
         model: "gpt-4.1",
     });
 

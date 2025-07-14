@@ -25,6 +25,7 @@ import {getDailyAggregatedCosts} from "@/app/AnalyticsActions";
 import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
 import {KeyMetricsDashboard} from "@/app/components/frontend/analytics/keyMetricsDashboard";
 
+
 export default async function InvoiceRoute({params}:
 
 {params : Promise <{siteId:string}>

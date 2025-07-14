@@ -44,6 +44,7 @@ const generalQuestion = async (state) => {
     console.log("generalQuestion  ", response)
     return {
         ...state,
+        question: question,
         message: response.message,
         siteId: siteId,
         choose_agent_to_call : response.choose_agent_to_call,

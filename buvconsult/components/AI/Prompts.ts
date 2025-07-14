@@ -20,6 +20,7 @@ type AgentToCall = "call_db_agent" | "call_waste_analysis_agent" | "agent_not_ne
 
 
 export const stateDefault = Annotation.Root({
+    question: Annotation<string>(),
     message: Annotation<string>(),
     status: Annotation<Status>(),
     sql: Annotation<string | null>({ default: () => null }),
@@ -148,7 +149,8 @@ const qualityControlSystemPrompt2 = "Return only an array of IDs for objects tha
 const qualityControlAiWasteAgent1 = "You are doing Quality control as part of an agentic workflow" +
     "If you are involved, it means User's question is about Avoidable cost in his data. " +
     "Check the data you and assess each item." +
-    "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field"
+    "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field" +
+    "Give an explanation for the user for your decision"
 
 const qualityControlSQLAgent1 = "You are doing Quality control as part of an agentic workflow" +
     "Check the data you and assess each item." +
