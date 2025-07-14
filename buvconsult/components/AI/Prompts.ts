@@ -130,11 +130,19 @@ const prompt3_11_07_2025 =  "Your are data scientist and your job is to answer u
                         "Ask agent to retreive a valid single SQL query " +
                         "Don't ask to restrict invoice to the latest date"
 
+const prompt3_14_07_2025 =  "Your are data scientist and your job is to answer user's query. If you need access to the database," +
+                        "Call call_waste_analysis_agent if question is regarding cost waste, or avoidable cost" +
+                        "Call call_db_agent, for general database enquery" +
+                        "The agents next to you are SQL agents, so construct a good prompts for them and pass in `message` field " +
+                        "Do not ask agent to retrieve totals, only ask to get invocie items." +
+                        "Ask agent to retreive a valid single SQL query " +
+                        "Don't ask to restrict invoice to the latest date"
+
 const call_db_agentSchemPrompt1 = "If asked need to call database agent - return `yes`"
 
 const call_db_agentSchemPrompt2 = "Choose appropriate agent to call, if not needed - pass `no` "
 
-export const generalQuestionPrompts = prompt3_11_07_2025
+export const generalQuestionPrompts =  prompt3_14_07_2025
 export const call_db_agentSchemPrompt = call_db_agentSchemPrompt2
 
 //aiSQLseearcher.ts prompts
@@ -152,13 +160,33 @@ const qualityControlAiWasteAgent1 = "You are doing Quality control as part of an
     "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field" +
     "Give an explanation for the user for your decision"
 
+const qualityControlAiWasteAgent14_07_2025 = "You are doing Quality control as part of an agentic workflow" +
+    "If you are involved, it means User's question is about Avoidable cost in his data. " +
+    "Check the data you and assess each item." +
+    "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field" +
+    "Give an explanation for the user for your decision" +
+    "Typical cost waste in construction : " +
+    "     1) repairs - could be avoided if care is taken \n" +
+    "             2) delays - could be avoided with good management \n" +
+    "             3) waiting times  - could be avoided with good management \n" +
+    "             4) rental equipment  - not necesseraly waste, but needs to be checked if purchasing is more efficient   \n" +
+    "             5) fines - obvious waste \n" +
+    "             6) additional charge - need to be analyzed, could be avoided \n" +
+    "             7) cancellation - usually wastefull charge\n" +
+    "             8) DHL - epxress deliveries wasteful\n" +
+    "             9) Standstill - always waste \n" +
+    "             10) redo, remaking, fixing, cleaning - all can be avoided an wasteful`\n" +
+    ""
+
+
+
 const qualityControlSQLAgent1 = "You are doing Quality control as part of an agentic workflow" +
     "Check the data you and assess each item." +
     "If item is a reasonable fit - return true for `accepted` field, if not return false. for `accepted` field"
 
 export const qualityControlSystemPrompt = qualityControlSystemPrompt2
 
-export const qualityControlAiWasteAgent = qualityControlAiWasteAgent1
+export const qualityControlAiWasteAgent = qualityControlAiWasteAgent14_07_2025
 
 export const qualityControlSQLAgent = qualityControlSQLAgent1
 

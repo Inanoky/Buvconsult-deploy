@@ -133,14 +133,14 @@ export default async function aiDBsearch(stateReceived) {
     }
     console.log("qualityControl split into", batches.length, "batches");
 
-    const userQuestion =
-        typeof state.message !== "undefined"
-            ? state.message
-            : state.message || state.userRequest || "";
+    // const userQuestion =
+    //     typeof state.message !== "undefined"
+    //         ? state.message
+    //         : state.message || state.userRequest || "";
 
     const prompts = batches.map(
         (batch) => `
-        User question: ${userQuestion}
+        User question: ${state.question}
         Data batch: ${JSON.stringify(batch, null, 2)}
     `
     );
