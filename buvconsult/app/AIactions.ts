@@ -2,7 +2,7 @@
 import { prisma } from "@/app/utils/db";
 import OpenAI from "openai";
 import {ChatOpenAI} from "@langchain/openai";
-import {aiSQLsearch, aiSQLsearcher} from "@/lib/AI/tools";
+import {aiSQLsearch} from "@/lib/AI/tools";
 import {createOpenAIFunctionsAgent} from "langchain/agents";
 import {ChatPromptTemplate, MessagesPlaceholder} from "@langchain/core/prompts";
 import {createReactAgent} from "@langchain/langgraph/prebuilt";
