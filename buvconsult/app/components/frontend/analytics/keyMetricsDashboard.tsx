@@ -29,7 +29,7 @@ export function KeyMetricsDashboard() {
         <CardHeader>
           <CardDescription>Progress this week</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            215 elements assembled
+            83 elements assembled
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -43,7 +43,7 @@ export function KeyMetricsDashboard() {
             Increase from average <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            Target for the week 180 elements
+            Target for the week 80 elements
           </div>
         </CardFooter>
       </Card>
@@ -92,9 +92,9 @@ export function KeyMetricsDashboard() {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Cost forecast</CardDescription>
+          <CardDescription>Deadline</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            Profit 11.3% - 338 000 EUR
+            Practical completion forecast - 10.08.2025
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -105,7 +105,7 @@ export function KeyMetricsDashboard() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Increase from average budget planned 3% <IconTrendingUp className="size-4" />
+            Practical completion deadline - 25.08.2025 <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">* Interpolated from existing progress</div>
         </CardFooter>

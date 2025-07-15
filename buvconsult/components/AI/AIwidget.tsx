@@ -34,7 +34,7 @@ function TableModal({ data, onClose }) {
     new Set(
       data.flatMap(row => Object.keys(row))
     )
-).filter(h => !hideFields.includes(h));
+  ).filter(h => !hideFields.includes(h));
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({});
 
@@ -53,10 +53,15 @@ function TableModal({ data, onClose }) {
     );
   }, [data, filters, search, headers]);
 
-  const sumTotal = filteredData.reduce(
-    (acc, row) => acc + (parseFloat(row.sum) || 0),
-    0
-  );
+  // Find all "sum" columns (case-insensitive)
+  const sumHeaders = headers.filter(h => h.toLowerCase() === "sum");
+  const sumTotals = {};
+  for (const sumKey of sumHeaders) {
+    sumTotals[sumKey] = filteredData.reduce(
+      (acc, row) => acc + (parseFloat(row[sumKey]) || 0),
+      0
+    );
+  }
 
   return (
     <div className="fixed inset-0 bg-black/40 z-[99] flex items-center justify-center">
@@ -89,7 +94,8 @@ function TableModal({ data, onClose }) {
                 {headers.map((h) => (
                   <th
                     key={h}
-                    className="border-b px-4 py-3 text-left font-semibold bg-gray-50 dark:bg-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700"
+                    className="border-b px-4 py-3 text-left font-semibold bg-gray-50 dark:bg-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700 max-w-xs break-words whitespace-pre-line"
+                    style={{ wordBreak: "break-word" }}
                   >
                     <div className="flex flex-col">
                       <span>{h}</span>
@@ -118,7 +124,8 @@ function TableModal({ data, onClose }) {
                   {headers.map((h) => (
                     <td
                       key={h}
-                      className="border-b px-4 py-2 border-gray-300 dark:border-gray-700 dark:text-gray-100"
+                      className="border-b px-4 py-2 border-gray-300 dark:border-gray-700 dark:text-gray-100 max-w-xs break-words whitespace-pre-line"
+                      style={{ wordBreak: "break-word" }}
                     >
                       {row[h]}
                     </td>
@@ -128,13 +135,14 @@ function TableModal({ data, onClose }) {
               {/* Subtotal row */}
               <tr className="bg-gray-100 dark:bg-gray-800 font-bold">
                 {headers.map((h) =>
-                  h === "sum" ? (
+                  sumHeaders.includes(h) ? (
                     <td
                       key={h}
-                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600 text-right dark:text-gray-100"
+                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600 text-right dark:text-gray-100 max-w-xs break-words whitespace-pre-line"
+                      style={{ wordBreak: "break-word" }}
                     >
                       Subtotal:{" "}
-                      {sumTotal.toLocaleString(undefined, {
+                      {sumTotals[h].toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -142,7 +150,8 @@ function TableModal({ data, onClose }) {
                   ) : (
                     <td
                       key={h}
-                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600"
+                      className="px-4 py-2 border-t border-b border-gray-400 dark:border-gray-600 max-w-xs break-words whitespace-pre-line"
+                      style={{ wordBreak: "break-word" }}
                     ></td>
                   )
                 )}
@@ -154,6 +163,7 @@ function TableModal({ data, onClose }) {
     </div>
   );
 }
+
 
 export default function AIChatGeneral({ siteId }) {
   const [messages, setMessages] = useState([

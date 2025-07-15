@@ -10,7 +10,7 @@ import {Wrench, HardHat,ChartBarBig, Clock8, ReceiptText, ChartBar, DollarSign, 
 
 export const projectNavLinks = [
   {
-    name: "Invoices",
+    name: "Dashboard",
     href: "/dashboard",
     path: "invoices",
     icon: ReceiptText,

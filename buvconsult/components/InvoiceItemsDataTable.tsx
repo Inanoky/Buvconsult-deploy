@@ -35,7 +35,7 @@ import {
   PaginationPrevious
 } from "@/components/ui/pagination";
 import { useRouter } from "next/navigation";
-import { deleteInvoiceItem } from "@/app/actions";
+import {deleteInvoiceItem, getProjectNameBySiteId} from "@/app/actions";
 import { toast } from "sonner";
 import { InvoiceItemEditDialog } from "@/components/InvoiceItemEditDialog";
 import {useProject} from "@/components/provider/ProjectProvider";
@@ -80,6 +80,7 @@ export function InvoiceItemsDataTable({ data, siteId }) {
   const router = useRouter();
   const [editItem, setEditItem] = React.useState(null);
   const [editOpen, setEditOpen] = React.useState(false);
+
 
   function exportToExcel() {
     // get only the currently filtered rows

@@ -13,7 +13,7 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreHorizontal} from "lucide-react";
 import Link from "next/link";
-import {GetInvoiceItemsFromDB, GetInvoicesFromDB} from "@/app/actions";
+import {GetInvoiceItemsFromDB, GetInvoicesFromDB, getProjectNameBySiteId} from "@/app/actions";
 import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
 import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
@@ -37,6 +37,7 @@ export default async function InvoiceRoute({params}:
     let invoiceItems = await GetInvoiceItemsFromDB(siteId);
     invoiceItems = invoiceItems.filter(item => item.invoice?.isInvoice !== false); // filter out items with invoice.isInvoice === false
     const chartAreaInteractiveData = await getDailyAggregatedCosts(siteId)
+    const projectName = getProjectNameBySiteId(siteId)
 
 
 
@@ -77,7 +78,7 @@ export default async function InvoiceRoute({params}:
   <CardHeader>
     <CardTitle>Invoices</CardTitle>
     <CardDescription>
-      Manage your invoices for site <strong>{siteId}</strong>
+      Manage your invoices for site <strong>{projectName}</strong>
     </CardDescription>
   </CardHeader>
   <CardContent>
@@ -90,7 +91,7 @@ export default async function InvoiceRoute({params}:
                       <CardHeader>
                         <CardTitle>Invoice Items</CardTitle>
                         <CardDescription>
-                          Manage your invoice items for site <strong>{siteId}</strong>
+                          Manage your invoice items for site <strong>{projectName}</strong>
                         </CardDescription>
                       </CardHeader>
                       <CardContent>

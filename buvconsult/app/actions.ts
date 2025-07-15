@@ -540,3 +540,15 @@ export async function updateSiteAction(formData: FormData) {
     return { success: false, message: err.message || "Update failed." };
   }
 }
+
+
+export async function getProjectNameBySiteId(siteId: string): Promise<string | null> {
+  if (!siteId) return null;
+
+  const site = await prisma.site.findUnique({
+    where: { id: siteId },
+    select: { name: true },
+  });
+
+  return site?.name ?? null;
+}
