@@ -10,8 +10,8 @@ import {prisma} from "@/app/utils/db";
 
 import {requireUser} from "@/app/utils/requireUser";
 import {stripe} from "@/app/utils/stripe";
-import gptResponse from "@/app/api/invoices/extract/route";
-import gptInvoiceSchema from "@/app/api/invoices/extract/route"
+import gptResponse from "@/components/AI/ExtractorGptForInvoices";
+import gptInvoiceSchema from "@/components/AI/ExtractorGptForInvoices"
 import OpenAI from "openai";
 import { chunk } from "lodash";
 
