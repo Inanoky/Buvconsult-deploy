@@ -21,6 +21,12 @@ export const projectNavLinks = [
     path: "analytics",
     icon: ChartLine,
   },
+     {
+    name: "Documents",
+    href: "/dashboard/documents",
+    path: "documents",
+    icon: ChartLine,
+  },
   {
     name: "Timesheets",
     href: "/dashboard/sites",

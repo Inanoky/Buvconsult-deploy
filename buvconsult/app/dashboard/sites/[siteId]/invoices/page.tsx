@@ -19,7 +19,7 @@ import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
 import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
 import AIassistant from "@/components/AI/aiAssistant";
-import AIChatGeneral from "@/components/AI/AIwidget";
+import AIChatGeneral from "@/components/AI/AIwidget/AIwidget";
 import {ChartAreaInteractive} from "@/app/components/frontend/analytics/ChartAreaInteractive";
 import {getDailyAggregatedCosts} from "@/app/AnalyticsActions";
 import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
