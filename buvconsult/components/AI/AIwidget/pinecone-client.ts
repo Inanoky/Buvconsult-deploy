@@ -2,8 +2,6 @@
 import 'dotenv/config'
 import { Pinecone } from '@pinecone-database/pinecone';
 
-
-
 const pc = new Pinecone();
 
 const indexName = 'test';
@@ -11,7 +9,7 @@ const indexName = 'test';
 await pc.createIndex({
   name: indexName,
   vectorType: 'dense',
-  dimension: 1536,
+  dimension: 3072, // <-- This must match the model's output size
   metric: 'cosine',
   spec: {
     serverless: {
@@ -22,7 +20,5 @@ await pc.createIndex({
   deletionProtection: 'disabled',
   tags: { environment: 'development' },
 });
-
-
 
 console.log("Index created and ready:", indexName);

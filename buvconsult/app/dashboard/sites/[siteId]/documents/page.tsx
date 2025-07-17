@@ -1,6 +1,13 @@
 import {Chat} from "@/components/AI/ChatWithPdf/chat";
+import AiWidgetRag from "@/components/AI/AIwidget/AiWidgetRag";
 
-export default function Documents (){
+export default async function Documents({params}:
+
+{params : Promise <{siteId:string}>
+
+}){
+
+    const {siteId} = await params
 
      return (
     <main className="relative container flex min-h-screen flex-col">
@@ -11,6 +18,7 @@ export default function Documents (){
       <div className="flex flex-1 py-4">
         <div className="w-full">
           <Chat />
+            <AiWidgetRag siteId={siteId}/>
         </div>
       </div>
     </main>

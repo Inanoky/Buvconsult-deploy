@@ -13,7 +13,7 @@ export async function embedAndStoreDocs(
 ) {
   /*create and store the embeddings in the vectorStore*/
   try {
-    const embeddings = new OpenAIEmbeddings();
+    const embeddings = new OpenAIEmbeddings({model: "text-embedding-3-large"});
     const index = client.Index("test");
 
     //embed the PDF documents. This is where we store to Pinecone info
