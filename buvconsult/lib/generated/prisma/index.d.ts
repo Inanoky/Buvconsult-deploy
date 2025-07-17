@@ -48,6 +48,11 @@ export type InvoiceItems = $Result.DefaultSelection<Prisma.$InvoiceItemsPayload>
  * 
  */
 export type AIconversation = $Result.DefaultSelection<Prisma.$AIconversationPayload>
+/**
+ * Model Documents
+ * 
+ */
+export type Documents = $Result.DefaultSelection<Prisma.$DocumentsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +248,16 @@ export class PrismaClient<
     * ```
     */
   get aIconversation(): Prisma.AIconversationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documents`: Exposes CRUD operations for the **Documents** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Documents
+    * const documents = await prisma.documents.findMany()
+    * ```
+    */
+  get documents(): Prisma.DocumentsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +704,8 @@ export namespace Prisma {
     Invoices: 'Invoices',
     Post: 'Post',
     InvoiceItems: 'InvoiceItems',
-    AIconversation: 'AIconversation'
+    AIconversation: 'AIconversation',
+    Documents: 'Documents'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "site" | "subscription" | "invoices" | "post" | "invoiceItems" | "aIconversation"
+      modelProps: "user" | "site" | "subscription" | "invoices" | "post" | "invoiceItems" | "aIconversation" | "documents"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1230,6 +1246,80 @@ export namespace Prisma {
           }
         }
       }
+      Documents: {
+        payload: Prisma.$DocumentsPayload<ExtArgs>
+        fields: Prisma.DocumentsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          findMany: {
+            args: Prisma.DocumentsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>[]
+          }
+          create: {
+            args: Prisma.DocumentsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          createMany: {
+            args: Prisma.DocumentsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          update: {
+            args: Prisma.DocumentsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentsPayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocuments>
+          }
+          groupBy: {
+            args: Prisma.DocumentsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentsCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1321,6 +1411,7 @@ export namespace Prisma {
     post?: PostOmit
     invoiceItems?: InvoiceItemsOmit
     aIconversation?: AIconversationOmit
+    documents?: DocumentsOmit
   }
 
   /* Types for Logging */
@@ -1418,6 +1509,7 @@ export namespace Prisma {
     Site: number
     posts: number
     Invoices: number
+    Documents: number
     AIconversation: number
   }
 
@@ -1425,6 +1517,7 @@ export namespace Prisma {
     Site?: boolean | UserCountOutputTypeCountSiteArgs
     posts?: boolean | UserCountOutputTypeCountPostsArgs
     Invoices?: boolean | UserCountOutputTypeCountInvoicesArgs
+    Documents?: boolean | UserCountOutputTypeCountDocumentsArgs
     AIconversation?: boolean | UserCountOutputTypeCountAIconversationArgs
   }
 
@@ -1463,6 +1556,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountAIconversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AIconversationWhereInput
   }
@@ -1476,12 +1576,14 @@ export namespace Prisma {
     posts: number
     invoices: number
     InvoiceItems: number
+    Documents: number
   }
 
   export type SiteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | SiteCountOutputTypeCountPostsArgs
     invoices?: boolean | SiteCountOutputTypeCountInvoicesArgs
     InvoiceItems?: boolean | SiteCountOutputTypeCountInvoiceItemsArgs
+    Documents?: boolean | SiteCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -1514,6 +1616,13 @@ export namespace Prisma {
    */
   export type SiteCountOutputTypeCountInvoiceItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InvoiceItemsWhereInput
+  }
+
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentsWhereInput
   }
 
 
@@ -1735,6 +1844,7 @@ export namespace Prisma {
     Site?: boolean | User$SiteArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     Invoices?: boolean | User$InvoicesArgs<ExtArgs>
+    Documents?: boolean | User$DocumentsArgs<ExtArgs>
     Subscription?: boolean | User$SubscriptionArgs<ExtArgs>
     AIconversation?: boolean | User$AIconversationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1775,6 +1885,7 @@ export namespace Prisma {
     Site?: boolean | User$SiteArgs<ExtArgs>
     posts?: boolean | User$postsArgs<ExtArgs>
     Invoices?: boolean | User$InvoicesArgs<ExtArgs>
+    Documents?: boolean | User$DocumentsArgs<ExtArgs>
     Subscription?: boolean | User$SubscriptionArgs<ExtArgs>
     AIconversation?: boolean | User$AIconversationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1788,6 +1899,7 @@ export namespace Prisma {
       Site: Prisma.$SitePayload<ExtArgs>[]
       posts: Prisma.$PostPayload<ExtArgs>[]
       Invoices: Prisma.$InvoicesPayload<ExtArgs>[]
+      Documents: Prisma.$DocumentsPayload<ExtArgs>[]
       Subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
       AIconversation: Prisma.$AIconversationPayload<ExtArgs>[]
     }
@@ -2196,6 +2308,7 @@ export namespace Prisma {
     Site<T extends User$SiteArgs<ExtArgs> = {}>(args?: Subset<T, User$SiteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Invoices<T extends User$InvoicesArgs<ExtArgs> = {}>(args?: Subset<T, User$InvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Documents<T extends User$DocumentsArgs<ExtArgs> = {}>(args?: Subset<T, User$DocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Subscription<T extends User$SubscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$SubscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     AIconversation<T extends User$AIconversationArgs<ExtArgs> = {}>(args?: Subset<T, User$AIconversationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIconversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2694,6 +2807,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.Documents
+   */
+  export type User$DocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    where?: DocumentsWhereInput
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    cursor?: DocumentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentsScalarFieldEnum | DocumentsScalarFieldEnum[]
+  }
+
+  /**
    * User.Subscription
    */
   export type User$SubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2947,6 +3084,7 @@ export namespace Prisma {
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
     InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
+    Documents?: boolean | Site$DocumentsArgs<ExtArgs>
     AIconversation?: boolean | Site$AIconversationArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
@@ -2992,6 +3130,7 @@ export namespace Prisma {
     posts?: boolean | Site$postsArgs<ExtArgs>
     invoices?: boolean | Site$invoicesArgs<ExtArgs>
     InvoiceItems?: boolean | Site$InvoiceItemsArgs<ExtArgs>
+    Documents?: boolean | Site$DocumentsArgs<ExtArgs>
     AIconversation?: boolean | Site$AIconversationArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3009,6 +3148,7 @@ export namespace Prisma {
       posts: Prisma.$PostPayload<ExtArgs>[]
       invoices: Prisma.$InvoicesPayload<ExtArgs>[]
       InvoiceItems: Prisma.$InvoiceItemsPayload<ExtArgs>[]
+      Documents: Prisma.$DocumentsPayload<ExtArgs>[]
       AIconversation: Prisma.$AIconversationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3418,6 +3558,7 @@ export namespace Prisma {
     posts<T extends Site$postsArgs<ExtArgs> = {}>(args?: Subset<T, Site$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     invoices<T extends Site$invoicesArgs<ExtArgs> = {}>(args?: Subset<T, Site$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InvoiceItems<T extends Site$InvoiceItemsArgs<ExtArgs> = {}>(args?: Subset<T, Site$InvoiceItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvoiceItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Documents<T extends Site$DocumentsArgs<ExtArgs> = {}>(args?: Subset<T, Site$DocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     AIconversation<T extends Site$AIconversationArgs<ExtArgs> = {}>(args?: Subset<T, Site$AIconversationArgs<ExtArgs>>): Prisma__AIconversationClient<$Result.GetResult<Prisma.$AIconversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3940,6 +4081,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InvoiceItemsScalarFieldEnum | InvoiceItemsScalarFieldEnum[]
+  }
+
+  /**
+   * Site.Documents
+   */
+  export type Site$DocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    where?: DocumentsWhereInput
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    cursor?: DocumentsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentsScalarFieldEnum | DocumentsScalarFieldEnum[]
   }
 
   /**
@@ -9972,6 +10137,1136 @@ export namespace Prisma {
 
 
   /**
+   * Model Documents
+   */
+
+  export type AggregateDocuments = {
+    _count: DocumentsCountAggregateOutputType | null
+    _min: DocumentsMinAggregateOutputType | null
+    _max: DocumentsMaxAggregateOutputType | null
+  }
+
+  export type DocumentsMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    documentType: string | null
+    documentName: string | null
+    description: string | null
+    userId: string | null
+    siteId: string | null
+  }
+
+  export type DocumentsMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    documentType: string | null
+    documentName: string | null
+    description: string | null
+    userId: string | null
+    siteId: string | null
+  }
+
+  export type DocumentsCountAggregateOutputType = {
+    id: number
+    url: number
+    documentType: number
+    documentName: number
+    description: number
+    userId: number
+    siteId: number
+    _all: number
+  }
+
+
+  export type DocumentsMinAggregateInputType = {
+    id?: true
+    url?: true
+    documentType?: true
+    documentName?: true
+    description?: true
+    userId?: true
+    siteId?: true
+  }
+
+  export type DocumentsMaxAggregateInputType = {
+    id?: true
+    url?: true
+    documentType?: true
+    documentName?: true
+    description?: true
+    userId?: true
+    siteId?: true
+  }
+
+  export type DocumentsCountAggregateInputType = {
+    id?: true
+    url?: true
+    documentType?: true
+    documentName?: true
+    description?: true
+    userId?: true
+    siteId?: true
+    _all?: true
+  }
+
+  export type DocumentsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Documents to aggregate.
+     */
+    where?: DocumentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Documents
+    **/
+    _count?: true | DocumentsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentsMaxAggregateInputType
+  }
+
+  export type GetDocumentsAggregateType<T extends DocumentsAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocuments]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocuments[P]>
+      : GetScalarType<T[P], AggregateDocuments[P]>
+  }
+
+
+
+
+  export type DocumentsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentsWhereInput
+    orderBy?: DocumentsOrderByWithAggregationInput | DocumentsOrderByWithAggregationInput[]
+    by: DocumentsScalarFieldEnum[] | DocumentsScalarFieldEnum
+    having?: DocumentsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentsCountAggregateInputType | true
+    _min?: DocumentsMinAggregateInputType
+    _max?: DocumentsMaxAggregateInputType
+  }
+
+  export type DocumentsGroupByOutputType = {
+    id: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    userId: string | null
+    siteId: string | null
+    _count: DocumentsCountAggregateOutputType | null
+    _min: DocumentsMinAggregateOutputType | null
+    _max: DocumentsMaxAggregateOutputType | null
+  }
+
+  type GetDocumentsGroupByPayload<T extends DocumentsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentsGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    description?: boolean
+    userId?: boolean
+    siteId?: boolean
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }, ExtArgs["result"]["documents"]>
+
+  export type DocumentsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    description?: boolean
+    userId?: boolean
+    siteId?: boolean
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }, ExtArgs["result"]["documents"]>
+
+  export type DocumentsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    description?: boolean
+    userId?: boolean
+    siteId?: boolean
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }, ExtArgs["result"]["documents"]>
+
+  export type DocumentsSelectScalar = {
+    id?: boolean
+    url?: boolean
+    documentType?: boolean
+    documentName?: boolean
+    description?: boolean
+    userId?: boolean
+    siteId?: boolean
+  }
+
+  export type DocumentsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "documentType" | "documentName" | "description" | "userId" | "siteId", ExtArgs["result"]["documents"]>
+  export type DocumentsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }
+  export type DocumentsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }
+  export type DocumentsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Documents$UserArgs<ExtArgs>
+    Site?: boolean | Documents$SiteArgs<ExtArgs>
+  }
+
+  export type $DocumentsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Documents"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs> | null
+      Site: Prisma.$SitePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      documentType: string
+      documentName: string
+      description: string
+      userId: string | null
+      siteId: string | null
+    }, ExtArgs["result"]["documents"]>
+    composites: {}
+  }
+
+  type DocumentsGetPayload<S extends boolean | null | undefined | DocumentsDefaultArgs> = $Result.GetResult<Prisma.$DocumentsPayload, S>
+
+  type DocumentsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentsCountAggregateInputType | true
+    }
+
+  export interface DocumentsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Documents'], meta: { name: 'Documents' } }
+    /**
+     * Find zero or one Documents that matches the filter.
+     * @param {DocumentsFindUniqueArgs} args - Arguments to find a Documents
+     * @example
+     * // Get one Documents
+     * const documents = await prisma.documents.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentsFindUniqueArgs>(args: SelectSubset<T, DocumentsFindUniqueArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Documents that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentsFindUniqueOrThrowArgs} args - Arguments to find a Documents
+     * @example
+     * // Get one Documents
+     * const documents = await prisma.documents.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentsFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Documents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsFindFirstArgs} args - Arguments to find a Documents
+     * @example
+     * // Get one Documents
+     * const documents = await prisma.documents.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentsFindFirstArgs>(args?: SelectSubset<T, DocumentsFindFirstArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Documents that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsFindFirstOrThrowArgs} args - Arguments to find a Documents
+     * @example
+     * // Get one Documents
+     * const documents = await prisma.documents.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentsFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentsFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Documents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Documents
+     * const documents = await prisma.documents.findMany()
+     * 
+     * // Get first 10 Documents
+     * const documents = await prisma.documents.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentsWithIdOnly = await prisma.documents.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentsFindManyArgs>(args?: SelectSubset<T, DocumentsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Documents.
+     * @param {DocumentsCreateArgs} args - Arguments to create a Documents.
+     * @example
+     * // Create one Documents
+     * const Documents = await prisma.documents.create({
+     *   data: {
+     *     // ... data to create a Documents
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentsCreateArgs>(args: SelectSubset<T, DocumentsCreateArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Documents.
+     * @param {DocumentsCreateManyArgs} args - Arguments to create many Documents.
+     * @example
+     * // Create many Documents
+     * const documents = await prisma.documents.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentsCreateManyArgs>(args?: SelectSubset<T, DocumentsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Documents and returns the data saved in the database.
+     * @param {DocumentsCreateManyAndReturnArgs} args - Arguments to create many Documents.
+     * @example
+     * // Create many Documents
+     * const documents = await prisma.documents.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Documents and only return the `id`
+     * const documentsWithIdOnly = await prisma.documents.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentsCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Documents.
+     * @param {DocumentsDeleteArgs} args - Arguments to delete one Documents.
+     * @example
+     * // Delete one Documents
+     * const Documents = await prisma.documents.delete({
+     *   where: {
+     *     // ... filter to delete one Documents
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentsDeleteArgs>(args: SelectSubset<T, DocumentsDeleteArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Documents.
+     * @param {DocumentsUpdateArgs} args - Arguments to update one Documents.
+     * @example
+     * // Update one Documents
+     * const documents = await prisma.documents.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentsUpdateArgs>(args: SelectSubset<T, DocumentsUpdateArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Documents.
+     * @param {DocumentsDeleteManyArgs} args - Arguments to filter Documents to delete.
+     * @example
+     * // Delete a few Documents
+     * const { count } = await prisma.documents.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentsDeleteManyArgs>(args?: SelectSubset<T, DocumentsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Documents
+     * const documents = await prisma.documents.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentsUpdateManyArgs>(args: SelectSubset<T, DocumentsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Documents and returns the data updated in the database.
+     * @param {DocumentsUpdateManyAndReturnArgs} args - Arguments to update many Documents.
+     * @example
+     * // Update many Documents
+     * const documents = await prisma.documents.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Documents and only return the `id`
+     * const documentsWithIdOnly = await prisma.documents.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentsUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Documents.
+     * @param {DocumentsUpsertArgs} args - Arguments to update or create a Documents.
+     * @example
+     * // Update or create a Documents
+     * const documents = await prisma.documents.upsert({
+     *   create: {
+     *     // ... data to create a Documents
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Documents we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentsUpsertArgs>(args: SelectSubset<T, DocumentsUpsertArgs<ExtArgs>>): Prisma__DocumentsClient<$Result.GetResult<Prisma.$DocumentsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsCountArgs} args - Arguments to filter Documents to count.
+     * @example
+     * // Count the number of Documents
+     * const count = await prisma.documents.count({
+     *   where: {
+     *     // ... the filter for the Documents we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentsCountArgs>(
+      args?: Subset<T, DocumentsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentsAggregateArgs>(args: Subset<T, DocumentsAggregateArgs>): Prisma.PrismaPromise<GetDocumentsAggregateType<T>>
+
+    /**
+     * Group by Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentsGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Documents model
+   */
+  readonly fields: DocumentsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Documents.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends Documents$UserArgs<ExtArgs> = {}>(args?: Subset<T, Documents$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Site<T extends Documents$SiteArgs<ExtArgs> = {}>(args?: Subset<T, Documents$SiteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Documents model
+   */
+  interface DocumentsFieldRefs {
+    readonly id: FieldRef<"Documents", 'String'>
+    readonly url: FieldRef<"Documents", 'String'>
+    readonly documentType: FieldRef<"Documents", 'String'>
+    readonly documentName: FieldRef<"Documents", 'String'>
+    readonly description: FieldRef<"Documents", 'String'>
+    readonly userId: FieldRef<"Documents", 'String'>
+    readonly siteId: FieldRef<"Documents", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Documents findUnique
+   */
+  export type DocumentsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where: DocumentsWhereUniqueInput
+  }
+
+  /**
+   * Documents findUniqueOrThrow
+   */
+  export type DocumentsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where: DocumentsWhereUniqueInput
+  }
+
+  /**
+   * Documents findFirst
+   */
+  export type DocumentsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where?: DocumentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Documents.
+     */
+    cursor?: DocumentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Documents.
+     */
+    distinct?: DocumentsScalarFieldEnum | DocumentsScalarFieldEnum[]
+  }
+
+  /**
+   * Documents findFirstOrThrow
+   */
+  export type DocumentsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where?: DocumentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Documents.
+     */
+    cursor?: DocumentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Documents.
+     */
+    distinct?: DocumentsScalarFieldEnum | DocumentsScalarFieldEnum[]
+  }
+
+  /**
+   * Documents findMany
+   */
+  export type DocumentsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where?: DocumentsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentsOrderByWithRelationInput | DocumentsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Documents.
+     */
+    cursor?: DocumentsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    distinct?: DocumentsScalarFieldEnum | DocumentsScalarFieldEnum[]
+  }
+
+  /**
+   * Documents create
+   */
+  export type DocumentsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Documents.
+     */
+    data: XOR<DocumentsCreateInput, DocumentsUncheckedCreateInput>
+  }
+
+  /**
+   * Documents createMany
+   */
+  export type DocumentsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Documents.
+     */
+    data: DocumentsCreateManyInput | DocumentsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Documents createManyAndReturn
+   */
+  export type DocumentsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Documents.
+     */
+    data: DocumentsCreateManyInput | DocumentsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Documents update
+   */
+  export type DocumentsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Documents.
+     */
+    data: XOR<DocumentsUpdateInput, DocumentsUncheckedUpdateInput>
+    /**
+     * Choose, which Documents to update.
+     */
+    where: DocumentsWhereUniqueInput
+  }
+
+  /**
+   * Documents updateMany
+   */
+  export type DocumentsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Documents.
+     */
+    data: XOR<DocumentsUpdateManyMutationInput, DocumentsUncheckedUpdateManyInput>
+    /**
+     * Filter which Documents to update
+     */
+    where?: DocumentsWhereInput
+    /**
+     * Limit how many Documents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Documents updateManyAndReturn
+   */
+  export type DocumentsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * The data used to update Documents.
+     */
+    data: XOR<DocumentsUpdateManyMutationInput, DocumentsUncheckedUpdateManyInput>
+    /**
+     * Filter which Documents to update
+     */
+    where?: DocumentsWhereInput
+    /**
+     * Limit how many Documents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Documents upsert
+   */
+  export type DocumentsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Documents to update in case it exists.
+     */
+    where: DocumentsWhereUniqueInput
+    /**
+     * In case the Documents found by the `where` argument doesn't exist, create a new Documents with this data.
+     */
+    create: XOR<DocumentsCreateInput, DocumentsUncheckedCreateInput>
+    /**
+     * In case the Documents was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentsUpdateInput, DocumentsUncheckedUpdateInput>
+  }
+
+  /**
+   * Documents delete
+   */
+  export type DocumentsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+    /**
+     * Filter which Documents to delete.
+     */
+    where: DocumentsWhereUniqueInput
+  }
+
+  /**
+   * Documents deleteMany
+   */
+  export type DocumentsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Documents to delete
+     */
+    where?: DocumentsWhereInput
+    /**
+     * Limit how many Documents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Documents.User
+   */
+  export type Documents$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Documents.Site
+   */
+  export type Documents$SiteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
+  }
+
+  /**
+   * Documents without action
+   */
+  export type DocumentsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Documents
+     */
+    select?: DocumentsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Documents
+     */
+    omit?: DocumentsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10094,6 +11389,19 @@ export namespace Prisma {
   };
 
   export type AIconversationScalarFieldEnum = (typeof AIconversationScalarFieldEnum)[keyof typeof AIconversationScalarFieldEnum]
+
+
+  export const DocumentsScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    documentType: 'documentType',
+    documentName: 'documentName',
+    description: 'description',
+    userId: 'userId',
+    siteId: 'siteId'
+  };
+
+  export type DocumentsScalarFieldEnum = (typeof DocumentsScalarFieldEnum)[keyof typeof DocumentsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10243,6 +11551,7 @@ export namespace Prisma {
     Site?: SiteListRelationFilter
     posts?: PostListRelationFilter
     Invoices?: InvoicesListRelationFilter
+    Documents?: DocumentsListRelationFilter
     Subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     AIconversation?: AIconversationListRelationFilter
   }
@@ -10258,6 +11567,7 @@ export namespace Prisma {
     Site?: SiteOrderByRelationAggregateInput
     posts?: PostOrderByRelationAggregateInput
     Invoices?: InvoicesOrderByRelationAggregateInput
+    Documents?: DocumentsOrderByRelationAggregateInput
     Subscription?: SubscriptionOrderByWithRelationInput
     AIconversation?: AIconversationOrderByRelationAggregateInput
   }
@@ -10276,6 +11586,7 @@ export namespace Prisma {
     Site?: SiteListRelationFilter
     posts?: PostListRelationFilter
     Invoices?: InvoicesListRelationFilter
+    Documents?: DocumentsListRelationFilter
     Subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     AIconversation?: AIconversationListRelationFilter
   }, "id" | "id" | "customerId">
@@ -10322,6 +11633,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
     InvoiceItems?: InvoiceItemsListRelationFilter
+    Documents?: DocumentsListRelationFilter
     AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
   }
 
@@ -10338,6 +11650,7 @@ export namespace Prisma {
     posts?: PostOrderByRelationAggregateInput
     invoices?: InvoicesOrderByRelationAggregateInput
     InvoiceItems?: InvoiceItemsOrderByRelationAggregateInput
+    Documents?: DocumentsOrderByRelationAggregateInput
     AIconversation?: AIconversationOrderByWithRelationInput
   }
 
@@ -10357,6 +11670,7 @@ export namespace Prisma {
     posts?: PostListRelationFilter
     invoices?: InvoicesListRelationFilter
     InvoiceItems?: InvoiceItemsListRelationFilter
+    Documents?: DocumentsListRelationFilter
     AIconversation?: XOR<AIconversationNullableScalarRelationFilter, AIconversationWhereInput> | null
   }, "id">
 
@@ -10830,6 +12144,74 @@ export namespace Prisma {
     siteId?: StringWithAggregatesFilter<"AIconversation"> | string
   }
 
+  export type DocumentsWhereInput = {
+    AND?: DocumentsWhereInput | DocumentsWhereInput[]
+    OR?: DocumentsWhereInput[]
+    NOT?: DocumentsWhereInput | DocumentsWhereInput[]
+    id?: StringFilter<"Documents"> | string
+    url?: StringFilter<"Documents"> | string
+    documentType?: StringFilter<"Documents"> | string
+    documentName?: StringFilter<"Documents"> | string
+    description?: StringFilter<"Documents"> | string
+    userId?: StringNullableFilter<"Documents"> | string | null
+    siteId?: StringNullableFilter<"Documents"> | string | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
+  }
+
+  export type DocumentsOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    description?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    siteId?: SortOrderInput | SortOrder
+    User?: UserOrderByWithRelationInput
+    Site?: SiteOrderByWithRelationInput
+  }
+
+  export type DocumentsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentsWhereInput | DocumentsWhereInput[]
+    OR?: DocumentsWhereInput[]
+    NOT?: DocumentsWhereInput | DocumentsWhereInput[]
+    url?: StringFilter<"Documents"> | string
+    documentType?: StringFilter<"Documents"> | string
+    documentName?: StringFilter<"Documents"> | string
+    description?: StringFilter<"Documents"> | string
+    userId?: StringNullableFilter<"Documents"> | string | null
+    siteId?: StringNullableFilter<"Documents"> | string | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
+  }, "id">
+
+  export type DocumentsOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    description?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    siteId?: SortOrderInput | SortOrder
+    _count?: DocumentsCountOrderByAggregateInput
+    _max?: DocumentsMaxOrderByAggregateInput
+    _min?: DocumentsMinOrderByAggregateInput
+  }
+
+  export type DocumentsScalarWhereWithAggregatesInput = {
+    AND?: DocumentsScalarWhereWithAggregatesInput | DocumentsScalarWhereWithAggregatesInput[]
+    OR?: DocumentsScalarWhereWithAggregatesInput[]
+    NOT?: DocumentsScalarWhereWithAggregatesInput | DocumentsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Documents"> | string
+    url?: StringWithAggregatesFilter<"Documents"> | string
+    documentType?: StringWithAggregatesFilter<"Documents"> | string
+    documentName?: StringWithAggregatesFilter<"Documents"> | string
+    description?: StringWithAggregatesFilter<"Documents"> | string
+    userId?: StringNullableWithAggregatesFilter<"Documents"> | string | null
+    siteId?: StringNullableWithAggregatesFilter<"Documents"> | string | null
+  }
+
   export type UserCreateInput = {
     id: string
     email: string
@@ -10841,6 +12223,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
@@ -10856,6 +12239,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -10871,6 +12255,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
@@ -10886,6 +12271,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -10932,6 +12318,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
@@ -10947,6 +12334,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
@@ -10962,6 +12350,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
@@ -10977,6 +12366,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
@@ -11490,6 +12880,74 @@ export namespace Prisma {
     siteId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type DocumentsCreateInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    User?: UserCreateNestedOneWithoutDocumentsInput
+    Site?: SiteCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentsUncheckedCreateInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    userId?: string | null
+    siteId?: string | null
+  }
+
+  export type DocumentsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    User?: UserUpdateOneWithoutDocumentsNestedInput
+    Site?: SiteUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DocumentsCreateManyInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    userId?: string | null
+    siteId?: string | null
+  }
+
+  export type DocumentsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11549,6 +13007,12 @@ export namespace Prisma {
     none?: InvoicesWhereInput
   }
 
+  export type DocumentsListRelationFilter = {
+    every?: DocumentsWhereInput
+    some?: DocumentsWhereInput
+    none?: DocumentsWhereInput
+  }
+
   export type SubscriptionNullableScalarRelationFilter = {
     is?: SubscriptionWhereInput | null
     isNot?: SubscriptionWhereInput | null
@@ -11574,6 +13038,10 @@ export namespace Prisma {
   }
 
   export type InvoicesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12129,6 +13597,36 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
+  export type DocumentsCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    siteId?: SortOrder
+  }
+
+  export type DocumentsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    siteId?: SortOrder
+  }
+
+  export type DocumentsMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    documentType?: SortOrder
+    documentName?: SortOrder
+    description?: SortOrder
+    userId?: SortOrder
+    siteId?: SortOrder
+  }
+
   export type SiteCreateNestedManyWithoutUserInput = {
     create?: XOR<SiteCreateWithoutUserInput, SiteUncheckedCreateWithoutUserInput> | SiteCreateWithoutUserInput[] | SiteUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SiteCreateOrConnectWithoutUserInput | SiteCreateOrConnectWithoutUserInput[]
@@ -12148,6 +13646,13 @@ export namespace Prisma {
     connectOrCreate?: InvoicesCreateOrConnectWithoutUserInput | InvoicesCreateOrConnectWithoutUserInput[]
     createMany?: InvoicesCreateManyUserInputEnvelope
     connect?: InvoicesWhereUniqueInput | InvoicesWhereUniqueInput[]
+  }
+
+  export type DocumentsCreateNestedManyWithoutUserInput = {
+    create?: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput> | DocumentsCreateWithoutUserInput[] | DocumentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutUserInput | DocumentsCreateOrConnectWithoutUserInput[]
+    createMany?: DocumentsCreateManyUserInputEnvelope
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
   }
 
   export type SubscriptionCreateNestedOneWithoutUserInput = {
@@ -12182,6 +13687,13 @@ export namespace Prisma {
     connectOrCreate?: InvoicesCreateOrConnectWithoutUserInput | InvoicesCreateOrConnectWithoutUserInput[]
     createMany?: InvoicesCreateManyUserInputEnvelope
     connect?: InvoicesWhereUniqueInput | InvoicesWhereUniqueInput[]
+  }
+
+  export type DocumentsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput> | DocumentsCreateWithoutUserInput[] | DocumentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutUserInput | DocumentsCreateOrConnectWithoutUserInput[]
+    createMany?: DocumentsCreateManyUserInputEnvelope
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
   }
 
   export type SubscriptionUncheckedCreateNestedOneWithoutUserInput = {
@@ -12251,6 +13763,20 @@ export namespace Prisma {
     deleteMany?: InvoicesScalarWhereInput | InvoicesScalarWhereInput[]
   }
 
+  export type DocumentsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput> | DocumentsCreateWithoutUserInput[] | DocumentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutUserInput | DocumentsCreateOrConnectWithoutUserInput[]
+    upsert?: DocumentsUpsertWithWhereUniqueWithoutUserInput | DocumentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DocumentsCreateManyUserInputEnvelope
+    set?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    disconnect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    delete?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    update?: DocumentsUpdateWithWhereUniqueWithoutUserInput | DocumentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DocumentsUpdateManyWithWhereWithoutUserInput | DocumentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
+  }
+
   export type SubscriptionUpdateOneWithoutUserNestedInput = {
     create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
     connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
@@ -12317,6 +13843,20 @@ export namespace Prisma {
     deleteMany?: InvoicesScalarWhereInput | InvoicesScalarWhereInput[]
   }
 
+  export type DocumentsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput> | DocumentsCreateWithoutUserInput[] | DocumentsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutUserInput | DocumentsCreateOrConnectWithoutUserInput[]
+    upsert?: DocumentsUpsertWithWhereUniqueWithoutUserInput | DocumentsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DocumentsCreateManyUserInputEnvelope
+    set?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    disconnect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    delete?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    update?: DocumentsUpdateWithWhereUniqueWithoutUserInput | DocumentsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DocumentsUpdateManyWithWhereWithoutUserInput | DocumentsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
+  }
+
   export type SubscriptionUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
     connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
@@ -12368,6 +13908,13 @@ export namespace Prisma {
     connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
   }
 
+  export type DocumentsCreateNestedManyWithoutSiteInput = {
+    create?: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput> | DocumentsCreateWithoutSiteInput[] | DocumentsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutSiteInput | DocumentsCreateOrConnectWithoutSiteInput[]
+    createMany?: DocumentsCreateManySiteInputEnvelope
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+  }
+
   export type AIconversationCreateNestedOneWithoutSiteInput = {
     create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
     connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
@@ -12393,6 +13940,13 @@ export namespace Prisma {
     connectOrCreate?: InvoiceItemsCreateOrConnectWithoutSiteInput | InvoiceItemsCreateOrConnectWithoutSiteInput[]
     createMany?: InvoiceItemsCreateManySiteInputEnvelope
     connect?: InvoiceItemsWhereUniqueInput | InvoiceItemsWhereUniqueInput[]
+  }
+
+  export type DocumentsUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput> | DocumentsCreateWithoutSiteInput[] | DocumentsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutSiteInput | DocumentsCreateOrConnectWithoutSiteInput[]
+    createMany?: DocumentsCreateManySiteInputEnvelope
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
   }
 
   export type AIconversationUncheckedCreateNestedOneWithoutSiteInput = {
@@ -12453,6 +14007,20 @@ export namespace Prisma {
     deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
   }
 
+  export type DocumentsUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput> | DocumentsCreateWithoutSiteInput[] | DocumentsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutSiteInput | DocumentsCreateOrConnectWithoutSiteInput[]
+    upsert?: DocumentsUpsertWithWhereUniqueWithoutSiteInput | DocumentsUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: DocumentsCreateManySiteInputEnvelope
+    set?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    disconnect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    delete?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    update?: DocumentsUpdateWithWhereUniqueWithoutSiteInput | DocumentsUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: DocumentsUpdateManyWithWhereWithoutSiteInput | DocumentsUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
+  }
+
   export type AIconversationUpdateOneWithoutSiteNestedInput = {
     create?: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
     connectOrCreate?: AIconversationCreateOrConnectWithoutSiteInput
@@ -12503,6 +14071,20 @@ export namespace Prisma {
     update?: InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput | InvoiceItemsUpdateWithWhereUniqueWithoutSiteInput[]
     updateMany?: InvoiceItemsUpdateManyWithWhereWithoutSiteInput | InvoiceItemsUpdateManyWithWhereWithoutSiteInput[]
     deleteMany?: InvoiceItemsScalarWhereInput | InvoiceItemsScalarWhereInput[]
+  }
+
+  export type DocumentsUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput> | DocumentsCreateWithoutSiteInput[] | DocumentsUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: DocumentsCreateOrConnectWithoutSiteInput | DocumentsCreateOrConnectWithoutSiteInput[]
+    upsert?: DocumentsUpsertWithWhereUniqueWithoutSiteInput | DocumentsUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: DocumentsCreateManySiteInputEnvelope
+    set?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    disconnect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    delete?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    connect?: DocumentsWhereUniqueInput | DocumentsWhereUniqueInput[]
+    update?: DocumentsUpdateWithWhereUniqueWithoutSiteInput | DocumentsUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: DocumentsUpdateManyWithWhereWithoutSiteInput | DocumentsUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
   }
 
   export type AIconversationUncheckedUpdateOneWithoutSiteNestedInput = {
@@ -12717,6 +14299,38 @@ export namespace Prisma {
     delete?: SiteWhereInput | boolean
     connect?: SiteWhereUniqueInput
     update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutAIconversationInput, SiteUpdateWithoutAIconversationInput>, SiteUncheckedUpdateWithoutAIconversationInput>
+  }
+
+  export type UserCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SiteCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<SiteCreateWithoutDocumentsInput, SiteUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutDocumentsInput
+    connect?: SiteWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
+    upsert?: UserUpsertWithoutDocumentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentsInput, UserUpdateWithoutDocumentsInput>, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type SiteUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<SiteCreateWithoutDocumentsInput, SiteUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutDocumentsInput
+    upsert?: SiteUpsertWithoutDocumentsInput
+    disconnect?: SiteWhereInput | boolean
+    delete?: SiteWhereInput | boolean
+    connect?: SiteWhereUniqueInput
+    update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutDocumentsInput, SiteUpdateWithoutDocumentsInput>, SiteUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12952,6 +14566,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
@@ -12966,6 +14581,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
@@ -13054,6 +14670,34 @@ export namespace Prisma {
 
   export type InvoicesCreateManyUserInputEnvelope = {
     data: InvoicesCreateManyUserInput | InvoicesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DocumentsCreateWithoutUserInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    Site?: SiteCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentsUncheckedCreateWithoutUserInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    siteId?: string | null
+  }
+
+  export type DocumentsCreateOrConnectWithoutUserInput = {
+    where: DocumentsWhereUniqueInput
+    create: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type DocumentsCreateManyUserInputEnvelope = {
+    data: DocumentsCreateManyUserInput | DocumentsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13204,6 +14848,35 @@ export namespace Prisma {
     SiteId?: StringNullableFilter<"Invoices"> | string | null
   }
 
+  export type DocumentsUpsertWithWhereUniqueWithoutUserInput = {
+    where: DocumentsWhereUniqueInput
+    update: XOR<DocumentsUpdateWithoutUserInput, DocumentsUncheckedUpdateWithoutUserInput>
+    create: XOR<DocumentsCreateWithoutUserInput, DocumentsUncheckedCreateWithoutUserInput>
+  }
+
+  export type DocumentsUpdateWithWhereUniqueWithoutUserInput = {
+    where: DocumentsWhereUniqueInput
+    data: XOR<DocumentsUpdateWithoutUserInput, DocumentsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DocumentsUpdateManyWithWhereWithoutUserInput = {
+    where: DocumentsScalarWhereInput
+    data: XOR<DocumentsUpdateManyMutationInput, DocumentsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DocumentsScalarWhereInput = {
+    AND?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
+    OR?: DocumentsScalarWhereInput[]
+    NOT?: DocumentsScalarWhereInput | DocumentsScalarWhereInput[]
+    id?: StringFilter<"Documents"> | string
+    url?: StringFilter<"Documents"> | string
+    documentType?: StringFilter<"Documents"> | string
+    documentName?: StringFilter<"Documents"> | string
+    description?: StringFilter<"Documents"> | string
+    userId?: StringNullableFilter<"Documents"> | string | null
+    siteId?: StringNullableFilter<"Documents"> | string | null
+  }
+
   export type SubscriptionUpsertWithoutUserInput = {
     update: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
     create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
@@ -13273,6 +14946,7 @@ export namespace Prisma {
     createdAt?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
@@ -13287,6 +14961,7 @@ export namespace Prisma {
     createdAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13422,6 +15097,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DocumentsCreateWithoutSiteInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    User?: UserCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentsUncheckedCreateWithoutSiteInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    userId?: string | null
+  }
+
+  export type DocumentsCreateOrConnectWithoutSiteInput = {
+    where: DocumentsWhereUniqueInput
+    create: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput>
+  }
+
+  export type DocumentsCreateManySiteInputEnvelope = {
+    data: DocumentsCreateManySiteInput | DocumentsCreateManySiteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AIconversationCreateWithoutSiteInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
@@ -13460,6 +15163,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
@@ -13474,6 +15178,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13549,6 +15254,22 @@ export namespace Prisma {
     paymentDate?: StringNullableFilter<"InvoiceItems"> | string | null
   }
 
+  export type DocumentsUpsertWithWhereUniqueWithoutSiteInput = {
+    where: DocumentsWhereUniqueInput
+    update: XOR<DocumentsUpdateWithoutSiteInput, DocumentsUncheckedUpdateWithoutSiteInput>
+    create: XOR<DocumentsCreateWithoutSiteInput, DocumentsUncheckedCreateWithoutSiteInput>
+  }
+
+  export type DocumentsUpdateWithWhereUniqueWithoutSiteInput = {
+    where: DocumentsWhereUniqueInput
+    data: XOR<DocumentsUpdateWithoutSiteInput, DocumentsUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type DocumentsUpdateManyWithWhereWithoutSiteInput = {
+    where: DocumentsScalarWhereInput
+    data: XOR<DocumentsUpdateManyMutationInput, DocumentsUncheckedUpdateManyWithoutSiteInput>
+  }
+
   export type AIconversationUpsertWithoutSiteInput = {
     update: XOR<AIconversationUpdateWithoutSiteInput, AIconversationUncheckedUpdateWithoutSiteInput>
     create: XOR<AIconversationCreateWithoutSiteInput, AIconversationUncheckedCreateWithoutSiteInput>
@@ -13583,6 +15304,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
 
@@ -13597,6 +15319,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -13627,6 +15350,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
 
@@ -13641,6 +15365,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -13654,6 +15379,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
@@ -13668,6 +15394,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13688,6 +15415,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
@@ -13702,6 +15430,7 @@ export namespace Prisma {
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
@@ -13779,6 +15508,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
@@ -13793,6 +15523,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13819,6 +15550,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
@@ -13833,6 +15565,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
@@ -13862,6 +15595,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Site?: SiteCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationCreateNestedManyWithoutUserInput
   }
@@ -13876,6 +15610,7 @@ export namespace Prisma {
     createdAt?: Date | string
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13896,6 +15631,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
@@ -13910,6 +15646,7 @@ export namespace Prisma {
     userId?: string | null
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
@@ -13939,6 +15676,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Site?: SiteUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
   }
@@ -13953,6 +15691,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13979,6 +15718,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
@@ -13993,6 +15733,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
@@ -14046,6 +15787,7 @@ export namespace Prisma {
     User?: UserCreateNestedOneWithoutSiteInput
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
   }
 
@@ -14060,6 +15802,7 @@ export namespace Prisma {
     userId?: string | null
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
     AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
   }
 
@@ -14135,6 +15878,7 @@ export namespace Prisma {
     User?: UserUpdateOneWithoutSiteNestedInput
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
@@ -14149,6 +15893,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
@@ -14163,6 +15908,7 @@ export namespace Prisma {
     Site?: SiteCreateNestedManyWithoutUserInput
     posts?: PostCreateNestedManyWithoutUserInput
     Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Documents?: DocumentsCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionCreateNestedOneWithoutUserInput
   }
 
@@ -14177,6 +15923,7 @@ export namespace Prisma {
     Site?: SiteUncheckedCreateNestedManyWithoutUserInput
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutUserInput
     Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -14197,6 +15944,7 @@ export namespace Prisma {
     posts?: PostCreateNestedManyWithoutSiteInput
     invoices?: InvoicesCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutAIconversationInput = {
@@ -14211,6 +15959,7 @@ export namespace Prisma {
     posts?: PostUncheckedCreateNestedManyWithoutSiteInput
     invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
     InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    Documents?: DocumentsUncheckedCreateNestedManyWithoutSiteInput
   }
 
   export type SiteCreateOrConnectWithoutAIconversationInput = {
@@ -14240,6 +15989,7 @@ export namespace Prisma {
     Site?: SiteUpdateManyWithoutUserNestedInput
     posts?: PostUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
   }
 
@@ -14254,6 +16004,7 @@ export namespace Prisma {
     Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutUserNestedInput
     Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -14280,6 +16031,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutAIconversationInput = {
@@ -14294,6 +16046,159 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type UserCreateWithoutDocumentsInput = {
+    id: string
+    email: string
+    firstName: string
+    lastName: string
+    profileImage: string
+    customerId?: string | null
+    createdAt?: Date | string
+    Site?: SiteCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutUserInput
+    Invoices?: InvoicesCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDocumentsInput = {
+    id: string
+    email: string
+    firstName: string
+    lastName: string
+    profileImage: string
+    customerId?: string | null
+    createdAt?: Date | string
+    Site?: SiteUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutUserInput
+    Invoices?: InvoicesUncheckedCreateNestedManyWithoutUserInput
+    Subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    AIconversation?: AIconversationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDocumentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type SiteCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    User?: UserCreateNestedOneWithoutSiteInput
+    posts?: PostCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationCreateNestedOneWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    name: string
+    description: string
+    subdirectory: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    imageUrl?: string | null
+    userId?: string | null
+    posts?: PostUncheckedCreateNestedManyWithoutSiteInput
+    invoices?: InvoicesUncheckedCreateNestedManyWithoutSiteInput
+    InvoiceItems?: InvoiceItemsUncheckedCreateNestedManyWithoutSiteInput
+    AIconversation?: AIconversationUncheckedCreateNestedOneWithoutSiteInput
+  }
+
+  export type SiteCreateOrConnectWithoutDocumentsInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutDocumentsInput, SiteUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type UserUpsertWithoutDocumentsInput = {
+    update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type UserUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Site?: SiteUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutUserNestedInput
+    Invoices?: InvoicesUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    profileImage?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Site?: SiteUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutUserNestedInput
+    Invoices?: InvoicesUncheckedUpdateManyWithoutUserNestedInput
+    Subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    AIconversation?: AIconversationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SiteUpsertWithoutDocumentsInput = {
+    update: XOR<SiteUpdateWithoutDocumentsInput, SiteUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<SiteCreateWithoutDocumentsInput, SiteUncheckedCreateWithoutDocumentsInput>
+    where?: SiteWhereInput
+  }
+
+  export type SiteUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: SiteWhereInput
+    data: XOR<SiteUpdateWithoutDocumentsInput, SiteUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type SiteUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: UserUpdateOneWithoutSiteNestedInput
+    posts?: PostUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    subdirectory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
+    invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
+    InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
   export type SiteCreateManyUserInput = {
@@ -14334,6 +16239,15 @@ export namespace Prisma {
     SiteId?: string | null
   }
 
+  export type DocumentsCreateManyUserInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    siteId?: string | null
+  }
+
   export type AIconversationCreateManyUserInput = {
     id?: string
     thread?: NullableJsonNullValueInput | InputJsonValue
@@ -14351,6 +16265,7 @@ export namespace Prisma {
     posts?: PostUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUpdateOneWithoutSiteNestedInput
   }
 
@@ -14365,6 +16280,7 @@ export namespace Prisma {
     posts?: PostUncheckedUpdateManyWithoutSiteNestedInput
     invoices?: InvoicesUncheckedUpdateManyWithoutSiteNestedInput
     InvoiceItems?: InvoiceItemsUncheckedUpdateManyWithoutSiteNestedInput
+    Documents?: DocumentsUncheckedUpdateManyWithoutSiteNestedInput
     AIconversation?: AIconversationUncheckedUpdateOneWithoutSiteNestedInput
   }
 
@@ -14464,6 +16380,33 @@ export namespace Prisma {
     SiteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type DocumentsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    Site?: SiteUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DocumentsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AIconversationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     thread?: NullableJsonNullValueInput | InputJsonValue
@@ -14527,6 +16470,15 @@ export namespace Prisma {
     sellerName?: string | null
     invoiceDate?: string | null
     paymentDate?: string | null
+  }
+
+  export type DocumentsCreateManySiteInput = {
+    id?: string
+    url: string
+    documentType: string
+    documentName: string
+    description: string
+    userId?: string | null
   }
 
   export type PostUpdateWithoutSiteInput = {
@@ -14670,6 +16622,33 @@ export namespace Prisma {
     sellerName?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceDate?: NullableStringFieldUpdateOperationsInput | string | null
     paymentDate?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DocumentsUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    User?: UserUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentsUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DocumentsUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    documentType?: StringFieldUpdateOperationsInput | string
+    documentName?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InvoiceItemsCreateManyInvoiceInput = {

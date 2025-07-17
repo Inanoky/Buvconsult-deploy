@@ -4,7 +4,7 @@ import { Pinecone } from '@pinecone-database/pinecone';
 
 const pc = new Pinecone();
 
-const indexName = 'test';
+const indexName = 'documents';
 
 await pc.createIndex({
   name: indexName,

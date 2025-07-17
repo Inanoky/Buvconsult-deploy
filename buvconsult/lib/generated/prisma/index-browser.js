@@ -210,6 +210,16 @@ exports.Prisma.AIconversationScalarFieldEnum = {
   siteId: 'siteId'
 };
 
+exports.Prisma.DocumentsScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  documentType: 'documentType',
+  documentName: 'documentName',
+  description: 'description',
+  userId: 'userId',
+  siteId: 'siteId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -248,7 +258,8 @@ exports.Prisma.ModelName = {
   Invoices: 'Invoices',
   Post: 'Post',
   InvoiceItems: 'InvoiceItems',
-  AIconversation: 'AIconversation'
+  AIconversation: 'AIconversation',
+  Documents: 'Documents'
 };
 
 /**

@@ -14,6 +14,7 @@ import gptResponse from "@/components/AI/ExtractorGptForInvoices";
 import gptInvoiceSchema from "@/components/AI/ExtractorGptForInvoices"
 import OpenAI from "openai";
 import { chunk } from "lodash";
+import gptDocumentsResponse from "@/components/AI/ExtractorGptForDocuments";
 
 
 const openai = new OpenAI({
@@ -551,4 +552,88 @@ export async function getProjectNameBySiteId(siteId: string): Promise<string | n
   });
 
   return site?.name ?? null;
+}
+
+// ---------------------------------------Documents-----------------------------------------------
+
+
+export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
+
+  const user = await requireUser();
+  const siteId = formData.get("siteId") as string;
+  const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
+
+
+  //Here we have all fields names from invoices which we also copy ot invoiceItems for later agentic
+    //analysis
+
+
+
+
+
+  // Split URLs into batches of 15
+  const urlBatches = chunk(urls, 15);
+
+  for (const batch of urlBatches) {
+    // 1️⃣ GPT Extraction for each batch in parallel
+    const gptResults = await Promise.all(
+      batch.map(async (url) => {
+        const gptRaw = await gptDocumentsResponse(url);
+        const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
+        return { url, gptResp };
+      })
+    );
+
+    // 2️⃣ Save invoices/items for all GPT results in this batch, in parallel
+    await Promise.all(
+      gptResults.map(async ({ url, gptResp }) => {
+        if (!Array.isArray(gptResp.items)) return;
+        await Promise.all(
+          gptResp.items.map(async (document) => {
+            // destructure to drop `items`
+
+            const savedDocuments = await prisma.documents.create({
+              data: {
+                ...document,
+                url,
+                userId: user.id,
+                siteId: siteId,
+              },
+            });
+
+          })
+        );
+      })
+    );
+  }
+
+  return;
+};
+
+export async function GetDocumentsFromDB(siteId: string){
+
+    const user = await requireUser();
+
+    const documents = await prisma.documents.findMany({
+
+        where: {
+            userId: user.id,
+            siteId: siteId,
+        }
+    })
+    return documents
+
+}
+
+export async function deleteDocuments(documentId: string) {
+  await prisma.documents.delete({ where: { id: documentId } });
+  return { ok: true };
+}
+
+export async function updateDocuments(id: string, data: any) {
+  await prisma.documents.update({
+    where: { id },
+    data,
+  });
+  return { ok: true };
 }

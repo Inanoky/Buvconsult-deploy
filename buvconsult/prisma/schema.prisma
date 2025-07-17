@@ -150,6 +150,7 @@ model Documents {
   id           String  @id @default(uuid())
   url          String
   documentType String
+  documentName String
   description  String
   User         User?   @relation(fields: [userId], references: [id])
   userId       String?

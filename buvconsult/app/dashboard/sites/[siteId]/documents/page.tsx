@@ -1,5 +1,9 @@
 import {Chat} from "@/components/AI/ChatWithPdf/chat";
 import AiWidgetRag from "@/components/AI/AIwidget/AiWidgetRag";
+import {DocumentsDataTable} from "@/components/DocumentDataTable";
+import {GetDocumentsFromDB, GetInvoicesFromDB, getProjectNameBySiteId} from "@/app/actions";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {InvoicesDataTable} from "@/components/InvoicesDataTable";
 
 export default async function Documents({params}:
 
@@ -7,20 +11,30 @@ export default async function Documents({params}:
 
 }){
 
+
     const {siteId} = await params
+    const projectName = getProjectNameBySiteId(siteId)
+
+     const documents = await GetDocumentsFromDB(siteId)
 
      return (
-    <main className="relative container flex min-h-screen flex-col">
-      <div className=" p-4 flex h-14 items-center justify-between supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-        <span className="font-bold">pdf-chat-ai-sdk</span>
 
-      </div>
-      <div className="flex flex-1 py-4">
         <div className="w-full">
-          <Chat />
+
+                       <Card className="mt-10">
+                          <CardHeader>
+                            <CardTitle>Documents</CardTitle>
+                            <CardDescription>
+                              Manage your Documents for site <strong>{projectName}</strong>
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <DocumentsDataTable data={documents}/>
+                          </CardContent>
+                        </Card>
+
             <AiWidgetRag siteId={siteId}/>
         </div>
-      </div>
-    </main>
+
   );
 }
