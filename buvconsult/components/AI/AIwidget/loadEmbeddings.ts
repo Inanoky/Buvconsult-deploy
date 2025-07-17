@@ -1,4 +1,4 @@
-import {getChunkedDocsFromPDF} from "@/components/AI/ChatWithPdf/pdf-loader"
+import {getChunkedDocsFromPDF} from "@/components/AI/AIwidget/pdf-loader"
 import {embedAndStoreDocs} from "@/components/AI/AIwidget/vector-store";
 import {Pinecone} from "@pinecone-database/pinecone";
 
