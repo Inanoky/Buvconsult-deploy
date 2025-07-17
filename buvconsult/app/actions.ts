@@ -15,6 +15,7 @@ import gptInvoiceSchema from "@/components/AI/ExtractorGptForInvoices"
 import OpenAI from "openai";
 import { chunk } from "lodash";
 import gptDocumentsResponse from "@/components/AI/ExtractorGptForDocuments";
+import {LoadEmbeddings} from "@/components/AI/AIwidget/loadEmbeddings";
 
 
 const openai = new OpenAI({
@@ -580,6 +581,7 @@ export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
       batch.map(async (url) => {
         const gptRaw = await gptDocumentsResponse(url);
         const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
+        await LoadEmbeddings(url)
         return { url, gptResp };
       })
     );
@@ -590,6 +592,8 @@ export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
         if (!Array.isArray(gptResp.items)) return;
         await Promise.all(
           gptResp.items.map(async (document) => {
+
+
             // destructure to drop `items`
 
             const savedDocuments = await prisma.documents.create({

@@ -8,10 +8,10 @@ console.log('RecursiveCharacterTextSplitter:', RecursiveCharacterTextSplitter);
 const pdf_path = "https://reect1noxp.ufs.sh/f/HPU3nx2LdstJ5gNg7F4NwUH1jiQWdkyzhZntG2g3lC8xPKsD";
 console.log('WebPDFLoader:', WebPDFLoader);
 
-export async function getChunkedDocsFromPDF() {
+export async function getChunkedDocsFromPDF(url) {
     try {
 
-        const response = await fetch(pdf_path);
+        const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         const blob = new Blob([arrayBuffer], { type: "application/pdf" });
 
