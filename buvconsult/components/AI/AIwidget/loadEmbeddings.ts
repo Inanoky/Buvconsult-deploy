@@ -2,7 +2,7 @@ import {getChunkedDocsFromPDF} from "@/components/AI/AIwidget/pdf-loader"
 import {embedAndStoreDocs} from "@/components/AI/AIwidget/vector-store";
 import {Pinecone} from "@pinecone-database/pinecone";
 
-export async function LoadEmbeddings(url){
+export async function LoadEmbeddings(url,siteId){
     try {
 
 
@@ -10,7 +10,7 @@ export async function LoadEmbeddings(url){
         console.log("Preparing chunks from PDF file")
         const docs = await getChunkedDocsFromPDF(url)
         console.log(`Loading ${docs.length} chunkgs into pinecone`);
-        await embedAndStoreDocs(pineconeClient,docs);
+        await embedAndStoreDocs(pineconeClient,docs,siteId);
         console.log("Data embededded and stored in pine-cone index")
 
 

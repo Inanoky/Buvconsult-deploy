@@ -581,7 +581,7 @@ export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
       batch.map(async (url) => {
         const gptRaw = await gptDocumentsResponse(url);
         const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
-        await LoadEmbeddings(url)
+        await LoadEmbeddings(url,siteId)
         return { url, gptResp };
       })
     );
