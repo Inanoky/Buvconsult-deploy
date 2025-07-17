@@ -5,6 +5,7 @@ import {Pinecone} from "@pinecone-database/pinecone";
 (async () => {
     try {
 
+
         const pineconeClient = new Pinecone()
         console.log("Preparing chunks from PDF file")
         const docs = await getChunkedDocsFromPDF()
