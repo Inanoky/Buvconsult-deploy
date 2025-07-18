@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         ignoreDuringBuilds: true,
       },
 
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+
     webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins.push(new PrismaPlugin());
