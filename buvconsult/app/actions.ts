@@ -481,7 +481,7 @@ export async function askInvoiceGpt(siteId: string, question: string) {
         unitOfMeasure: true,
         pricePerUnitOfMeasure: true,
         sum: true,
-        date: true,
+        // date: true,
         itemDescription:true
     }
   });
