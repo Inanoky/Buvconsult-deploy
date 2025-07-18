@@ -40,7 +40,7 @@ export async function getMonthlySpendings(siteId) {
 
 
 export async function getCategoryMonthlySpendings(siteId) {
-  const data = await prisma.$queryRaw`
+  const data = await prisma.$queryRaw<any[]>`
     SELECT
       EXTRACT(YEAR FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS year,
       EXTRACT(MONTH FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS month,
