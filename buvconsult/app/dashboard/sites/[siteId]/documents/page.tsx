@@ -29,7 +29,7 @@ export default async function Documents({params}:
                             </CardDescription>
                           </CardHeader>
                           <CardContent>
-                            <DocumentsDataTable data={documents}/>
+                            <DocumentsDataTable data={documents} siteId={siteId}/>
                           </CardContent>
                         </Card>
 

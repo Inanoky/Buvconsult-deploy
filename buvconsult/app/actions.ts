@@ -16,6 +16,7 @@ import OpenAI from "openai";
 import { chunk } from "lodash";
 import gptDocumentsResponse from "@/components/AI/ExtractorGptForDocuments";
 import {LoadEmbeddings} from "@/components/AI/AIwidget/loadEmbeddings";
+import { Pinecone } from '@pinecone-database/pinecone'
 
 
 const openai = new OpenAI({
@@ -564,6 +565,8 @@ export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
   const siteId = formData.get("siteId") as string;
   const urls = JSON.parse(formData.get("fileUrls") as string) as string[];
 
+  console.log(`Those are URLs ${urls}`)
+
 
   //Here we have all fields names from invoices which we also copy ot invoiceItems for later agentic
     //analysis
@@ -577,38 +580,36 @@ export const saveDocumentsToDB = async (_: unknown, formData: FormData) => {
 
   for (const batch of urlBatches) {
     // 1️⃣ GPT Extraction for each batch in parallel
+
+      //What are GPT results ? array of strings (URLs)
     const gptResults = await Promise.all(
       batch.map(async (url) => {
         const gptRaw = await gptDocumentsResponse(url);
         const gptResp = typeof gptRaw === "string" ? JSON.parse(gptRaw) : gptRaw;
-        await LoadEmbeddings(url,siteId)
+
+        console.log(`This is a GPT response ${JSON.stringify(gptResp)}`)
+
         return { url, gptResp };
       })
     );
 
     // 2️⃣ Save invoices/items for all GPT results in this batch, in parallel
     await Promise.all(
-      gptResults.map(async ({ url, gptResp }) => {
-        if (!Array.isArray(gptResp.items)) return;
-        await Promise.all(
-          gptResp.items.map(async (document) => {
-
-
-            // destructure to drop `items`
-
-            const savedDocuments = await prisma.documents.create({
-              data: {
-                ...document,
-                url,
-                userId: user.id,
-                siteId: siteId,
-              },
-            });
-
-          })
-        );
-      })
-    );
+  gptResults.map(async ({ url, gptResp }) => {
+    // Save one row per document
+    await prisma.documents.create({
+      data: {
+        ...gptResp, // or just select the top-level fields you want
+        url,
+        userId: user.id,
+        siteId: siteId,
+      },
+    });
+  })
+);
+    await Promise.all(
+    gptResults.map( async ({url}) => LoadEmbeddings(url, siteId))
+        )
   }
 
   return;
@@ -629,8 +630,38 @@ export async function GetDocumentsFromDB(siteId: string){
 
 }
 
-export async function deleteDocuments(documentId: string) {
-  await prisma.documents.delete({ where: { id: documentId } });
+export async function deleteDocuments(documentId: string, siteId: string) {
+
+
+
+  console.log(`DoucumentId passed : ${documentId}`)
+    console.log(`siteId passed : ${siteId}`)
+
+
+
+  const pc = new Pinecone()
+
+
+
+
+  const index = pc.index("documents")
+  const ns = index.namespace(siteId)
+
+    const fetchResult = await index.namespace(siteId).fetch([documentId])
+    const chunkCount = fetchResult.records[documentId].metadata.chunkCount
+    console.log(fetchResult.records[documentId].metadata.chunkCount)
+    const deletedId = []
+
+    deletedId.push(`${documentId}`)
+
+    for (let i = 1; i <= chunkCount; i++ ){
+        deletedId.push(`${documentId}-${i}`)
+    }
+
+    await ns.deleteMany(deletedId)
+
+
+ await prisma.documents.delete({ where: { id: documentId } });
   return { ok: true };
 }
 

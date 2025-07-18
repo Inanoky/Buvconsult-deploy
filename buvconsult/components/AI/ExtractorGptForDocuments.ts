@@ -42,9 +42,9 @@ export default async function gptDocumentsResponse(fileUrl) {
 
 
 
-  const gptDocumentSchema = z.object({
-    items: z.array(documentSchema),
-  });
+  // const gptDocumentSchema = z.object({
+  //   items: z.array(documentSchema),
+  // });
 
 
   //gpt response for invoice items
@@ -68,7 +68,7 @@ export default async function gptDocumentsResponse(fileUrl) {
       },
     ],
     text: {
-      format: zodTextFormat(gptDocumentSchema, "event"),
+      format: zodTextFormat(documentSchema, "event"),
     },
   });
 

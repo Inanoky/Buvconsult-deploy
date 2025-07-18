@@ -39,7 +39,7 @@ export default function AiWidgetRag({ siteId }) {
 
 
       //So this is where Input goes
-      const result = await talkToDocuments(input);
+      const result = await talkToDocuments(input,siteId);
       // Always store both aiComment and answer
 
       console.log(`This is in the frontend ${JSON.stringify(result.acceptedResults)}`)

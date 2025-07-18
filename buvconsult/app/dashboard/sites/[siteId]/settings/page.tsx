@@ -1,6 +1,6 @@
 import InvoiceUpload from "@/components/InvoiceUpload";
 
-export const revalidate = 0
+// export const revalidate = 0
 
 import {ChevronLeft} from "lucide-react";
 import {Button} from "@/components/ui/button";

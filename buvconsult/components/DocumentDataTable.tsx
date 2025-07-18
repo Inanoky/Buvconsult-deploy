@@ -40,7 +40,7 @@ const globalFilterFn = (row, columnId, filterValue) => {
 };
 
 // Row actions for edit/delete
-function RowActions({ id, item, onDelete, onEdit }) {
+function RowActions({ siteId, id, item, onDelete, onEdit }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,7 +52,7 @@ function RowActions({ id, item, onDelete, onEdit }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => onEdit(item)}>Edit</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onDelete(id)} className="cursor-pointer text-red-600">
+        <DropdownMenuItem onClick={() => onDelete(id,siteId)} className="cursor-pointer text-red-600">
           Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -60,7 +60,7 @@ function RowActions({ id, item, onDelete, onEdit }) {
   );
 }
 
-export function DocumentsDataTable({ data }) {
+export function DocumentsDataTable({ data, siteId}) {
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [rowSelection, setRowSelection] = React.useState({});
   const router = useRouter();
@@ -76,9 +76,9 @@ export function DocumentsDataTable({ data }) {
     XLSX.writeFile(workbook, "documents.xlsx");
   }
 
-  async function handleDeleteItem(id) {
+  async function handleDeleteItem(id, siteId) {
     try {
-      await deleteDocuments(id);
+      await deleteDocuments(id,siteId);
       toast.success("Document deleted");
       router.refresh();
     } catch (e) {
@@ -146,6 +146,7 @@ export function DocumentsDataTable({ data }) {
         header: "Actions",
         cell: info => (
           <RowActions
+            siteId={siteId}
             id={info.row.original.id}
             item={info.row.original}
             onDelete={handleDeleteItem}

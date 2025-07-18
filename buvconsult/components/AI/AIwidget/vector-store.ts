@@ -11,7 +11,8 @@ export async function embedAndStoreDocs(
   client: PineconeClient,
   // @ts-ignore docs type error
   docs: Document<Record<string, any>>[],
-  siteId : string
+  siteId : string,
+  ids
   // siteId: string,
   // documentType : string
 ) {
@@ -22,13 +23,23 @@ export async function embedAndStoreDocs(
     const embeddings = new OpenAIEmbeddings({model: "text-embedding-3-large"});
     const index = client.Index("documents")
 
-    //embed the PDF documents. This is where we store to Pinecone info
-    await PineconeStore.fromDocuments(docs, embeddings, {
+    //Creating vectore store with openAI embeddings
+
+    const ps = new PineconeStore(embeddings,{
       pineconeIndex: index,
       namespace: siteId,
-      textKey: 'text', // metadata key used during treiveing the information from pinecone
+      textKey: 'text', //
 
-    });
+    } )
+
+
+    //embed the PDF documents. This is where we store to Pinecone info
+    await ps.addDocuments(docs, {ids})
+
+
+
+
+
   } catch (error) {
     console.log('error ', error);
     throw new Error('Failed to load your docs !');
