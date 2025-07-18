@@ -11,7 +11,7 @@ export async function getMonthlySpendings(siteId) {
   // Raw SQL for performance & grouping by month
   // This works for PostgreSQL; adjust if using MySQL/SQLite
 
- const data = await prisma.$queryRaw`
+ const data = await prisma.$queryRaw<any[]>`
     SELECT
       EXTRACT(YEAR FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS year,
       EXTRACT(MONTH FROM TO_DATE("invoiceDate", 'YYYY-MM-DD')) AS month,
