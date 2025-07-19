@@ -1,35 +1,36 @@
 import type { NextConfig } from "next";
 const { PrismaPlugin } = require("@prisma/nextjs-monorepo-workaround-plugin");
+// const withBundleAnalyzer = require("@next/bundle-analyzer")({
+//   enabled: process.env.ANALYZE === "true",
+// });
 
 const nextConfig: NextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                protocol : "https",
-                hostname : "utfs.io",
-                port: ""
-            },
-        ],
-    },
-
-    eslint: {
-        ignoreDuringBuilds: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+        port: "",
       },
+    ],
+  },
 
-    typescript: {
-      ignoreBuildErrors: true,
-    },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 
-    webpack: (config, { isServer }) => {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+  webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins.push(new PrismaPlugin());
     }
     return config;
   },
-
-  /* config options here */
 };
 
+// export default withBundleAnalyzer(nextConfig);
 
-
-export default nextConfig;
+export default nextConfig
