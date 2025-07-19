@@ -23,7 +23,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-
+//nothing
 export async function CreateSiteAction(prevState: unknown,formData: FormData){
 
     const user = await requireUser();
