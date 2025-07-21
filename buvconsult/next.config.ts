@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 const { PrismaPlugin } = require("@prisma/nextjs-monorepo-workaround-plugin");
-// const withBundleAnalyzer = require("@next/bundle-analyzer")({
-//   enabled: process.env.ANALYZE === "true",
-// });
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+
+
+  //comment this in for bundle analyzer---------------
+  enabled: process.env.ANALYZE === "true",
+});
+//------------------------------
 
 const nextConfig: NextConfig = {
   images: {
@@ -31,6 +35,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-// export default withBundleAnalyzer(nextConfig);
 
-export default nextConfig
+//comment this in for bundle analyzer
+export default withBundleAnalyzer(nextConfig);
+
+//------------------------------
+
+//Comment this in for production
+
+// export default nextConfig

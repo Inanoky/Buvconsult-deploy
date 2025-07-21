@@ -1,39 +1,34 @@
-import pdfParse from 'pdf-parse';
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
+// ❌ Don't import WebPDFLoader at the top — it pulls in pdf-parse & pdf.worker.js
 
-
-// const pdf_path = "./components/AI/ChatWithPdf/Docs/Contract.pdf";
 const pdf_path = "https://reect1noxp.ufs.sh/f/HPU3nx2LdstJ5gNg7F4NwUH1jiQWdkyzhZntG2g3lC8xPKsD";
 
+export async function getChunkedDocsFromPDF(url: string) {
+  try {
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    const blob = new Blob([arrayBuffer], { type: "application/pdf" });
 
-export async function getChunkedDocsFromPDF(url) {
-    try {
+    // ✅ Dynamically import WebPDFLoader
+    const { WebPDFLoader } = await import("@langchain/community/document_loaders/web/pdf");
 
-        const response = await fetch(url);
-        const arrayBuffer = await response.arrayBuffer();
-        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
+    const loader = new WebPDFLoader(blob);
+    const docs = await loader.load();
 
-        const loader = new WebPDFLoader(blob)
+    console.log("Loaded PDF docs:", docs);
 
-        const docs = await loader.load(); //So this code just loads the file
-        console.log("Loaded PDF docs:", docs); // <--- SEE DOCS HER
+    const textSplitter = new RecursiveCharacterTextSplitter({
+      chunkSize: 1000,
+      chunkOverlap: 200,
+    });
 
-        const textSplitter = new RecursiveCharacterTextSplitter({
-            chunkSize: 1000,
-            chunkOverlap: 200,
-        });
+    const chunkedDocs = await textSplitter.splitDocuments(docs);
+    console.log(`this is chunked docs ${JSON.stringify(chunkedDocs)}`);
+    console.log(chunkedDocs[0]);
 
-        const chunkedDocs = await textSplitter.splitDocuments(docs);
-
-
-
-        console.log(`this is chunked docs ${JSON.stringify(chunkedDocs)}`)
-        console.log(chunkedDocs[0])
-        return chunkedDocs;
-    } catch (e) {
-        console.error(e);
-        throw new Error("PDF docs chunking failed!");
-    }
+    return chunkedDocs;
+  } catch (e) {
+    console.error(e);
+    throw new Error("PDF docs chunking failed!");
+  }
 }
