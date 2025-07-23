@@ -4,7 +4,7 @@
 import OpenAI from "openai";
 import {z} from "zod";
 import {zodTextFormat} from "openai/helpers/zod";
-import {constructionCategories} from "@/components/AI/ConstructionCategories";
+import {constructionCategories} from "@/components/AI/SQL/ConstructionCategories";
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });

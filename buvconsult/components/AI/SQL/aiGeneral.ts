@@ -4,12 +4,12 @@
 import {  StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
-import {call_db_agentSchemPrompt, generalQuestionPrompts, stateDefault} from "@/components/AI/Prompts";
+import {call_db_agentSchemPrompt, generalQuestionPrompts, stateDefault} from "@/components/AI/SQL/Prompts";
 import {prisma} from "@/app/utils/db";
 import {requireUser} from "@/app/utils/requireUser";
-import aiWasteAgent from "@/components/AI/aiWasteAgent";
-import aiSQLAgent from "@/components/AI/aiSQLagent";
-import aiDBsearch from "@/components/AI/aiDBsearcher";
+import aiWasteAgent from "@/components/AI/SQL/aiWasteAgent";
+import aiSQLAgent from "@/components/AI/SQL/aiSQLagent";
+import aiDBsearch from "@/components/AI/SQL/aiDBsearcher";
 
 export default async function aiGeneral(question,siteId){
 
@@ -162,7 +162,7 @@ let conversation = await prisma.aIconversation.findUnique({
 let history = conversation?.thread || []; //If conversation is emtpy, we create history - an empty array
 let prompt = `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`
 
-//Invoking graph, passing history + latest question
+//Invoking graph.ts, passing history + latest question
 
 const response = await graph.invoke({
     message: `history conversation is here : ${JSON.stringify(history)} and the current question is ${question}`,

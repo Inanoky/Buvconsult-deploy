@@ -3,7 +3,7 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { ChatOpenAI } from "@langchain/openai";
-import {generalQuestionPrompts} from "@/components/AI/Prompts";
+import {generalQuestionPrompts} from "@/components/AI/SQL/Prompts";
 
 const pc = new Pinecone();
 const indexName = 'documents';

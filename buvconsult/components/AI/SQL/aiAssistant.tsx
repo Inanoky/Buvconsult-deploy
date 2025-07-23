@@ -19,8 +19,8 @@ import { SuggestedQueries } from "@/components/VercelChatComponents/suggested-qu
 import { QueryViewer } from "@/components/VercelChatComponents/query-viewer";
 import { Search } from "@/components/VercelChatComponents/search";
 import { Header } from "@/components/VercelChatComponents/header";
-import createGraph from "@/components/AI/aiDBsearcher";
-import graphQuery from "@/components/AI/aiDBsearcher";
+import createGraph from "@/components/AI/SQL/aiDBsearcher";
+import graphQuery from "@/components/AI/SQL/aiDBsearcher";
 
 export default function AIassistant() {
   const [inputValue, setInputValue] = useState("");

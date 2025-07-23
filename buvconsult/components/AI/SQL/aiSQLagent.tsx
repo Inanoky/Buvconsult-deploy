@@ -6,24 +6,22 @@ import {  StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 
-import {constructionCategories} from "@/components/AI/ConstructionCategories";
+import {constructionCategories} from "@/components/AI/SQL/ConstructionCategories";
 import {
-    aiWasteAnalysisPrompt,
     allowedFieldKeysPrompt,
     databaseSchema,
 
     SQLConstructSystemPrompt,
     SQLFormatSystemPrompt, stateDefault
-} from "@/components/AI/Prompts";
+} from "@/components/AI/SQL/Prompts";
 
-export default async function aiWasteAgent(stateReceived){
-
+export default async function aiSQLAgent(stateReceived){
 
 const state = stateDefault
 
 //Below are technical for validations.
 
-
+const allowedFieldKeys = allowedFieldKeysPrompt
 
 
 const schema = databaseSchema
@@ -41,7 +39,7 @@ const schema = databaseSchema
 const SQLconstruct = async (state) => {
 
     const llm = new ChatOpenAI({
-        temperature: 0.5,
+        temperature: 0.1,
         model: "gpt-4.1",
 
 
@@ -49,22 +47,29 @@ const SQLconstruct = async (state) => {
 
     const structuredLlm = llm.withStructuredOutput(
         z.object({
-            sql : z.string().describe(`valid single SQL query`),
-            reason: z.string().describe("based on what you made your decisions")
+            sql : z.string().describe("valid single SQL query"),
+
+            reason: z.string().describe("explain if SQL query you made is valid or not")
 
         })
     )
 
-    const prompt = `Schema:\n${schema}\nUser question: ${state.message}\nWrite a valid PostgreSQL SQL query (no explanation).
+    const prompt =
+        `Schema:${schema}
+        User question: ${state.message}
+        Write a valid PostgreSQL SQL query .        
     categories : ${JSON.stringify(constructionCategories)}`;
 
-    const response = await structuredLlm.invoke([
-        ["system", aiWasteAnalysisPrompt],
-        ["human", prompt]]);
+    const response = await structuredLlm.invoke(
+
+        [
+            ["system", SQLConstructSystemPrompt],
+            ["human", prompt]
+        ]);
 
     //So here we just return SQL. Basically we can pass it on to aiDBsearcher
 
-    console.log("SQLconstruct  ", response)
+     console.log("SQLconstruct  : ", response)
     return {
         ...state,
         sql: response.sql,
@@ -94,7 +99,7 @@ const graph = workflow.compile()
 
 const graphResult = await graph.invoke({
 
-     ...stateReceived
+    ...stateReceived
      })
 
 

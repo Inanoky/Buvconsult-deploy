@@ -17,9 +17,9 @@ import {GetInvoiceItemsFromDB, GetInvoicesFromDB, getProjectNameBySiteId} from "
 import {InvoiceHoverPreview} from "@/components/ui/InvoiceHoverPreview";
 import {InvoiceItemsDataTable} from "@/components/InvoiceItemsDataTable";
 import { InvoicesDataTable } from "@/components/InvoicesDataTable";
-import {InvoiceChatBox} from "@/components/AI/InvoiceChatBox";
-import AIassistant from "@/components/AI/aiAssistant";
-import AIChatGeneral from "@/components/AI/AIwidget/AIwidget";
+import {InvoiceChatBox} from "@/components/AI/SQL/InvoiceChatBox";
+import AIassistant from "@/components/AI/SQL/aiAssistant";
+import AIChatGeneral from "@/components/AI/SQL/AIwidget";
 import {ChartAreaInteractive} from "@/app/components/frontend/analytics/ChartAreaInteractive";
 import {getDailyAggregatedCosts} from "@/app/AnalyticsActions";
 import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";

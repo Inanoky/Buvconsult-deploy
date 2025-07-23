@@ -1,5 +1,5 @@
-import { getChunkedDocsFromPDF } from "@/components/AI/AIwidget/pdf-loader";
-import { embedAndStoreDocs } from "@/components/AI/AIwidget/vector-store";
+import { getChunkedDocsFromPDF } from "@/components/AI/RAG/pdf-loader";
+import { embedAndStoreDocs } from "@/components/AI/RAG/vector-store";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { prisma } from "@/app/utils/db";
 
@@ -31,6 +31,7 @@ export async function LoadEmbeddings(url, siteId) {
     }
     const documentId = document.id;
 
+
     // Chunk the PDF
     const chunkedDocs = await getChunkedDocsFromPDF(url);
     const chunkCount = chunkedDocs.length;
@@ -38,7 +39,7 @@ export async function LoadEmbeddings(url, siteId) {
 
 
     //So this code we are creating an array of and Ids, also adds chunkCount to metadata.
-
+    console.log(`This is how Chunk look ${JSON.stringify(chunkedDocs[0])}`)
 
     const ids = [];
       for (let i = 0; i < chunkedDocs.length; i++) {

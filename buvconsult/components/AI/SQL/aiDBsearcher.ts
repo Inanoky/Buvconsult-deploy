@@ -5,7 +5,7 @@ import { Annotation, StateGraph } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import { prisma } from "@/app/utils/db";
-import { constructionCategories } from "@/components/AI/ConstructionCategories";
+import { constructionCategories } from "@/components/AI/SQL/ConstructionCategories";
 import {
     allowedFieldKeys, allowedFieldKeysPrompt,
     databaseSchema,
@@ -17,9 +17,9 @@ import {
     returnBestFitFieldsSystemPrompt,
     SQLConstructSystemPrompt,
     SQLFormatSystemPrompt, stateDefault
-} from "@/components/AI/Prompts";
+} from "@/components/AI/SQL/Prompts";
 import { requireUser } from "@/app/utils/requireUser";
-import aiWasteAgent from "@/components/AI/aiWasteAgent";
+import aiWasteAgent from "@/components/AI/SQL/aiWasteAgent";
 
 export default async function aiDBsearch(stateReceived) {
     // INIT

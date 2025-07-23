@@ -6,19 +6,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, User, SendHorizonal } from "lucide-react";
-import aiGeneral from "@/components/AI/aiGeneral";
+import aiGeneral from "@/components/AI/SQL/aiGeneral";
 import { Separator } from "@/components/ui/separator";
 import * as XLSX from "xlsx";
-import {exportToExcel,getUniqueValues} from "@/components/AI/AIwidget/utils";
-import {TableModal} from "@/components/AI/AIwidget/TableModal";
-import {talkToDocuments} from "@/components/AI/AIwidget/queryDocuments";
-import ReactMarkdown from "react-markdown";
+import {exportToExcel,getUniqueValues} from "@/components/AI/RAG/utils";
+import {TableModal} from "@/components/AI/RAG/TableModal";
 
 
 
 
 
-export default function AiWidgetRag({ siteId }) {
+export default function AIChatGeneral({ siteId }) {
   const [messages, setMessages] = useState([
     { sender: "bot", aiComment: "Hi! 👋 How can I help you today?", answer: "" },
   ]);
@@ -39,14 +37,14 @@ export default function AiWidgetRag({ siteId }) {
 
 
       //So this is where Input goes
-      const result = await talkToDocuments(input,siteId);
+      const result = await aiGeneral(input, siteId);
       // Always store both aiComment and answer
 
       console.log(`This is in the frontend ${JSON.stringify(result.acceptedResults)}`)
 
       const botMsg = {
         sender: "bot",
-        aiComment: result ?? "",
+        aiComment: result.aiComment ?? "",
         answer: result.acceptedResults?? "",
 
       };
@@ -90,8 +88,7 @@ export default function AiWidgetRag({ siteId }) {
       return (
         <span>
           <Bot size={18} className="inline mr-2" />
-          <ReactMarkdown>{String(msg.aiComment)}</ReactMarkdown>
-
+          <span className="font-medium">{msg.aiComment}</span>
           <span>: </span>
           {isTable ? (
             <button
@@ -135,7 +132,7 @@ export default function AiWidgetRag({ siteId }) {
 
       {/* Chat Widget */}
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[800px] sm:w-[1000px] max-w-[120vw] rounded-2xl shadow-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex flex-col">
+        <div className="fixed bottom-6 right-6 z-50 w-[350px] sm:w-[400px] max-w-[96vw] rounded-2xl shadow-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex flex-col">
           <Card className="w-full rounded-2xl shadow-none border-0 bg-transparent">
             <CardHeader className="flex items-center justify-between py-3 px-4 bg-blue-600 text-white dark:bg-blue-800 dark:text-white rounded-t-2xl">
               <span className="text-lg font-semibold">AI Assistant</span>
@@ -148,7 +145,7 @@ export default function AiWidgetRag({ siteId }) {
               </button>
             </CardHeader>
             <Separator />
-            <ScrollArea className="h-[500px] p-4">
+            <ScrollArea className="h-80 p-4">
               <div className="flex flex-col gap-4">
                 {messages.map((msg, idx) => (
                   <div
