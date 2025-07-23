@@ -42,7 +42,7 @@ export default function AiWidgetRag({ siteId }) {
       const result = await talkToDocuments(input,siteId);
       // Always store both aiComment and answer
 
-      console.log(`This is in the frontend ${JSON.stringify(result.acceptedResults)}`)
+
 
       const botMsg = {
         sender: "bot",

@@ -92,12 +92,12 @@ export function DocumentsDataTable({ data, siteId}) {
   }
 
   // BULK DELETE HANDLER
-  async function handleBulkDelete() {
+  async function handleBulkDelete(siteId) {
     const ids = table.getFilteredSelectedRowModel().rows.map(row => row.original.id);
     if (ids.length === 0) return;
     if (!window.confirm(`Delete ${ids.length} selected documents?`)) return;
     try {
-      await Promise.all(ids.map(id => deleteDocuments(id)));
+      await Promise.all(ids.map(id => deleteDocuments(id, siteId)));
       toast.success(`Deleted ${ids.length} documents`);
       setRowSelection({});
       router.refresh();
@@ -224,9 +224,10 @@ export function DocumentsDataTable({ data, siteId}) {
         />
         {table.getFilteredSelectedRowModel().rows.length > 0 && (
           <Button
+
             variant="destructive"
             className="ml-4"
-            onClick={handleBulkDelete}
+            onClick={() => handleBulkDelete(siteId)}
           >
             Delete Selected
           </Button>

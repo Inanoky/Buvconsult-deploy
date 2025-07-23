@@ -3,8 +3,11 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { ChatOpenAI } from "@langchain/openai";
-import {generalQuestionPrompts} from "@/components/AI/SQL/Prompts";
+import { CohereClient} from 'cohere-ai';
+import yaml from 'js-yaml'
+import {rerankDocs} from "@/components/AI/RAG/rerank";
 
+const cohere = new CohereClient({token: process.env.COHERE_API_KEY})
 const pc = new Pinecone();
 const indexName = 'documents';
 
@@ -21,24 +24,35 @@ export async function talkToDocuments(prompt,siteId){
 
 
               const vector = await embeddings.embedQuery(prompt);
+              const rerankingModel = 'bge-reranker-v2-m3';
 
               // 2. Query Pinecone using the embedding
 
               const index = pc.index(indexName).namespace(siteId);
               const results = await index.query({
-                topK: 15,
+                topK: 50,
                 vector,
                 includeMetadata: true,
               });
 
+              //--------------------------------------------RERANK FUNCTIONALITY-----------------------------------
 
 
-            console.log(JSON.stringify(results,null,2))
+            const context = await rerankDocs(results, prompt,20)
+
+            console.log(`This are collected results : ${context}`)
+
+
+
+
+
+
 
             // Generating response :
+            // This maybe I do not need
 
-            const context = results.matches
-                .map(match => match.metadata?.text)
+            // const context = results.matches
+            //     .map(match => match.metadata?.text)
 
             const llm = new ChatOpenAI({
               model: "gpt-4.1",
@@ -65,7 +79,7 @@ export async function talkToDocuments(prompt,siteId){
 
 
 
-            console.log(JSON.stringify(`This is an AI resposne : ${aiMsg.content}`));
+
 
 
 return aiMsg.content

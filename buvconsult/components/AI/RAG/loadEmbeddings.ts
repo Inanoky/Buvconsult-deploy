@@ -39,7 +39,6 @@ export async function LoadEmbeddings(url, siteId) {
 
 
     //So this code we are creating an array of and Ids, also adds chunkCount to metadata.
-    console.log(`This is how Chunk look ${JSON.stringify(chunkedDocs[0])}`)
 
     const ids = [];
       for (let i = 0; i < chunkedDocs.length; i++) {
@@ -48,8 +47,12 @@ export async function LoadEmbeddings(url, siteId) {
           ...chunkedDocs[i].metadata,
           chunkCount: chunkCount,
   };
-}
 
+       if (chunkedDocs[i].pageContent && document.documentName) {
+        chunkedDocs[i].pageContent = `[Document name : ${document.documentName}] ${chunkedDocs[i].pageContent}`;
+  }
+}
+   console.log(`This is how Chunk look ${JSON.stringify(chunkedDocs[0])}`)
 
 
 

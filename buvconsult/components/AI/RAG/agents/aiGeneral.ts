@@ -9,7 +9,6 @@ const queryAnalysis = async (state) => {
         temperature: 0.5,
         model: "gpt-4.1",
 
-
     });
 
     const structuredLlm = llm.withStructuredOutput(
