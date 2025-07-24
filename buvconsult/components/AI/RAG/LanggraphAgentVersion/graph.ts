@@ -1,0 +1,105 @@
+import {END, StateGraph} from "@langchain/langgraph";
+import { START } from "@langchain/langgraph";
+import {GraphState} from "@/components/AI/RAG/LanggraphAgentVersion/state";
+import {
+    agent, checkRelevance,
+    generate,
+    gradeDocuments,
+    rewrite,
+    shouldRetrieve
+} from "@/components/AI/RAG/LanggraphAgentVersion/edges";
+import {toolNode} from "@/components/AI/RAG/LanggraphAgentVersion/tools";
+import { HumanMessage } from "@langchain/core/messages";
+import { PostgresSaver } from "@langchain/langgraph-checkpoint-postgres";
+
+
+//So this code below supposed to filter just conversation from Checkpointer
+
+
+
+
+
+// Define the graph
+const workflow = new StateGraph(GraphState)
+  // Define the nodes which we'll cycle between.
+  .addNode("agent", agent)
+  .addNode("retrieve", toolNode)
+  .addNode("gradeDocuments", gradeDocuments)
+  .addNode("rewrite", rewrite)
+  .addNode("generate", generate);
+
+//So this is memroy
+const checkpointer = PostgresSaver.fromConnString(
+  process.env.DIRECT_URL
+);
+
+console.log(process.env.DIRECT_URL)
+
+await checkpointer.setup();
+
+//Here we need to create thread_id if doesn't exist and fetch from db if does exist.
+
+const config = { configurable: { thread_id: "mitau-contract-48f39d7c" } };
+
+workflow.addEdge(START, "agent");
+
+// Decide whether to retrieve
+workflow.addConditionalEdges(
+  "agent",
+  // Assess agent decision
+  shouldRetrieve,
+);
+
+workflow.addEdge("retrieve", "gradeDocuments");
+
+// Edges taken after the `action` node is called.
+workflow.addConditionalEdges(
+  "gradeDocuments",
+  // Assess agent decision
+  checkRelevance,
+  {
+    // Call tool node
+    yes: "generate",
+    no: "rewrite", // placeholder
+  },
+);
+
+workflow.addEdge("generate", END);
+workflow.addEdge("rewrite", "agent");
+
+
+
+
+
+
+// Compile
+const app = workflow.compile({ checkpointer });
+
+
+
+const inputs = {
+  messages: [
+    new HumanMessage(
+      "Hi what is my name?"
+    ),
+  ],
+};
+
+
+
+let finalState;
+for await (const output of await app.stream(inputs,config)) {
+  for (const [key, value] of Object.entries(output)) {
+    const lastMsg = output[key].messages[output[key].messages.length - 1];
+    console.log(`Output from node: '${key}'`);
+    console.dir({
+      type: lastMsg._getType(),
+      content: lastMsg.content,
+      tool_calls: lastMsg.tool_calls,
+    }, { depth: null });
+    console.log("---\n");
+    finalState = value;
+  }
+}
+
+console.log(JSON.stringify(finalState, null, 2));

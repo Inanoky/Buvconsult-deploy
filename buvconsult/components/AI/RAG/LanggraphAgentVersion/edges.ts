@@ -1,37 +1,11 @@
-import { Annotation } from "@langchain/langgraph";
-import { BaseMessage } from "@langchain/core/messages";
-
-import { createRetrieverTool } from "langchain/tools/retriever";
-import { ToolNode } from "@langchain/langgraph/prebuilt";
-
-const GraphState = Annotation.Root({
-  messages: Annotation<BaseMessage[]>({
-    reducer: (x, y) => x.concat(y),
-    default: () => [],
-  })
-})
-
-
-
-const tool = createRetrieverTool(
-  retriever,
-  {
-    name: "retrieve_blog_posts",
-    description:
-      "Search and return information about Lilian Weng blog posts on LLM agents, prompt engineering, and adversarial attacks on LLMs.",
-  },
-);
-const tools = [tool];
-
-const toolNode = new ToolNode<typeof GraphState.State>(tools);
-
-
 import { END } from "@langchain/langgraph";
 import { pull } from "langchain/hub";
 import { z } from "zod";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { ChatOpenAI } from "@langchain/openai";
 import { AIMessage, BaseMessage } from "@langchain/core/messages";
+import {GraphState} from "@/components/AI/RAG/LanggraphAgentVersion/state";
+import {tools} from "@/components/AI/RAG/LanggraphAgentVersion/tools";
 
 /**
  * Decides whether the agent should retrieve more information or end the process.
@@ -40,7 +14,7 @@ import { AIMessage, BaseMessage } from "@langchain/core/messages";
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {string} - A decision to either "continue" the retrieval process or "end" it.
  */
-function shouldRetrieve(state: typeof GraphState.State): string {
+export function shouldRetrieve(state: typeof GraphState.State): string {
   const { messages } = state;
   console.log("---DECIDE TO RETRIEVE---");
   const lastMessage = messages[messages.length - 1];
@@ -62,7 +36,7 @@ function shouldRetrieve(state: typeof GraphState.State): string {
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {Promise<Partial<typeof GraphState.State>>} - The updated state with the new message added to the list of messages.
  */
-async function gradeDocuments(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
+export async function gradeDocuments(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
   console.log("---GET RELEVANCE---");
 
   const { messages } = state;
@@ -88,7 +62,7 @@ async function gradeDocuments(state: typeof GraphState.State): Promise<Partial<t
   );
 
   const model = new ChatOpenAI({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     temperature: 0,
   }).bindTools([tool], {
     tool_choice: tool.name,
@@ -114,7 +88,7 @@ async function gradeDocuments(state: typeof GraphState.State): Promise<Partial<t
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {string} - A directive to either "yes" or "no" based on the relevance of the documents.
  */
-function checkRelevance(state: typeof GraphState.State): string {
+export function checkRelevance(state: typeof GraphState.State): string {
   console.log("---CHECK RELEVANCE---");
 
   const { messages } = state;
@@ -144,7 +118,7 @@ function checkRelevance(state: typeof GraphState.State): string {
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {Promise<Partial<typeof GraphState.State>>} - The updated state with the new message added to the list of messages.
  */
-async function agent(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
+export async function agent(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
   console.log("---CALL AGENT---");
 
   const { messages } = state;
@@ -158,8 +132,14 @@ async function agent(state: typeof GraphState.State): Promise<Partial<typeof Gra
     return true;
   });
 
+
+
+
+
+
+
   const model = new ChatOpenAI({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     temperature: 0,
     streaming: true,
   }).bindTools(tools);
@@ -175,7 +155,7 @@ async function agent(state: typeof GraphState.State): Promise<Partial<typeof Gra
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {Promise<Partial<typeof GraphState.State>>} - The updated state with the new message added to the list of messages.
  */
-async function rewrite(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
+export async function rewrite(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
   console.log("---TRANSFORM QUERY---");
 
   const { messages } = state;
@@ -191,7 +171,7 @@ Formulate an improved question:`,
 
   // Grader
   const model = new ChatOpenAI({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     temperature: 0,
     streaming: true,
   });
@@ -206,7 +186,7 @@ Formulate an improved question:`,
  * @param {typeof GraphState.State} state - The current state of the agent, including all messages.
  * @returns {Promise<Partial<typeof GraphState.State>>} - The updated state with the new message added to the list of messages.
  */
-async function generate(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
+export async function generate(state: typeof GraphState.State): Promise<Partial<typeof GraphState.State>> {
   console.log("---GENERATE---");
 
   const { messages } = state;
@@ -222,7 +202,7 @@ async function generate(state: typeof GraphState.State): Promise<Partial<typeof 
   const prompt = await pull<ChatPromptTemplate>("rlm/rag-prompt");
 
   const llm = new ChatOpenAI({
-    model: "gpt-4o",
+    model: "gpt-4.1",
     temperature: 0,
     streaming: true,
   });
@@ -238,14 +218,3 @@ async function generate(state: typeof GraphState.State): Promise<Partial<typeof 
     messages: [response],
   };
 }
-
-import { StateGraph } from "@langchain/langgraph";
-
-// Define the graph
-const workflow = new StateGraph(GraphState)
-  // Define the nodes which we'll cycle between.
-  .addNode("agent", agent)
-  .addNode("retrieve", toolNode)
-  .addNode("gradeDocuments", gradeDocuments)
-  .addNode("rewrite", rewrite)
-  .addNode("generate", generate);
