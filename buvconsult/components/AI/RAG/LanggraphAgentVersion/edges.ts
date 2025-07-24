@@ -132,6 +132,18 @@ export async function agent(state: typeof GraphState.State): Promise<Partial<typ
     return true;
   });
 
+  // // 2. Take only the last N and strip to role/content for context window hygiene
+  //     const N = 10;
+  //     const llmMessages = filteredMessages
+  //       .slice(-N)
+  //       .map(msg =>
+  //         typeof msg.toDict === "function"
+  //           ? msg.toDict()
+  //           : {
+  //               role: msg.kwargs?.role || msg.type,
+  //               content: msg.kwargs?.content || msg.content,
+  //             }
+  //       );
 
 
 
@@ -144,7 +156,7 @@ export async function agent(state: typeof GraphState.State): Promise<Partial<typ
     streaming: true,
   }).bindTools(tools);
 
-  const response = await model.invoke(filteredMessages);
+  const response = await model.invoke(filteredMessages); //Here llmMessages is not of BaseMessage type anymore
   return {
     messages: [response],
   };

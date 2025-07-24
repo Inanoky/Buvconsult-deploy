@@ -13,6 +13,7 @@ import {exportToExcel,getUniqueValues} from "@/components/AI/RAG/utils";
 import {TableModal} from "@/components/AI/RAG/TableModal";
 import {talkToDocuments} from "@/components/AI/RAG/talkToDocuments";
 import ReactMarkdown from "react-markdown";
+import {talkToAgent, talkToAget} from "@/components/AI/RAG/LanggraphAgentVersion/graph";
 
 
 
@@ -39,7 +40,11 @@ export default function AiWidgetRag({ siteId }) {
 
 
       //So this is where Input goes
-      const result = await talkToDocuments(input,siteId);
+
+      //This one is agentic flow
+      const result = await talkToAgent(input,siteId);
+      //This one is working but no agent
+      // const result = await talkToDocuments(input,siteId);
       // Always store both aiComment and answer
 
 

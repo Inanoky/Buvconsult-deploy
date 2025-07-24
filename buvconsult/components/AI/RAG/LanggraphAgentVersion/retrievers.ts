@@ -17,6 +17,8 @@ const embeddings = new OpenAIEmbeddings({
   // model: "text-embedding-ada-002" // Or use ada-002
   // apiKey: process.env.OPENAI_API_KEY, // Optional, will use env by default
 });
+
+
 export async function retriever(prompt,siteId){
 
 
