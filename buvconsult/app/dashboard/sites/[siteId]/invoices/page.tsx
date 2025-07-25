@@ -24,6 +24,7 @@ import {ChartAreaInteractive} from "@/app/components/frontend/analytics/ChartAre
 import {getDailyAggregatedCosts} from "@/app/AnalyticsActions";
 import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
 import {KeyMetricsDashboard} from "@/app/components/frontend/analytics/keyMetricsDashboard";
+import AiWidgetRag from "@/components/AI/RAG/AiWidgetRag";
 
 
 export default async function InvoiceRoute({params}:
@@ -102,7 +103,7 @@ export default async function InvoiceRoute({params}:
                       </CardContent>
                     </Card>
           </div>
-        <AIChatGeneral siteId={siteId}/>
+        <AiWidgetRag siteId={siteId}/>
       </>
   );
 

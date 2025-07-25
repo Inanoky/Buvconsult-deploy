@@ -10,7 +10,7 @@ export async function rerankDocs(results, prompt, topN){
 
     const yamlDocs = results.matches.map(doc => yaml.dump(doc, { sortKeys: false }));
 
-                console.log(`This nis from inside of rerankDocs ${JSON.stringify(yamlDocs)}`)
+                // console.log(`This nis from inside of rerankDocs ${JSON.stringify(yamlDocs)}`)
 
 
                 // This is how we use rerank, we pass array of strings separated by coma (yamlDocs)
@@ -24,7 +24,7 @@ export async function rerankDocs(results, prompt, topN){
 
       const rerankResults = rerank.results
 
-      console.log(`This nis from inside of rerankDocs, rerank results ${JSON.stringify(rerank)}`)
+      // console.log(`This nis from inside of rerankDocs, rerank results ${JSON.stringify(rerank)}`)
 
       const rerankedForLLM = rerankResults.map((r, i) =>
                   `---\nSource #${i + 1} (score: ${r.relevanceScore}):\n${yamlDocs[r.index]}`

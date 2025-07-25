@@ -5,6 +5,7 @@ import {MonthlyCategoryChart} from "@/app/components/frontend/analytics/MonthlyC
 import {BudgetVsReal} from "@/app/components/frontend/analytics/BudgetVsReal";
 import {PieCharTotals} from "@/app/components/frontend/analytics/PieCharTotals";
 import {KeyMetrics} from "@/app/components/frontend/analytics/keyMetrics";
+import AiWidgetRag from "@/components/AI/RAG/AiWidgetRag";
 
 export default async function Analytics({params}:
 
@@ -25,6 +26,7 @@ export default async function Analytics({params}:
                     <KeyMetrics/>
 
                 </div>
+                <AiWidgetRag siteId={siteId}/>
 
           </>
 

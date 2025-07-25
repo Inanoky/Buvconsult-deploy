@@ -23,7 +23,7 @@ import aiWasteAgent from "@/components/AI/SQL/aiWasteAgent";
 
 export default async function aiDBsearch(stateReceived) {
     // INIT
-    console.log("aiDBsearch START: Received state:", stateReceived);
+    // console.log("aiDBsearch START: Received state:", stateReceived);
 
     const state = stateDefault
     const allowedFieldKeys = allowedFieldKeysPrompt
@@ -31,7 +31,7 @@ export default async function aiDBsearch(stateReceived) {
 
     // --- SQL FORMAT ---
     const SQLformat = async (state) => {
-        console.log("SQLformat input state:", state);
+        // console.log("SQLformat input state:", state);
 
         const user = await requireUser();
 
@@ -52,14 +52,14 @@ export default async function aiDBsearch(stateReceived) {
         siteId" = '${state.siteId},
         question = ${state.message}
         `
-        console.log("SQLformat prompt:", prompt);
+        // console.log("SQLformat prompt:", prompt);
 
         const res = await structuredLlm.invoke([
             ["system", SQLFormatSystemPrompt],
             ["human", prompt]
         ]);
 
-        console.log("SQLformat OUTPUT:", res);
+        // console.log("SQLformat OUTPUT:", res);
 
         return {
             ...state,
@@ -69,23 +69,23 @@ export default async function aiDBsearch(stateReceived) {
 
     // --- SQL EXECUTE ---
     const SQLexecute = async (state) => {
-        console.log("SQLexecute input state:", state);
+        // console.log("SQLexecute input state:", state);
 
         const sql = state.sql
         if (!sql) {
-            console.log("SQLexecute: No SQL generated!");
+            // console.log("SQLexecute: No SQL generated!");
             return { ...state, fullResult: "No SQL generated." };
         }
         try {
-            console.log("SQLexecute: Executing SQL:", sql);
+            // console.log("SQLexecute: Executing SQL:", sql);
             const result = await prisma.$queryRawUnsafe(sql);
-            console.log("SQLexecute RESULT:", result);
+            // console.log("SQLexecute RESULT:", result);
             return {
                 ...state,
                 fullResult: result,
             };
         } catch (e) {
-            console.log("SQLexecute ERROR:", e.message);
+            // console.log("SQLexecute ERROR:", e.message);
             return {
                 ...state,
                 result: `SQL Error: ${e.message}`,
@@ -95,7 +95,7 @@ export default async function aiDBsearch(stateReceived) {
 
     // --- QUALITY CONTROL ---
     const qualityControl = async (state) => {
-    console.log("qualityControl input state:", state);
+    // console.log("qualityControl input state:", state);
 
     const batchSize = 50;
 
@@ -125,13 +125,13 @@ export default async function aiDBsearch(stateReceived) {
     );
 
     const allData = state.fullResult || [];
-    console.log("qualityControl fullResult data:", allData);
+    // console.log("qualityControl fullResult data:", allData);
 
     const batches = [];
     for (let i = 0; i < allData.length; i += batchSize) {
         batches.push(allData.slice(i, i + batchSize));
     }
-    console.log("qualityControl split into", batches.length, "batches");
+    // console.log("qualityControl split into", batches.length, "batches");
 
     // const userQuestion =
     //     typeof state.message !== "undefined"
@@ -161,11 +161,11 @@ export default async function aiDBsearch(stateReceived) {
     );
 
     responses.forEach(({ res }, idx) => {
-    console.log(`LLM batch response for batch #${idx + 1}:`, JSON.stringify(res, null, 2));
+    // console.log(`LLM batch response for batch #${idx + 1}:`, JSON.stringify(res, null, 2));
         });
 
 
-    console.log("qualityControl LLM responses:", responses);
+    // console.log("qualityControl LLM responses:", responses);
 
     // Collect ALL results from all batches
     let acceptedResults = [];
@@ -185,7 +185,7 @@ export default async function aiDBsearch(stateReceived) {
     });
 
     acceptedResults.forEach((r, i) => {
-        console.log(`Accepted result #${i + 1}:`, r);
+        // console.log(`Accepted result #${i + 1}:`, r);
     });
 
     const filtered = acceptedResults.map(({ accepted, reason, ...rest }) => rest);
@@ -199,7 +199,7 @@ export default async function aiDBsearch(stateReceived) {
 
     // --- BEST FIELD FIT ---
     const returnBestFitFields = async (state) => {
-        console.log("returnBestFitFields input state:", state);
+        // console.log("returnBestFitFields input state:", state);
 
         const llm = new ChatOpenAI({
             temperature: 0.1,
@@ -220,11 +220,11 @@ export default async function aiDBsearch(stateReceived) {
         const prompt = `SQL command for checking : ${state.sql} 
                         prisma schema ${schema}
                         `
-        console.log("returnBestFitFields prompt:", prompt);
+        // console.log("returnBestFitFields prompt:", prompt);
 
         const response = await structuredLlm.invoke(["human", prompt]);
 
-        console.log("returnBestFitFields OUTPUT:", response);
+        // console.log("returnBestFitFields OUTPUT:", response);
 
         state.userDisplayFields = response.userDisplayFields;
 
@@ -237,7 +237,7 @@ export default async function aiDBsearch(stateReceived) {
             )
         );
 
-        console.log("returnBestFitFields: Filtered display fields result:", result);
+        // console.log("returnBestFitFields: Filtered display fields result:", result);
 
         return {
             ...state,
@@ -248,7 +248,7 @@ export default async function aiDBsearch(stateReceived) {
 
     // --- SUMMARY ---
     const summary = async (state) => {
-        console.log("summary input state:", state);
+        // console.log("summary input state:", state);
 
         const llm = new ChatOpenAI({
             temperature: 0.5,
@@ -269,11 +269,11 @@ export default async function aiDBsearch(stateReceived) {
             SQL query results ${JSON.stringify(state.fullResult)},
             original user question ${state.message}`
 
-        console.log("summary prompt:", prompt);
+        // console.log("summary prompt:", prompt);
 
         const res = await structuredLlm.invoke(["human", prompt]);
 
-        console.log("summary OUTPUT:", res);
+        // console.log("summary OUTPUT:", res);
 
         return {
             ...state,
@@ -297,11 +297,11 @@ export default async function aiDBsearch(stateReceived) {
 
     const graph = workflow.compile()
 
-    console.log("STARTING STATEGRAPH INVOKE --------------------")
+    // console.log("STARTING STATEGRAPH INVOKE --------------------")
     const graphResult = await graph.invoke({
         ...stateReceived
     })
 
-    console.log("FINAL aiDBsearch graphResult:", graphResult);
+    // console.log("FINAL aiDBsearch graphResult:", graphResult);
     return graphResult
 }

@@ -40,7 +40,7 @@ export async function retriever(prompt,siteId){
               //--------------------------------------------RERANK FUNCTIONALITY-----------------------------------
 
 
-            const context = await rerankDocs(results, prompt,2)
+            const context = await rerankDocs(results, prompt,15)
 
 
 

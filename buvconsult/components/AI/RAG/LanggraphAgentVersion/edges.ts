@@ -70,7 +70,11 @@ export async function gradeDocuments(state: typeof GraphState.State): Promise<Pa
 
   const chain = prompt.pipe(model);
 
+  //So here it is not clear for me what exactly is lastMessage ???
+
   const lastMessage = messages[messages.length - 1];
+
+  console.log(`So this is a context for the grader :${lastMessage.content}`)
 
   const score = await chain.invoke({
     question: messages[0].content as string,
@@ -157,6 +161,8 @@ export async function agent(state: typeof GraphState.State): Promise<Partial<typ
   }).bindTools(tools);
 
   const response = await model.invoke(filteredMessages); //Here llmMessages is not of BaseMessage type anymore
+
+  console.log(`This is what is returned to state after Agent uses tools : `)
   return {
     messages: [response],
   };
@@ -202,6 +208,7 @@ export async function generate(state: typeof GraphState.State): Promise<Partial<
   console.log("---GENERATE---");
 
   const { messages } = state;
+  console.log(`Those are messages before they are filtered ${JSON.stringify(messages,null,2)}`)
   const question = messages[0].content as string;
   // Extract the most recent ToolMessage
   const lastToolMessage = messages.slice().reverse().find((msg) => msg._getType() === "tool");
@@ -220,6 +227,8 @@ export async function generate(state: typeof GraphState.State): Promise<Partial<
   });
 
   const ragChain = prompt.pipe(llm);
+
+  console.log(`This is context of Generate ${JSON.stringify(docs,null,2)}`)
 
   const response = await ragChain.invoke({
     context: docs,

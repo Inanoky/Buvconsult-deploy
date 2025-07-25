@@ -28,14 +28,28 @@ export async function talkToAgent(input,siteId) {
         .addNode("retrieve", toolNode)
         .addNode("gradeDocuments", gradeDocuments)
         .addNode("rewrite", rewrite)
-        .addNode("generate", generate);
+        .addNode("generate", generate)
+        .addEdge(START, "agent")
+        .addConditionalEdges(
+            "agent",
+            // Assess agent decision
+            shouldRetrieve,
+        )
+        .addEdge("retrieve", "gradeDocuments")
+        .addConditionalEdges(        "gradeDocuments", checkRelevance,
+        {
+            // Call tool node
+            yes: "generate",
+            no: "rewrite", // placeholder
+        },).addEdge("generate", END)
+        .addEdge("rewrite", "agent");
 
 //So this is memroy
     const checkpointer = PostgresSaver.fromConnString(
         process.env.DATABASE_URL
     );
 
-    console.log(process.env.DIRECT_URL)
+    // console.log(process.env.DIRECT_URL)
 
     await checkpointer.setup();
 
@@ -43,31 +57,18 @@ export async function talkToAgent(input,siteId) {
 
     const config = {configurable: {thread_id: "mitau-contract-48f39d7c"}};
 
-    workflow.addEdge(START, "agent");
+
 
 // Decide whether to retrieve
-    workflow.addConditionalEdges(
-        "agent",
-        // Assess agent decision
-        shouldRetrieve,
-    );
 
-    workflow.addEdge("retrieve", "gradeDocuments");
+
+
 
 // Edges taken after the `action` node is called.
-    workflow.addConditionalEdges(
-        "gradeDocuments",
-        // Assess agent decision
-        checkRelevance,
-        {
-            // Call tool node
-            yes: "generate",
-            no: "rewrite", // placeholder
-        },
-    );
 
-    workflow.addEdge("generate", END);
-    workflow.addEdge("rewrite", "agent");
+
+
+
 
 
 
@@ -87,16 +88,18 @@ export async function talkToAgent(input,siteId) {
 
 
     let finalState;
+
     for await (const output of await app.stream(inputs, config)) {
+        console.log("Step/Run full output:", output);
         for (const [key, value] of Object.entries(output)) {
             const lastMsg = output[key].messages[output[key].messages.length - 1];
-            console.log(`Output from node: '${key}'`);
-            console.dir({
-                type: lastMsg._getType(),
-                content: lastMsg.content,
-                tool_calls: lastMsg.tool_calls,
-            }, {depth: null});
-            console.log("---\n");
+            // console.log(`Output from node: '${key}'`);
+            // console.dir({
+            //     type: lastMsg._getType(),
+            //     content: lastMsg.content,
+            //     tool_calls: lastMsg.tool_calls,
+            // }, {depth: null});
+            // console.log("---\n");
             finalState = value;
         }
     }

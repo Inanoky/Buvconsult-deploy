@@ -13,11 +13,13 @@ import aiDBsearch from "@/components/AI/SQL/aiDBsearcher";
 
 export default async function aiGeneral(question,siteId){
 
+// console.log(`this is from aiGeneral, request received`)
 
 
 const state = stateDefault
 
 const generalQuestion = async (state) => {
+
 
     const llm = new ChatOpenAI({
         temperature: 0.5,
@@ -41,7 +43,7 @@ const generalQuestion = async (state) => {
         ["system",generalQuestionPrompts ]]);
 
 
-    console.log("generalQuestion  ", response)
+    // console.log("generalQuestion  ", response)
     return {
         ...state,
         question: question,
@@ -64,7 +66,7 @@ const aiSQLAgentCall = async (state) => {
 
     //Here I just need back SQL query
 
-    console.log("aiSQLAgentCall ", response)
+    // console.log("aiSQLAgentCall ", response)
     return {
         ...response
     }
@@ -96,13 +98,15 @@ const aiWasteAgentCall = async (state) => {
 const aiDBsearchCall = async (state) => {
 
 
+
+
     const response = await aiDBsearch(state) //Passing just user question to SQL agent
 
     // aiDBsearch will execute SQL
 
     // I basically need back data for table and summary from AI
 
-    console.log("aiDBsearchCall : ", response.message)
+    // console.log("aiDBsearchCall : ", response.message)
 
     return {
         ...response
@@ -191,9 +195,18 @@ await prisma.aIconversation.upsert({
 
 
 
-console.log(`This is sent to frontend ${JSON.stringify(response.acceptedResults)}`)
+// console.log(`This is sent to frontend ${JSON.stringify(response.acceptedResults)}`)
 
-return response
+
+
+return {
+
+
+    acceptedResults : response.acceptedResults,
+    aiComment: response.aiComment
+
+
+}
 
 
 }
