@@ -10,7 +10,7 @@ import TourRunner from "@/components/joyride/TourRunner";
 import { steps_dashboard_siteid_site_diary} from "@/components/joyride/JoyRideSteps";
 import FullPhotoGallery from "@/components/sitediary/FullGalleryView";
 
-
+export const maxDuration = 800;
 
 export default async function Home({
   params,

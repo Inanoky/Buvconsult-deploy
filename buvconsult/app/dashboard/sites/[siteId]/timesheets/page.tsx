@@ -12,7 +12,7 @@ import TourRunner from "@/components/joyride/TourRunner";
 import { steps_dashboard_siteid_timesheets} from "@/components/joyride/JoyRideSteps";
 
 
-
+export const maxDuration = 800;
 
 export default async function AddWorkerPage({params}) {
   const {siteId} = await params

@@ -18,6 +18,8 @@ import {
   getPrevWeekKey,
 } from "@/server/actions/metrics-card-actions";
 
+export const maxDuration = 800;
+
 export default async function InvoiceRoute({ params }: { params: Promise<{ siteId: string }> }) {
   const { siteId } = await params;
 

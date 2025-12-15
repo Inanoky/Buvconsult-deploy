@@ -13,6 +13,8 @@ import TourRunner from "@/components/joyride/TourRunner";
 import { steps_dashboard_siteid_documents} from "@/components/joyride/JoyRideSteps";
 
 
+export const maxDuration = 800;
+
 export default async function Documents({params}:
 
 {params : Promise <{siteId:string}>

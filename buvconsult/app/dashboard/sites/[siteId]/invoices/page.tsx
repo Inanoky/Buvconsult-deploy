@@ -10,7 +10,7 @@ import { orgCheck } from "@/server/actions/shared-actions";
 import TourRunner from "@/components/joyride/TourRunner";
 import { steps_dashboard_siteid_invoices} from "@/components/joyride/JoyRideSteps";
 
-
+export const maxDuration = 800;
 
 export default async function InvoiceRoute({ params }: { params: Promise<{ siteId: string }> }) {
   const { siteId } = await params;

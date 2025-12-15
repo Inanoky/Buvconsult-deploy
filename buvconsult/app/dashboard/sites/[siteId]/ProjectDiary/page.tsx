@@ -7,7 +7,7 @@ import TourRunner from "@/components/joyride/TourRunner";
 import { steps_dashboard_siteid_project_diary} from "@/components/joyride/JoyRideSteps";
 import { Label } from "@/components/ui/label";
 
-
+export const maxDuration = 800;
 
 export default async function ProjectDiary ({params}:
 
