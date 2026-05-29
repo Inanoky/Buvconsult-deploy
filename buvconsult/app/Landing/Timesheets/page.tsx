@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/buvconsultLogo.svg";
 import { ThemeToggle } from "@/components/dashboard/ThemeToggle";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Button } from "@/components/ui/button";
 import InvoicesPage from "@/public/frontend/pages/Invoices/InvoicesPage.png";
 import { NavigationMenuDemo } from "@/components/landing/NavigationMenuDesktop";

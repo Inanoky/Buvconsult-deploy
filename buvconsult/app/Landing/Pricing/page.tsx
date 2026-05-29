@@ -18,10 +18,10 @@ export default function Page() {
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <h1 className="mt-4 sm:mt-6 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
-            Pricing Built for <span className="text-primary">Construction</span>
+            Engagement Models for <span className="text-primary">AI and Software</span>
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-xl mx-auto">
-            Transparent monthly pricing per project, designed to scale with your project's size and complexity. No long-term contracts, no setup fees.
+            We price work around the workflow, complexity and value of the system being built. Start with a focused discovery call, then move into prototype or delivery.
           </p>
         </div>
 
@@ -110,13 +110,13 @@ export default function Page() {
 
               {/* Call to Action */}
               <div className="mt-8">
-                <Link href="/api/auth/register" className="w-full">
+                <Link href="/Landing/ContactForm" className="w-full">
                   <Button size="lg" className="w-full">
-                    Start Your 14-Day Free Trial
+                    Discuss a Project
                   </Button>
                 </Link>
                 <div className="text-center mt-3 text-xs text-muted-foreground">
-                  Cancel any time. Pricing shown without VAT.
+                  Pricing shown without VAT.
                 </div>
               </div>
             </div>

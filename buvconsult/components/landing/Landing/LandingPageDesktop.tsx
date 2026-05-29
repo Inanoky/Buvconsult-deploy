@@ -1,120 +1,169 @@
-// C:\Users\user\MainProjects\Buvconsult-deploy\buvconsult\components\landing\Landing\LandingPageDesktop.tsx
-
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { ArrowRight, Bot, FileText, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import Dashboard from "@/public/frontend/pages/Home/Dashboard.png";
-import Dashboard2 from "@/public/frontend/pages/Home/Dashboard2.png";
-
-import { Features } from "@/components/landing/Features";
 import {
-  Header,
-  Header2,
   HowDoWeDoThat,
-  SmallDescription,
+  LandingLocale,
+  landingCopy,
   WhatDoWeDo,
   Why,
 } from "@/components/landing/Landing/Text";
 
-export default function LandingPage() {
+type LandingPageDesktopProps = {
+  locale: LandingLocale;
+  setLocale: (locale: LandingLocale) => void;
+};
+
+function LanguageToggle({ locale, setLocale }: LandingPageDesktopProps) {
+  return (
+    <div className="inline-flex rounded-full border border-zinc-200 bg-white p-1 shadow-sm">
+      {(["lv", "en"] as const).map((item) => (
+        <button
+          key={item}
+          type="button"
+          onClick={() => setLocale(item)}
+          className={`h-9 rounded-full px-4 text-sm font-semibold transition ${
+            locale === item
+              ? "bg-zinc-950 text-white shadow-sm"
+              : "text-zinc-500 hover:text-zinc-950"
+          }`}
+        >
+          {item.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function HeroVisual({
+  copy,
+}: {
+  copy: (typeof landingCopy)[LandingLocale];
+}) {
+  return (
+    <div className="relative mx-auto mt-12 flex h-[560px] max-w-5xl items-end justify-center">
+      <div className="absolute left-8 top-44 flex size-28 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
+        <MessageCircle className="size-12 text-emerald-700" />
+      </div>
+      <div className="absolute right-8 top-44 flex size-28 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
+        <FileText className="size-12 text-cyan-600" />
+      </div>
+      <div className="absolute left-32 top-60 h-px w-72 border-t border-dashed border-emerald-700/50" />
+      <div className="absolute right-32 top-60 h-px w-72 border-t border-dashed border-emerald-700/50" />
+
+      <div className="relative z-10 h-[520px] w-[310px] rounded-[3rem] border-[12px] border-zinc-950 bg-zinc-50 shadow-[0_34px_120px_rgba(15,23,42,0.26)]">
+        <div className="mx-auto mt-3 h-1.5 w-24 rounded-full bg-zinc-900" />
+        <div className="px-6 pt-8">
+          <div className="flex items-center gap-3">
+            <div className="flex size-11 items-center justify-center rounded-full bg-emerald-700 text-white">
+              <Bot className="size-5" />
+            </div>
+            <div>
+              <p className="text-lg font-bold text-zinc-950">Buvconsult</p>
+              <p className="text-sm text-zinc-500">{copy.visualTitle}</p>
+            </div>
+          </div>
+
+          <div className="mt-20 rounded-3xl bg-emerald-100 px-5 py-4 shadow-sm">
+            <p className="text-sm font-semibold text-zinc-950">{copy.visualInput}</p>
+            <div className="mt-4 flex items-center gap-3">
+              <div className="size-9 rounded-full bg-white" />
+              <div className="h-3 flex-1 rounded-full bg-emerald-600/25">
+                <div className="h-3 w-2/3 rounded-full bg-emerald-700" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-3xl bg-white px-5 py-4 shadow-[0_16px_50px_rgba(15,23,42,0.12)]">
+            <p className="text-lg font-semibold text-zinc-950">{copy.visualMessage}</p>
+            <p className="mt-2 text-sm text-zinc-500">{copy.visualOutput}</p>
+          </div>
+        </div>
+      </div>
+
+      <Button
+        asChild
+        size="lg"
+        className="absolute bottom-8 z-20 h-16 rounded-2xl bg-emerald-700 px-12 text-lg shadow-[0_24px_70px_rgba(4,120,87,0.34)] hover:bg-emerald-800"
+      >
+        <Link href="/Landing/ContactForm">
+          {copy.primaryCta}
+          <ArrowRight className="size-5" />
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+export default function LandingPageDesktop({ locale, setLocale }: LandingPageDesktopProps) {
+  const copy = landingCopy[locale];
+
   return (
     <>
-      {/* HERO */}
-      <section className="relative flex justify-center bg-slate-50/60 dark:bg-slate-950 border-b">
-        <div className="w-full max-w-6xl px-4 lg:px-6 py-12 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
-            {/* Left: copy */}
-            <div>
-              <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-xs font-medium text-primary tracking-tight">
-                Built for trade contractors &amp; site managers
-              </span>
+      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_center_top,#ffffff_0%,#f7f7f5_42%,#ecf5ef_100%)]">
+        <div className="mx-auto flex min-h-[860px] w-full max-w-7xl flex-col px-6 pb-20 pt-8">
+          <div className="flex items-center justify-between">
+            <p className="text-3xl font-semibold text-zinc-950">
+              Buv<span className="text-emerald-700">consult</span>
+            </p>
+            <LanguageToggle locale={locale} setLocale={setLocale} />
+          </div>
 
-              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-semibold leading-tight">
-                {Header}
-                <span className="block text-primary mt-1">{Header2}</span>
-              </h1>
-
-              <p className="mt-4 max-w-xl text-base lg:text-lg text-muted-foreground">
-                {SmallDescription}
+          <div className="mx-auto mt-14 max-w-5xl text-center">
+            <p className="text-lg font-semibold text-zinc-950">{copy.eyebrow}</p>
+            <h1 className="mt-8 text-7xl font-black leading-[0.95] tracking-normal text-zinc-950">
+              {copy.header}
+              <span className="block">{copy.header2}</span>
+            </h1>
+            <p className="mx-auto mt-7 max-w-3xl text-xl leading-8 text-zinc-600">
+              {copy.description}
+            </p>
+            {copy.operatingLine ? (
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-500">
+                {copy.operatingLine}
               </p>
+            ) : null}
 
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <RegisterLink>
-                  <Button size="lg">Start free trial</Button>
-                </RegisterLink>
-
-                <LoginLink>
-                  <Button size="lg" variant="outline">
-                    Sign in
-                  </Button>
-                </LoginLink>
-
-                <span className="text-xs text-muted-foreground">
-                  No credit card required. Free while in beta.
-                </span>
-              </div>
-
-              <div className="mt-6 grid gap-2 text-sm text-muted-foreground">
-                <p>
-                  • Works with WhatsApp, voice notes, photos and email — no new
-                  app for the site team.
-                </p>
-                <p>• Site diary, documents and evidence are ready when you need them.</p>
-              </div>
-            </div>
-
-            {/* Right: hero image */}
-            <div className="relative">
-              <div className="rounded-2xl border bg-background shadow-2xl overflow-hidden">
-                <Image
-                  src={Dashboard}
-                  alt="Buvconsult dashboard preview"
-                  priority
-                  className="w-full h-auto object-cover"
-                />
-              </div>
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <Button asChild size="lg" className="rounded-full bg-zinc-950 px-7 hover:bg-zinc-800">
+                <Link href="/Landing/ContactForm">{copy.primaryCta}</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-zinc-300 bg-white/70 px-7"
+              >
+                <Link href="/Landing/Custom">{copy.secondaryCta}</Link>
+              </Button>
             </div>
           </div>
+
+          <HeroVisual copy={copy} />
         </div>
       </section>
 
-      {/* SECTION 2 – What problems we solve */}
-      <section className="bg-background">
-        <div className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-12 lg:py-16 grid gap-10 lg:grid-cols-2 items-center">
-          <div className="order-2 lg:order-1">
-            <WhatDoWeDo />
-          </div>
-          <div className="order-1 lg:order-2">
-            <div className="rounded-2xl border bg-background shadow-xl overflow-hidden">
-              <Image
-                src={Dashboard2}
-                alt="Project records and analytics"
-                priority
-                className="w-full h-auto object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 3 – How we help + why different */}
-      <section className="bg-slate-50/60 dark:bg-slate-950 border-y">
-        <div className="w-full max-w-6xl mx-auto px-4 lg:px-6 py-12 lg:py-16 grid gap-12 lg:grid-cols-2">
+      <section className="bg-white">
+        <div className="mx-auto grid w-full max-w-6xl gap-12 px-6 py-20 lg:grid-cols-2">
+          <WhatDoWeDo copy={copy} />
           <div>
-            <HowDoWeDoThat />
-          </div>
-          <div>
-            <Why />
+            <HowDoWeDoThat copy={copy} />
           </div>
         </div>
       </section>
 
-      {/* Existing features section */}
-      <Features />
+      <section className="bg-zinc-950 text-white">
+        <div className="mx-auto w-full max-w-5xl px-6 py-20">
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-8 [&_.font-semibold]:text-white [&_h3]:text-white [&_p]:text-zinc-300">
+            <Bot className="mb-8 size-10 text-emerald-400" />
+            <Why copy={copy} />
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }

@@ -129,7 +129,7 @@ export function PricingTable(){
                             ) : (
                                 <Button variant="outline" className="mt-5 w-full">
                                          <Link href="/dashboard">
-                                    Try for free
+                                    Contact us
                                         </Link>
                                 </Button>
 

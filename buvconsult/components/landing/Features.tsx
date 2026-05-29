@@ -1,78 +1,101 @@
-import {CloudRain} from "lucide-react";
+import { Bot, ChartNoAxesCombined, Factory, HardHat } from "lucide-react";
+import { LandingLocale } from "@/components/landing/Landing/Text";
 
-const features = [
-  {
-    name: "Passive Data Capture",
-    description: "We reduce on-site management work instead of adding more paperwork.",
-    icon: CloudRain,
+const featureCopy = {
+  lv: {
+    eyebrow: "Praktiskas sistēmas, izmērāma vērtība",
+    title: "Pakalpojumi komandām, kas būvē un ražo",
+    items: [
+      {
+        name: "AI procesu automatizācija",
+        description:
+          "Automatizē dokumentu nolasīšanu, atskaites, apstiprinājumus un atkārtotus koordinācijas darbus ar kontrolētām AI darba plūsmām.",
+        icon: Bot,
+      },
+      {
+        name: "Būvniecības programmatūra",
+        description:
+          "Veido projektu ierakstus, būvdarbu žurnālus, rēķinu plūsmas, pierādījumu arhīvus un paneļus atbilstoši reālai objektu darbībai.",
+        icon: HardHat,
+      },
+      {
+        name: "Ražošanas rīki",
+        description:
+          "Izstrādā ražošanas žurnālus, kvalitātes pārbaudes sistēmas, noliktavas rīkus un vadības skatus rūpnīcu komandām.",
+        icon: Factory,
+      },
+      {
+        name: "Operatīvā analītika",
+        description:
+          "Pārvērš ziņas, PDF, Excel, fotoattēlus un sistēmu datus vadības paneļos, pēc kuriem komanda var rīkoties.",
+        icon: ChartNoAxesCombined,
+      },
+    ],
   },
-  {
-    name: "No Integration",
-    description: "No need to install or learn new software. We use WhatsApp and email to collect data — the rest is handled by AI.",
-    icon: CloudRain,
+  en: {
+    eyebrow: "Practical systems, measurable value",
+    title: "Services for teams that build and produce",
+    items: [
+      {
+        name: "AI Process Automation",
+        description:
+          "Automate document extraction, reporting, approvals and repetitive coordination tasks with controlled AI workflows.",
+        icon: Bot,
+      },
+      {
+        name: "Construction Software",
+        description:
+          "Create project records, site diaries, invoice flows, evidence logs and dashboards that match real site operations.",
+        icon: HardHat,
+      },
+      {
+        name: "Manufacturing Tools",
+        description:
+          "Build production logs, quality check systems, stock tools and management views for factory teams.",
+        icon: Factory,
+      },
+      {
+        name: "Operational Analytics",
+        description:
+          "Turn messages, PDFs, spreadsheets, photos and system data into dashboards your team can act on.",
+        icon: ChartNoAxesCombined,
+      },
+    ],
   },
-  {
-    name: "Visual Dashboards",
-    description: "Your construciton data is digitized, stored, and structured within the BUVCONSULT platform for your use.",
-    icon: CloudRain,
-  },
-  {
-    name: "Custom AI Solutions",
-    description: "We dive deep into your processes and tailor AI to your needs — delivering the results you expect for a fraction of a digital agency’s cost.",
-    icon: CloudRain,
-  },
-];
+} as const;
 
+export function Features({ locale = "lv" }: { locale?: LandingLocale }) {
+  const copy = featureCopy[locale];
 
+  return (
+    <div className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-2xl px-4 lg:text-center">
+        <p className="font-semibold leading-7 text-emerald-700">{copy.eyebrow}</p>
+        <h2 className="mt-2 text-3xl font-bold tracking-normal text-zinc-950 sm:text-4xl">
+          {copy.title}
+        </h2>
+      </div>
 
-export function Features(){
-
-
-    return (
-
-        <div className="py-24 sm:py-32 ">
-
-            <div className="max-w-2xl mx-auto lg:text-center">
-
-                <p className="font-semibold leading-7 text-primary">Control, effortless</p>
-                <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Easy project setup</h1>
-                <p className="mt-6 text-base leading-snug text-muted-foreground"></p>
-
+      <div className="mx-auto mt-16 max-w-2xl px-4 sm:mt-20 lg:mt-24 lg:max-w-5xl">
+        <div className="grid max-w-xl grid-cols-1 gap-6 lg:max-w-none lg:grid-cols-2">
+          {copy.items.map((feature) => (
+            <div
+              key={feature.name}
+              className="rounded-xl border border-zinc-200 bg-white p-7 shadow-[0_20px_80px_rgba(15,23,42,0.08)]"
+            >
+              <div className="flex size-11 items-center justify-center rounded-lg bg-emerald-700">
+                <feature.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="mt-6 text-2xl font-semibold leading-7 text-zinc-950">
+                {feature.name}
+              </h3>
+              <p className="mt-4 text-lg text-zinc-600 leading-snug">
+                {feature.description}
+              </p>
             </div>
-
-            <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-                <div className="grid max-w-xl gird-cols-1 gap-x-8 gap-y-10 lg:max-w-none
-                lg:grid-cols-2 lg:gap-y-16">
-                    {features.map((feature) => (
-
-                        <div key={feature.name} className="relative pl-16">
-                            <div className="text-2xl font-semibold leading-7">
-
-                                <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-primary">
-                                    <feature.icon className="w-6 h-6 text-white"/>
-                                </div>
-
-
-                                {feature.name}
-                            </div>
-
-                            <p className="mt-5 text-xl text-muted-foreground leading-snug">{feature.description}</p>
-
-
-                        </div>
-
-
-
-                    ))}
-
-
-
-                </div>
-
-
-            </div>
-
-
+          ))}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
