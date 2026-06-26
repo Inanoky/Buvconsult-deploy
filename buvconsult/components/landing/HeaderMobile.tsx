@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { LanguageToggle } from "@/components/landing/LanguageProvider";
 import { NavigationMenuMobile } from "./NavigationMenuMobile";
 
 export default function HeaderMobile() {
@@ -14,7 +17,10 @@ export default function HeaderMobile() {
           </span>
         </Link>
 
-        <NavigationMenuMobile />
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <NavigationMenuMobile />
+        </div>
       </div>
     </header>
   );

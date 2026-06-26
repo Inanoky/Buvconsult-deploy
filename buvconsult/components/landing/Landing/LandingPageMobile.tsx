@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, CheckCircle2, LayoutDashboard, MessageCircle } from "lucide-react";
+import { CheckCircle2, LayoutDashboard, MessageCircle, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   BuildList,
@@ -15,27 +15,7 @@ import {
 
 type LandingPageMobileProps = {
   locale: LandingLocale;
-  setLocale: (locale: LandingLocale) => void;
 };
-
-function LanguageToggle({ locale, setLocale }: LandingPageMobileProps) {
-  return (
-    <div className="mx-auto inline-flex rounded-full border border-zinc-200 bg-white p-1 shadow-sm">
-      {(["lv", "en"] as const).map((item) => (
-        <button
-          key={item}
-          type="button"
-          onClick={() => setLocale(item)}
-          className={`h-9 rounded-full px-4 text-sm font-semibold transition ${
-            locale === item ? "bg-zinc-950 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-950"
-          }`}
-        >
-          {item.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 function PremiumLoadBackground() {
   return (
@@ -47,8 +27,21 @@ function PremiumLoadBackground() {
   );
 }
 
-export default function LandingPageMobile({ locale, setLocale }: LandingPageMobileProps) {
+export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
   const copy = landingCopy[locale];
+  const steps = locale === "lv"
+    ? [
+        { label: "Saruna", text: "Vajadzibas un process", icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
+        { label: "Makets", text: "Interaktivs risinajuma makets", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b workflow-step-card" },
+        { label: "Testesana", text: "Parbaude ar jusu komandu", icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
+        { label: "Palaisana", text: "Risinajums produkcija", icon: Rocket, className: "workflow-card-d workflow-step-d workflow-step-card" },
+      ]
+    : [
+        { label: "Discussion", text: "Process and requirements", icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
+        { label: "Mockup", text: "Interactive solution preview", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b workflow-step-card" },
+        { label: "Testing", text: "Validated with your team", icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
+        { label: "Production", text: "Live custom solution", icon: Rocket, className: "workflow-card-d workflow-step-d workflow-step-card" },
+      ];
 
   return (
     <>
@@ -56,7 +49,6 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
         <PremiumLoadBackground />
         <div className="relative mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
           <div className="text-center">
-            <LanguageToggle locale={locale} setLocale={setLocale} />
             <p className="mx-auto mt-8 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
               {copy.badge}
             </p>
@@ -79,12 +71,7 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
           </div>
 
           <div className="workflow-board mx-auto mt-10 max-w-sm rounded-[2rem] border border-zinc-200 bg-white/90 p-4 shadow-[0_28px_90px_rgba(15,23,42,0.16)] backdrop-blur">
-            {[
-              { label: "Input", text: copy.visualInput, icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
-              { label: "AI", text: copy.visualTitle, icon: Bot, className: "workflow-card-b workflow-step-b workflow-step-card" },
-              { label: "Approval", text: copy.visualMessage, icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
-              { label: "Dashboard", text: copy.visualOutput, icon: LayoutDashboard, className: "workflow-card-d bg-zinc-950 text-white" },
-            ].map((item) => {
+            {steps.map((item) => {
               const Icon = item.icon;
 
               return (

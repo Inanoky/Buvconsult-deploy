@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { LanguageToggle } from "@/components/landing/LanguageProvider";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { NavigationMenuDesktop } from "@/components/landing/NavigationMenuDesktop";
 import { Button } from "@/components/ui/button";
@@ -19,6 +22,7 @@ export default function HeaderDesktop() {
         <NavigationMenuDesktop />
 
         <div className="flex items-center gap-2">
+          <LanguageToggle />
           <ThemeToggle />
           <Button asChild className="h-10 rounded-full bg-zinc-950 px-5 text-sm font-semibold hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100">
             <Link href="/Landing/ContactForm">Start a project</Link>

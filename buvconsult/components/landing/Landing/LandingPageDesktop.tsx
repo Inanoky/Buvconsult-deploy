@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, CheckCircle2, FileText, LayoutDashboard, MessageCircle } from "lucide-react";
+import { CheckCircle2, LayoutDashboard, MessageCircle, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   BuildList,
@@ -15,27 +15,7 @@ import {
 
 type LandingPageDesktopProps = {
   locale: LandingLocale;
-  setLocale: (locale: LandingLocale) => void;
 };
-
-function LanguageToggle({ locale, setLocale }: LandingPageDesktopProps) {
-  return (
-    <div className="inline-flex rounded-full border border-zinc-200 bg-white/90 p-1 shadow-sm backdrop-blur">
-      {(["lv", "en"] as const).map((item) => (
-        <button
-          key={item}
-          type="button"
-          onClick={() => setLocale(item)}
-          className={`h-9 rounded-full px-4 text-sm font-semibold transition ${
-            locale === item ? "bg-zinc-950 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-950"
-          }`}
-        >
-          {item.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 function PremiumLoadBackground() {
   return (
@@ -51,67 +31,52 @@ function PremiumLoadBackground() {
 
 function HeroVisual({
   copy,
+  locale,
 }: {
   copy: (typeof landingCopy)[LandingLocale];
+  locale: LandingLocale;
 }) {
+  const steps = locale === "lv"
+    ? [
+        { label: "Saruna", text: "Vajadzibas un process", icon: MessageCircle, className: "workflow-card-a workflow-step-a" },
+        { label: "Makets", text: "Interaktivs risinajuma makets", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b" },
+        { label: "Testesana", text: "Parbaude ar jusu komandu", icon: CheckCircle2, className: "workflow-card-c workflow-step-c" },
+        { label: "Palaisana", text: "Risinajums produkcija", icon: Rocket, className: "workflow-card-d workflow-step-d" },
+      ]
+    : [
+        { label: "Discussion", text: "Process and requirements", icon: MessageCircle, className: "workflow-card-a workflow-step-a" },
+        { label: "Mockup", text: "Interactive solution preview", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b" },
+        { label: "Testing", text: "Validated with your team", icon: CheckCircle2, className: "workflow-card-c workflow-step-c" },
+        { label: "Production", text: "Live custom solution", icon: Rocket, className: "workflow-card-d workflow-step-d" },
+      ];
+
   return (
     <div className="relative mx-auto mt-12 max-w-6xl">
       <div className="workflow-board relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/90 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
         <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-4">
-          <div className="workflow-card workflow-card-a workflow-step-card workflow-step-a rounded-2xl border p-5">
-            <div className="flex items-center gap-3">
-              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
-                <MessageCircle className="size-5" />
-              </span>
-              <div>
-                <p className="workflow-step-label text-sm font-semibold">Input</p>
-                <p className="workflow-step-title font-bold">{copy.visualInput}</p>
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+
+            return (
+              <div key={step.label} className="contents">
+                <div className={`workflow-card workflow-step-card rounded-2xl border p-5 ${step.className}`}>
+                  <div className="flex items-center gap-3">
+                    <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
+                      <Icon className="size-5" />
+                    </span>
+                    <div>
+                      <p className="workflow-step-label text-sm font-semibold">{step.label}</p>
+                      <p className="workflow-step-title font-bold">{step.text}</p>
+                    </div>
+                  </div>
+                </div>
+                {index < steps.length - 1 && (
+                  <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
+                )}
               </div>
-            </div>
-          </div>
-
-          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
-
-          <div className="workflow-card workflow-card-b workflow-step-card workflow-step-b rounded-2xl border p-5">
-            <div className="flex items-center gap-3">
-              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
-                <Bot className="size-5" />
-              </span>
-              <div>
-                <p className="workflow-step-label text-sm font-semibold">AI analysis</p>
-                <p className="workflow-step-title font-bold">{copy.visualTitle}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
-
-          <div className="workflow-card workflow-card-c workflow-step-card workflow-step-c rounded-2xl border p-5">
-            <div className="flex items-center gap-3">
-              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
-                <CheckCircle2 className="size-5" />
-              </span>
-              <div>
-                <p className="workflow-step-label text-sm font-semibold">Approval</p>
-                <p className="workflow-step-title font-bold">{copy.visualMessage}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
-
-          <div className="workflow-card workflow-card-d rounded-2xl border border-zinc-200 bg-zinc-950 p-5 text-white">
-            <div className="flex items-center gap-3">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-500 text-white">
-                <LayoutDashboard className="size-5" />
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-zinc-300">Dashboard</p>
-                <p className="font-bold">{copy.visualOutput}</p>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
 
         <div className="mt-5 grid grid-cols-3 gap-3">
@@ -122,8 +87,8 @@ function HeroVisual({
             </div>
           </div>
           <div className="rounded-2xl bg-zinc-50 p-4">
-            <p className="text-sm font-semibold text-zinc-500">Manual steps</p>
-            <p className="mt-2 text-2xl font-black text-zinc-950">-68%</p>
+            <p className="text-sm font-semibold text-zinc-500">Development time</p>
+            <p className="mt-2 text-2xl font-black text-zinc-950">2 weeks</p>
           </div>
           <div className="rounded-2xl bg-zinc-50 p-4">
             <p className="text-sm font-semibold text-zinc-500">Next action</p>
@@ -135,7 +100,7 @@ function HeroVisual({
   );
 }
 
-export default function LandingPageDesktop({ locale, setLocale }: LandingPageDesktopProps) {
+export default function LandingPageDesktop({ locale }: LandingPageDesktopProps) {
   const copy = landingCopy[locale];
 
   return (
@@ -143,11 +108,7 @@ export default function LandingPageDesktop({ locale, setLocale }: LandingPageDes
       <section className="relative -mt-[65px] overflow-hidden bg-[radial-gradient(circle_at_50%_0%,#dff7ea_0%,#f7fbf8_34%,#ffffff_82%)] pt-[65px]">
         <PremiumLoadBackground />
         <div className="relative mx-auto flex min-h-[820px] w-full max-w-7xl flex-col px-6 pb-16 pt-8">
-          <div className="flex items-center justify-end">
-            <LanguageToggle locale={locale} setLocale={setLocale} />
-          </div>
-
-          <div className="mx-auto mt-10 max-w-6xl text-center">
+          <div className="mx-auto mt-16 max-w-6xl text-center">
             <p className="mx-auto inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
               {copy.badge}
             </p>
@@ -167,7 +128,7 @@ export default function LandingPageDesktop({ locale, setLocale }: LandingPageDes
             </div>
           </div>
 
-          <HeroVisual copy={copy} />
+          <HeroVisual copy={copy} locale={locale} />
         </div>
       </section>
 

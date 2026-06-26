@@ -243,67 +243,64 @@
   color: rgb(9 9 11);
 }
 
-.workflow-card-d .workflow-step-icon {
-  background: rgb(16 185 129);
-  color: white;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
-}
-
-.workflow-card-d .workflow-step-label {
-  color: rgb(212 212 216);
-}
-
-.workflow-card-d .workflow-step-title {
-  color: white;
-}
-
 .workflow-card-a {
   animation:
     workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both,
-    workflow-step-card-a 6400ms ease-in-out 1200ms infinite;
+    workflow-step-card-a 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-card-b {
   animation:
     workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both,
-    workflow-step-card-b 6400ms ease-in-out 1200ms infinite;
+    workflow-step-card-b 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-card-c {
   animation:
     workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both,
-    workflow-step-card-c 6400ms ease-in-out 1200ms infinite;
+    workflow-step-card-c 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-card-d {
-  animation: workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 640ms both;
+  animation:
+    workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 640ms both,
+    workflow-step-card-d 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-a .workflow-step-icon {
-  animation: workflow-step-icon-a 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-icon-a 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-b .workflow-step-icon {
-  animation: workflow-step-icon-b 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-icon-b 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-c .workflow-step-icon {
-  animation: workflow-step-icon-c 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-icon-c 7600ms ease-in-out 1200ms infinite;
+}
+
+.workflow-step-d .workflow-step-icon {
+  animation: workflow-step-icon-d 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-a .workflow-step-label,
 .workflow-step-a .workflow-step-title {
-  animation: workflow-step-text-a 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-text-a 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-b .workflow-step-label,
 .workflow-step-b .workflow-step-title {
-  animation: workflow-step-text-b 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-text-b 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-step-c .workflow-step-label,
 .workflow-step-c .workflow-step-title {
-  animation: workflow-step-text-c 6400ms ease-in-out 1200ms infinite;
+  animation: workflow-step-text-c 7600ms ease-in-out 1200ms infinite;
+}
+
+.workflow-step-d .workflow-step-label,
+.workflow-step-d .workflow-step-title {
+  animation: workflow-step-text-d 7600ms ease-in-out 1200ms infinite;
 }
 
 .workflow-connector {
