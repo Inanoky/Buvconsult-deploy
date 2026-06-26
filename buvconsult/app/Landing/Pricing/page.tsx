@@ -1,4 +1,4 @@
-// app/(marketing)/pricing/page.tsx
+"use client";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,6 @@ export default function Page() {
   return (
     <section className="relative flex items-center justify-center bg-slate-50/60 dark:bg-slate-950">
       <div className="w-full mx-auto max-w-5xl px-4 sm:px-6 py-12 lg:py-24">
-        {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <h1 className="mt-4 sm:mt-6 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
             Engagement Models for <span className="text-primary">AI and Software</span>
@@ -25,16 +24,9 @@ export default function Page() {
           </p>
         </div>
 
-        {/* --- Main content FIX: Removed 'md:col-start-2' and 'md:grid-cols-3' centering classes --- */}
-        {/* We now use a single column ('grid-cols-1') for the main content area */}
         <div className="mt-12 md:mt-16 grid grid-cols-1 gap-8 lg:gap-12"> 
-          
-          {/* Main Subscription Card - Now it will take the full width of the parent grid */}
-          <div className="max-w-3xl mx-auto w-full space-y-8"> {/* Added max-w-3xl and mx-auto to re-center and limit width, but much wider than before */}
-            {/* Subscription Tiers Card */}
+          <div className="max-w-3xl mx-auto w-full space-y-8">
             <div className="relative rounded-3xl border-2 border-primary bg-card text-card-foreground shadow-xl p-6 sm:p-8 lg:p-10 transition-all duration-300 hover:shadow-2xl">
-              
-              {/* Highlight Tag */}
               <div className="absolute top-0 right-0 -mt-3 -mr-3 flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground transform rotate-6">
                 <Star className="h-4 w-4 fill-white text-white" />
               </div>
@@ -46,9 +38,7 @@ export default function Page() {
                 Pricing is based on project size, reflecting the typical volume of site communication, records, and documents.
               </p>
 
-              {/* Tiers List - Enhanced Visuals for Pricing */}
               <div className="space-y-6">
-                {/* Tier 1 */}
                 <div className="border-b pb-4 last:border-b-0 last:pb-0">
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -64,7 +54,6 @@ export default function Page() {
                   </div>
                 </div>
 
-                {/* Tier 2 */}
                 <div className="border-b pb-4 last:border-b-0 last:pb-0">
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -80,7 +69,6 @@ export default function Page() {
                   </div>
                 </div>
 
-                {/* Tier 3 */}
                 <div className="border-b pb-4 last:border-b-0 last:pb-0">
                   <div className="flex items-center justify-between gap-3">
                     <div>
@@ -97,7 +85,6 @@ export default function Page() {
                 </div>
               </div>
 
-              {/* General Features List - Highlighting value */}
               <div className="mt-8">
                 <h3 className="text-lg font-semibold mb-3">All plans include:</h3>
                 <ul className="space-y-2">
@@ -108,7 +95,6 @@ export default function Page() {
                 </ul>
               </div>
 
-              {/* Call to Action */}
               <div className="mt-8">
                 <Link href="/Landing/ContactForm" className="w-full">
                   <Button size="lg" className="w-full">
@@ -121,7 +107,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* Custom solutions Card - Now it will also take the new, wider width */}
             <div className="rounded-2xl border bg-card text-card-foreground shadow-sm p-6 sm:p-8 lg:p-10 space-y-5">
               <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                 Enterprise & Custom Solutions
@@ -129,7 +114,7 @@ export default function Page() {
               
               <div className="space-y-4 text-base">
                 <p className="text-muted-foreground">
-                  For projects **above 10&nbsp;M&nbsp;EUR** or portfolio-wide deployments, we offer tailored pricing. We can also adapt our platform and data workflows to your specific processes, cost codes, and reporting requirements.
+                  For projects above 10&nbsp;M&nbsp;EUR or portfolio-wide deployments, we offer tailored pricing. We can also adapt our platform and data workflows to your specific processes, cost codes, and reporting requirements.
                 </p>
                 <p className="text-muted-foreground">
                   Because we focus only on construction, we quickly understand your needs and can translate project controls into a practical, custom digital setup.

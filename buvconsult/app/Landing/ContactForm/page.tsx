@@ -2,8 +2,7 @@
 
 import { sendGAEvent, sendGTMEvent } from "@next/third-parties/google";
 import { motion, useInView, type Variants } from "framer-motion";
-import { Globe, Mail, Phone, Send } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Globe, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 const AnimatedWrapper = motion.div;
+const contactEmail = "hello@buvconsult.com";
+const whatsAppNumber = "37124885690";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -39,7 +40,6 @@ const itemVariants: Variants = {
 export default function ContactForm() {
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null);
-  const router = useRouter();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
@@ -49,41 +49,41 @@ export default function ContactForm() {
     setStatus(null);
 
     const fd = new FormData(e.currentTarget);
-    const payload = {
-      firstName: String(fd.get("firstName") || ""),
-      lastName: String(fd.get("lastName") || ""),
-      email: String(fd.get("email") || ""),
-      subject: String(fd.get("subject") || ""),
-      message: String(fd.get("message") || ""),
-      hp: String(fd.get("hp") || ""),
-    };
-
-    const res = await fetch("/api/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    setPending(false);
-
-    if (res.ok) {
-      sendGAEvent("event", "conversion", {
-        value: { send_to: "AW-17670426077/3OXOCMXV7rUbEN2b9elB" },
-      });
-      sendGTMEvent({
-        event: "conversion",
-        value: { send_to: "AW-17670426077/3OXOCMXV7rUbEN2b9elB" },
-      });
-
-      router.push("/Landing/ThankYou");
+    const hp = String(fd.get("hp") || "");
+    if (hp) {
+      setPending(false);
       return;
     }
 
-    const data = await res.json().catch(() => ({}));
-    setStatus({
-      ok: false,
-      msg: data?.error ? String(data.error) : "Something went wrong. Please try again.",
+    const firstName = String(fd.get("firstName") || "");
+    const lastName = String(fd.get("lastName") || "");
+    const email = String(fd.get("email") || "");
+    const subject = String(fd.get("subject") || "Project inquiry");
+    const message = String(fd.get("message") || "");
+    const body = [
+      `Name: ${firstName} ${lastName}`,
+      `Email: ${email}`,
+      "",
+      message,
+    ].join("\n");
+
+    sendGAEvent("event", "conversion", {
+      value: { send_to: "AW-17670426077/3OXOCMXV7rUbEN2b9elB" },
     });
+    sendGTMEvent({
+      event: "conversion",
+      value: { send_to: "AW-17670426077/3OXOCMXV7rUbEN2b9elB" },
+    });
+
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
+      `[Buvconsult] ${subject}`
+    )}&body=${encodeURIComponent(body)}`;
+
+    setStatus({
+      ok: true,
+      msg: "Your email app should open now. You can also contact us directly by email or WhatsApp.",
+    });
+    setPending(false);
   }
 
   return (
@@ -112,8 +112,20 @@ export default function ContactForm() {
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 flex-shrink-0 text-primary" />
                 <span className="font-medium">Email:</span>{" "}
-                <a href="mailto:hello@buvconsult.com" className="underline transition-colors hover:text-primary">
-                  hello@buvconsult.com
+                <a href={`mailto:${contactEmail}`} className="underline transition-colors hover:text-primary">
+                  {contactEmail}
+                </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <MessageCircle className="h-5 w-5 flex-shrink-0 text-primary" />
+                <span className="font-medium">WhatsApp:</span>{" "}
+                <a
+                  href={`https://wa.me/${whatsAppNumber}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline transition-colors hover:text-primary"
+                >
+                  +371 24885690
                 </a>
               </li>
               <li className="flex items-center space-x-3">

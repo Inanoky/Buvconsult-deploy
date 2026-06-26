@@ -1,4 +1,5 @@
 export const MAIN_LINKS = [
+  { href: "/", label: "Home" },
   { href: "/Landing/Custom", label: "Services" },
   { href: "/Landing/About", label: "About" },
   { href: "/Landing/ContactForm", label: "Contact" },

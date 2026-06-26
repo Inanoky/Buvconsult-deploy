@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Invoices2 from "@/public/frontend/pages/Invoices/Invoices2.png";
 import InvoicesPage from "@/public/frontend/pages/Invoices/InvoicesPage.png";

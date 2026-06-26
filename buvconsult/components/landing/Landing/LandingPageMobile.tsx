@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Bot, FileText, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  HowDoWeDoThat,
+  BuildList,
+  ExistingSoftware,
   LandingLocale,
+  PricingSection,
+  ProcessSteps,
+  WhyBuvconsult,
   landingCopy,
-  WhatDoWeDo,
-  Why,
 } from "@/components/landing/Landing/Text";
 
 type LandingPageMobileProps = {
@@ -23,9 +27,7 @@ function LanguageToggle({ locale, setLocale }: LandingPageMobileProps) {
           type="button"
           onClick={() => setLocale(item)}
           className={`h-9 rounded-full px-4 text-sm font-semibold transition ${
-            locale === item
-              ? "bg-zinc-950 text-white shadow-sm"
-              : "text-zinc-500 hover:text-zinc-950"
+            locale === item ? "bg-zinc-950 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-950"
           }`}
         >
           {item.toUpperCase()}
@@ -35,13 +37,24 @@ function LanguageToggle({ locale, setLocale }: LandingPageMobileProps) {
   );
 }
 
+function PremiumLoadBackground() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="premium-grid absolute inset-0 opacity-70" />
+      <div className="premium-sweep premium-sweep-a absolute inset-y-0 -left-1/3 w-2/3 rotate-12" />
+      <div className="premium-line premium-line-a absolute left-0 top-24 h-px w-full" />
+    </div>
+  );
+}
+
 export default function LandingPageMobile({ locale, setLocale }: LandingPageMobileProps) {
   const copy = landingCopy[locale];
 
   return (
     <>
-      <section className="overflow-hidden bg-[radial-gradient(circle_at_center_top,#ffffff_0%,#f7f7f5_48%,#ecf5ef_100%)]">
-        <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fbfbfa_0%,#f7faf7_55%,#eef7f1_100%)]">
+        <PremiumLoadBackground />
+        <div className="relative mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
           <div className="text-center">
             <LanguageToggle locale={locale} setLocale={setLocale} />
             <p className="mx-auto mt-8 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
@@ -50,19 +63,18 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
 
             <h1 className="mt-5 text-5xl font-black leading-[0.98] tracking-normal text-zinc-950 sm:text-6xl">
               {copy.header}
-              <span className="block">{copy.header2}</span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-zinc-600">
-              {copy.description}
-            </p>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-zinc-600">{copy.description}</p>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-600">{copy.supporting}</p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-500">{copy.proof}</p>
 
             <div className="mt-8 flex flex-col gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-zinc-950 hover:bg-zinc-800">
                 <Link href="/Landing/ContactForm">{copy.primaryCta}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 rounded-full bg-white/80">
-                <Link href="/Landing/Custom">{copy.secondaryCta}</Link>
+                <a href="#what-we-build">{copy.secondaryCta}</a>
               </Button>
             </div>
           </div>
@@ -116,21 +128,35 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
         </div>
       </section>
 
+      <section id="what-we-build" className="bg-white px-4 py-14">
+        <div className="mx-auto max-w-3xl">
+          <BuildList copy={copy} />
+        </div>
+      </section>
+
+      <section className="bg-zinc-50 px-4 py-14">
+        <div className="mx-auto max-w-3xl">
+          <ProcessSteps copy={copy} />
+        </div>
+      </section>
+
       <section className="bg-white px-4 py-14">
-        <div className="mx-auto max-w-3xl space-y-10">
-          <WhatDoWeDo copy={copy} />
-          <HowDoWeDoThat copy={copy} />
+        <div className="mx-auto max-w-3xl">
+          <PricingSection copy={copy} />
         </div>
       </section>
 
       <section className="bg-zinc-950 px-4 py-14 text-white">
         <div className="mx-auto max-w-3xl">
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6 [&_.font-semibold]:text-white [&_h3]:text-white [&_p]:text-zinc-300">
-            <Why copy={copy} />
-          </div>
+          <WhyBuvconsult copy={copy} />
         </div>
       </section>
 
+      <section className="bg-white px-4 py-14">
+        <div className="mx-auto max-w-3xl">
+          <ExistingSoftware copy={copy} />
+        </div>
+      </section>
     </>
   );
 }

@@ -4,186 +4,318 @@ export type LandingLocale = "lv" | "en";
 
 export const landingCopy = {
   lv: {
-    localeLabel: "LV",
-    alternateLocaleLabel: "EN",
-    badge: "AI un programmatūras partneris",
-    eyebrow: "Buvconsult",
-    header: "AI un programmatūras izstrāde",
-    header2: "būvniecībai un ražošanai",
+    badge: "AI un programmatūra būvniecībai",
+    header: "Pielāgots AI un programmatūra būvniecībai",
+    header2: "",
     description:
-      "Buvconsult izstrādā praktiskas AI darba plūsmas, iekšējos rīkus un pielāgotu programmatūru uzņēmumiem, kas būvē, ražo, uzstāda un uztur reālus aktīvus.",
-    operatingLine: "",
-    primaryCta: "Apspriest projektu",
-    secondaryCta: "Skatīt pakalpojumus",
-    signalA: "AI aģenti, automatizācijas, paneļi un iekšējie rīki reālām operācijām.",
-    signalB: "Veidots būvlaukumiem, rūpnīcām, piegādātājiem un vadības komandām.",
-    visualTitle: "Operāciju dati",
-    visualMessage: "Saņemts. Sagatavoju ierakstu.",
-    visualInput: "WhatsApp, PDF, foto, Excel",
-    visualOutput: "Strukturēts ieraksts un vadības panelis",
-    buildTitle: "Ko Buvconsult izstrādā",
-    workTitle: "Kā mēs strādājam",
-    whyTitle: "Kāpēc uzņēmumi izvēlas mūs",
-    whyIntro:
-      "Buvconsult ir tehniskais partneris operatīviem uzņēmumiem, kuriem vajadzīgs noderīgs AI, nevis skaļi solījumi. Mēs palīdzam pāriet no atsevišķiem failiem un manuāliem darbiem uz programmatūru, kas klusi atbalsta ikdienas darbu.",
+      "Buvconsult ir jūsu digitālais un AI partneris būvniecības nozarei. Būvniecības uzņēmumi katru mēnesi zaudē simtiem stundu manuālai administrācijai, izklājlapām, nesavienotām sistēmām un atkārtotiem uzdevumiem.",
+    supporting:
+      "Mēs veidojam pielāgotu programmatūru un AI risinājumus, kas atbilst tam, kā jūsu uzņēmums jau strādā, nevis piespiež mainīt procesus.",
+    proof:
+      "Atšķirībā no gatavas programmatūras, katrs risinājums tiek veidots tieši jūsu biznesam. Bez lieliem sākotnējiem ieguldījumiem. Bez liekām funkcijām. Tikai programmatūra, kas risina jūsu problēmas.",
+    primaryCta: "Pieteikt bezmaksas konsultāciju",
+    secondaryCta: "Skatīt iespējas",
+    visualTitle: "Būvniecības darba plūsma",
+    visualMessage: "Process analizēts. Makets sagatavots.",
+    visualInput: "Rēķini, laika uzskaite, BIS, WhatsApp",
+    visualOutput: "Pielāgots rīks jūsu komandai",
+    buildTitle: "Ko mēs varam izveidot",
+    buildIntro: "Mēs palīdzam būvniecības uzņēmumiem automatizēt un digitalizēt operatīvos procesus.",
     buildItems: [
-      {
-        title: "AI darba plūsmu automatizācija",
-        desc: "pārvērš manuālas dokumentu pārbaudes, atskaites un datu ievadi strukturētos procesos.",
-      },
-      {
-        title: "Pielāgota biznesa programmatūra",
-        desc: "izstrādā vadības paneļus, portālus, operatīvos rīkus un integrācijas atbilstoši jūsu darba veidam.",
-      },
-      {
-        title: "Būvniecības datu sistēmas",
-        desc: "savieno būvdarbu žurnālus, rēķinus, pavadzīmes, fotoattēlus un projekta ierakstus uzticamā pierādījumu kopumā.",
-      },
-      {
-        title: "Ražošanas sistēmas",
-        desc: "digitalizē ražošanas žurnālus, kvalitātes pārbaudes, noliktavas kustību un veiktspējas atskaites.",
-      },
+      "Rēķinu apstiprināšanas darba plūsmas",
+      "Darbinieku pārvaldība un laika uzskaite",
+      "Produktivitātes izsekošana",
+      "Inventāra un materiālu pārvaldība",
+      "AI asistenti",
+      "Būvlaukuma atskaites",
+      "Datu ievākšana",
+      "BIS integrācija",
+      "WhatsApp integrācija",
+      "Iekšējās apstiprināšanas darba plūsmas",
+      "Pielāgoti vadības paneļi un atskaites",
+      "Jebkura jūsu biznesam unikāla darba plūsma",
     ],
+    workTitle: "Kā tas strādā",
+    workHeadline: "No pirmās sarunas līdz pieņemtam risinājumam.",
     workItems: [
       {
-        title: "Operatīvā izpēte",
-        desc: "pirms koda rakstīšanas pārskatām faktiskās darba plūsmas, failus, sastrēgumus un atskaišu prasības.",
+        title: "Pastāstiet par izaicinājumu",
+        desc: "Nosauciet procesu, kas aizņem pārāk daudz laika, rada kļūdas vai sagādā vilšanos.",
       },
       {
-        title: "AI prototipi",
-        desc: "ātri pārbaudām lietojumus ar reāliem dokumentiem un reālu komandas uzvedību.",
+        title: "Bezmaksas konsultācija",
+        desc: "Rezervējiet tikšanos un vienkārši izskaidrojiet, kā process darbojas šobrīd.",
       },
       {
-        title: "Produkcijas programmatūra",
-        desc: "pārbaudītus prototipus pārvēršam stabilās tīmekļa lietotnēs, automatizācijās un integrācijās.",
+        title: "Risinājums un makets",
+        desc: "Mēs analizējam jūsu darba plūsmu un bez maksas sagatavojam risinājuma piedāvājumu ar interaktīvu maketu. Mēs arī ieteiksim automatizācijas un AI idejas, kas var vēl vairāk uzlabot procesu.",
       },
       {
-        title: "Cilvēka kontrole",
-        desc: "AI palīdz komandai, bet apstiprinājumi, izņēmumi un atbildība paliek skaidri.",
+        title: "Izstrāde",
+        desc: "Pēc apstiprināšanas sākam izstrādi un regulāri informējam par progresu.",
+      },
+      {
+        title: "Testēšana",
+        desc: "Sistēma tiek testēta jūsu organizācijā un pielāgota pēc reālām lietotāju atsauksmēm.",
+      },
+      {
+        title: "Palaišana",
+        desc: "Sistēmu palaižam tikai tad, kad esat apmierināti ar rezultātu. Maksāt sākat tikai pēc risinājuma pieņemšanas.",
       },
     ],
-    whyItems: [
-      "Būvniecības un ražošanas darbs reti pilnībā iederas gatavā SaaS produktā, tāpēc mēs pielāgojam programmatūru operācijām.",
-      "Mēs apvienojam AI, automatizāciju, vadības paneļus un klasisku programmatūras izstrādi vienā piegādes procesā.",
+    pricingTitle: "Cenas",
+    pricingHeadline: "Vienkārša mēneša maksa tikai pēc risinājuma pieņemšanas.",
+    pricingIntro: "Konsultācija, procesa analīze un interaktīvie maketi vienmēr ir bez maksas.",
+    pricingItems: [
+      {
+        title: "Vienkārša darba plūsma",
+        price: "€200/mēnesī",
+        meta: "Līdz 15 lietotājiem",
+        desc: "Piemērots mazākām iekšējām darba plūsmām un procesu automatizācijai.",
+      },
+      {
+        title: "Vidēja sarežģītība",
+        price: "€400/mēnesī",
+        meta: "Līdz 40 lietotājiem",
+        desc: "Piemērots lielākām darba plūsmām ar vairākiem lietotājiem un integrācijām.",
+      },
+      {
+        title: "Sarežģīti risinājumi",
+        price: "Individuāls piedāvājums",
+        meta: "Uzņēmuma līmeņa sistēmām",
+        desc: "Ideāli AI risinājumiem, sarežģītām integrācijām un uzņēmuma mēroga sistēmām.",
+      },
+    ],
+    whyTitle: "Kāpēc Buvconsult?",
+    whyHeadline: "Premium līmeņa speciālists, nevis vispārīga programmatūras aģentūra.",
+    whyParagraphs: [
+      "Atšķirībā no tradicionālām programmatūras aģentūrām, mēs saprotam būvniecību. Mūsu komanda apvieno pieredzējušus programmatūras izstrādātājus ar būvniecības profesionāļiem, kuri saprot, kā projekti tiek plānoti, vadīti un nodoti.",
+      "Mēs ne tikai izstrādājam to, ko prasāt. Mēs analizējam esošo darba plūsmu, atrodam automatizācijas iespējas, apšaubām neefektīvus procesus un projektējam programmatūru, kas patiešām ietaupa laiku, samazina administratīvo darbu un uzlabo pārskatāmību.",
+      "Mērķis ir vienkāršs: izveidot programmatūru, kas pati sevi atpelna, padarot jūsu uzņēmumu efektīvāku.",
+    ],
+    existingTitle: "Kāpēc ne vienkārši nopirkt gatavu programmatūru?",
+    existingHeadline: "Programmatūrai jāpielāgojas jūsu biznesam.",
+    existingIntro: "Lielākā daļa programmatūras liek biznesam pielāgoties sistēmai. Mēs veidojam programmatūru, kas pielāgojas jūsu biznesam.",
+    existingItems: [
+      "Bez liekām funkcijām",
+      "Bez sarežģītas ieviešanas",
+      "Bez nepieciešamības mainīt komandas darba veidu",
+      "Veidots tieši jūsu procesiem",
+      "Viegli paplašināms, uzņēmumam augot",
     ],
   },
   en: {
-    localeLabel: "EN",
-    alternateLocaleLabel: "LV",
-    badge: "AI and custom software partner",
-    eyebrow: "Buvconsult",
-    header: "AI and software development",
-    header2: "for construction and manufacturing",
+    badge: "AI and software for construction",
+    header: "Custom AI & Software for Construction",
+    header2: "",
     description:
-      "Buvconsult designs practical AI workflows, internal tools and custom software for companies that build, produce, install and maintain real-world assets.",
-    operatingLine: "",
-    primaryCta: "Discuss a project",
-    secondaryCta: "Explore services",
-    signalA: "AI agents, automations, dashboards and internal tools for real operations.",
-    signalB: "Built around construction sites, factories, suppliers and management workflows.",
-    visualTitle: "Operational data",
-    visualMessage: "Received. Preparing the record.",
-    visualInput: "WhatsApp, PDF, photos, Excel",
-    visualOutput: "Structured record and dashboard",
-    buildTitle: "What Buvconsult builds",
-    workTitle: "How we work",
-    whyTitle: "Why companies choose us",
-    whyIntro:
-      "Buvconsult is a technical partner for operational businesses that need useful AI, not hype. We help teams move from disconnected files and manual routines to software that quietly supports the work.",
+      "Buvconsult is your digital and AI partner for the construction industry. Construction companies lose hundreds of hours every month to manual administration, spreadsheets, disconnected systems and repetitive tasks.",
+    supporting:
+      "We build custom software and AI solutions that fit the way your company already works, without forcing you to change your processes.",
+    proof:
+      "Unlike off-the-shelf software, every solution is designed specifically for your business. No large upfront investment. No unnecessary features. Just software that solves your problems.",
+    primaryCta: "Book a free consultation",
+    secondaryCta: "See what we build",
+    visualTitle: "Construction workflow",
+    visualMessage: "Process analysed. Mockup ready.",
+    visualInput: "Invoices, timesheets, BIS, WhatsApp",
+    visualOutput: "Custom tool for your team",
+    buildTitle: "What We Can Build",
+    buildIntro: "We help construction companies automate and digitalise operational processes.",
     buildItems: [
-      {
-        title: "AI workflow automation",
-        desc: "turn manual document checks, reporting and data entry into structured processes.",
-      },
-      {
-        title: "Custom business software",
-        desc: "build dashboards, portals, operational tools and integrations around how your team already works.",
-      },
-      {
-        title: "Construction intelligence",
-        desc: "connect site diaries, invoices, delivery notes, photos and project records into reliable evidence.",
-      },
-      {
-        title: "Manufacturing systems",
-        desc: "digitise production logs, quality checks, stock movement and performance reporting.",
-      },
+      "Invoice approval workflows",
+      "Workforce management & timesheets",
+      "Productivity tracking",
+      "Inventory & material management",
+      "AI assistants",
+      "Site reporting",
+      "Data collection",
+      "BIS integration",
+      "WhatsApp integration",
+      "Internal approval workflows",
+      "Custom dashboards & reporting",
+      "Any workflow unique to your business",
     ],
+    workTitle: "How It Works",
+    workHeadline: "From first conversation to accepted solution.",
     workItems: [
       {
-        title: "Operational discovery",
-        desc: "we review your actual workflows, files, bottlenecks and reporting obligations before writing code.",
+        title: "Tell us your challenge",
+        desc: "Identify a process that takes too much time, creates mistakes or causes frustration.",
       },
       {
-        title: "AI prototypes",
-        desc: "we test use cases quickly with real documents and real team behaviour.",
+        title: "Free consultation",
+        desc: "Book a meeting and simply explain how the process works today.",
       },
       {
-        title: "Production software",
-        desc: "we turn proven prototypes into stable web apps, automations and integrations.",
+        title: "Solution & Mockup",
+        desc: "We analyse your workflow and prepare a solution proposal together with an interactive mockup, completely free of charge. We will also suggest ideas for automation and AI that could further improve your process.",
       },
       {
-        title: "Human-in-the-loop control",
-        desc: "AI supports the team while approvals, exceptions and accountability stay clear.",
+        title: "Development",
+        desc: "Once approved, we begin development and keep you updated throughout the project.",
+      },
+      {
+        title: "Testing",
+        desc: "The system is tested within your organisation and adjusted based on real user feedback.",
+      },
+      {
+        title: "Go Live",
+        desc: "Only when you are happy with the result do we launch the system. You only start paying after accepting the solution.",
       },
     ],
-    whyItems: [
-      "Construction and manufacturing work does not fit generic SaaS perfectly, so we adapt software to the operation instead of forcing the operation into software.",
-      "We combine AI, automation, dashboards and traditional software engineering in one delivery process.",
+    pricingTitle: "Pricing",
+    pricingHeadline: "Simple monthly pricing after you accept the solution.",
+    pricingIntro: "Consultation, process analysis and interactive mockups are always free.",
+    pricingItems: [
+      {
+        title: "Simple Workflow",
+        price: "€200/month",
+        meta: "Up to 15 users",
+        desc: "Perfect for smaller internal workflows and process automation.",
+      },
+      {
+        title: "Medium Complexity",
+        price: "€400/month",
+        meta: "Up to 40 users",
+        desc: "Suitable for larger workflows with multiple users and integrations.",
+      },
+      {
+        title: "Complex Solutions",
+        price: "Custom quotation",
+        meta: "Enterprise-level systems",
+        desc: "Ideal for enterprise-level systems, AI solutions and advanced integrations.",
+      },
+    ],
+    whyTitle: "Why Buvconsult?",
+    whyHeadline: "Premium specialist, not a generic software shop.",
+    whyParagraphs: [
+      "Unlike traditional software agencies, we understand construction. Our team combines experienced software developers with construction professionals who understand how projects are planned, delivered and managed.",
+      "We do not simply build what you ask for. We analyse your existing workflow, identify opportunities for automation, challenge inefficient processes, and design software that genuinely saves time, reduces administrative work and improves operational visibility.",
+      "Our goal is simple: build software that pays for itself by making your business more efficient.",
+    ],
+    existingTitle: "Why Not Just Buy Existing Software?",
+    existingHeadline: "Software should adapt to your business.",
+    existingIntro: "Most software forces your business to adapt to the system. We build software that adapts to your business.",
+    existingItems: [
+      "No unnecessary features",
+      "No complicated setup",
+      "No changing the way your team works",
+      "Built specifically for your processes",
+      "Easy to expand as your business grows",
     ],
   },
 } as const;
 
-type LandingCopy = (typeof landingCopy)[LandingLocale];
+export type LandingCopy = (typeof landingCopy)[LandingLocale];
 
-function BulletSection({
-  title,
-  items,
-  compact = false,
-}: {
-  title: string;
-  items: readonly { title: string; desc: string }[];
-  compact?: boolean;
-}) {
+export function BuildList({ copy }: { copy: LandingCopy }) {
   return (
-    <div className="space-y-5">
-      <h3 className={`${compact ? "text-xl" : "text-2xl"} font-semibold text-zinc-950`}>
-        {title}
-      </h3>
-      <ul className="space-y-3">
-        {items.map(({ title: itemTitle, desc }) => (
-          <li key={itemTitle} className="flex items-start gap-3">
+    <div className="space-y-7">
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.buildTitle}</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+          {copy.buildIntro}
+        </h2>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {copy.buildItems.map((item) => (
+          <div key={item} className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
             <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden />
-            <p className="leading-relaxed text-zinc-700">
-              <span className="font-semibold text-zinc-950">{itemTitle}</span>
-              {desc ? <span> - {desc}</span> : null}
-            </p>
-          </li>
+            <p className="font-medium leading-relaxed text-zinc-800">{item}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
-export function WhatDoWeDo({ copy }: { copy: LandingCopy }) {
-  return <BulletSection compact title={copy.buildTitle} items={copy.buildItems} />;
-}
-
-export function HowDoWeDoThat({ copy }: { copy: LandingCopy }) {
-  return <BulletSection title={copy.workTitle} items={copy.workItems} />;
-}
-
-export function Why({ copy }: { copy: LandingCopy }) {
+export function ProcessSteps({ copy }: { copy: LandingCopy }) {
   return (
-    <div className="space-y-5">
-      <h3 className="text-2xl font-semibold text-zinc-950">{copy.whyTitle}</h3>
-      <ul className="space-y-3">
-        {copy.whyItems.map((text) => (
-          <li key={text} className="flex items-start gap-3">
-            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden />
-            <p className="leading-relaxed text-zinc-700">{text}</p>
-          </li>
+    <div className="space-y-8">
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.workTitle}</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+          {copy.workHeadline}
+        </h2>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {copy.workItems.map((item, index) => (
+          <div key={item.title} className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
+            <div className="mb-6 flex size-10 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
+              {index + 1}
+            </div>
+            <h3 className="text-xl font-semibold text-zinc-950">{item.title}</h3>
+            <p className="mt-3 leading-relaxed text-zinc-600">{item.desc}</p>
+          </div>
         ))}
-      </ul>
+      </div>
+    </div>
+  );
+}
+
+export function PricingSection({ copy }: { copy: LandingCopy }) {
+  return (
+    <div className="space-y-8">
+      <div className="max-w-3xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.pricingTitle}</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+          {copy.pricingHeadline}
+        </h2>
+        <p className="mt-4 text-lg leading-8 text-zinc-600">{copy.pricingIntro}</p>
+      </div>
+      <div className="grid gap-4 lg:grid-cols-3">
+        {copy.pricingItems.map((item) => (
+          <div key={item.title} className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-zinc-950">{item.title}</h3>
+            <p className="mt-5 text-3xl font-black text-zinc-950">{item.price}</p>
+            <p className="mt-2 text-sm font-semibold text-emerald-700">{item.meta}</p>
+            <p className="mt-5 leading-relaxed text-zinc-600">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function WhyBuvconsult({ copy }: { copy: LandingCopy }) {
+  return (
+    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">{copy.whyTitle}</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-white md:text-5xl">
+          {copy.whyHeadline}
+        </h2>
+      </div>
+      <div className="space-y-5">
+        {copy.whyParagraphs.map((paragraph) => (
+          <p key={paragraph} className="text-lg leading-8 text-zinc-300">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ExistingSoftware({ copy }: { copy: LandingCopy }) {
+  return (
+    <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.existingTitle}</p>
+        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+          {copy.existingHeadline}
+        </h2>
+        <p className="mt-5 text-lg leading-8 text-zinc-600">{copy.existingIntro}</p>
+      </div>
+      <div className="grid gap-3">
+        {copy.existingItems.map((item) => (
+          <div key={item} className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
+            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden />
+            <p className="font-medium leading-relaxed text-zinc-800">{item}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

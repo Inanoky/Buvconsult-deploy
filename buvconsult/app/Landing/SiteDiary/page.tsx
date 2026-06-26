@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import SiteDiary1 from "@/public/frontend/pages/SiteDiary/SiteDiary1.png";
 import SiteDiary2 from "@/public/frontend/pages/SiteDiary/SiteDiary2.png";

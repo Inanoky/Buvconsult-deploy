@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Analytics1 from "@/public/frontend/pages/Analytics/Analytics1.png";
 import Analytics2 from "@/public/frontend/pages/Analytics/Analytics2.png";

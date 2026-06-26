@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Development from "@/public/frontend/pages/CustomSolutions/Development.png";
 import Site from "@/public/frontend/pages/CustomSolutions/Site.jpeg";

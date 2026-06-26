@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Selfie from "@/public/frontend/pages/About/Selfie.jpg";
 

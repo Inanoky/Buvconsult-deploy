@@ -120,3 +120,99 @@
     @apply bg-background text-foreground;
   }
 }
+
+.premium-grid {
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+  animation: premium-grid-reveal 1200ms ease-out both;
+}
+
+.premium-sweep {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.08) 28%,
+    rgb(16 185 129 / 0.1) 50%,
+    rgb(255 255 255 / 0.08) 72%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  opacity: 0;
+}
+
+.premium-sweep-a {
+  animation: premium-sweep-a 1500ms cubic-bezier(0.16, 1, 0.3, 1) 140ms both;
+}
+
+.premium-sweep-b {
+  animation: premium-sweep-b 1700ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both;
+}
+
+.premium-line {
+  background: linear-gradient(90deg, transparent, rgb(5 150 105 / 0.28), transparent);
+  opacity: 0;
+}
+
+.premium-line-a {
+  animation: premium-line 1400ms ease-out 260ms both;
+}
+
+.premium-line-b {
+  animation: premium-line 1400ms ease-out 420ms both;
+}
+
+@keyframes premium-grid-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes premium-sweep-a {
+  0% {
+    opacity: 0;
+    transform: translateX(-18%);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(82%);
+  }
+}
+
+@keyframes premium-sweep-b {
+  0% {
+    opacity: 0;
+    transform: translateX(18%);
+  }
+  18% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-72%);
+  }
+}
+
+@keyframes premium-line {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.25);
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.45;
+    transform: scaleX(1);
+  }
+}
