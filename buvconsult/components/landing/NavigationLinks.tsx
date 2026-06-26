@@ -1,18 +1,6 @@
 export const MAIN_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/Landing/Custom", label: "Services" },
-  { href: "/Landing/About", label: "About" },
-  { href: "/Landing/ContactForm", label: "Contact" },
+  { href: "/", label: { en: "Home", lv: "Sākums" } },
+  { href: "/Landing/Custom", label: { en: "Projects", lv: "Projekti" } },
+  { href: "/Landing/About", label: { en: "About", lv: "Par mums" } },
+  { href: "/Landing/ContactForm", label: { en: "Contact", lv: "Kontakti" } },
 ] as const;
-
-export const COMBINED_LINKS = MAIN_LINKS.map((item) => ({
-  id: item.label,
-  href: item.href,
-  title: item.label,
-  description: item.label,
-})) as readonly {
-  id: string;
-  href: string;
-  title: string;
-  description: string;
-}[];

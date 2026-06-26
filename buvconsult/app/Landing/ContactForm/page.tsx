@@ -6,6 +6,7 @@ import { CheckCircle2, Clock3, Mail, MessageCircle, Phone, Send, Sparkles, Workf
 import type { FormEvent } from "react";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,19 +39,80 @@ const itemVariants: Variants = {
   },
 };
 
-const benefits = [
-  "Free consultation",
-  "Free process review",
-  "Free interactive mockup",
-] as const;
-
-const contactOptions = [
-  { label: "Phone", value: "+371 24885690", href: "tel:+37124885690", icon: Phone },
-  { label: "Email", value: contactEmail, href: `mailto:${contactEmail}`, icon: Mail },
-  { label: "WhatsApp", value: "+371 24885690", href: `https://wa.me/${whatsAppNumber}`, icon: MessageCircle },
-] as const;
+const copy = {
+  en: {
+    badge: "Start with clarity",
+    title: "Book a free construction software consultation",
+    intro:
+      "Tell us about the workflow that wastes time, creates mistakes, or slows down your team. We will map the process and propose a practical AI or software solution before you commit to anything.",
+    benefits: ["Free consultation", "Free process review", "Free interactive mockup"],
+    afterTitle: "What happens after you contact us",
+    afterText:
+      "We discuss the process, prepare an interactive mockup, then move into development only after the direction is clear and useful.",
+    delivery: "Typical focused workflow delivery starts from 2 weeks.",
+    contact: {
+      phone: "Phone",
+      email: "Email",
+      whatsApp: "WhatsApp",
+    },
+    formEyebrow: "Project inquiry",
+    formTitle: "Tell us what should work better",
+    formIntro: "A short description is enough. We will come back with practical next steps.",
+    firstName: "First name",
+    lastName: "Last name",
+    email: "Email",
+    subject: "Workflow or challenge",
+    message: "Message",
+    firstNamePlaceholder: "Name",
+    lastNamePlaceholder: "Surname",
+    emailPlaceholder: "name@company.com",
+    subjectPlaceholder: "Invoice approvals, timesheets, reporting...",
+    messagePlaceholder: "What happens today, who is involved, and what should be faster or clearer?",
+    submit: "Book a free consultation",
+    pending: "Opening email...",
+    defaultSubject: "Free consultation",
+    success:
+      "Your email app should open now. You can also contact us directly by phone, email, or WhatsApp.",
+  },
+  lv: {
+    badge: "Sāciet ar skaidrību",
+    title: "Pieteikt bezmaksas būvniecības programmatūras konsultāciju",
+    intro:
+      "Pastāstiet par procesu, kas tērē laiku, rada kļūdas vai bremzē komandu. Mēs izanalizēsim procesu un piedāvāsim praktisku AI vai programmatūras risinājumu pirms jebkādām saistībām.",
+    benefits: ["Bezmaksas konsultācija", "Bezmaksas procesa analīze", "Bezmaksas interaktīvs makets"],
+    afterTitle: "Kas notiek pēc saziņas",
+    afterText:
+      "Mēs pārrunājam procesu, sagatavojam interaktīvu maketu un sākam izstrādi tikai tad, kad virziens ir skaidrs un lietderīgs.",
+    delivery: "Tipiska fokusēta procesa izstrāde sākas no 2 nedēļām.",
+    contact: {
+      phone: "Tālrunis",
+      email: "E-pasts",
+      whatsApp: "WhatsApp",
+    },
+    formEyebrow: "Projekta pieprasījums",
+    formTitle: "Pastāstiet, kam jāstrādā labāk",
+    formIntro: "Īss apraksts ir pietiekams. Mēs atgriezīsimies ar praktiskiem nākamajiem soļiem.",
+    firstName: "Vārds",
+    lastName: "Uzvārds",
+    email: "E-pasts",
+    subject: "Darba plūsma vai izaicinājums",
+    message: "Ziņa",
+    firstNamePlaceholder: "Vārds",
+    lastNamePlaceholder: "Uzvārds",
+    emailPlaceholder: "vards@uznemums.lv",
+    subjectPlaceholder: "Rēķinu apstiprināšana, laika uzskaite, atskaites...",
+    messagePlaceholder: "Kā process darbojas šobrīd, kas ir iesaistīts un kam jābūt ātrākam vai skaidrākam?",
+    submit: "Pieteikt bezmaksas konsultāciju",
+    pending: "Atver e-pastu...",
+    defaultSubject: "Bezmaksas konsultācija",
+    success:
+      "Jūsu e-pasta lietotnei tagad vajadzētu atvērties. Varat sazināties arī tieši pa tālruni, e-pastu vai WhatsApp.",
+  },
+} as const;
 
 export default function ContactForm() {
+  const { locale } = useLandingLanguage();
+  const text = copy[locale];
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(null);
   const ref = useRef(null);
@@ -71,7 +133,7 @@ export default function ContactForm() {
     const firstName = String(fd.get("firstName") || "");
     const lastName = String(fd.get("lastName") || "");
     const email = String(fd.get("email") || "");
-    const subject = String(fd.get("subject") || "Free consultation");
+    const subject = String(fd.get("subject") || text.defaultSubject);
     const message = String(fd.get("message") || "");
     const body = [
       `Name: ${firstName} ${lastName}`,
@@ -94,7 +156,7 @@ export default function ContactForm() {
 
     setStatus({
       ok: true,
-      msg: "Your email app should open now. You can also contact us directly by phone, email, or WhatsApp.",
+      msg: text.success,
     });
     setPending(false);
   }
@@ -111,21 +173,20 @@ export default function ContactForm() {
           <AnimatedWrapper variants={itemVariants} className="space-y-6">
             <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/70 px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm backdrop-blur">
               <Sparkles className="size-4" />
-              Start with clarity
+              {text.badge}
             </p>
             <div className="space-y-5">
               <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-normal text-zinc-950 sm:text-6xl lg:text-7xl">
-                Book a free construction software consultation
+                {text.title}
               </h1>
               <p className="max-w-2xl text-lg leading-8 text-zinc-600">
-                Tell us about the workflow that wastes time, creates mistakes, or slows down your team. We will map the
-                process and propose a practical AI or software solution before you commit to anything.
+                {text.intro}
               </p>
             </div>
           </AnimatedWrapper>
 
           <AnimatedWrapper variants={itemVariants} className="grid gap-3 sm:grid-cols-3">
-            {benefits.map((benefit) => (
+            {text.benefits.map((benefit) => (
               <div key={benefit} className="rounded-2xl border border-white/50 bg-white/65 p-4 shadow-sm backdrop-blur">
                 <CheckCircle2 className="mb-4 size-5 text-emerald-700" />
                 <p className="text-sm font-bold leading-5 text-zinc-950">{benefit}</p>
@@ -139,21 +200,24 @@ export default function ContactForm() {
                 <Workflow className="size-6" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold">What happens after you contact us</h2>
+                <h2 className="text-2xl font-bold">{text.afterTitle}</h2>
                 <p className="mt-3 leading-7 text-zinc-300">
-                  We discuss the process, prepare an interactive mockup, then move into development only after the
-                  direction is clear and useful.
+                  {text.afterText}
                 </p>
               </div>
             </div>
             <div className="mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
               <Clock3 className="size-5 text-emerald-400" />
-              <p className="text-sm font-semibold text-zinc-200">Typical focused workflow delivery starts from 2 weeks.</p>
+              <p className="text-sm font-semibold text-zinc-200">{text.delivery}</p>
             </div>
           </AnimatedWrapper>
 
           <AnimatedWrapper variants={itemVariants} className="grid gap-3">
-            {contactOptions.map((item) => {
+            {[
+              { label: text.contact.phone, value: "+371 24885690", href: "tel:+37124885690", icon: Phone },
+              { label: text.contact.email, value: contactEmail, href: `mailto:${contactEmail}`, icon: Mail },
+              { label: text.contact.whatsApp, value: "+371 24885690", href: `https://wa.me/${whatsAppNumber}`, icon: MessageCircle },
+            ].map((item) => {
               const Icon = item.icon;
 
               return (
@@ -188,10 +252,10 @@ export default function ContactForm() {
         >
           <div className="rounded-[1.5rem] border border-zinc-200 bg-white p-5 sm:p-7">
             <div className="mb-7">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">Project inquiry</p>
-              <h2 className="mt-3 text-3xl font-black tracking-normal text-zinc-950">Tell us what should work better</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{text.formEyebrow}</p>
+              <h2 className="mt-3 text-3xl font-black tracking-normal text-zinc-950">{text.formTitle}</h2>
               <p className="mt-3 leading-7 text-zinc-600">
-                A short description is enough. We will come back with practical next steps.
+                {text.formIntro}
               </p>
             </div>
 
@@ -200,31 +264,31 @@ export default function ContactForm() {
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">First name</Label>
-                  <Input id="firstName" name="firstName" placeholder="Name" required />
+                  <Label htmlFor="firstName">{text.firstName}</Label>
+                  <Input id="firstName" name="firstName" placeholder={text.firstNamePlaceholder} required />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName">Last name</Label>
-                  <Input id="lastName" name="lastName" placeholder="Surname" required />
+                  <Label htmlFor="lastName">{text.lastName}</Label>
+                  <Input id="lastName" name="lastName" placeholder={text.lastNamePlaceholder} required />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" placeholder="name@company.com" required />
+                <Label htmlFor="email">{text.email}</Label>
+                <Input id="email" name="email" type="email" placeholder={text.emailPlaceholder} required />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subject">Workflow or challenge</Label>
-                <Input id="subject" name="subject" placeholder="Invoice approvals, timesheets, reporting..." required />
+                <Label htmlFor="subject">{text.subject}</Label>
+                <Input id="subject" name="subject" placeholder={text.subjectPlaceholder} required />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">{text.message}</Label>
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="What happens today, who is involved, and what should be faster or clearer?"
+                  placeholder={text.messagePlaceholder}
                   className="min-h-36 resize-none"
                   required
                 />
@@ -238,10 +302,10 @@ export default function ContactForm() {
 
               <Button type="submit" className="group h-12 w-full rounded-full bg-zinc-950 text-base font-bold hover:bg-zinc-800" disabled={pending}>
                 {pending ? (
-                  "Opening email..."
+                  text.pending
                 ) : (
                   <>
-                    Book a free consultation
+                    {text.submit}
                     <Send className="ml-2 size-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                   </>
                 )}

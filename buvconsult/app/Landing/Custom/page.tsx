@@ -1,63 +1,168 @@
 "use client";
 
 import Image from "next/image";
-import Development from "@/public/frontend/pages/CustomSolutions/Development.png";
-import Site from "@/public/frontend/pages/CustomSolutions/Site.jpeg";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, ClipboardList, Layers3, MessageCircle, Workflow } from "lucide-react";
+import SiteDiary from "@/public/frontend/pages/SiteDiary/SiteDiary1.png";
+import Dashboard from "@/public/frontend/pages/Home/Dashboard.png";
+import { useLandingLanguage } from "@/components/landing/LanguageProvider";
+import { Button } from "@/components/ui/button";
+
+const copy = {
+  en: {
+    eyebrow: "Projects",
+    title: "Construction workflows we have already shaped into software",
+    intro:
+      "Buvconsult builds practical systems around real site and office routines. These projects show the kind of focused digital tools we create for contractors.",
+    cta: "Discuss your workflow",
+    projects: [
+      {
+        name: "WorksRecorded",
+        tag: "Site progress and work records",
+        imageAlt: "WorksRecorded project interface",
+        icon: ClipboardList,
+        image: SiteDiary,
+        desc:
+          "A project for recording completed works, site notes and progress evidence in a structured way, so teams can replace scattered messages and manual logs with reliable operational records.",
+        points: [
+          "Daily work records and site activity capture",
+          "Cleaner evidence for approvals, reporting and disputes",
+          "Faster overview of what has been completed on site",
+        ],
+      },
+      {
+        name: "ZTC Flow",
+        tag: "Internal process and approval flow",
+        imageAlt: "ZTC Flow dashboard interface",
+        icon: Workflow,
+        image: Dashboard,
+        desc:
+          "A custom flow for moving requests, decisions and operational tasks through the right people without losing context in spreadsheets, chats or email chains.",
+        points: [
+          "Clear stages from request to completion",
+          "Role-based approvals and status visibility",
+          "A workflow designed around the existing company process",
+        ],
+      },
+    ],
+  },
+  lv: {
+    eyebrow: "Projekti",
+    title: "Būvniecības darba plūsmas, ko esam pārvērtuši programmatūrā",
+    intro:
+      "Buvconsult veido praktiskas sistēmas ap reāliem būvlaukuma un biroja procesiem. Šie projekti parāda, kādus mērķētus digitālos rīkus radām darbuzņēmējiem.",
+    cta: "Apspriest jūsu procesu",
+    projects: [
+      {
+        name: "WorksRecorded",
+        tag: "Būvlaukuma progress un darbu ieraksti",
+        imageAlt: "WorksRecorded projekta saskarne",
+        icon: ClipboardList,
+        image: SiteDiary,
+        desc:
+          "Projekts paveikto darbu, būvlaukuma piezīmju un progresa pierādījumu strukturētai reģistrēšanai, lai komanda varētu aizstāt izkaisītas ziņas un manuālus žurnālus ar uzticamiem operatīvajiem datiem.",
+        points: [
+          "Ikdienas darbu ieraksti un būvlaukuma aktivitāšu fiksēšana",
+          "Sakārtotāki pierādījumi apstiprinājumiem, atskaitēm un strīdu situācijām",
+          "Ātrāks pārskats par būvlaukumā paveikto",
+        ],
+      },
+      {
+        name: "ZTC Flow",
+        tag: "Iekšējais process un apstiprinājumu plūsma",
+        imageAlt: "ZTC Flow vadības paneļa saskarne",
+        icon: Workflow,
+        image: Dashboard,
+        desc:
+          "Pielāgota plūsma pieprasījumu, lēmumu un operatīvo uzdevumu virzīšanai caur pareizajiem cilvēkiem, nezaudējot kontekstu izklājlapās, čatos vai e-pastu ķēdēs.",
+        points: [
+          "Skaidri posmi no pieprasījuma līdz pabeigšanai",
+          "Lomu balstīti apstiprinājumi un statusa redzamība",
+          "Darba plūsma, kas pielāgota esošajam uzņēmuma procesam",
+        ],
+      },
+    ],
+  },
+} as const;
 
 export default function Page() {
+  const { locale } = useLandingLanguage();
+  const text = copy[locale];
+
   return (
-    <section className="relative flex items-center justify-center">
-      <div className="mx-auto w-full px-4 py-12 sm:px-6 lg:py-20">
-        <div className="text-center">
-          <h1 className="mt-8 text-4xl font-medium leading-tight sm:text-6xl sm:leading-none md:text-7xl lg:text-8xl">
-            Custom digital solutions
+    <section className="relative px-4 py-16 sm:px-6 lg:py-24">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="max-w-4xl">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">{text.eyebrow}</p>
+          <h1 className="mt-4 text-5xl font-black leading-[1] tracking-normal text-zinc-950 md:text-7xl">
+            {text.title}
           </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-600">{text.intro}</p>
         </div>
 
-        <div className="mx-auto mt-12 grid w-full grid-cols-1 items-center gap-6 py-12 md:grid-cols-3 lg:gap-10">
-          <Image
-            src={Site}
-            alt="On-site digital solutions"
-            priority
-            className="w-full rounded-xl border object-cover shadow-2xl md:col-span-2 lg:rounded-2xl"
-          />
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {text.projects.map((project) => {
+            const Icon = project.icon;
 
-          <div className="space-y-4 text-center text-base leading-relaxed sm:text-lg md:text-left md:text-xl">
-            <span className="block text-xl font-semibold sm:text-2xl">How do we do that</span>
-            <p>
-              We speak <span className="font-semibold text-primary">construction language</span>. We dive into your
-              processes, map where value is created, and identify what data to capture and how you will benefit from it.
-            </p>
-            <p>
-              Once a custom system is designed and implemented, it keeps paying off: clean records, less manual work,
-              and analytics that support decisions.
-            </p>
-            <p>
-              Email us the process you want to digitalize and automate, and we will propose an effective, pragmatic
-              solution.
-            </p>
-          </div>
+            return (
+              <article
+                key={project.name}
+                className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/50 via-transparent to-transparent" />
+                  <div className="absolute bottom-5 left-5 flex items-center gap-3 text-white">
+                    <span className="flex size-12 items-center justify-center rounded-2xl bg-emerald-500 shadow-lg">
+                      <Icon className="size-6" />
+                    </span>
+                    <div>
+                      <h2 className="text-3xl font-black">{project.name}</h2>
+                      <p className="text-sm font-semibold text-zinc-200">{project.tag}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <p className="leading-7 text-zinc-600">{project.desc}</p>
+                  <div className="mt-6 grid gap-3">
+                    {project.points.map((point) => (
+                      <div key={point} className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white/75 p-4">
+                        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" />
+                        <p className="font-medium leading-6 text-zinc-800">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
-        <div className="mx-auto mt-12 grid w-full grid-cols-1 items-center gap-6 py-12 md:grid-cols-3 lg:gap-10">
-          <div className="flex flex-col space-y-4 text-center text-base leading-relaxed sm:text-lg md:text-left md:text-xl">
-            <span className="text-xl font-semibold sm:text-2xl">What is your benefit</span>
-            <p>
-              Construction is one of the last under-digitalized frontiers. Get ahead and leverage the AI wave to
-              improve margins, bids, and day-to-day processes.
-            </p>
-            <p>
-              From construction professionals to construction professionals. Practical tools, minimal friction, real
-              outcomes.
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-[2rem] border border-zinc-200 bg-zinc-950 p-6 text-white shadow-2xl sm:flex-row sm:items-center">
+          <div className="flex items-start gap-4">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500">
+              <Layers3 className="size-6" />
+            </span>
+            <p className="max-w-2xl text-lg font-semibold leading-7 text-zinc-100">
+              {locale === "lv"
+                ? "Jūsu process nav jāpielāgo gatavai sistēmai. Sistēmai jāpielāgojas jūsu procesam."
+                : "Your process should not bend around off-the-shelf software. The software should fit your process."}
             </p>
           </div>
-
-          <Image
-            src={Development}
-            alt="Custom development"
-            priority
-            className="w-full rounded-xl border object-cover shadow-2xl md:col-span-2 lg:rounded-2xl"
-          />
+          <Button asChild size="lg" className="rounded-full bg-white px-6 text-zinc-950 hover:bg-zinc-100">
+            <Link href="/Landing/ContactForm">
+              {text.cta}
+              <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

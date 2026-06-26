@@ -6,11 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/utils";
 import { Menu } from "lucide-react";
-import { COMBINED_LINKS } from "@/components/landing/NavigationLinks"
+import { useLandingLanguage } from "@/components/landing/LanguageProvider";
+import { MAIN_LINKS } from "@/components/landing/NavigationLinks"
 
 export function NavigationMenuMobile() {
  
   const pathname = usePathname();
+  const { locale } = useLandingLanguage();
 
   return (
     <DropdownMenu>
@@ -20,8 +22,8 @@ export function NavigationMenuMobile() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48 rounded-2xl p-2">
-        {COMBINED_LINKS.map((item) => (
-          <DropdownMenuItem key={item.id} asChild>
+        {MAIN_LINKS.map((item) => (
+          <DropdownMenuItem key={item.href} asChild>
             <Link 
               href={item.href} 
               className={cn(
@@ -29,7 +31,7 @@ export function NavigationMenuMobile() {
                 pathname === item.href ? "bg-zinc-100 text-zinc-950" : "text-zinc-600"
               )}
             >
-              {item.id}
+              {item.label[locale]}
             </Link>
           </DropdownMenuItem>
         ))}

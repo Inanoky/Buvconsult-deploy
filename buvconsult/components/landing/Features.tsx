@@ -4,7 +4,7 @@ import { LandingLocale } from "@/components/landing/Landing/Text";
 const featureCopy = {
   lv: {
     eyebrow: "Praktiskas sistēmas, izmērāma vērtība",
-    title: "Pakalpojumi komandām, kas būvē un ražo",
+    title: "Projekti komandām, kas būvē un ražo",
     items: [
       {
         name: "AI procesu automatizācija",
@@ -34,7 +34,7 @@ const featureCopy = {
   },
   en: {
     eyebrow: "Practical systems, measurable value",
-    title: "Services for teams that build and produce",
+    title: "Projects for teams that build and produce",
     items: [
       {
         name: "AI Process Automation",
@@ -84,12 +84,12 @@ export function Features({ locale = "lv" }: { locale?: LandingLocale }) {
               className="rounded-xl border border-zinc-200 bg-white p-7 shadow-[0_20px_80px_rgba(15,23,42,0.08)]"
             >
               <div className="flex size-11 items-center justify-center rounded-lg bg-emerald-700">
-                <feature.icon className="w-6 h-6 text-white" />
+                <feature.icon className="h-6 w-6 text-white" />
               </div>
               <h3 className="mt-6 text-2xl font-semibold leading-7 text-zinc-950">
                 {feature.name}
               </h3>
-              <p className="mt-4 text-lg text-zinc-600 leading-snug">
+              <p className="mt-4 text-lg leading-snug text-zinc-600">
                 {feature.description}
               </p>
             </div>

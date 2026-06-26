@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 import { MAIN_LINKS } from "@/components/landing/NavigationLinks";
 import { cn } from "@/lib/utils/utils";
 
 export function NavigationMenuDesktop() {
   const pathname = usePathname();
+  const { locale } = useLandingLanguage();
 
   return (
     <nav
@@ -26,7 +28,7 @@ export function NavigationMenuDesktop() {
               isActive && "bg-white text-zinc-950 shadow-sm dark:bg-white/15 dark:text-white"
             )}
           >
-            {label}
+            {label[locale]}
           </Link>
         );
       })}
