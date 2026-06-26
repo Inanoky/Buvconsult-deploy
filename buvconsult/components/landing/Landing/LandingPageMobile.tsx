@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, FileText, MessageCircle } from "lucide-react";
+import { ArrowRight, Bot, CheckCircle2, LayoutDashboard, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   BuildList,
@@ -52,7 +52,7 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fbfbfa_0%,#f7faf7_55%,#eef7f1_100%)]">
+      <section className="relative -mt-[65px] overflow-hidden bg-[radial-gradient(circle_at_50%_0%,#dff7ea_0%,#f7fbf8_34%,#ffffff_82%)] pt-[65px]">
         <PremiumLoadBackground />
         <div className="relative mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
           <div className="text-center">
@@ -66,8 +66,7 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-zinc-600">{copy.description}</p>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-600">{copy.supporting}</p>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-500">{copy.proof}</p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-500">{copy.supporting}</p>
 
             <div className="mt-8 flex flex-col gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-zinc-950 hover:bg-zinc-800">
@@ -79,51 +78,35 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
             </div>
           </div>
 
-          <div className="relative mx-auto mt-10 h-[430px] max-w-sm">
-            <div className="absolute left-0 top-24 flex size-20 items-center justify-center rounded-2xl bg-white shadow-[0_24px_70px_rgba(15,23,42,0.14)]">
-              <MessageCircle className="size-9 text-emerald-700" />
-            </div>
-            <div className="absolute right-0 top-24 flex size-20 items-center justify-center rounded-2xl bg-white shadow-[0_24px_70px_rgba(15,23,42,0.14)]">
-              <FileText className="size-9 text-cyan-600" />
-            </div>
+          <div className="workflow-board mx-auto mt-10 max-w-sm rounded-[2rem] border border-zinc-200 bg-white/90 p-4 shadow-[0_28px_90px_rgba(15,23,42,0.16)] backdrop-blur">
+            {[
+              { label: "Input", text: copy.visualInput, icon: MessageCircle, className: "workflow-card-a bg-zinc-50" },
+              { label: "AI", text: copy.visualTitle, icon: Bot, className: "workflow-card-b bg-emerald-50 border-emerald-200" },
+              { label: "Approval", text: copy.visualMessage, icon: CheckCircle2, className: "workflow-card-c bg-zinc-50" },
+              { label: "Dashboard", text: copy.visualOutput, icon: LayoutDashboard, className: "workflow-card-d bg-zinc-950 text-white" },
+            ].map((item) => {
+              const Icon = item.icon;
 
-            <div className="absolute left-1/2 top-0 h-[390px] w-[240px] -translate-x-1/2 rounded-[2.5rem] border-[10px] border-zinc-950 bg-zinc-50 shadow-[0_34px_110px_rgba(15,23,42,0.28)]">
-              <div className="mx-auto mt-3 h-1.5 w-20 rounded-full bg-zinc-900" />
-              <div className="px-5 pt-8">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-10 items-center justify-center rounded-full bg-emerald-700 text-white">
-                    <Bot className="size-5" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-zinc-950">Buvconsult</p>
-                    <p className="text-xs text-zinc-500">{copy.visualTitle}</p>
-                  </div>
-                </div>
-
-                <div className="mt-16 rounded-3xl bg-emerald-100 px-4 py-4">
-                  <p className="text-sm font-semibold text-zinc-950">{copy.visualInput}</p>
-                  <div className="mt-4 h-3 rounded-full bg-emerald-600/25">
-                    <div className="h-3 w-2/3 rounded-full bg-emerald-700" />
+              return (
+                <div key={item.label} className={`workflow-card mb-3 rounded-2xl border border-zinc-200 p-4 ${item.className}`}>
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
+                      <Icon className="size-5" />
+                    </span>
+                    <div>
+                      <p className="text-xs font-semibold text-zinc-500">{item.label}</p>
+                      <p className="font-bold">{item.text}</p>
+                    </div>
                   </div>
                 </div>
-
-                <div className="mt-6 rounded-3xl bg-white px-4 py-4 shadow-[0_16px_50px_rgba(15,23,42,0.12)]">
-                  <p className="font-semibold text-zinc-950">{copy.visualMessage}</p>
-                  <p className="mt-2 text-xs text-zinc-500">{copy.visualOutput}</p>
-                </div>
+              );
+            })}
+            <div className="rounded-2xl bg-zinc-50 p-4">
+              <p className="text-sm font-semibold text-zinc-500">Status</p>
+              <div className="mt-3 h-2 rounded-full bg-zinc-200">
+                <div className="workflow-progress h-2 rounded-full bg-emerald-600" />
               </div>
             </div>
-
-            <Button
-              asChild
-              size="lg"
-              className="absolute bottom-0 left-1/2 z-20 h-14 w-[86%] -translate-x-1/2 rounded-2xl bg-emerald-700 text-base shadow-[0_24px_70px_rgba(4,120,87,0.34)] hover:bg-emerald-800"
-            >
-              <Link href="/Landing/ContactForm">
-                {copy.primaryCta}
-                <ArrowRight className="size-5" />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>

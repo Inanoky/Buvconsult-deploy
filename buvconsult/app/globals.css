@@ -164,6 +164,38 @@
   animation: premium-line 1400ms ease-out 420ms both;
 }
 
+.workflow-board {
+  animation: workflow-board-in 800ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+}
+
+.workflow-card {
+  transform-origin: center;
+}
+
+.workflow-card-a {
+  animation: workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 220ms both;
+}
+
+.workflow-card-b {
+  animation: workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both;
+}
+
+.workflow-card-c {
+  animation: workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 500ms both;
+}
+
+.workflow-card-d {
+  animation: workflow-card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) 640ms both;
+}
+
+.workflow-connector {
+  animation: workflow-connector 1400ms ease-out 520ms both;
+}
+
+.workflow-progress {
+  animation: workflow-progress 2200ms cubic-bezier(0.16, 1, 0.3, 1) 760ms both;
+}
+
 @keyframes premium-grid-reveal {
   from {
     opacity: 0;
@@ -214,5 +246,51 @@
   100% {
     opacity: 0.45;
     transform: scaleX(1);
+  }
+}
+
+@keyframes workflow-board-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes workflow-card-in {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes workflow-connector {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes workflow-progress {
+  from {
+    width: 8%;
+  }
+  to {
+    width: 78%;
   }
 }

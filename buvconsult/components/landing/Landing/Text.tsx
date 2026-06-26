@@ -1,18 +1,35 @@
-import { CheckCircle2 } from "lucide-react";
+import {
+  BarChart3,
+  Bot,
+  Boxes,
+  CalendarCheck,
+  CheckCircle2,
+  ClipboardList,
+  Code2,
+  Database,
+  FileCheck2,
+  FlaskConical,
+  GitPullRequestArrow,
+  LayoutDashboard,
+  MessageCircle,
+  Rocket,
+  Search,
+  Users,
+} from "lucide-react";
 
 export type LandingLocale = "lv" | "en";
 
 export const landingCopy = {
   lv: {
-    badge: "AI un programmatūra būvniecībai",
-    header: "Pielāgots AI un programmatūra būvniecībai",
+    badge: "Bezmaksas konsultācija un interaktīvs makets",
+    header: "AI un digitālais partneris būvniecībai",
     header2: "",
     description:
-      "Buvconsult ir jūsu digitālais un AI partneris būvniecības nozarei. Būvniecības uzņēmumi katru mēnesi zaudē simtiem stundu manuālai administrācijai, izklājlapām, nesavienotām sistēmām un atkārtotiem uzdevumiem.",
+      "Mēs veidojam pielāgotu programmatūru un AI risinājumus, kas automatizē administrāciju, apstiprinājumus, atskaites un atkārtotus uzdevumus.",
     supporting:
-      "Mēs veidojam pielāgotu programmatūru un AI risinājumus, kas atbilst tam, kā jūsu uzņēmums jau strādā, nevis piespiež mainīt procesus.",
+      "Risinājums pielāgojas tam, kā jūsu komanda jau strādā, nevis piespiež mainīt procesus.",
     proof:
-      "Atšķirībā no gatavas programmatūras, katrs risinājums tiek veidots tieši jūsu biznesam. Bez lieliem sākotnējiem ieguldījumiem. Bez liekām funkcijām. Tikai programmatūra, kas risina jūsu problēmas.",
+      "Bez lieliem sākotnējiem ieguldījumiem. Maksājums sākas tikai pēc risinājuma pieņemšanas.",
     primaryCta: "Pieteikt bezmaksas konsultāciju",
     secondaryCta: "Skatīt iespējas",
     visualTitle: "Būvniecības darba plūsma",
@@ -105,15 +122,15 @@ export const landingCopy = {
     ],
   },
   en: {
-    badge: "AI and software for construction",
-    header: "Custom AI & Software for Construction",
+    badge: "Free consultation and interactive mockup",
+    header: "AI and digital partner for construction",
     header2: "",
     description:
-      "Buvconsult is your digital and AI partner for the construction industry. Construction companies lose hundreds of hours every month to manual administration, spreadsheets, disconnected systems and repetitive tasks.",
+      "We build custom software and AI solutions that automate admin, approvals, reporting and repetitive construction workflows.",
     supporting:
-      "We build custom software and AI solutions that fit the way your company already works, without forcing you to change your processes.",
+      "Every solution fits the way your company already works, without forcing your team to change its processes.",
     proof:
-      "Unlike off-the-shelf software, every solution is designed specifically for your business. No large upfront investment. No unnecessary features. Just software that solves your problems.",
+      "No large upfront investment. Payment starts only after you accept the solution.",
     primaryCta: "Book a free consultation",
     secondaryCta: "See what we build",
     visualTitle: "Construction workflow",
@@ -209,6 +226,23 @@ export const landingCopy = {
 
 export type LandingCopy = (typeof landingCopy)[LandingLocale];
 
+const buildIcons = [
+  FileCheck2,
+  Users,
+  BarChart3,
+  Boxes,
+  Bot,
+  ClipboardList,
+  Database,
+  GitPullRequestArrow,
+  MessageCircle,
+  CalendarCheck,
+  LayoutDashboard,
+  Code2,
+] as const;
+
+const workIcons = [Search, CalendarCheck, LayoutDashboard, Code2, FlaskConical, Rocket] as const;
+
 export function BuildList({ copy }: { copy: LandingCopy }) {
   return (
     <div className="space-y-7">
@@ -219,12 +253,18 @@ export function BuildList({ copy }: { copy: LandingCopy }) {
         </h2>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {copy.buildItems.map((item) => (
+        {copy.buildItems.map((item, index) => {
+          const Icon = buildIcons[index % buildIcons.length];
+
+          return (
           <div key={item} className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-            <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden />
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+              <Icon className="size-5" aria-hidden />
+            </span>
             <p className="font-medium leading-relaxed text-zinc-800">{item}</p>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -240,15 +280,22 @@ export function ProcessSteps({ copy }: { copy: LandingCopy }) {
         </h2>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {copy.workItems.map((item, index) => (
+        {copy.workItems.map((item, index) => {
+          const Icon = workIcons[index % workIcons.length];
+
+          return (
           <div key={item.title} className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-            <div className="mb-6 flex size-10 items-center justify-center rounded-full bg-zinc-950 text-sm font-bold text-white">
-              {index + 1}
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex size-11 items-center justify-center rounded-2xl bg-zinc-950 text-white">
+                <Icon className="size-5" aria-hidden />
+              </div>
+              <span className="text-sm font-bold text-emerald-700">0{index + 1}</span>
             </div>
             <h3 className="text-xl font-semibold text-zinc-950">{item.title}</h3>
             <p className="mt-3 leading-relaxed text-zinc-600">{item.desc}</p>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

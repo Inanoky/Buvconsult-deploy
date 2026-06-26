@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, FileText, MessageCircle } from "lucide-react";
+import { ArrowRight, Bot, CheckCircle2, FileText, LayoutDashboard, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   BuildList,
@@ -55,56 +55,82 @@ function HeroVisual({
   copy: (typeof landingCopy)[LandingLocale];
 }) {
   return (
-    <div className="relative mx-auto mt-12 flex h-[500px] max-w-5xl items-end justify-center">
-      <div className="absolute left-8 top-36 flex size-24 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
-        <MessageCircle className="size-12 text-emerald-700" />
-      </div>
-      <div className="absolute right-8 top-36 flex size-24 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
-        <FileText className="size-12 text-cyan-600" />
-      </div>
-      <div className="absolute left-28 top-48 h-px w-72 border-t border-dashed border-emerald-700/50" />
-      <div className="absolute right-28 top-48 h-px w-72 border-t border-dashed border-emerald-700/50" />
-
-      <div className="relative z-10 h-[470px] w-[300px] rounded-[3rem] border-[12px] border-zinc-950 bg-zinc-50 shadow-[0_34px_120px_rgba(15,23,42,0.26)]">
-        <div className="mx-auto mt-3 h-1.5 w-24 rounded-full bg-zinc-900" />
-        <div className="px-6 pt-7">
-          <div className="flex items-center gap-3">
-            <div className="flex size-11 items-center justify-center rounded-full bg-emerald-700 text-white">
-              <Bot className="size-5" />
-            </div>
-            <div>
-              <p className="text-lg font-bold text-zinc-950">Buvconsult</p>
-              <p className="text-sm text-zinc-500">{copy.visualTitle}</p>
-            </div>
-          </div>
-
-          <div className="mt-14 rounded-3xl bg-emerald-100 px-5 py-4 shadow-sm">
-            <p className="text-sm font-semibold text-zinc-950">{copy.visualInput}</p>
-            <div className="mt-4 flex items-center gap-3">
-              <div className="size-9 rounded-full bg-white" />
-              <div className="h-3 flex-1 rounded-full bg-emerald-600/25">
-                <div className="h-3 w-2/3 rounded-full bg-emerald-700" />
+    <div className="relative mx-auto mt-12 max-w-6xl">
+      <div className="workflow-board relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/90 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+        <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-4">
+          <div className="workflow-card workflow-card-a rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+            <div className="flex items-center gap-3">
+              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+                <MessageCircle className="size-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-zinc-500">Input</p>
+                <p className="font-bold text-zinc-950">{copy.visualInput}</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-7 rounded-3xl bg-white px-5 py-4 shadow-[0_16px_50px_rgba(15,23,42,0.12)]">
-            <p className="text-lg font-semibold text-zinc-950">{copy.visualMessage}</p>
-            <p className="mt-2 text-sm text-zinc-500">{copy.visualOutput}</p>
+          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
+
+          <div className="workflow-card workflow-card-b rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <div className="flex items-center gap-3">
+              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-700 text-white">
+                <Bot className="size-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-emerald-700">AI analysis</p>
+                <p className="font-bold text-zinc-950">{copy.visualTitle}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
+
+          <div className="workflow-card workflow-card-c rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+            <div className="flex items-center gap-3">
+              <span className="flex size-11 items-center justify-center rounded-2xl bg-white text-zinc-950 shadow-sm">
+                <CheckCircle2 className="size-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-zinc-500">Approval</p>
+                <p className="font-bold text-zinc-950">{copy.visualMessage}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
+
+          <div className="workflow-card workflow-card-d rounded-2xl border border-zinc-200 bg-zinc-950 p-5 text-white">
+            <div className="flex items-center gap-3">
+              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-500 text-white">
+                <LayoutDashboard className="size-5" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-zinc-300">Dashboard</p>
+                <p className="font-bold">{copy.visualOutput}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid grid-cols-3 gap-3">
+          <div className="rounded-2xl bg-zinc-50 p-4">
+            <p className="text-sm font-semibold text-zinc-500">Status</p>
+            <div className="mt-3 h-2 rounded-full bg-zinc-200">
+              <div className="workflow-progress h-2 rounded-full bg-emerald-600" />
+            </div>
+          </div>
+          <div className="rounded-2xl bg-zinc-50 p-4">
+            <p className="text-sm font-semibold text-zinc-500">Manual steps</p>
+            <p className="mt-2 text-2xl font-black text-zinc-950">-68%</p>
+          </div>
+          <div className="rounded-2xl bg-zinc-50 p-4">
+            <p className="text-sm font-semibold text-zinc-500">Next action</p>
+            <p className="mt-2 font-bold text-emerald-700">{copy.primaryCta}</p>
           </div>
         </div>
       </div>
-
-      <Button
-        asChild
-        size="lg"
-        className="absolute bottom-4 z-20 h-14 rounded-2xl bg-emerald-700 px-10 text-base shadow-[0_24px_70px_rgba(4,120,87,0.34)] hover:bg-emerald-800"
-      >
-        <Link href="/Landing/ContactForm">
-          {copy.primaryCta}
-          <ArrowRight className="size-5" />
-        </Link>
-      </Button>
     </div>
   );
 }
@@ -114,7 +140,7 @@ export default function LandingPageDesktop({ locale, setLocale }: LandingPageDes
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#fbfbfa_0%,#f7faf7_55%,#eef7f1_100%)]">
+      <section className="relative -mt-[65px] overflow-hidden bg-[radial-gradient(circle_at_50%_0%,#dff7ea_0%,#f7fbf8_34%,#ffffff_82%)] pt-[65px]">
         <PremiumLoadBackground />
         <div className="relative mx-auto flex min-h-[820px] w-full max-w-7xl flex-col px-6 pb-16 pt-8">
           <div className="flex items-center justify-end">
@@ -128,9 +154,8 @@ export default function LandingPageDesktop({ locale, setLocale }: LandingPageDes
             <h1 className="mx-auto mt-7 max-w-5xl text-7xl font-black leading-[0.95] tracking-normal text-zinc-950">
               {copy.header}
             </h1>
-            <p className="mx-auto mt-7 max-w-4xl text-xl leading-8 text-zinc-600">{copy.description}</p>
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-zinc-600">{copy.supporting}</p>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-zinc-500">{copy.proof}</p>
+            <p className="mx-auto mt-7 max-w-3xl text-xl leading-8 text-zinc-600">{copy.description}</p>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-500">{copy.supporting}</p>
 
             <div className="mt-9 flex items-center justify-center gap-3">
               <Button asChild size="lg" className="rounded-full bg-zinc-950 px-7 hover:bg-zinc-800">
