@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ThemeToggle } from "@/components/dashboard/ThemeToggle";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { NavigationMenuDesktop } from "@/components/landing/NavigationMenuDesktop";
 
 export default function HeaderDesktop() {
