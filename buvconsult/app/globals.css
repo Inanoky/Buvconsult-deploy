@@ -170,6 +170,38 @@
   background-color: rgb(24 24 27 / 0.68) !important;
 }
 
+.site-page-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgb(223 247 234) 0%, rgb(247 251 248) 34%, white 82%);
+}
+
+.site-page-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black 0%, black 52%, transparent 100%);
+  opacity: 0.8;
+}
+
+.site-page-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dark .site-page-shell {
+  background:
+    radial-gradient(circle at 50% 0%, rgb(6 78 59) 0%, rgb(24 24 27) 38%, rgb(9 9 11) 88%);
+}
+
 .premium-grid {
   background-image:
     linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
@@ -412,12 +444,12 @@
 
 @keyframes workflow-step-card-a {
   0%,
-  24% {
+  18% {
     border-color: rgb(5 150 105);
     background: rgb(5 150 105);
     box-shadow: 0 22px 46px rgb(5 150 105 / 0.24);
   }
-  30%,
+  24%,
   100% {
     border-color: rgb(228 228 231);
     background: rgb(250 250 250);
@@ -427,15 +459,15 @@
 
 @keyframes workflow-step-card-b {
   0%,
-  28%,
-  60%,
+  22%,
+  50%,
   100% {
     border-color: rgb(228 228 231);
     background: rgb(250 250 250);
     box-shadow: 0 0 0 rgb(5 150 105 / 0);
   }
-  34%,
-  54% {
+  28%,
+  44% {
     border-color: rgb(5 150 105);
     background: rgb(5 150 105);
     box-shadow: 0 22px 46px rgb(5 150 105 / 0.24);
@@ -444,15 +476,31 @@
 
 @keyframes workflow-step-card-c {
   0%,
-  58%,
-  90%,
+  48%,
+  76%,
   100% {
     border-color: rgb(228 228 231);
     background: rgb(250 250 250);
     box-shadow: 0 0 0 rgb(5 150 105 / 0);
   }
-  64%,
-  84% {
+  54%,
+  70% {
+    border-color: rgb(5 150 105);
+    background: rgb(5 150 105);
+    box-shadow: 0 22px 46px rgb(5 150 105 / 0.24);
+  }
+}
+
+@keyframes workflow-step-card-d {
+  0%,
+  74%,
+  100% {
+    border-color: rgb(228 228 231);
+    background: rgb(250 250 250);
+    box-shadow: 0 0 0 rgb(5 150 105 / 0);
+  }
+  80%,
+  94% {
     border-color: rgb(5 150 105);
     background: rgb(5 150 105);
     box-shadow: 0 22px 46px rgb(5 150 105 / 0.24);
@@ -461,12 +509,12 @@
 
 @keyframes workflow-step-icon-a {
   0%,
-  24% {
+  18% {
     background: white;
     color: rgb(5 150 105);
     box-shadow: 0 10px 22px rgb(0 0 0 / 0.14);
   }
-  30%,
+  24%,
   100% {
     background: white;
     color: rgb(4 120 87);
@@ -476,15 +524,15 @@
 
 @keyframes workflow-step-icon-b {
   0%,
-  28%,
-  60%,
+  22%,
+  50%,
   100% {
     background: white;
     color: rgb(4 120 87);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   }
-  34%,
-  54% {
+  28%,
+  44% {
     background: white;
     color: rgb(5 150 105);
     box-shadow: 0 10px 22px rgb(0 0 0 / 0.14);
@@ -493,15 +541,31 @@
 
 @keyframes workflow-step-icon-c {
   0%,
-  58%,
-  90%,
+  48%,
+  76%,
   100% {
     background: white;
     color: rgb(4 120 87);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   }
-  64%,
-  84% {
+  54%,
+  70% {
+    background: white;
+    color: rgb(5 150 105);
+    box-shadow: 0 10px 22px rgb(0 0 0 / 0.14);
+  }
+}
+
+@keyframes workflow-step-icon-d {
+  0%,
+  74%,
+  100% {
+    background: white;
+    color: rgb(4 120 87);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+  }
+  80%,
+  94% {
     background: white;
     color: rgb(5 150 105);
     box-shadow: 0 10px 22px rgb(0 0 0 / 0.14);
@@ -510,10 +574,10 @@
 
 @keyframes workflow-step-text-a {
   0%,
-  24% {
+  18% {
     color: white;
   }
-  30%,
+  24%,
   100% {
     color: rgb(9 9 11);
   }
@@ -521,26 +585,38 @@
 
 @keyframes workflow-step-text-b {
   0%,
-  28%,
-  60%,
+  22%,
+  50%,
   100% {
     color: rgb(9 9 11);
   }
-  34%,
-  54% {
+  28%,
+  44% {
     color: white;
   }
 }
 
 @keyframes workflow-step-text-c {
   0%,
-  58%,
-  90%,
+  48%,
+  76%,
   100% {
     color: rgb(9 9 11);
   }
-  64%,
-  84% {
+  54%,
+  70% {
+    color: white;
+  }
+}
+
+@keyframes workflow-step-text-d {
+  0%,
+  74%,
+  100% {
+    color: rgb(9 9 11);
+  }
+  80%,
+  94% {
     color: white;
   }
 }
