@@ -28,6 +28,8 @@ export const landingCopy = {
       "Mēs veidojam pielāgotu programmatūru un AI risinājumus, kas automatizē administrāciju, apstiprinājumus, atskaites un atkārtotus uzdevumus.",
     supporting:
       "Risinājums pielāgojas tam, kā jūsu komanda jau strādā, nevis piespiež mainīt procesus.",
+    audienceLabel: "Risinājumi būvniecības komandām",
+    audienceItems: ["Ģenerāluzņēmēji", "Specializētie darbuzņēmēji"],
     proof:
       "Bez lieliem sākotnējiem ieguldījumiem. Maksājums sākas tikai pēc risinājuma pieņemšanas.",
     primaryCta: "Pieteikt bezmaksas konsultāciju",
@@ -36,6 +38,16 @@ export const landingCopy = {
     visualMessage: "Process analizēts. Makets sagatavots.",
     visualInput: "Rēķini, laika uzskaite, BIS, WhatsApp",
     visualOutput: "Pielāgots rīks jūsu komandai",
+    visualSteps: [
+      { label: "Saruna", text: "Vajadzības un process" },
+      { label: "Makets", text: "Interaktīvs risinājuma makets" },
+      { label: "Testēšana", text: "Pārbaude ar jūsu komandu" },
+      { label: "Produkcija", text: "Risinājums palaists darbā" },
+    ],
+    visualStatusLabel: "Statuss",
+    visualDevelopmentLabel: "Izstrādes laiks",
+    visualDevelopmentValue: "2 nedēļas",
+    visualNextActionLabel: "Nākamais solis",
     buildTitle: "Ko mēs varam izveidot",
     buildIntro: "Mēs palīdzam būvniecības uzņēmumiem automatizēt un digitalizēt operatīvos procesus.",
     buildItems: [
@@ -81,7 +93,7 @@ export const landingCopy = {
       },
     ],
     pricingTitle: "Cenas",
-    pricingHeadline: "Vienkārša mēneša maksa tikai pēc risinājuma pieņemšanas.",
+    pricingHeadline: "Izstrāde ir bez maksas un iekļauta mēneša maksā.",
     pricingIntro: "Konsultācija, procesa analīze un interaktīvie maketi vienmēr ir bez maksas.",
     pricingItems: [
       {
@@ -129,6 +141,8 @@ export const landingCopy = {
       "We build custom software and AI solutions that automate admin, approvals, reporting and repetitive construction workflows.",
     supporting:
       "Every solution fits the way your company already works, without forcing your team to change its processes.",
+    audienceLabel: "Built for construction teams",
+    audienceItems: ["General contractors", "Specialist contractors"],
     proof:
       "No large upfront investment. Payment starts only after you accept the solution.",
     primaryCta: "Book a free consultation",
@@ -137,6 +151,16 @@ export const landingCopy = {
     visualMessage: "Process analysed. Mockup ready.",
     visualInput: "Invoices, timesheets, BIS, WhatsApp",
     visualOutput: "Custom tool for your team",
+    visualSteps: [
+      { label: "Discussion", text: "Process and requirements" },
+      { label: "Mockup", text: "Interactive solution preview" },
+      { label: "Testing", text: "Validated with your team" },
+      { label: "Production", text: "Live custom solution" },
+    ],
+    visualStatusLabel: "Status",
+    visualDevelopmentLabel: "Development time",
+    visualDevelopmentValue: "2 weeks",
+    visualNextActionLabel: "Next action",
     buildTitle: "What We Can Build",
     buildIntro: "We help construction companies automate and digitalise operational processes.",
     buildItems: [
@@ -182,7 +206,7 @@ export const landingCopy = {
       },
     ],
     pricingTitle: "Pricing",
-    pricingHeadline: "Simple monthly pricing after you accept the solution.",
+    pricingHeadline: "Development is free and included in the monthly cost.",
     pricingIntro: "Consultation, process analysis and interactive mockups are always free.",
     pricingItems: [
       {

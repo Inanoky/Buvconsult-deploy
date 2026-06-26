@@ -255,6 +255,8 @@
 }
 
 .workflow-step-card {
+  width: 100%;
+  align-items: center;
   border-color: rgb(228 228 231);
   background: rgb(250 250 250);
   color: rgb(9 9 11);
@@ -493,14 +495,13 @@
 
 @keyframes workflow-step-card-d {
   0%,
-  74%,
-  100% {
+  74% {
     border-color: rgb(228 228 231);
     background: rgb(250 250 250);
     box-shadow: 0 0 0 rgb(5 150 105 / 0);
   }
   80%,
-  94% {
+  100% {
     border-color: rgb(5 150 105);
     background: rgb(5 150 105);
     box-shadow: 0 22px 46px rgb(5 150 105 / 0.24);
@@ -558,14 +559,13 @@
 
 @keyframes workflow-step-icon-d {
   0%,
-  74%,
-  100% {
+  74% {
     background: white;
     color: rgb(4 120 87);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   }
   80%,
-  94% {
+  100% {
     background: white;
     color: rgb(5 150 105);
     box-shadow: 0 10px 22px rgb(0 0 0 / 0.14);
@@ -611,12 +611,11 @@
 
 @keyframes workflow-step-text-d {
   0%,
-  74%,
-  100% {
+  74% {
     color: rgb(9 9 11);
   }
   80%,
-  94% {
+  100% {
     color: white;
   }
 }

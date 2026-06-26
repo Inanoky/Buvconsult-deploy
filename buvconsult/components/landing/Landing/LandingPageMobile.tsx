@@ -29,19 +29,13 @@ function PremiumLoadBackground() {
 
 export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
   const copy = landingCopy[locale];
-  const steps = locale === "lv"
-    ? [
-        { label: "Saruna", text: "Vajadzibas un process", icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
-        { label: "Makets", text: "Interaktivs risinajuma makets", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b workflow-step-card" },
-        { label: "Testesana", text: "Parbaude ar jusu komandu", icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
-        { label: "Palaisana", text: "Risinajums produkcija", icon: Rocket, className: "workflow-card-d workflow-step-d workflow-step-card" },
-      ]
-    : [
-        { label: "Discussion", text: "Process and requirements", icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
-        { label: "Mockup", text: "Interactive solution preview", icon: LayoutDashboard, className: "workflow-card-b workflow-step-b workflow-step-card" },
-        { label: "Testing", text: "Validated with your team", icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
-        { label: "Production", text: "Live custom solution", icon: Rocket, className: "workflow-card-d workflow-step-d workflow-step-card" },
-      ];
+  const icons = [MessageCircle, LayoutDashboard, CheckCircle2, Rocket] as const;
+  const stepClasses = [
+    "workflow-card-a workflow-step-a",
+    "workflow-card-b workflow-step-b",
+    "workflow-card-c workflow-step-c",
+    "workflow-card-d workflow-step-d",
+  ] as const;
 
   return (
     <>
@@ -59,6 +53,19 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-zinc-600">{copy.description}</p>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-500">{copy.supporting}</p>
+            <div className="mx-auto mt-5 flex max-w-sm flex-wrap items-center justify-center gap-2">
+              <span className="rounded-full border border-zinc-200 bg-white/70 px-3 py-2 text-xs font-semibold text-zinc-600 shadow-sm backdrop-blur">
+                {copy.audienceLabel}
+              </span>
+              {copy.audienceItems.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-800 shadow-sm"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
 
             <div className="mt-8 flex flex-col gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-zinc-950 hover:bg-zinc-800">
@@ -71,27 +78,39 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
           </div>
 
           <div className="workflow-board mx-auto mt-10 max-w-sm rounded-[2rem] border border-zinc-200 bg-white/90 p-4 shadow-[0_28px_90px_rgba(15,23,42,0.16)] backdrop-blur">
-            {steps.map((item) => {
-              const Icon = item.icon;
+            {copy.visualSteps.map((item, index) => {
+              const Icon = icons[index];
 
               return (
-                <div key={item.label} className={`workflow-card mb-3 rounded-2xl border border-zinc-200 p-4 ${item.className}`}>
+                <div key={item.label} className={`workflow-card workflow-step-card mb-3 flex min-h-24 rounded-2xl border border-zinc-200 p-4 ${stepClasses[index]}`}>
                   <div className="flex items-center gap-3">
-                    <span className="workflow-step-icon flex size-10 items-center justify-center rounded-xl">
+                    <span className="workflow-step-icon flex size-10 shrink-0 items-center justify-center rounded-xl">
                       <Icon className="size-5" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <p className="workflow-step-label text-xs font-semibold">{item.label}</p>
-                      <p className="workflow-step-title font-bold">{item.text}</p>
+                      <p className="workflow-step-title mt-1 text-sm font-bold leading-5">{item.text}</p>
                     </div>
                   </div>
                 </div>
               );
             })}
-            <div className="rounded-2xl bg-zinc-50 p-4">
-              <p className="text-sm font-semibold text-zinc-500">Status</p>
-              <div className="mt-3 h-2 rounded-full bg-zinc-200">
-                <div className="workflow-progress h-2 rounded-full bg-emerald-600" />
+            <div className="grid gap-3">
+              <div className="rounded-2xl bg-zinc-50 p-4">
+                <p className="text-sm font-semibold text-zinc-500">{copy.visualStatusLabel}</p>
+                <div className="mt-3 h-2 rounded-full bg-zinc-200">
+                  <div className="workflow-progress h-2 rounded-full bg-emerald-600" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-2xl bg-zinc-50 p-4">
+                  <p className="text-xs font-semibold text-zinc-500">{copy.visualDevelopmentLabel}</p>
+                  <p className="mt-2 text-lg font-black text-zinc-950">{copy.visualDevelopmentValue}</p>
+                </div>
+                <div className="rounded-2xl bg-zinc-50 p-4">
+                  <p className="text-xs font-semibold text-zinc-500">{copy.visualNextActionLabel}</p>
+                  <p className="mt-2 text-sm font-bold leading-5 text-emerald-700">{copy.primaryCta}</p>
+                </div>
               </div>
             </div>
           </div>
