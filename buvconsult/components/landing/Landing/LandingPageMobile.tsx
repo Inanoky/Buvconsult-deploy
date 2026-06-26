@@ -80,9 +80,9 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
 
           <div className="workflow-board mx-auto mt-10 max-w-sm rounded-[2rem] border border-zinc-200 bg-white/90 p-4 shadow-[0_28px_90px_rgba(15,23,42,0.16)] backdrop-blur">
             {[
-              { label: "Input", text: copy.visualInput, icon: MessageCircle, className: "workflow-card-a bg-zinc-50" },
-              { label: "AI", text: copy.visualTitle, icon: Bot, className: "workflow-card-b bg-emerald-50 border-emerald-200" },
-              { label: "Approval", text: copy.visualMessage, icon: CheckCircle2, className: "workflow-card-c bg-zinc-50" },
+              { label: "Input", text: copy.visualInput, icon: MessageCircle, className: "workflow-card-a workflow-step-a workflow-step-card" },
+              { label: "AI", text: copy.visualTitle, icon: Bot, className: "workflow-card-b workflow-step-b workflow-step-card" },
+              { label: "Approval", text: copy.visualMessage, icon: CheckCircle2, className: "workflow-card-c workflow-step-c workflow-step-card" },
               { label: "Dashboard", text: copy.visualOutput, icon: LayoutDashboard, className: "workflow-card-d bg-zinc-950 text-white" },
             ].map((item) => {
               const Icon = item.icon;
@@ -90,12 +90,12 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
               return (
                 <div key={item.label} className={`workflow-card mb-3 rounded-2xl border border-zinc-200 p-4 ${item.className}`}>
                   <div className="flex items-center gap-3">
-                    <span className="flex size-10 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
+                    <span className="workflow-step-icon flex size-10 items-center justify-center rounded-xl">
                       <Icon className="size-5" />
                     </span>
                     <div>
-                      <p className="text-xs font-semibold text-zinc-500">{item.label}</p>
-                      <p className="font-bold">{item.text}</p>
+                      <p className="workflow-step-label text-xs font-semibold">{item.label}</p>
+                      <p className="workflow-step-title font-bold">{item.text}</p>
                     </div>
                   </div>
                 </div>

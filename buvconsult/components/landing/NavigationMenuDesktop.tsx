@@ -11,7 +11,7 @@ export function NavigationMenuDesktop() {
   return (
     <nav
       aria-label="Main navigation"
-      className="flex items-center rounded-full border border-zinc-200 bg-zinc-50/80 p-1 shadow-sm"
+      className="flex items-center rounded-full border border-white/20 bg-white/15 p-1 shadow-sm backdrop-blur-xl"
     >
       {MAIN_LINKS.map(({ href, label }) => {
         const isActive = pathname === href;
@@ -22,7 +22,8 @@ export function NavigationMenuDesktop() {
             href={href}
             className={cn(
               "rounded-full px-5 py-2 text-sm font-semibold text-zinc-600 transition hover:bg-white hover:text-zinc-950",
-              isActive && "bg-white text-zinc-950 shadow-sm"
+              "dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white",
+              isActive && "bg-white text-zinc-950 shadow-sm dark:bg-white/15 dark:text-white"
             )}
           >
             {label}

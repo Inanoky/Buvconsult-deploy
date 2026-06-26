@@ -59,42 +59,42 @@ function HeroVisual({
       <div className="workflow-board relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/90 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
         <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-4">
-          <div className="workflow-card workflow-card-a rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+          <div className="workflow-card workflow-card-a workflow-step-card workflow-step-a rounded-2xl border p-5">
             <div className="flex items-center gap-3">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
                 <MessageCircle className="size-5" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-zinc-500">Input</p>
-                <p className="font-bold text-zinc-950">{copy.visualInput}</p>
+                <p className="workflow-step-label text-sm font-semibold">Input</p>
+                <p className="workflow-step-title font-bold">{copy.visualInput}</p>
               </div>
             </div>
           </div>
 
           <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
 
-          <div className="workflow-card workflow-card-b rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+          <div className="workflow-card workflow-card-b workflow-step-card workflow-step-b rounded-2xl border p-5">
             <div className="flex items-center gap-3">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-700 text-white">
+              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
                 <Bot className="size-5" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-emerald-700">AI analysis</p>
-                <p className="font-bold text-zinc-950">{copy.visualTitle}</p>
+                <p className="workflow-step-label text-sm font-semibold">AI analysis</p>
+                <p className="workflow-step-title font-bold">{copy.visualTitle}</p>
               </div>
             </div>
           </div>
 
           <div className="workflow-connector h-px w-12 bg-gradient-to-r from-emerald-500/20 to-emerald-600" />
 
-          <div className="workflow-card workflow-card-c rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+          <div className="workflow-card workflow-card-c workflow-step-card workflow-step-c rounded-2xl border p-5">
             <div className="flex items-center gap-3">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-white text-zinc-950 shadow-sm">
+              <span className="workflow-step-icon flex size-11 items-center justify-center rounded-2xl">
                 <CheckCircle2 className="size-5" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-zinc-500">Approval</p>
-                <p className="font-bold text-zinc-950">{copy.visualMessage}</p>
+                <p className="workflow-step-label text-sm font-semibold">Approval</p>
+                <p className="workflow-step-title font-bold">{copy.visualMessage}</p>
               </div>
             </div>
           </div>

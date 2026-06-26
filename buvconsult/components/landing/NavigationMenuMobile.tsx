@@ -15,7 +15,7 @@ export function NavigationMenuMobile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="size-10 rounded-full bg-white">
+        <Button variant="outline" size="icon" className="size-10 rounded-full border-white/20 bg-white/15 backdrop-blur-xl dark:text-white">
           <Menu className="size-5" />
         </Button>
       </DropdownMenuTrigger>
