@@ -44,7 +44,9 @@ export default function LandingPageMobile({ locale, setLocale }: LandingPageMobi
         <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
           <div className="text-center">
             <LanguageToggle locale={locale} setLocale={setLocale} />
-            <p className="mt-8 text-base font-semibold text-zinc-950">{copy.eyebrow}</p>
+            <p className="mx-auto mt-8 inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
+              {copy.badge}
+            </p>
 
             <h1 className="mt-5 text-5xl font-black leading-[0.98] tracking-normal text-zinc-950 sm:text-6xl">
               {copy.header}

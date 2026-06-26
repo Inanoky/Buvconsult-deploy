@@ -15,21 +15,20 @@ export function NavigationMenuMobile() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="rounded-full">
-          <Menu className="h-10 w-10" />
+        <Button variant="outline" size="icon" className="size-10 rounded-full bg-white">
+          <Menu className="size-5" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="">
+      <DropdownMenuContent align="end" className="w-48 rounded-2xl p-2">
         {COMBINED_LINKS.map((item) => (
           <DropdownMenuItem key={item.id} asChild>
             <Link 
               href={item.href} 
               className={cn(
-                "flex items-center gap-2 w-full",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
+                "flex w-full items-center rounded-xl px-3 py-2 text-sm font-semibold",
+                pathname === item.href ? "bg-zinc-100 text-zinc-950" : "text-zinc-600"
               )}
             >
-       
               {item.id}
             </Link>
           </DropdownMenuItem>

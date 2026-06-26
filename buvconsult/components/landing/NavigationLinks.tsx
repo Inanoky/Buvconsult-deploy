@@ -1,7 +1,7 @@
 export const MAIN_LINKS = [
-  { href: "/Landing/Custom", label: "Services / Pakalpojumi" },
-  { href: "/Landing/About", label: "About / Par mums" },
-  { href: "/Landing/ContactForm", label: "Contacts / Kontakti" },
+  { href: "/Landing/Custom", label: "Services" },
+  { href: "/Landing/About", label: "About" },
+  { href: "/Landing/ContactForm", label: "Contact" },
 ] as const;
 
 export const COMBINED_LINKS = MAIN_LINKS.map((item) => ({

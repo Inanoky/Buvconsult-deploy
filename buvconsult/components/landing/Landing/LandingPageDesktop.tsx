@@ -19,7 +19,7 @@ type LandingPageDesktopProps = {
 
 function LanguageToggle({ locale, setLocale }: LandingPageDesktopProps) {
   return (
-    <div className="inline-flex rounded-full border border-zinc-200 bg-white p-1 shadow-sm">
+    <div className="inline-flex rounded-full border border-zinc-200 bg-white/90 p-1 shadow-sm backdrop-blur">
       {(["lv", "en"] as const).map((item) => (
         <button
           key={item}
@@ -44,19 +44,19 @@ function HeroVisual({
   copy: (typeof landingCopy)[LandingLocale];
 }) {
   return (
-    <div className="relative mx-auto mt-12 flex h-[560px] max-w-5xl items-end justify-center">
-      <div className="absolute left-8 top-44 flex size-28 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
+    <div className="relative mx-auto mt-10 flex h-[520px] max-w-5xl items-end justify-center">
+      <div className="absolute left-8 top-40 flex size-24 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
         <MessageCircle className="size-12 text-emerald-700" />
       </div>
-      <div className="absolute right-8 top-44 flex size-28 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
+      <div className="absolute right-8 top-40 flex size-24 items-center justify-center rounded-2xl bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)]">
         <FileText className="size-12 text-cyan-600" />
       </div>
-      <div className="absolute left-32 top-60 h-px w-72 border-t border-dashed border-emerald-700/50" />
-      <div className="absolute right-32 top-60 h-px w-72 border-t border-dashed border-emerald-700/50" />
+      <div className="absolute left-28 top-52 h-px w-72 border-t border-dashed border-emerald-700/50" />
+      <div className="absolute right-28 top-52 h-px w-72 border-t border-dashed border-emerald-700/50" />
 
-      <div className="relative z-10 h-[520px] w-[310px] rounded-[3rem] border-[12px] border-zinc-950 bg-zinc-50 shadow-[0_34px_120px_rgba(15,23,42,0.26)]">
+      <div className="relative z-10 h-[490px] w-[300px] rounded-[3rem] border-[12px] border-zinc-950 bg-zinc-50 shadow-[0_34px_120px_rgba(15,23,42,0.26)]">
         <div className="mx-auto mt-3 h-1.5 w-24 rounded-full bg-zinc-900" />
-        <div className="px-6 pt-8">
+        <div className="px-6 pt-7">
           <div className="flex items-center gap-3">
             <div className="flex size-11 items-center justify-center rounded-full bg-emerald-700 text-white">
               <Bot className="size-5" />
@@ -67,7 +67,7 @@ function HeroVisual({
             </div>
           </div>
 
-          <div className="mt-20 rounded-3xl bg-emerald-100 px-5 py-4 shadow-sm">
+          <div className="mt-16 rounded-3xl bg-emerald-100 px-5 py-4 shadow-sm">
             <p className="text-sm font-semibold text-zinc-950">{copy.visualInput}</p>
             <div className="mt-4 flex items-center gap-3">
               <div className="size-9 rounded-full bg-white" />
@@ -77,7 +77,7 @@ function HeroVisual({
             </div>
           </div>
 
-          <div className="mt-8 rounded-3xl bg-white px-5 py-4 shadow-[0_16px_50px_rgba(15,23,42,0.12)]">
+          <div className="mt-7 rounded-3xl bg-white px-5 py-4 shadow-[0_16px_50px_rgba(15,23,42,0.12)]">
             <p className="text-lg font-semibold text-zinc-950">{copy.visualMessage}</p>
             <p className="mt-2 text-sm text-zinc-500">{copy.visualOutput}</p>
           </div>
@@ -87,7 +87,7 @@ function HeroVisual({
       <Button
         asChild
         size="lg"
-        className="absolute bottom-8 z-20 h-16 rounded-2xl bg-emerald-700 px-12 text-lg shadow-[0_24px_70px_rgba(4,120,87,0.34)] hover:bg-emerald-800"
+        className="absolute bottom-6 z-20 h-14 rounded-2xl bg-emerald-700 px-10 text-base shadow-[0_24px_70px_rgba(4,120,87,0.34)] hover:bg-emerald-800"
       >
         <Link href="/Landing/ContactForm">
           {copy.primaryCta}
@@ -104,17 +104,16 @@ export default function LandingPageDesktop({ locale, setLocale }: LandingPageDes
   return (
     <>
       <section className="relative overflow-hidden bg-[radial-gradient(circle_at_center_top,#ffffff_0%,#f7f7f5_42%,#ecf5ef_100%)]">
-        <div className="mx-auto flex min-h-[860px] w-full max-w-7xl flex-col px-6 pb-20 pt-8">
-          <div className="flex items-center justify-between">
-            <p className="text-3xl font-semibold text-zinc-950">
-              Buv<span className="text-emerald-700">consult</span>
-            </p>
+        <div className="mx-auto flex min-h-[780px] w-full max-w-7xl flex-col px-6 pb-16 pt-8">
+          <div className="flex items-center justify-end">
             <LanguageToggle locale={locale} setLocale={setLocale} />
           </div>
 
-          <div className="mx-auto mt-14 max-w-5xl text-center">
-            <p className="text-lg font-semibold text-zinc-950">{copy.eyebrow}</p>
-            <h1 className="mt-8 text-7xl font-black leading-[0.95] tracking-normal text-zinc-950">
+          <div className="mx-auto mt-10 max-w-5xl text-center">
+            <p className="mx-auto inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
+              {copy.badge}
+            </p>
+            <h1 className="mt-7 text-7xl font-black leading-[0.95] tracking-normal text-zinc-950">
               {copy.header}
               <span className="block">{copy.header2}</span>
             </h1>
