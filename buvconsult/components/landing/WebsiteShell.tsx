@@ -17,6 +17,7 @@ export default function WebsiteShell({
 
   return (
     <LandingLanguageProvider>
+      <div className="site-background" aria-hidden="true" />
       {isMobile ? <HeaderMobile /> : <HeaderDesktop />}
       <main className="site-page-shell">{children}</main>
       {isMobile ? <FooterMobile /> : <FooterDesktop />}

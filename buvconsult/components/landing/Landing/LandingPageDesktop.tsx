@@ -43,8 +43,8 @@ function HeroVisual({
   ] as const;
 
   return (
-    <div className="relative mx-auto mt-12 max-w-6xl">
-      <div className="workflow-board relative overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/90 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur">
+    <div className="relative mx-auto mt-10 max-w-6xl">
+      <div className="workflow-board relative overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-white/80 p-4 shadow-[0_28px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
         <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] items-stretch gap-4">
           {copy.visualSteps.map((step, index) => {
@@ -52,14 +52,14 @@ function HeroVisual({
 
             return (
               <div key={step.label} className="contents">
-                <div className={`workflow-card workflow-step-card flex min-h-32 rounded-2xl border p-5 ${stepClasses[index]}`}>
+                <div className={`workflow-card workflow-step-card flex min-h-28 rounded-2xl border p-4 ${stepClasses[index]}`}>
                   <div className="flex items-center gap-3">
-                    <span className="workflow-step-icon flex size-11 shrink-0 items-center justify-center rounded-2xl">
+                    <span className="workflow-step-icon flex size-10 shrink-0 items-center justify-center rounded-xl">
                       <Icon className="size-5" />
                     </span>
                     <div className="min-w-0">
-                      <p className="workflow-step-label text-sm font-semibold">{step.label}</p>
-                      <p className="workflow-step-title mt-1 text-base font-bold leading-5">{step.text}</p>
+                      <p className="workflow-step-label text-xs font-semibold">{step.label}</p>
+                      <p className="workflow-step-title mt-1 text-sm font-bold leading-5">{step.text}</p>
                     </div>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ function HeroVisual({
           })}
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-3">
+        <div className="mt-4 grid grid-cols-[1fr_0.62fr] gap-3">
           <div className="rounded-2xl bg-zinc-50 p-4">
             <p className="text-sm font-semibold text-zinc-500">{copy.visualStatusLabel}</p>
             <div className="mt-3 h-2 rounded-full bg-zinc-200">
@@ -81,10 +81,6 @@ function HeroVisual({
           <div className="rounded-2xl bg-zinc-50 p-4">
             <p className="text-sm font-semibold text-zinc-500">{copy.visualDevelopmentLabel}</p>
             <p className="mt-2 text-2xl font-black text-zinc-950">{copy.visualDevelopmentValue}</p>
-          </div>
-          <div className="rounded-2xl bg-zinc-50 p-4">
-            <p className="text-sm font-semibold text-zinc-500">{copy.visualNextActionLabel}</p>
-            <p className="mt-2 font-bold text-emerald-700">{copy.primaryCta}</p>
           </div>
         </div>
       </div>
@@ -97,37 +93,24 @@ export default function LandingPageDesktop({ locale }: LandingPageDesktopProps) 
 
   return (
     <>
-      <section className="relative -mt-[65px] overflow-hidden bg-[radial-gradient(circle_at_50%_0%,#dff7ea_0%,#f7fbf8_34%,#ffffff_82%)] pt-[65px]">
+      <section className="relative -mt-[65px] overflow-hidden pt-[65px]">
         <PremiumLoadBackground />
-        <div className="relative mx-auto flex min-h-[820px] w-full max-w-7xl flex-col px-6 pb-16 pt-8">
-          <div className="mx-auto mt-16 max-w-6xl text-center">
-            <p className="mx-auto inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
-              {copy.badge}
+        <div className="relative mx-auto flex min-h-[790px] w-full max-w-7xl flex-col px-6 pb-16 pt-10">
+          <div className="mx-auto mt-14 max-w-5xl text-center">
+            <p className="mx-auto text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">
+              {copy.audienceLabel} / {copy.audienceItems.join(" + ")}
             </p>
-            <h1 className="mx-auto mt-7 max-w-5xl text-7xl font-black leading-[0.95] tracking-normal text-zinc-950">
+            <h1 className="mx-auto mt-6 max-w-5xl text-6xl font-black leading-[0.98] tracking-normal text-zinc-950">
               {copy.header}
             </h1>
-            <p className="mx-auto mt-7 max-w-3xl text-xl leading-8 text-zinc-600">{copy.description}</p>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-zinc-500">{copy.supporting}</p>
-            <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2">
-              <span className="rounded-full border border-zinc-200 bg-white/70 px-4 py-2 text-sm font-semibold text-zinc-600 shadow-sm backdrop-blur">
-                {copy.audienceLabel}
-              </span>
-              {copy.audienceItems.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold text-emerald-800 shadow-sm"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <p className="mx-auto mt-6 max-w-3xl text-xl leading-8 text-zinc-600">{copy.description}</p>
+            <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-zinc-500">{copy.supporting}</p>
 
-            <div className="mt-9 flex items-center justify-center gap-3">
-              <Button asChild size="lg" className="rounded-full bg-zinc-950 px-7 hover:bg-zinc-800">
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <Button asChild size="lg" className="rounded-full bg-zinc-950 px-8 hover:bg-zinc-800">
                 <Link href="/Landing/ContactForm">{copy.primaryCta}</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full border-zinc-300 bg-white/70 px-7">
+              <Button asChild size="lg" variant="outline" className="rounded-full border-zinc-300 bg-white/55 px-8 backdrop-blur">
                 <a href="#what-we-build">{copy.secondaryCta}</a>
               </Button>
             </div>

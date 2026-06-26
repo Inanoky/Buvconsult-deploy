@@ -170,20 +170,19 @@
   background-color: rgb(24 24 27 / 0.68) !important;
 }
 
-.site-page-shell {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
     radial-gradient(circle at 50% 0%, rgb(223 247 234) 0%, rgb(247 251 248) 34%, white 82%);
 }
 
-.site-page-shell::before {
+.site-background::before {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  z-index: 0;
   background-image:
     linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
@@ -192,12 +191,13 @@
   opacity: 0.8;
 }
 
-.site-page-shell > * {
+.site-page-shell {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
 }
 
-.dark .site-page-shell {
+.dark .site-background {
   background:
     radial-gradient(circle at 50% 0%, rgb(6 78 59) 0%, rgb(24 24 27) 38%, rgb(9 9 11) 88%);
 }
