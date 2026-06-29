@@ -2,17 +2,24 @@
 
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 
+const copy = {
+  en: {
+    contact: "Contact",
+    prompt: "Let us talk about your process",
+  },
+  lv: {
+    contact: "Kontakti",
+    prompt: "Parunāsim par jūsu procesu",
+  },
+  ru: {
+    contact: "Контакты",
+    prompt: "Давайте обсудим ваш процесс",
+  },
+} as const;
+
 export default function FooterMobile() {
   const { locale } = useLandingLanguage();
-  const text = locale === "lv"
-    ? {
-        contact: "Kontakti",
-        prompt: "Parunāsim par jūsu procesu",
-      }
-    : {
-        contact: "Contact",
-        prompt: "Let us talk about your process",
-      };
+  const text = copy[locale];
 
   return (
     <footer className="relative z-10 border-t border-zinc-200 bg-zinc-950 text-white">
@@ -30,8 +37,8 @@ export default function FooterMobile() {
               </a>
             </p>
             <p>
-              <a href="mailto:hello@buvconsult.com" className="underline underline-offset-4">
-                hello@buvconsult.com
+              <a href="mailto:vjaceslavs.gromatovics@buvconsult.com" className="underline underline-offset-4">
+                vjaceslavs.gromatovics@buvconsult.com
               </a>
             </p>
           </div>

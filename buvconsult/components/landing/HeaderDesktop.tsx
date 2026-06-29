@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export default function HeaderDesktop() {
   const { locale } = useLandingLanguage();
-  const cta = locale === "lv" ? "Sākt projektu" : "Start a project";
+  const cta = locale === "lv" ? "Sākt projektu" : locale === "ru" ? "Начать проект" : "Start a project";
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/20 bg-white/15 px-5 py-3 backdrop-blur-xl">

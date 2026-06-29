@@ -3,25 +3,36 @@
 import Link from "next/link";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 
+const copy = {
+  en: {
+    rights: "All rights reserved",
+    company: "Company",
+    projects: "Projects",
+    about: "About",
+    contact: "Contact",
+    prompt: "Let us talk about your process",
+  },
+  lv: {
+    rights: "Visas tiesības aizsargātas",
+    company: "Uzņēmums",
+    projects: "Projekti",
+    about: "Par mums",
+    contact: "Kontakti",
+    prompt: "Parunāsim par jūsu procesu",
+  },
+  ru: {
+    rights: "Все права защищены",
+    company: "Компания",
+    projects: "Проекты",
+    about: "О нас",
+    contact: "Контакты",
+    prompt: "Давайте обсудим ваш процесс",
+  },
+} as const;
+
 export default function FooterDesktop() {
   const { locale } = useLandingLanguage();
-  const text = locale === "lv"
-    ? {
-        rights: "Visas tiesības aizsargātas",
-        company: "Uzņēmums",
-        projects: "Projekti",
-        about: "Par mums",
-        contact: "Kontakti",
-        prompt: "Parunāsim par jūsu procesu",
-      }
-    : {
-        rights: "All rights reserved",
-        company: "Company",
-        projects: "Projects",
-        about: "About",
-        contact: "Contact",
-        prompt: "Let us talk about your process",
-      };
+  const text = copy[locale];
 
   return (
     <footer className="relative z-10 border-t border-zinc-200 bg-zinc-950 text-white">
@@ -57,7 +68,7 @@ export default function FooterDesktop() {
           <p className="mt-5 text-zinc-400">{text.prompt}</p>
           <div className="mt-6 space-y-3 text-zinc-200">
             <p><a href="tel:+37124885690">tel. +371 24885690</a></p>
-            <p><a href="mailto:hello@buvconsult.com">hello@buvconsult.com</a></p>
+            <p><a href="mailto:vjaceslavs.gromatovics@buvconsult.com">vjaceslavs.gromatovics@buvconsult.com</a></p>
           </div>
         </div>
       </div>

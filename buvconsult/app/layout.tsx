@@ -16,6 +16,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Buvconsult",
   description: "AI and data consulting for construction and operational businesses.",
+  other: {
+    google: "notranslate",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +28,7 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="notranslate" translate="no" suppressHydrationWarning>
             
              <GoogleTagManager gtmId="GTM-TFB37MS4" />
 
@@ -39,7 +42,8 @@ export default function RootLayout({
       </Script>
 
       <body
-        className={`${inter.className}  antialiased`}
+        className={`${inter.className} notranslate antialiased`}
+        translate="no"
       >
        <ThemeProvider
             attribute="class"

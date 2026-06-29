@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { CheckCircle2, LayoutDashboard, MessageCircle, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +11,8 @@ import {
   WhyBuvconsult,
   landingCopy,
 } from "@/components/landing/Landing/Text";
+
+const consultationUrl = "https://calendly.com/vjaceslavs-worksrecorded/30min";
 
 type LandingPageDesktopProps = {
   locale: LandingLocale;
@@ -107,8 +108,8 @@ export default function LandingPageDesktop({ locale }: LandingPageDesktopProps) 
             <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-zinc-500">{copy.supporting}</p>
 
             <div className="mt-8 flex items-center justify-center gap-3">
-              <Button asChild size="lg" className="rounded-full bg-zinc-950 px-8 hover:bg-zinc-800">
-                <Link href="/Landing/ContactForm">{copy.primaryCta}</Link>
+              <Button asChild size="lg" className="rounded-full bg-yellow-400 px-8 text-zinc-950 shadow-[0_14px_40px_rgba(250,204,21,0.28)] hover:bg-yellow-300">
+                <a href={consultationUrl} target="_blank" rel="noreferrer">{copy.primaryCta}</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full border-zinc-300 bg-white/55 px-8 backdrop-blur">
                 <a href="#what-we-build">{copy.secondaryCta}</a>

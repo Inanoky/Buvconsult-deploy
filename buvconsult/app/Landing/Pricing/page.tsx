@@ -122,7 +122,7 @@ export default function Page() {
               </div>
 
               <div className="flex flex-wrap gap-3 pt-2">
-                <a href="mailto:hello@buvconsult.com">
+                <a href="mailto:vjaceslavs.gromatovics@buvconsult.com">
                   <Button variant="outline" size="lg">
                     Schedule a Consultation
                   </Button>

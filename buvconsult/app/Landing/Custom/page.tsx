@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ClipboardList, Layers3, MessageCircle, Workflow } from "lucide-react";
+import { ArrowRight, CheckCircle2, ClipboardList, Layers3, Workflow } from "lucide-react";
 import SiteDiary from "@/public/frontend/pages/SiteDiary/SiteDiary1.png";
 import Dashboard from "@/public/frontend/pages/Home/Dashboard.png";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
@@ -12,9 +12,9 @@ const copy = {
   en: {
     eyebrow: "Projects",
     title: "Construction workflows we have already shaped into software",
-    intro:
-      "Buvconsult builds practical systems around real site and office routines. These projects show the kind of focused digital tools we create for contractors.",
+    intro: "Buvconsult builds practical systems around real site and office routines. These projects show the kind of focused digital tools we create for contractors.",
     cta: "Discuss your workflow",
+    note: "Your process should not bend around off-the-shelf software. The software should fit your process.",
     projects: [
       {
         name: "WorksRecorded",
@@ -22,8 +22,7 @@ const copy = {
         imageAlt: "WorksRecorded project interface",
         icon: ClipboardList,
         image: SiteDiary,
-        desc:
-          "A project for recording completed works, site notes and progress evidence in a structured way, so teams can replace scattered messages and manual logs with reliable operational records.",
+        desc: "A project for recording completed works, site notes and progress evidence in a structured way, so teams can replace scattered messages and manual logs with reliable operational records.",
         points: [
           "Daily work records and site activity capture",
           "Cleaner evidence for approvals, reporting and disputes",
@@ -36,8 +35,7 @@ const copy = {
         imageAlt: "ZTC Flow dashboard interface",
         icon: Workflow,
         image: Dashboard,
-        desc:
-          "A custom flow for moving requests, decisions and operational tasks through the right people without losing context in spreadsheets, chats or email chains.",
+        desc: "A custom flow for moving requests, decisions and operational tasks through the right people without losing context in spreadsheets, chats or email chains.",
         points: [
           "Clear stages from request to completion",
           "Role-based approvals and status visibility",
@@ -49,9 +47,9 @@ const copy = {
   lv: {
     eyebrow: "Projekti",
     title: "Būvniecības darba plūsmas, ko esam pārvērtuši programmatūrā",
-    intro:
-      "Buvconsult veido praktiskas sistēmas ap reāliem būvlaukuma un biroja procesiem. Šie projekti parāda, kādus mērķētus digitālos rīkus radām darbuzņēmējiem.",
+    intro: "Buvconsult veido praktiskas sistēmas ap reāliem būvlaukuma un biroja procesiem. Šie projekti parāda, kādus mērķētus digitālos rīkus radām darbuzņēmējiem.",
     cta: "Apspriest jūsu procesu",
+    note: "Jūsu process nav jāpielāgo gatavai sistēmai. Sistēmai jāpielāgojas jūsu procesam.",
     projects: [
       {
         name: "WorksRecorded",
@@ -59,8 +57,7 @@ const copy = {
         imageAlt: "WorksRecorded projekta saskarne",
         icon: ClipboardList,
         image: SiteDiary,
-        desc:
-          "Projekts paveikto darbu, būvlaukuma piezīmju un progresa pierādījumu strukturētai reģistrēšanai, lai komanda varētu aizstāt izkaisītas ziņas un manuālus žurnālus ar uzticamiem operatīvajiem datiem.",
+        desc: "Projekts paveikto darbu, būvlaukuma piezīmju un progresa pierādījumu strukturētai reģistrēšanai, lai komanda varētu aizstāt izkaisītas ziņas un manuālus žurnālus ar uzticamiem operatīvajiem datiem.",
         points: [
           "Ikdienas darbu ieraksti un būvlaukuma aktivitāšu fiksēšana",
           "Sakārtotāki pierādījumi apstiprinājumiem, atskaitēm un strīdu situācijām",
@@ -73,12 +70,46 @@ const copy = {
         imageAlt: "ZTC Flow vadības paneļa saskarne",
         icon: Workflow,
         image: Dashboard,
-        desc:
-          "Pielāgota plūsma pieprasījumu, lēmumu un operatīvo uzdevumu virzīšanai caur pareizajiem cilvēkiem, nezaudējot kontekstu izklājlapās, čatos vai e-pastu ķēdēs.",
+        desc: "Pielāgota plūsma pieprasījumu, lēmumu un operatīvo uzdevumu virzīšanai caur pareizajiem cilvēkiem, nezaudējot kontekstu izklājlapās, čatos vai e-pastu ķēdēs.",
         points: [
           "Skaidri posmi no pieprasījuma līdz pabeigšanai",
           "Lomu balstīti apstiprinājumi un statusa redzamība",
           "Darba plūsma, kas pielāgota esošajam uzņēmuma procesam",
+        ],
+      },
+    ],
+  },
+  ru: {
+    eyebrow: "Проекты",
+    title: "Строительные процессы, которые мы уже превратили в ПО",
+    intro: "Buvconsult создает практичные системы вокруг реальных процессов на объекте и в офисе. Эти проекты показывают, какие точечные цифровые инструменты мы создаем для подрядчиков.",
+    cta: "Обсудить ваш процесс",
+    note: "Ваш процесс не должен подстраиваться под готовую систему. Система должна подходить вашему процессу.",
+    projects: [
+      {
+        name: "WorksRecorded",
+        tag: "Прогресс на объекте и записи работ",
+        imageAlt: "Интерфейс проекта WorksRecorded",
+        icon: ClipboardList,
+        image: SiteDiary,
+        desc: "Проект для структурированной фиксации выполненных работ, заметок с объекта и подтверждений прогресса, чтобы заменить разрозненные сообщения и ручные журналы надежными операционными данными.",
+        points: [
+          "Ежедневные записи работ и активности на объекте",
+          "Более чистые доказательства для согласований, отчетов и спорных ситуаций",
+          "Быстрый обзор того, что выполнено на объекте",
+        ],
+      },
+      {
+        name: "ZTC Flow",
+        tag: "Внутренний процесс и поток согласований",
+        imageAlt: "Интерфейс панели ZTC Flow",
+        icon: Workflow,
+        image: Dashboard,
+        desc: "Индивидуальный поток для передачи запросов, решений и операционных задач нужным людям без потери контекста в таблицах, чатах или цепочках писем.",
+        points: [
+          "Понятные этапы от запроса до завершения",
+          "Согласования по ролям и видимость статусов",
+          "Рабочий процесс, созданный вокруг существующего процесса компании",
         ],
       },
     ],
@@ -134,8 +165,8 @@ export default function Page() {
                   <p className="leading-7 text-zinc-600">{project.desc}</p>
                   <div className="mt-6 grid gap-3">
                     {project.points.map((point) => (
-                      <div key={point} className="flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white/75 p-4">
-                        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-700" />
+                      <div key={point} className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white/75 p-4">
+                        <CheckCircle2 className="size-5 shrink-0 text-emerald-700" />
                         <p className="font-medium leading-6 text-zinc-800">{point}</p>
                       </div>
                     ))}
@@ -151,11 +182,7 @@ export default function Page() {
             <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500">
               <Layers3 className="size-6" />
             </span>
-            <p className="max-w-2xl text-lg font-semibold leading-7 text-zinc-100">
-              {locale === "lv"
-                ? "Jūsu process nav jāpielāgo gatavai sistēmai. Sistēmai jāpielāgojas jūsu procesam."
-                : "Your process should not bend around off-the-shelf software. The software should fit your process."}
-            </p>
+            <p className="max-w-2xl text-lg font-semibold leading-7 text-zinc-100">{text.note}</p>
           </div>
           <Button asChild size="lg" className="rounded-full bg-white px-6 text-zinc-950 hover:bg-zinc-100">
             <Link href="/Landing/ContactForm">

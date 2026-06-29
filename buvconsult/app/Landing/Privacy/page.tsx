@@ -21,7 +21,7 @@ export default function Page() {
         <br />
         Riga, Latvia
         <br />
-        Email: hello@buvconsult.com
+        Email: vjaceslavs.gromatovics@buvconsult.com
       </p>
 
       <h2>2. Data We Collect</h2>
@@ -82,14 +82,14 @@ export default function Page() {
       </ul>
 
       <p>
-        To exercise rights, email <strong>hello@buvconsult.com</strong>.
+        To exercise rights, email <strong>vjaceslavs.gromatovics@buvconsult.com</strong>.
       </p>
 
       <h2>8. Contact Us</h2>
       <p>
         For privacy-related inquiries:
         <br />
-        Email: <strong>hello@buvconsult.com</strong>
+        Email: <strong>vjaceslavs.gromatovics@buvconsult.com</strong>
         <br />
         BUVCONSULT, Riga, Latvia
       </p>

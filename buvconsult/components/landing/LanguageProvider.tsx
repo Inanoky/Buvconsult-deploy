@@ -35,7 +35,7 @@ export function LanguageToggle() {
 
   return (
     <div className="inline-flex rounded-full border border-white/20 bg-white/15 p-1 shadow-sm backdrop-blur-xl">
-      {(["lv", "en"] as const).map((item) => (
+      {(["lv", "en", "ru"] as const).map((item) => (
         <button
           key={item}
           type="button"
