@@ -121,18 +121,18 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="relative px-4 py-16 sm:px-6 lg:py-24">
+    <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:py-24">
       <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="space-y-8">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">{text.eyebrow}</p>
-            <h1 className="mt-4 text-5xl font-black leading-[1] tracking-normal text-zinc-950 md:text-7xl">
+            <h1 className="mt-4 text-4xl font-black leading-[1.04] tracking-normal text-zinc-950 sm:text-5xl md:text-7xl">
               {text.title}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-600">{text.intro}</p>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-600 sm:mt-6 sm:text-lg sm:leading-8">{text.intro}</p>
           </div>
 
-          <div className="rounded-[2rem] border border-zinc-200 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl">
+          <div className="rounded-[1.5rem] border border-zinc-200 bg-white/80 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:rounded-[2rem] sm:p-6">
             <h2 className="text-2xl font-black text-zinc-950">{text.direct}</h2>
             <div className="mt-6 grid gap-3">
               <a href="tel:+37124885690" className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4">
@@ -146,7 +146,7 @@ export default function ContactForm() {
                 <Mail className="size-5 text-emerald-700" />
                 <span>
                   <span className="block text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">{text.email}</span>
-                  <span className="font-bold text-zinc-950">{contactEmail}</span>
+                  <span className="break-all font-bold text-zinc-950">{contactEmail}</span>
                 </span>
               </a>
               <a
@@ -166,7 +166,7 @@ export default function ContactForm() {
         </div>
 
         <form
-          className="rounded-[2rem] border border-white/60 bg-white/85 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur-xl sm:p-7"
+          className="rounded-[1.5rem] border border-white/60 bg-white/85 p-5 shadow-[0_34px_120px_rgba(15,23,42,0.16)] backdrop-blur-xl sm:rounded-[2rem] sm:p-7"
           onSubmit={onSubmit}
         >
           <input type="text" name="hp" className="hidden" tabIndex={-1} autoComplete="off" />

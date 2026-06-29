@@ -121,24 +121,24 @@ export default function Page() {
   const text = copy[locale];
 
   return (
-    <section className="relative px-4 py-16 sm:px-6 lg:py-24">
+    <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-4xl">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">{text.eyebrow}</p>
-          <h1 className="mt-4 text-5xl font-black leading-[1] tracking-normal text-zinc-950 md:text-7xl">
+          <h1 className="mt-4 text-4xl font-black leading-[1.04] tracking-normal text-zinc-950 sm:text-5xl md:text-7xl">
             {text.title}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-zinc-600">{text.intro}</p>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-zinc-600 sm:mt-6 sm:text-lg sm:leading-8">{text.intro}</p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-8 grid gap-5 sm:mt-12 sm:gap-6 lg:grid-cols-2">
           {text.projects.map((project) => {
             const Icon = project.icon;
 
             return (
               <article
                 key={project.name}
-                className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl"
+                className="overflow-hidden rounded-[1.5rem] border border-zinc-200 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:rounded-[2rem]"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
                   <Image
@@ -150,19 +150,19 @@ export default function Page() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/50 via-transparent to-transparent" />
-                  <div className="absolute bottom-5 left-5 flex items-center gap-3 text-white">
-                    <span className="flex size-12 items-center justify-center rounded-2xl bg-emerald-500 shadow-lg">
-                      <Icon className="size-6" />
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3 text-white sm:bottom-5 sm:left-5 sm:right-auto">
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 shadow-lg sm:size-12">
+                      <Icon className="size-5 sm:size-6" />
                     </span>
-                    <div>
-                      <h2 className="text-3xl font-black">{project.name}</h2>
+                    <div className="min-w-0">
+                      <h2 className="truncate text-2xl font-black sm:text-3xl">{project.name}</h2>
                       <p className="text-sm font-semibold text-zinc-200">{project.tag}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <p className="leading-7 text-zinc-600">{project.desc}</p>
+                <div className="p-5 sm:p-6">
+                  <p className="text-sm leading-7 text-zinc-600 sm:text-base">{project.desc}</p>
                   <div className="mt-6 grid gap-3">
                     {project.points.map((point) => (
                       <div key={point} className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white/75 p-4">
@@ -177,14 +177,14 @@ export default function Page() {
           })}
         </div>
 
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 rounded-[2rem] border border-zinc-200 bg-zinc-950 p-6 text-white shadow-2xl sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-[1.5rem] border border-zinc-200 bg-zinc-950 p-5 text-white shadow-2xl sm:mt-10 sm:flex-row sm:items-center sm:rounded-[2rem] sm:p-6">
           <div className="flex items-start gap-4">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500">
               <Layers3 className="size-6" />
             </span>
-            <p className="max-w-2xl text-lg font-semibold leading-7 text-zinc-100">{text.note}</p>
+            <p className="max-w-2xl text-base font-semibold leading-7 text-zinc-100 sm:text-lg">{text.note}</p>
           </div>
-          <Button asChild size="lg" className="rounded-full bg-white px-6 text-zinc-950 hover:bg-zinc-100">
+          <Button asChild size="lg" className="w-full rounded-full bg-white px-6 text-zinc-950 hover:bg-zinc-100 sm:w-auto">
             <Link href="/Landing/ContactForm">
               {text.cta}
               <ArrowRight className="ml-2 size-4" />

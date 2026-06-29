@@ -385,7 +385,7 @@ export function BuildList({ copy }: { copy: LandingCopy }) {
     <div className="space-y-7">
       <div className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.buildTitle}</p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-zinc-950 sm:text-4xl md:text-5xl">
           {copy.buildIntro}
         </h2>
       </div>
@@ -394,7 +394,7 @@ export function BuildList({ copy }: { copy: LandingCopy }) {
           const Icon = buildIcons[index % buildIcons.length];
 
           return (
-          <div key={item} className="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
+          <div key={item} className="flex min-h-20 items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
               <Icon className="size-5" aria-hidden />
             </span>
@@ -412,7 +412,7 @@ export function ProcessSteps({ copy }: { copy: LandingCopy }) {
     <div className="space-y-8">
       <div className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.workTitle}</p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-zinc-950 sm:text-4xl md:text-5xl">
           {copy.workHeadline}
         </h2>
       </div>
@@ -428,7 +428,7 @@ export function ProcessSteps({ copy }: { copy: LandingCopy }) {
               </div>
               <span className="text-sm font-bold text-emerald-700">0{index + 1}</span>
             </div>
-            <h3 className="text-xl font-semibold text-zinc-950">{item.title}</h3>
+            <h3 className="text-lg font-semibold text-zinc-950 sm:text-xl">{item.title}</h3>
             <p className="mt-3 leading-relaxed text-zinc-600">{item.desc}</p>
           </div>
           );
@@ -443,7 +443,7 @@ export function PricingSection({ copy }: { copy: LandingCopy }) {
     <div className="space-y-8">
       <div className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.pricingTitle}</p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-zinc-950 sm:text-4xl md:text-5xl">
           {copy.pricingHeadline}
         </h2>
         <p className="mt-4 text-lg leading-8 text-zinc-600">{copy.pricingIntro}</p>
@@ -452,7 +452,7 @@ export function PricingSection({ copy }: { copy: LandingCopy }) {
         {copy.pricingItems.map((item) => (
           <div key={item.title} className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
             <h3 className="text-xl font-semibold text-zinc-950">{item.title}</h3>
-            <p className="mt-5 text-3xl font-black text-zinc-950">{item.price}</p>
+            <p className="mt-5 text-2xl font-black text-zinc-950 sm:text-3xl">{item.price}</p>
             <p className="mt-2 text-sm font-semibold text-emerald-700">{item.meta}</p>
             <p className="mt-5 leading-relaxed text-zinc-600">{item.desc}</p>
           </div>
@@ -467,13 +467,13 @@ export function WhyBuvconsult({ copy }: { copy: LandingCopy }) {
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">{copy.whyTitle}</p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-white md:text-5xl">
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-white sm:text-4xl md:text-5xl">
           {copy.whyHeadline}
         </h2>
       </div>
       <div className="space-y-5">
         {copy.whyParagraphs.map((paragraph) => (
-          <p key={paragraph} className="text-lg leading-8 text-zinc-300">
+          <p key={paragraph} className="text-base leading-7 text-zinc-300 sm:text-lg sm:leading-8">
             {paragraph}
           </p>
         ))}
@@ -487,7 +487,7 @@ export function ExistingSoftware({ copy }: { copy: LandingCopy }) {
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-700">{copy.existingTitle}</p>
-        <h2 className="mt-3 text-4xl font-semibold tracking-normal text-zinc-950 md:text-5xl">
+        <h2 className="mt-3 text-3xl font-semibold tracking-normal text-zinc-950 sm:text-4xl md:text-5xl">
           {copy.existingHeadline}
         </h2>
         <p className="mt-5 text-lg leading-8 text-zinc-600">{copy.existingIntro}</p>

@@ -30,7 +30,7 @@ export function useLandingLanguage() {
   return value;
 }
 
-export function LanguageToggle() {
+export function LanguageToggle({ compact = false }: { compact?: boolean }) {
   const { locale, setLocale } = useLandingLanguage();
 
   return (
@@ -40,7 +40,7 @@ export function LanguageToggle() {
           key={item}
           type="button"
           onClick={() => setLocale(item)}
-          className={`h-9 rounded-full px-4 text-sm font-semibold transition ${
+          className={`${compact ? "h-8 px-2.5 text-xs" : "h-9 px-4 text-sm"} rounded-full font-semibold transition ${
             locale === item
               ? "bg-zinc-950 text-white shadow-sm dark:bg-white dark:text-zinc-950"
               : "text-zinc-600 hover:bg-white/50 hover:text-zinc-950 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"

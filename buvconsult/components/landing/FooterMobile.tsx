@@ -37,7 +37,7 @@ export default function FooterMobile() {
               </a>
             </p>
             <p>
-              <a href="mailto:vjaceslavs.gromatovics@buvconsult.com" className="underline underline-offset-4">
+              <a href="mailto:vjaceslavs.gromatovics@buvconsult.com" className="break-all underline underline-offset-4">
                 vjaceslavs.gromatovics@buvconsult.com
               </a>
             </p>

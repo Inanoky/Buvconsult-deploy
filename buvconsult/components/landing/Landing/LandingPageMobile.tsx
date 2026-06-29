@@ -42,17 +42,17 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
     <>
       <section className="relative -mt-[65px] overflow-hidden pt-[65px]">
         <PremiumLoadBackground />
-        <div className="relative mx-auto w-full max-w-3xl px-4 pb-14 pt-6">
+        <div className="relative mx-auto w-full max-w-3xl px-4 pb-12 pt-5">
           <div className="text-center">
-            <p className="mx-auto mt-8 max-w-xs text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
+            <p className="mx-auto mt-7 max-w-xs text-[0.7rem] font-bold uppercase tracking-[0.14em] text-emerald-700">
               {copy.audienceLabel}
             </p>
 
-            <h1 className="mt-5 text-4xl font-black leading-[1.02] tracking-normal text-zinc-950 sm:text-6xl">
+            <h1 className="mx-auto mt-4 max-w-xl break-words text-[2.35rem] font-black leading-[1.03] tracking-normal text-zinc-950 sm:text-6xl">
               {copy.header}
             </h1>
 
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-zinc-600">{copy.description}</p>
+            <p className="mx-auto mt-5 max-w-2xl text-[0.95rem] leading-7 text-zinc-600">{copy.description}</p>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-500">{copy.supporting}</p>
             <div className="mx-auto mt-5 flex max-w-sm flex-wrap items-center justify-center gap-2">
               {copy.audienceItems.map((item) => (
@@ -65,8 +65,8 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
-              <Button asChild size="lg" className="h-12 rounded-full bg-yellow-400 text-zinc-950 shadow-[0_14px_40px_rgba(250,204,21,0.28)] hover:bg-yellow-300">
+            <div className="mt-7 flex flex-col gap-3">
+              <Button asChild size="lg" className="min-h-12 rounded-full bg-yellow-400 px-5 py-3 text-center leading-5 text-zinc-950 shadow-[0_14px_40px_rgba(250,204,21,0.28)] hover:bg-yellow-300">
                 <a href={consultationUrl} target="_blank" rel="noreferrer">{copy.primaryCta}</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 rounded-full bg-white/80">
@@ -75,12 +75,12 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
             </div>
           </div>
 
-          <div className="workflow-board mx-auto mt-9 max-w-sm rounded-[1.75rem] border border-zinc-200 bg-white/80 p-4 shadow-[0_24px_78px_rgba(15,23,42,0.14)] backdrop-blur-xl">
+          <div className="workflow-board mx-auto mt-8 max-w-sm rounded-[1.75rem] border border-zinc-200 bg-white/80 p-3.5 shadow-[0_24px_78px_rgba(15,23,42,0.14)] backdrop-blur-xl">
             {copy.visualSteps.map((item, index) => {
               const Icon = icons[index];
 
               return (
-                <div key={item.label} className={`workflow-card workflow-step-card mb-3 flex min-h-24 rounded-2xl border border-zinc-200 p-4 ${stepClasses[index]}`}>
+                <div key={item.label} className={`workflow-card workflow-step-card mb-3 flex min-h-20 rounded-2xl border border-zinc-200 p-3.5 ${stepClasses[index]}`}>
                   <div className="flex items-center gap-3">
                     <span className="workflow-step-icon flex size-10 shrink-0 items-center justify-center rounded-xl">
                       <Icon className="size-5" />
@@ -93,7 +93,7 @@ export default function LandingPageMobile({ locale }: LandingPageMobileProps) {
                 </div>
               );
             })}
-            <div className="grid grid-cols-[1fr_0.74fr] gap-3">
+            <div className="grid gap-3 sm:grid-cols-[1fr_0.74fr]">
               <div className="rounded-2xl bg-zinc-50 p-4">
                 <p className="text-sm font-semibold text-zinc-500">{copy.visualStatusLabel}</p>
                 <div className="mt-3 h-2 rounded-full bg-zinc-200">

@@ -64,25 +64,25 @@ export default function Page() {
   const text = copy[locale];
 
   return (
-    <section className="relative px-4 py-16 sm:px-6 lg:py-24">
+    <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:py-24">
       <div className="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-700">{text.eyebrow}</p>
-          <h1 className="mt-4 text-5xl font-black leading-[1] tracking-normal text-zinc-950 md:text-7xl">
+          <h1 className="mt-4 text-4xl font-black leading-[1.04] tracking-normal text-zinc-950 sm:text-5xl md:text-7xl">
             {text.title}
           </h1>
-          <div className="mt-8 space-y-5 text-lg leading-8 text-zinc-600">
+          <div className="mt-6 space-y-4 text-base leading-7 text-zinc-600 sm:mt-8 sm:space-y-5 sm:text-lg sm:leading-8">
             {text.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
 
-          <div className="mt-10 rounded-[2rem] border border-zinc-200 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.1)] backdrop-blur-xl">
+          <div className="mt-8 rounded-[1.5rem] border border-zinc-200 bg-white/80 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:mt-10 sm:rounded-[2rem] sm:p-6">
             <div className="flex items-center gap-3">
               <span className="flex size-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
                 <Sparkles className="size-5" />
               </span>
-              <h2 className="text-2xl font-black text-zinc-950">{text.principlesTitle}</h2>
+              <h2 className="text-xl font-black text-zinc-950 sm:text-2xl">{text.principlesTitle}</h2>
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {text.principles.map((principle) => (
@@ -95,14 +95,14 @@ export default function Page() {
           </div>
         </div>
 
-        <aside className="rounded-[2rem] border border-zinc-200 bg-white/80 p-5 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl">
+        <aside className="rounded-[1.5rem] border border-zinc-200 bg-white/80 p-4 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl sm:rounded-[2rem] sm:p-5">
           <Image
             src={Selfie}
             alt="Vjaceslavs Gromatovics"
             priority
             width={700}
             height={900}
-            className="aspect-[4/5] w-full rounded-[1.5rem] object-cover"
+            className="aspect-[4/5] w-full rounded-[1.25rem] object-cover sm:rounded-[1.5rem]"
           />
           <div className="mt-6 flex items-start gap-4">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-zinc-950 text-white">
