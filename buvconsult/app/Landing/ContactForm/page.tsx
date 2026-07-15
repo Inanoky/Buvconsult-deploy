@@ -111,6 +111,11 @@ export default function ContactForm() {
       event: "conversion",
       value: { send_to: "AW-17670426077/3OXOCMXV7rUbEN2b9elB" },
     });
+    sendGTMEvent({
+      event: "Buvconsult_form_submit",
+      form_name: "contact_form",
+      conversion_name: "lead",
+    });
 
     window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
       `[Buvconsult] ${subject}`
