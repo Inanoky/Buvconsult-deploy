@@ -13,6 +13,12 @@ import { Textarea } from "@/components/ui/textarea";
 const contactEmail = "vjaceslavs.gromatovics@buvconsult.com";
 const whatsAppNumber = "37124885690";
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 const copy = {
   en: {
     eyebrow: "Contact",
@@ -116,6 +122,7 @@ export default function ContactForm() {
       form_name: "contact_form",
       conversion_name: "lead",
     });
+    window.fbq?.("track", "Contact");
 
     window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
       `[Buvconsult] ${subject}`
