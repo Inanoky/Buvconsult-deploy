@@ -22,7 +22,7 @@ export type LandingLocale = "lv" | "en" | "ru";
 export const landingCopy = {
   lv: {
     badge: "Bezmaksas konsultācija un interaktīvs makets",
-    header: "AI un digitālais partneris būvniecībai",
+    header: "Pielāgota būvniecības programmatūra un AI risinājumi",
     header2: "",
     description:
       "Mēs veidojam pielāgotu programmatūru un AI risinājumus, kas automatizē administrāciju, apstiprinājumus, atskaites un atkārtotus uzdevumus.",
@@ -135,7 +135,7 @@ export const landingCopy = {
   },
   en: {
     badge: "Free consultation and interactive mockup",
-    header: "AI and digital partner for construction",
+    header: "Custom construction software and AI solutions",
     header2: "",
     description:
       "We build custom software and AI solutions that automate admin, approvals, reporting and repetitive construction workflows.",

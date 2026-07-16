@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { CheckCircle2, HardHat, Sparkles } from "lucide-react";
-import Selfie from "@/public/frontend/pages/About/Selfie.jpg";
+import Selfie from "@/public/frontend/pages/About/Selfie-seo.webp";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 
 const copy = {

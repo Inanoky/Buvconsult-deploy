@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
+import { localizedPath } from "@/lib/site-routes";
 
 const copy = {
   en: {
@@ -10,6 +11,7 @@ const copy = {
     projects: "Projects",
     about: "About",
     contact: "Contact",
+    privacy: "Privacy policy",
     prompt: "Let us talk about your process",
   },
   lv: {
@@ -18,6 +20,7 @@ const copy = {
     projects: "Projekti",
     about: "Par mums",
     contact: "Kontakti",
+    privacy: "Privātuma politika",
     prompt: "Parunāsim par jūsu procesu",
   },
   ru: {
@@ -26,6 +29,7 @@ const copy = {
     projects: "Проекты",
     about: "О нас",
     contact: "Контакты",
+    privacy: "Политика конфиденциальности",
     prompt: "Давайте обсудим ваш процесс",
   },
 } as const;
@@ -33,6 +37,7 @@ const copy = {
 export default function FooterDesktop() {
   const { locale } = useLandingLanguage();
   const text = copy[locale];
+  const siteLocale = locale === "ru" ? "lv" : locale;
 
   return (
     <footer className="relative z-10 border-t border-zinc-200 bg-zinc-950 text-white">
@@ -41,9 +46,9 @@ export default function FooterDesktop() {
           <p className="text-xl font-semibold">SIA "BUVCONSULT"</p>
           <div className="space-y-2 text-zinc-400">
             <p>LV40203643527, 23.04.2025</p>
-            <p>Riga, Brivibas iela 91-22, LV-1001</p>
+            <p>Rīga, Brīvības iela 91-22, LV-1001</p>
             <p>
-              <a href="https://www.buvconsult.com" className="underline underline-offset-4">
+              <a href="https://buvconsult.com" className="underline underline-offset-4">
                 buvconsult.com
               </a>
             </p>
@@ -54,9 +59,10 @@ export default function FooterDesktop() {
         <div className="space-y-4 text-base leading-snug">
           <p className="font-semibold">{text.company}</p>
           <div className="space-y-3 text-zinc-400">
-            <p><Link href="/Landing/Custom" className="hover:text-white">{text.projects}</Link></p>
-            <p><Link href="/Landing/About" className="hover:text-white">{text.about}</Link></p>
-            <p><Link href="/Landing/ContactForm" className="hover:text-white">{text.contact}</Link></p>
+            <p><Link href={localizedPath(siteLocale, "projects")} className="hover:text-white">{text.projects}</Link></p>
+            <p><Link href={localizedPath(siteLocale, "about")} className="hover:text-white">{text.about}</Link></p>
+            <p><Link href={localizedPath(siteLocale, "contact")} className="hover:text-white">{text.contact}</Link></p>
+            <p><Link href={localizedPath(siteLocale, "privacy")} className="hover:text-white">{text.privacy}</Link></p>
           </div>
         </div>
 

@@ -1,1 +1,10 @@
-{}
+{
+  "redirects": [
+    { "source": "/", "destination": "/lv", "permanent": true },
+    { "source": "/Landing", "destination": "/lv", "permanent": true },
+    { "source": "/Landing/About", "destination": "/lv/par-mums", "permanent": true },
+    { "source": "/Landing/Custom", "destination": "/lv/projekti", "permanent": true },
+    { "source": "/Landing/ContactForm", "destination": "/lv/kontakti", "permanent": true },
+    { "source": "/Landing/Privacy", "destination": "/lv/privatuma-politika", "permanent": true }
+  ]
+}

@@ -11,6 +11,7 @@ import {
   WhyBuvconsult,
   landingCopy,
 } from "@/components/landing/Landing/Text";
+import SeoFaq from "@/components/landing/SeoFaq";
 
 const consultationUrl = "https://calendly.com/vjaceslavs-worksrecorded/30min";
 
@@ -150,6 +151,14 @@ export default function LandingPageDesktop({ locale }: LandingPageDesktopProps) 
           <ExistingSoftware copy={copy} />
         </div>
       </section>
+
+      {locale !== "ru" && (
+        <section className="bg-zinc-50">
+          <div className="mx-auto w-full max-w-7xl px-6 py-24">
+            <SeoFaq locale={locale} />
+          </div>
+        </section>
+      )}
     </>
   );
 }

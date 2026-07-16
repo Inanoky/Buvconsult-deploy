@@ -1,6 +1,11 @@
-export const MAIN_LINKS = [
-  { href: "/", label: { en: "Home", lv: "Sākums", ru: "Главная" } },
-  { href: "/Landing/Custom", label: { en: "Projects", lv: "Projekti", ru: "Проекты" } },
-  { href: "/Landing/About", label: { en: "About", lv: "Par mums", ru: "О нас" } },
-  { href: "/Landing/ContactForm", label: { en: "Contact", lv: "Kontakti", ru: "Контакты" } },
+import type { SitePage } from "@/lib/site-routes";
+
+export const MAIN_LINKS: ReadonlyArray<{
+  page: SitePage;
+  label: { en: string; lv: string };
+}> = [
+  { page: "home", label: { en: "Home", lv: "Sākums" } },
+  { page: "projects", label: { en: "Projects", lv: "Projekti" } },
+  { page: "about", label: { en: "About", lv: "Par mums" } },
+  { page: "contact", label: { en: "Contact", lv: "Kontakti" } },
 ] as const;

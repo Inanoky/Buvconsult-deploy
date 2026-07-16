@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#052e2b"/><stop offset="0.55" stop-color="#064e3b"/><stop offset="1" stop-color="#09090b"/></linearGradient>
+    <radialGradient id="glow" cx="0.85" cy="0.12" r="0.8"><stop offset="0" stop-color="#34d399" stop-opacity="0.42"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#glow)"/>
+  <g opacity="0.11" stroke="#ffffff"><path d="M0 105H1200M0 210H1200M0 315H1200M0 420H1200M0 525H1200"/><path d="M100 0V630M300 0V630M500 0V630M700 0V630M900 0V630M1100 0V630"/></g>
+  <rect x="74" y="72" width="76" height="76" rx="20" fill="#ffffff"/><text x="112" y="125" text-anchor="middle" fill="#052e2b" font-family="Arial, sans-serif" font-size="43" font-weight="800">B</text>
+  <text x="174" y="126" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="700">Buv</text><text x="260" y="126" fill="#34d399" font-family="Arial, sans-serif" font-size="48" font-weight="700">consult</text>
+  <text x="74" y="279" fill="#ffffff" font-family="Arial, sans-serif" font-size="61" font-weight="800">Programmatūra un AI</text><text x="74" y="355" fill="#ffffff" font-family="Arial, sans-serif" font-size="61" font-weight="800">būvniecībai</text>
+  <text x="78" y="432" fill="#d1fae5" font-family="Arial, sans-serif" font-size="27">Procesu automatizācija  •  Integrācijas  •  Atskaites</text><rect x="74" y="505" width="340" height="4" rx="2" fill="#34d399"/><text x="74" y="559" fill="#a7f3d0" font-family="Arial, sans-serif" font-size="23">buvconsult.com</text>
+</svg>

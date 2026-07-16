@@ -1,25 +1,31 @@
 "use client";
 
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
+import Link from "next/link";
+import { localizedPath } from "@/lib/site-routes";
 
 const copy = {
   en: {
     contact: "Contact",
     prompt: "Let us talk about your process",
+    privacy: "Privacy policy",
   },
   lv: {
     contact: "Kontakti",
     prompt: "Parunāsim par jūsu procesu",
+    privacy: "Privātuma politika",
   },
   ru: {
     contact: "Контакты",
     prompt: "Давайте обсудим ваш процесс",
+    privacy: "Политика конфиденциальности",
   },
 } as const;
 
 export default function FooterMobile() {
   const { locale } = useLandingLanguage();
   const text = copy[locale];
+  const siteLocale = locale === "ru" ? "lv" : locale;
 
   return (
     <footer className="relative z-10 border-t border-zinc-200 bg-zinc-950 text-white">
@@ -47,11 +53,16 @@ export default function FooterMobile() {
         <div className="mt-8 space-y-2 text-sm leading-relaxed text-zinc-400">
           <p className="font-medium text-white">SIA "BUVCONSULT"</p>
           <p>LV40203643527, 23.04.2025</p>
-          <p>Riga, Brivibas iela 91-22, LV-1001</p>
+          <p>Rīga, Brīvības iela 91-22, LV-1001</p>
           <p>
-            <a href="https://www.buvconsult.com" className="underline underline-offset-4">
+            <a href="https://buvconsult.com" className="underline underline-offset-4">
               buvconsult.com
             </a>
+          </p>
+          <p>
+            <Link href={localizedPath(siteLocale, "privacy")} className="underline underline-offset-4">
+              {text.privacy}
+            </Link>
           </p>
         </div>
 

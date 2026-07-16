@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 import { MAIN_LINKS } from "@/components/landing/NavigationLinks";
 import { cn } from "@/lib/utils/utils";
+import { localizedPath } from "@/lib/site-routes";
 
 export function NavigationMenuDesktop() {
   const pathname = usePathname();
@@ -15,12 +16,13 @@ export function NavigationMenuDesktop() {
       aria-label="Main navigation"
       className="flex items-center rounded-full border border-white/20 bg-white/15 p-1 shadow-sm backdrop-blur-xl"
     >
-      {MAIN_LINKS.map(({ href, label }) => {
+      {MAIN_LINKS.map(({ page, label }) => {
+        const href = localizedPath(locale === "ru" ? "lv" : locale, page);
         const isActive = pathname === href;
 
         return (
           <Link
-            key={href}
+            key={page}
             href={href}
             className={cn(
               "rounded-full px-5 py-2 text-sm font-semibold text-zinc-600 transition hover:bg-white hover:text-zinc-950",

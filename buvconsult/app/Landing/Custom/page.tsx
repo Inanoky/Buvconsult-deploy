@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ClipboardList, Layers3, Workflow } from "lucide-react";
-import SiteDiary from "@/public/frontend/pages/SiteDiary/SiteDiary1.png";
-import Dashboard from "@/public/frontend/pages/Home/Dashboard.png";
+import SiteDiary from "@/public/frontend/pages/SiteDiary/SiteDiary1-seo.webp";
+import Dashboard from "@/public/frontend/pages/Home/Dashboard-seo.webp";
 import { useLandingLanguage } from "@/components/landing/LanguageProvider";
 import { Button } from "@/components/ui/button";
+import { localizedPath } from "@/lib/site-routes";
 
 const copy = {
   en: {
@@ -119,6 +120,7 @@ const copy = {
 export default function Page() {
   const { locale } = useLandingLanguage();
   const text = copy[locale];
+  const siteLocale = locale === "ru" ? "lv" : locale;
 
   return (
     <section className="relative px-4 py-12 sm:px-6 sm:py-16 lg:py-24">
@@ -132,7 +134,7 @@ export default function Page() {
         </div>
 
         <div className="mt-8 grid gap-5 sm:mt-12 sm:gap-6 lg:grid-cols-2">
-          {text.projects.map((project) => {
+          {text.projects.map((project, index) => {
             const Icon = project.icon;
 
             return (
@@ -145,7 +147,7 @@ export default function Page() {
                     src={project.image}
                     alt={project.imageAlt}
                     fill
-                    priority
+                    priority={index === 0}
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
@@ -185,7 +187,7 @@ export default function Page() {
             <p className="max-w-2xl text-base font-semibold leading-7 text-zinc-100 sm:text-lg">{text.note}</p>
           </div>
           <Button asChild size="lg" className="w-full rounded-full bg-white px-6 text-zinc-950 hover:bg-zinc-100 sm:w-auto">
-            <Link href="/Landing/ContactForm">
+            <Link href={localizedPath(siteLocale, "contact")}>
               {text.cta}
               <ArrowRight className="ml-2 size-4" />
             </Link>
