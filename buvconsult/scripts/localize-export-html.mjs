@@ -1,7 +1,7 @@
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const outputDirectory = path.resolve("out");
+const outputDirectory = path.resolve(".next/server/app");
 async function htmlFiles(directory) {
 	const entries = await readdir(directory, { withFileTypes: true });
 	const nested = await Promise.all(

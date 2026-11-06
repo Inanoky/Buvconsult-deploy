@@ -432,7 +432,7 @@
 		"sendMessage": "Sūtīt ziņu",
 		"status": {
 			"errorDefault": "Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz.",
-			"emailOpened": "Atvērta e-pasta lietotne ar sagatavotu ziņu. Nosūtiet to, lai mēs saņemtu jūsu pieprasījumu."
+			"success": "Jūsu ziņa ir nosūtīta. Drīzumā ar jums sazināsimies."
 		}
 	},
 	"CustomSolutions": {

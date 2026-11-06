@@ -11,11 +11,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { trackGenerateLeadOnce } from "@/lib/analytics/marketing-events";
 
 export default function ContactForm() {
 	const t = useTranslations("Contact");
 	const locale = useLocale();
 	const submissionInFlight = useRef(false);
+	const submission = useRef<{ id: string; payload: string } | null>(null);
 	const [pending, setPending] = useState(false);
 	const [status, setStatus] = useState<null | { ok: boolean; msg: string }>(
 		null,
@@ -33,7 +35,8 @@ export default function ContactForm() {
 		submissionInFlight.current = true;
 		setPending(true);
 		setStatus(null);
-		const formData = new FormData(event.currentTarget);
+		const form = event.currentTarget;
+		const formData = new FormData(form);
 		const payload = {
 			firstName: String(formData.get("firstName") || ""),
 			lastName: String(formData.get("lastName") || ""),
@@ -48,16 +51,48 @@ export default function ContactForm() {
 			setPending(false);
 			return;
 		}
-		const body = [
-			`Name: ${payload.firstName} ${payload.lastName}`,
-			`Email: ${payload.email}`,
-			"",
-			payload.message,
-		].join("\n");
-		window.location.href = `mailto:vjaceslavs.gromatovics@buvconsult.com?subject=${encodeURIComponent(`[Buvconsult] ${payload.subject}`)}&body=${encodeURIComponent(body)}`;
-		setStatus({ ok: true, msg: t("status.emailOpened") });
-		setPending(false);
-		window.setTimeout(() => { submissionInFlight.current = false; }, 1000);
+		try {
+			const serializedPayload = JSON.stringify(payload);
+			if (submission.current?.payload !== serializedPayload) {
+				submission.current = {
+					id: crypto.randomUUID(),
+					payload: serializedPayload,
+				};
+			}
+
+			const response = await fetch("/api/contact", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					...payload,
+					submissionId: submission.current.id,
+				}),
+			});
+			const result = await response.json();
+			if (
+				!response.ok ||
+				result.ok !== true ||
+				result.accepted !== true ||
+				typeof result.id !== "string" ||
+				!result.id
+			) {
+				throw new Error("Enquiry was not accepted");
+			}
+
+			setStatus({ ok: true, msg: t("status.success") });
+			form.reset();
+			submission.current = null;
+			try {
+				trackGenerateLeadOnce(result.id);
+			} catch {
+				console.warn("Enquiry received; conversion tracking unavailable");
+			}
+		} catch {
+			setStatus({ ok: false, msg: t("status.errorDefault") });
+		} finally {
+			submissionInFlight.current = false;
+			setPending(false);
+		}
 	}
 
 	const contactDetails = [

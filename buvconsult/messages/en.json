@@ -432,7 +432,7 @@
 		"sendMessage": "Send Message",
 		"status": {
 			"errorDefault": "Something went wrong. Please try again.",
-			"emailOpened": "Your email app has opened with a prepared message. Send it to complete your request."
+			"success": "Your message has been sent. We will contact you shortly."
 		}
 	},
 	"CustomSolutions": {
