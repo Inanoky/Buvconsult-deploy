@@ -1,4 +1,4 @@
-export const siteLocales = ["lv", "en"] as const;
+export const siteLocales = ["lv", "en", "ru"] as const;
 
 export type SiteLocale = (typeof siteLocales)[number];
 export type SitePage = "home" | "projects" | "about" | "contact" | "privacy";
@@ -6,6 +6,7 @@ export type SitePage = "home" | "projects" | "about" | "contact" | "privacy";
 export const defaultLocale: SiteLocale = "lv";
 
 const slugs: Record<SiteLocale, Record<SitePage, string>> = {
+ ru: {home:"",projects:"projects",about:"about",contact:"contact",privacy:"privacy-policy"},
   lv: {
     home: "",
     projects: "projekti",

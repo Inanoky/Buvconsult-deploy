@@ -1,30 +1,42 @@
 "use client";
 
-import Link from "next/link";
-import { LanguageToggle, useLandingLanguage } from "@/components/landing/LanguageProvider";
+import { Inter, Inter_Tight } from "next/font/google";
+import { useLocale } from "next-intl";
+import Link from "@/components/landing/navigation/LandingLink";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { NavigationMenuMobile } from "./NavigationMenuMobile";
-import { localizedPath } from "@/lib/site-routes";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-landing-nav" });
+const interTight = Inter_Tight({
+	subsets: ["latin"],
+	variable: "--font-landing-nav-display",
+});
 
 export default function HeaderMobile() {
-  const { locale } = useLandingLanguage();
+	const locale = useLocale();
 
-  return (
-    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/15 px-3 py-2.5 backdrop-blur-xl">
-      <div className="flex items-center justify-between gap-2">
-        <Link href={localizedPath(locale === "ru" ? "lv" : locale)} className="flex min-w-0 items-center gap-2" aria-label="Buvconsult">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-zinc-950 text-xs font-black text-white">
-            B
-          </span>
-          <span className="truncate text-lg font-semibold tracking-normal text-zinc-950 dark:text-white">
-            Buv<span className="text-emerald-700">consult</span>
-          </span>
-        </Link>
+	return (
+		<header
+			className={`${inter.variable} ${interTight.variable} sticky top-0 z-50 border-b border-[#e6ece7] bg-white/90 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90`}
+			style={{ fontFamily: "var(--font-landing-nav), sans-serif" }}
+		>
+			<div className="flex items-center justify-between gap-2 px-4 py-3.5 sm:px-5">
+				<Link href={`/${locale}/Landing`} className="shrink-0">
+					<span
+						className="text-xl font-semibold tracking-[-0.04em] text-[#101610] sm:text-2xl dark:text-white"
+						style={{
+							fontFamily: "var(--font-landing-nav-display), sans-serif",
+						}}
+					>
+						Buv<span className="text-[#0a4426] dark:text-emerald-400">consult</span>
+					</span>
+				</Link>
 
-        <div className="flex shrink-0 items-center gap-1.5">
-          <LanguageToggle compact />
-          <NavigationMenuMobile />
-        </div>
-      </div>
-    </header>
-  );
+				<div className="flex shrink-0 items-center gap-1">
+					<LanguageSwitcher />
+					<NavigationMenuMobile />
+				</div>
+			</div>
+		</header>
+	);
 }

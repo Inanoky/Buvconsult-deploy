@@ -45,7 +45,7 @@ export function LanguageToggle({ compact = false }: { compact?: boolean }) {
 
   return (
     <nav aria-label={locale === "lv" ? "Valodas izvēle" : "Language selection"} className="inline-flex rounded-full border border-white/20 bg-white/15 p-1 shadow-sm backdrop-blur-xl">
-      {(["lv", "en"] as const).map((item: SiteLocale) => (
+      {(["lv", "en", "ru"] as const).map((item: SiteLocale) => (
         <Link
           key={item}
           href={localizedPath(item, page)}

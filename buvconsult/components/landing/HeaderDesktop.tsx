@@ -1,38 +1,58 @@
 "use client";
 
-import Link from "next/link";
-import { LanguageToggle, useLandingLanguage } from "@/components/landing/LanguageProvider";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { Inter, Inter_Tight } from "next/font/google";
+import Link from "@/components/landing/navigation/LandingLink";
+import { useLocale, useTranslations } from "next-intl";
+import { ThemeToggle } from "@/components/dashboard/ThemeToggle";
 import { NavigationMenuDesktop } from "@/components/landing/NavigationMenuDesktop";
-import { Button } from "@/components/ui/button";
-import { localizedPath } from "@/lib/site-routes";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-landing-nav" });
+const THEME_TRIGGER_ID = "landing-theme-trigger";
+const interTight = Inter_Tight({
+	subsets: ["latin"],
+	variable: "--font-landing-nav-display",
+});
 
 export default function HeaderDesktop() {
-  const { locale } = useLandingLanguage();
-  const cta = locale === "lv" ? "Sākt projektu" : locale === "ru" ? "Начать проект" : "Start a project";
+	const landing = useTranslations("AgentLanding");
+	const locale = useLocale();
 
-  return (
-    <header className="sticky top-0 z-50 border-b border-white/20 bg-white/15 px-5 py-3 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-        <Link href={localizedPath(locale === "ru" ? "lv" : locale)} className="group flex items-center gap-3" aria-label="Buvconsult">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-zinc-950 text-sm font-black text-white shadow-sm">
-            B
-          </span>
-          <span className="text-xl font-semibold tracking-normal text-zinc-950 dark:text-white">
-            Buv<span className="text-emerald-700">consult</span>
-          </span>
-        </Link>
+	return (
+		<header
+			className={`${inter.variable} ${interTight.variable} sticky top-0 z-50 border-b border-[#e6ece7] bg-white/90 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90`}
+			style={{ fontFamily: "var(--font-landing-nav), sans-serif" }}
+		>
+			<div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-5 py-4 lg:px-8">
+				<div className="flex shrink-0 items-center gap-3">
+					<Link href={`/${locale}/Landing`}>
+						<span
+							className="text-2xl font-semibold tracking-[-0.04em] text-[#101610] dark:text-white"
+							style={{
+								fontFamily: "var(--font-landing-nav-display), sans-serif",
+							}}
+						>
+							Buv<span className="text-[#0a4426] dark:text-emerald-400">consult</span>
+						</span>
+					</Link>
+				</div>
 
-        <NavigationMenuDesktop />
+				<div className="flex min-w-0 flex-1 justify-center">
+					<NavigationMenuDesktop />
+				</div>
 
-        <div className="flex items-center gap-2">
-          <LanguageToggle />
-          <ThemeToggle />
-          <Button asChild className="h-10 rounded-full bg-zinc-950 px-5 text-sm font-semibold hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100">
-            <Link href={localizedPath(locale === "ru" ? "lv" : locale, "contact")}>{cta}</Link>
-          </Button>
-        </div>
-      </div>
-    </header>
-  );
+				<div className="flex shrink-0 items-center gap-1.5">
+					<LanguageSwitcher />
+					<ThemeToggle id={THEME_TRIGGER_ID} />
+
+					<Link
+						href={`/${locale}/Landing/ContactForm`}
+						className="inline-flex h-10 items-center rounded-full bg-[#0a4426] px-5 text-sm font-semibold text-white transition hover:bg-[#072616]"
+					>
+						{landing("nav.contacts")}
+					</Link>
+				</div>
+			</div>
+		</header>
+	);
 }

@@ -1,7 +1,7 @@
 import LandingPage from "./Landing/page";
-import { createPageMetadata } from "@/lib/seo";
+import { getLandingPageMetadata } from "@/lib/landing/metadata";
 
-export const metadata = createPageMetadata("lv", "home");
+export const metadata = getLandingPageMetadata("lv", "/Landing");
 
 export default function HomePage() {
   return <LandingPage />;

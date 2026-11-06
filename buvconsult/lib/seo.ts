@@ -7,6 +7,13 @@ export const siteName = "Buvconsult";
 type SeoCopy = { title: string; description: string; keywords: string[] };
 
 const seoCopy: Record<SiteLocale, Record<SitePage, SeoCopy>> = {
+  ru: {
+ home:{title:"ИИ-агенты для строителей | Buvconsult",description:"Buvconsult разрабатывает ИИ-агентов для строительства и отвечает за результаты их работы.",keywords:["Buvconsult","ИИ в строительстве"]},
+ projects:{title:"Проекты | Buvconsult",description:"ИИ-агенты для строительного бизнеса.",keywords:["Buvconsult"]},
+ about:{title:"О нас | Buvconsult",description:"Команда Buvconsult.",keywords:["Buvconsult"]},
+ contact:{title:"Контакты | Buvconsult",description:"Свяжитесь с Buvconsult.",keywords:["Buvconsult"]},
+ privacy:{title:"Политика конфиденциальности | Buvconsult",description:"Обработка персональных данных SIA BUVCONSULT.",keywords:["Buvconsult"]},
+ },
   lv: {
     home: {
       title: "Būvniecības programmatūra un AI risinājumi | Buvconsult",

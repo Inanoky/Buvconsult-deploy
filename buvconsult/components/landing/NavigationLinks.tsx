@@ -1,11 +1,16 @@
-import type { SitePage } from "@/lib/site-routes";
+import { LANDING_SECTIONS } from "./agents/catalog";
 
-export const MAIN_LINKS: ReadonlyArray<{
-  page: SitePage;
-  label: { en: string; lv: string };
-}> = [
-  { page: "home", label: { en: "Home", lv: "Sākums" } },
-  { page: "projects", label: { en: "Projects", lv: "Projekti" } },
-  { page: "about", label: { en: "About", lv: "Par mums" } },
-  { page: "contact", label: { en: "Contact", lv: "Kontakti" } },
+export const MAIN_LINKS = [
+	{ href: "/Landing/Services", labelKey: "services" },
+	{ href: `/Landing#${LANDING_SECTIONS.workflow}`, labelKey: "howItWorks" },
+	{ href: "/Landing/Pricing", labelKey: "pricing" },
+	{ href: "/Landing/CaseStudies", labelKey: "caseStudies" },
+] as const;
+
+export const COMPANY_LINKS = [
+	{ href: "/Landing/About", labelKey: "about" },
+	{ href: "/Landing/Manufacturing", labelKey: "manufacturing" },
+	{ href: "/Landing/Custom", labelKey: "custom" },
+	{ href: "/Landing/News", labelKey: "news" },
+	{ href: "/Landing/ContactForm", labelKey: "contacts" },
 ] as const;

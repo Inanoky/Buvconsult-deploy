@@ -1,7 +1,6 @@
 
 import type { Metadata, Viewport } from "next";
 
-import { Inter } from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "@/components/theme/ThemeProvider";
 import {GoogleTagManager} from '@next/third-parties/google'
@@ -11,7 +10,7 @@ import { localizedAlternates, siteName, siteUrl } from "@/lib/seo";
 
 
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 
 export const metadata: Metadata = {
@@ -22,11 +21,11 @@ export const metadata: Metadata = {
   publisher: "SIA BUVCONSULT",
   category: "Construction technology",
   title: {
-    default: "Būvniecības programmatūra un AI risinājumi | Buvconsult",
+    default: "Mākslīgā intelekta aģenti būvniekiem | Buvconsult",
     template: "%s | Buvconsult",
   },
   description:
-    "Pielāgota būvniecības programmatūra un AI risinājumi procesu automatizācijai, atskaitēm, apstiprinājumiem un integrācijām.",
+    "Buvconsult izstrādā MI aģentus būvniecībai un uzņemas atbildību par to darba rezultātiem.",
   alternates: {
     canonical: "/lv",
     languages: localizedAlternates("home"),
@@ -81,7 +80,7 @@ const websiteJsonLd = {
   url: siteUrl,
   name: siteName,
   publisher: { "@id": `${siteUrl}/#organization` },
-  inLanguage: ["lv-LV", "en"],
+  inLanguage: ["lv-LV", "en", "ru"],
 };
 
 export default function RootLayout({
@@ -94,7 +93,7 @@ export default function RootLayout({
     <html lang="lv" suppressHydrationWarning>
       <head>
         <Script id="document-language" strategy="beforeInteractive">
-          {`document.documentElement.lang = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en' : 'lv';`}
+          {`document.documentElement.lang = ["lv", "en", "ru"].includes(location.pathname.split("/")[1]) ? location.pathname.split("/")[1] : "lv";`}
         </Script>
         <script
           type="application/ld+json"
@@ -105,7 +104,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className="antialiased">
         <GoogleTagManager gtmId="GTM-TFB37MS4" />
         <Script id="ga-ads-config" strategy="afterInteractive">
         {`

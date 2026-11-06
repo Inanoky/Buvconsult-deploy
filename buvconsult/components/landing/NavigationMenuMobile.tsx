@@ -1,46 +1,74 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils/utils";
 import { Menu } from "lucide-react";
-import { useLandingLanguage } from "@/components/landing/LanguageProvider";
-import { MAIN_LINKS } from "@/components/landing/NavigationLinks"
-import { localizedPath } from "@/lib/site-routes";
+import { useLocale, useTranslations } from "next-intl";
+import { AGENTS, SERVICES } from "@/components/landing/agents/catalog";
+import {
+	COMPANY_LINKS,
+	MAIN_LINKS,
+} from "@/components/landing/NavigationLinks";
+import Link from "@/components/landing/navigation/LandingLink";
+import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function NavigationMenuMobile() {
- 
-  const pathname = usePathname();
-  const { locale } = useLandingLanguage();
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="size-9 rounded-full border-white/20 bg-white/15 backdrop-blur-xl dark:text-white">
-          <Menu className="size-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 rounded-2xl p-2">
-        {MAIN_LINKS.map((item) => {
-          const href = localizedPath(locale === "ru" ? "lv" : locale, item.page);
-
-          return (
-          <DropdownMenuItem key={item.page} asChild>
-            <Link 
-              href={href}
-              className={cn(
-                "flex w-full items-center rounded-xl px-3 py-2 text-sm font-semibold",
-                pathname === href ? "bg-zinc-100 text-zinc-950" : "text-zinc-600"
-              )}
-            >
-              {item.label[locale]}
-            </Link>
-          </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+	const t = useTranslations("AgentLanding");
+	const locale = useLocale();
+	const menuId = "landing-mobile-navigation-trigger";
+	return (
+		<DropdownMenu modal>
+			<DropdownMenuTrigger asChild id={menuId}>
+				<Button
+					variant="ghost"
+					size="icon"
+					className="rounded-full"
+					aria-label={t("nav.menu")}
+				>
+					<Menu size={23} aria-hidden="true" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent
+				aria-labelledby={menuId}
+				align="end"
+				className="max-h-[80dvh] w-[min(340px,calc(100vw-2rem))] overflow-y-auto overscroll-contain p-2"
+			>
+				<DropdownMenuLabel>{t("nav.agents")}</DropdownMenuLabel>
+				<DropdownMenuItem asChild>
+					<Link href={`/${locale}/Landing/Agents`} className="font-semibold">
+						{t("nav.allAgents")}
+					</Link>
+				</DropdownMenuItem>
+				{AGENTS.map(({ id, icon: Icon }) => (
+					<DropdownMenuItem key={id} asChild>
+						<Link href={`/${locale}/Landing/Agents#${id}`}>
+							<Icon size={16} aria-hidden="true" />
+							{t(`agents.${id}.title`)}
+						</Link>
+					</DropdownMenuItem>
+				))}
+				<DropdownMenuSeparator />
+				<DropdownMenuLabel>{t("nav.services")}</DropdownMenuLabel>
+				{SERVICES.map(({ id }) => (
+					<DropdownMenuItem asChild key={id}>
+						<Link href={`/${locale}/Landing/Services#${id}`}>
+							{t(`services.${id}.title`)}
+						</Link>
+					</DropdownMenuItem>
+				))}
+				<DropdownMenuSeparator />
+				{[...MAIN_LINKS, ...COMPANY_LINKS].map(({ href, labelKey }) => (
+					<DropdownMenuItem key={href} asChild>
+						<Link href={`/${locale}${href}`}>{t(`nav.${labelKey}`)}</Link>
+					</DropdownMenuItem>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
 }
