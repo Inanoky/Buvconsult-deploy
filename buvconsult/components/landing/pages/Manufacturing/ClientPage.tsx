@@ -89,16 +89,16 @@ export default function Page() {
 	});
 
 	return (
-		<main className="overflow-hidden bg-[radial-gradient(circle_at_12%_8%,rgba(8,122,73,0.12),transparent_18%),radial-gradient(circle_at_88%_42%,rgba(23,105,255,0.055),transparent_22%),linear-gradient(180deg,#f7f8f5_0%,#ffffff_46%,#f7f8f5_100%)] text-slate-950 dark:bg-slate-950 dark:text-white">
+		<main className="overflow-hidden bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white">
 			<section className="relative mx-auto grid min-h-[720px] w-full max-w-[1440px] items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:px-10 lg:py-20 xl:px-14">
 				<div className="relative z-10 max-w-2xl">
-					<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#087a49]">
-						<span className="h-0.5 w-8 rounded-full bg-[#087a49]" />
+					<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+						<span className="h-0.5 w-8 rounded-full bg-brand-600" />
 						Buvconsult
 					</p>
 					<h1 className="mt-5 text-balance text-5xl font-bold leading-[1.03] tracking-[-0.04em] sm:text-6xl lg:text-[4.75rem]">
 						{t("hero.titlePrefix")}{" "}
-						<span className="text-[#087a49]">{t("hero.titleHighlight")}</span>
+						<span className="text-brand-600">{t("hero.titleHighlight")}</span>
 					</h1>
 					<p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
 						{t("hero.description")}
@@ -107,7 +107,7 @@ export default function Page() {
 						<Link
 							href={`/${locale}/Landing/ContactForm`}
 							data-landing-pressable
-							className="inline-flex h-13 items-center justify-center rounded-full bg-[#1769ff] px-8 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition hover:bg-[#0f5de8] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#087a49]"
+							className="inline-flex h-13 items-center justify-center rounded-full bg-brand-600 px-8 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600"
 						>
 							{t("hero.cta")}
 							<ArrowRight className="ml-2 size-4" aria-hidden="true" />
@@ -128,7 +128,7 @@ export default function Page() {
 						/>
 					</div>
 
-					<div className="absolute -bottom-5 left-5 max-w-[19rem] rounded-2xl bg-[#033b27] px-5 py-4 text-white shadow-[0_18px_45px_rgba(3,59,39,0.28)] sm:left-8 lg:-left-7 lg:bottom-8">
+					<div className="absolute -bottom-5 left-5 max-w-[19rem] rounded-2xl bg-brand-950 px-5 py-4 text-white shadow-[0_18px_45px_rgba(23,37,84,0.28)] sm:left-8 lg:-left-7 lg:bottom-8">
 						<p className="text-sm font-semibold leading-6">
 							{t("hero.caption")}
 						</p>
@@ -153,13 +153,13 @@ export default function Page() {
 			<section className="relative px-5 py-16 sm:px-8 lg:px-10 lg:py-24 xl:px-14">
 				<div className="mx-auto w-full max-w-[1328px]">
 					<div className="max-w-4xl">
-						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#087a49]">
-							<span className="h-0.5 w-8 rounded-full bg-[#087a49]" />
+						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+							<span className="h-0.5 w-8 rounded-full bg-brand-600" />
 							{t("comparison.eyebrow")}
 						</p>
 						<h2 className="mt-5 text-balance text-4xl font-bold leading-[1.06] tracking-[-0.04em] sm:text-5xl lg:text-[4.25rem]">
 							{t("comparison.titlePrefix")}{" "}
-							<span className="text-[#087a49]">
+							<span className="text-brand-600">
 								{t("comparison.titleHighlight")}
 							</span>
 						</h2>
@@ -175,7 +175,7 @@ export default function Page() {
 									<th className="border-r border-slate-200 bg-red-50 px-8 py-6 text-left text-xl font-bold text-[#b94040] dark:border-slate-800 dark:bg-red-950/20">
 										{t("comparison.withoutTitle")}
 									</th>
-									<th className="bg-emerald-50 px-8 py-6 text-left text-xl font-bold text-[#087a49] dark:bg-emerald-950/20">
+									<th className="bg-brand-50 px-8 py-6 text-left text-xl font-bold text-brand-600 dark:bg-brand-950/20">
 										{t("comparison.withTitle")}
 									</th>
 								</tr>
@@ -250,7 +250,7 @@ function FeatureSection({
 	return (
 		<article className="grid min-h-[560px] items-center gap-10 border-b border-slate-200/80 py-14 last:border-b-0 lg:grid-cols-2 lg:gap-20 lg:py-16 dark:border-slate-800">
 			<div className={reverse ? "lg:order-2" : ""}>
-				<p className="text-sm font-bold uppercase tracking-[0.16em] text-[#087a49]">
+				<p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-600">
 					{String(index + 1).padStart(2, "0")}
 				</p>
 				<h2 className="mt-4 max-w-xl text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] sm:text-5xl">
@@ -264,7 +264,7 @@ function FeatureSection({
 			<div className={reverse ? "lg:order-1" : ""}>
 				<div className="relative mx-auto aspect-[4/3] w-full max-w-[590px] overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_70px_rgba(15,23,42,0.12)] ring-1 ring-slate-200/80 dark:bg-slate-900 dark:ring-slate-800">
 					<ManufacturingVisual index={index} labels={labels} />
-					<span className="absolute right-6 top-6 grid size-14 place-items-center rounded-2xl bg-[#087a49] text-white shadow-xl shadow-emerald-950/20">
+					<span className="absolute right-6 top-6 grid size-14 place-items-center rounded-2xl bg-brand-600 text-white shadow-xl shadow-brand-950/20">
 						<Icon className="size-7" strokeWidth={1.8} aria-hidden="true" />
 					</span>
 				</div>
@@ -302,9 +302,9 @@ function ChannelFlow({ labels }: { labels: VisualLabels }) {
 		<div className="flex h-full items-center justify-center">
 			<div className="grid w-full grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2 sm:gap-4">
 				<DiagramNode icon={Factory} label={labels.worker} />
-				<ArrowRight className="size-5 text-[#7aa18e]" />
+				<ArrowRight className="size-5 text-brand-400" />
 				<DiagramNode icon={MessageCircleMore} label={labels.whatsapp} accent />
-				<ArrowRight className="size-5 text-[#7aa18e]" />
+				<ArrowRight className="size-5 text-brand-400" />
 				<DiagramNode icon={BarChart3} label={labels.productionRecord} />
 			</div>
 		</div>
@@ -315,10 +315,10 @@ function DrawingExtraction({ labels }: { labels: VisualLabels }) {
 	return (
 		<div className="flex h-full items-center gap-5">
 			<div className="relative flex h-[78%] w-[46%] items-center justify-center rounded-2xl bg-white shadow-[0_18px_40px_rgba(15,23,42,0.08)] ring-1 ring-slate-200">
-				<FileSpreadsheet className="size-20 text-[#087a49]" strokeWidth={1.4} />
-				<span className="absolute inset-x-5 bottom-5 h-1 rounded-full bg-[#2fc26b]" />
+				<FileSpreadsheet className="size-20 text-brand-600" strokeWidth={1.4} />
+				<span className="absolute inset-x-5 bottom-5 h-1 rounded-full bg-brand-400" />
 			</div>
-			<ArrowRight className="size-6 shrink-0 text-[#7aa18e]" />
+			<ArrowRight className="size-6 shrink-0 text-brand-400" />
 			<div className="grid flex-1 gap-3">
 				{[labels.project, labels.element, labels.workType].map(
 					(label, itemIndex) => (
@@ -326,7 +326,7 @@ function DrawingExtraction({ labels }: { labels: VisualLabels }) {
 							key={label}
 							className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 ring-1 ring-slate-200"
 						>
-							<span className="grid size-7 place-items-center rounded-lg bg-emerald-100 text-xs font-bold text-[#087a49]">
+							<span className="grid size-7 place-items-center rounded-lg bg-brand-100 text-xs font-bold text-brand-600">
 								{itemIndex + 1}
 							</span>
 							<span className="text-sm font-semibold text-slate-700 sm:text-base">
@@ -346,7 +346,7 @@ function WorkClassification({ labels }: { labels: VisualLabels }) {
 		{
 			label: labels.additional,
 			Icon: PackageCheck,
-			tone: "bg-[#087a49] text-white",
+			tone: "bg-brand-600 text-white",
 		},
 		{
 			label: labels.unexpected,
@@ -369,7 +369,7 @@ function WorkClassification({ labels }: { labels: VisualLabels }) {
 							<Icon className="size-5" />
 						</span>
 						<span className="font-semibold text-slate-800">{label}</span>
-						<Check className="ml-auto size-5 text-[#087a49]" />
+						<Check className="ml-auto size-5 text-brand-600" />
 					</div>
 				))}
 			</div>
@@ -380,19 +380,19 @@ function WorkClassification({ labels }: { labels: VisualLabels }) {
 function VoiceFlow({ labels }: { labels: VisualLabels }) {
 	return (
 		<div className="flex h-full flex-col justify-center gap-6">
-			<div className="flex items-center gap-4 rounded-2xl bg-[#e8fff1] p-5 ring-1 ring-[#b6eccb]">
-				<span className="grid size-12 shrink-0 place-items-center rounded-full bg-[#2fc26b] text-white">
+			<div className="flex items-center gap-4 rounded-2xl bg-brand-50 p-5 ring-1 ring-brand-200">
+				<span className="grid size-12 shrink-0 place-items-center rounded-full bg-brand-400 text-white">
 					<Mic2 className="size-6" />
 				</span>
 				<div className="min-w-0 flex-1">
-					<p className="text-sm font-semibold text-[#087a49]">
+					<p className="text-sm font-semibold text-brand-600">
 						{labels.voiceMessage}
 					</p>
 					<div className="mt-3 flex h-8 items-center gap-1">
 						{VOICE_WAVEFORM.map(({ id, height }) => (
 							<span
 								key={id}
-								className="w-1 rounded-full bg-[#2fc26b]"
+								className="w-1 rounded-full bg-brand-400"
 								style={{ height }}
 							/>
 						))}
@@ -400,7 +400,7 @@ function VoiceFlow({ labels }: { labels: VisualLabels }) {
 				</div>
 			</div>
 			<div className="flex justify-center">
-				<ArrowRight className="size-6 rotate-90 text-[#7aa18e]" />
+				<ArrowRight className="size-6 rotate-90 text-brand-400" />
 			</div>
 			<div className="grid grid-cols-3 gap-3">
 				{[labels.project, labels.workType, labels.structuredData].map(
@@ -421,8 +421,8 @@ function VoiceFlow({ labels }: { labels: VisualLabels }) {
 function QualityFlow({ labels }: { labels: VisualLabels }) {
 	return (
 		<div className="grid h-full grid-cols-[0.9fr_1.1fr] items-center gap-5">
-			<div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#dceee5] ring-1 ring-[#bdd7c8]">
-				<div className="absolute inset-x-5 top-7 h-2 rounded-full bg-[#8ebaa2]" />
+			<div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-brand-100 ring-1 ring-brand-200">
+				<div className="absolute inset-x-5 top-7 h-2 rounded-full bg-brand-300" />
 				<div className="absolute inset-x-5 top-14 grid grid-cols-3 gap-2">
 					{[0, 1, 2, 3, 4, 5].map((item) => (
 						<span
@@ -431,10 +431,10 @@ function QualityFlow({ labels }: { labels: VisualLabels }) {
 						/>
 					))}
 				</div>
-				<Camera className="absolute bottom-6 left-1/2 size-12 -translate-x-1/2 text-[#087a49]" />
+				<Camera className="absolute bottom-6 left-1/2 size-12 -translate-x-1/2 text-brand-600" />
 			</div>
 			<div className="grid gap-4">
-				<p className="text-sm font-bold uppercase tracking-[0.14em] text-[#087a49]">
+				<p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-600">
 					{labels.qaCheck}
 				</p>
 				{[labels.project, labels.element, labels.workType].map((label) => (
@@ -442,11 +442,11 @@ function QualityFlow({ labels }: { labels: VisualLabels }) {
 						key={label}
 						className="flex items-center gap-3 border-b border-slate-200 pb-3 text-sm font-semibold text-slate-700 sm:text-base"
 					>
-						<Check className="size-5 shrink-0 text-[#087a49]" />
+						<Check className="size-5 shrink-0 text-brand-600" />
 						{label}
 					</div>
 				))}
-				<div className="mt-1 flex items-center gap-2 rounded-xl bg-[#087a49] px-4 py-3 font-semibold text-white">
+				<div className="mt-1 flex items-center gap-2 rounded-xl bg-brand-600 px-4 py-3 font-semibold text-white">
 					<BadgeCheck className="size-5" />
 					{labels.approved}
 				</div>
@@ -462,7 +462,7 @@ function CostFlow({ labels }: { labels: VisualLabels }) {
 				{["m²", "kg", "t"].map((unit) => (
 					<div
 						key={unit}
-						className="rounded-2xl bg-white px-4 py-5 text-center text-2xl font-bold text-[#087a49] ring-1 ring-slate-200"
+						className="rounded-2xl bg-white px-4 py-5 text-center text-2xl font-bold text-brand-600 ring-1 ring-slate-200"
 					>
 						{unit}
 					</div>
@@ -470,13 +470,13 @@ function CostFlow({ labels }: { labels: VisualLabels }) {
 			</div>
 			<div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
 				<div className="rounded-2xl bg-white p-4 ring-1 ring-slate-200">
-					<CircleDollarSign className="size-7 text-[#087a49]" />
+					<CircleDollarSign className="size-7 text-brand-600" />
 					<p className="mt-3 text-sm font-semibold text-slate-700">
 						{labels.labour}
 					</p>
 				</div>
-				<ArrowRight className="size-5 text-[#7aa18e]" />
-				<div className="rounded-2xl bg-[#087a49] p-4 text-white">
+				<ArrowRight className="size-5 text-brand-400" />
+				<div className="rounded-2xl bg-brand-600 p-4 text-white">
 					<Calculator className="size-7" />
 					<p className="mt-3 text-sm font-semibold">{labels.actualCost}</p>
 				</div>
@@ -500,11 +500,11 @@ function IntegrationFlow({ labels }: { labels: VisualLabels }) {
 						key={label}
 						className="grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200"
 					>
-						<span className="grid size-10 place-items-center rounded-xl bg-emerald-100 text-[#087a49]">
+						<span className="grid size-10 place-items-center rounded-xl bg-brand-100 text-brand-600">
 							<Icon className="size-5" />
 						</span>
 						<span className="font-semibold text-slate-800">{label}</span>
-						<span className="text-sm font-bold text-[#087a49]">
+						<span className="text-sm font-bold text-brand-600">
 							0{index + 1}
 						</span>
 					</div>
@@ -525,7 +525,7 @@ function DiagramNode({
 }) {
 	return (
 		<div
-			className={`flex min-h-32 flex-col items-center justify-center rounded-2xl p-3 text-center ring-1 ${accent ? "bg-[#087a49] text-white ring-[#087a49]" : "bg-white text-slate-800 ring-slate-200"}`}
+			className={`flex min-h-32 flex-col items-center justify-center rounded-2xl p-3 text-center ring-1 ${accent ? "bg-brand-600 text-white ring-brand-600" : "bg-white text-slate-800 ring-slate-200"}`}
 		>
 			<Icon className="size-8" strokeWidth={1.7} />
 			<span className="mt-3 text-xs font-semibold sm:text-sm">{label}</span>
@@ -544,7 +544,7 @@ function ComparisonItem({
 	return (
 		<div className="flex items-start gap-3 text-base font-medium leading-7 text-slate-800 dark:text-slate-200">
 			<span
-				className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-full ${positive ? "bg-emerald-100 text-[#087a49]" : "bg-red-100 text-[#b94040]"}`}
+				className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-full ${positive ? "bg-brand-100 text-brand-600" : "bg-red-100 text-[#b94040]"}`}
 			>
 				{positive ? <Check className="size-4" /> : <X className="size-4" />}
 			</span>
@@ -566,7 +566,7 @@ function ComparisonList({
 	return (
 		<div className="border-b border-slate-200 p-6 last:border-b-0 sm:p-8 dark:border-slate-800">
 			<h3
-				className={`text-xl font-bold ${positive ? "text-[#087a49]" : "text-[#b94040]"}`}
+				className={`text-xl font-bold ${positive ? "text-brand-600" : "text-[#b94040]"}`}
 			>
 				{title}
 			</h3>

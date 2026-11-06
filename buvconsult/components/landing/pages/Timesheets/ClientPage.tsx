@@ -41,13 +41,13 @@ export default function Page() {
 					<h1 className="mt-5 text-balance text-5xl font-bold leading-[1.03] tracking-[-0.04em] sm:text-6xl lg:text-[4.6rem]">
 						{t("title")}
 					</h1>
-					<h2 className="mt-7 text-2xl font-semibold tracking-tight text-[#087a49]">
+					<h2 className="mt-7 text-2xl font-semibold tracking-tight text-brand-600">
 						{t("block1.title")}
 					</h2>
 					<p className="mt-4 text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
 						{t("block1.text")}
 					</p>
-					<p className="mt-5 text-sm font-semibold text-[#087a49] dark:text-emerald-400">
+					<p className="mt-5 text-sm font-semibold text-brand-600 dark:text-brand-400">
 						{agent("detailPrice")}
 					</p>
 					<div className="mt-8">

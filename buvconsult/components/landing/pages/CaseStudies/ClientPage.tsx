@@ -25,7 +25,7 @@ export default function CaseStudiesPage() {
 					<Link
 						key={cs.slug}
 						href={`/${locale}/Landing/CaseStudies/${cs.slug}`}
-						className="group min-w-0 rounded-2xl border bg-background p-4 shadow-sm transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-600 active:translate-y-px motion-reduce:transform-none"
+						className="group min-w-0 rounded-2xl border bg-background p-4 shadow-sm transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-600 active:translate-y-px motion-reduce:transform-none"
 					>
 						<div className="relative mb-4 aspect-[16/9] overflow-hidden rounded-xl bg-muted">
 							{cs.coverImage ? (

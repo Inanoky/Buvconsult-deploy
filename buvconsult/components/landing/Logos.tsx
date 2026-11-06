@@ -83,7 +83,7 @@ export function Logos() {
 								rel="noopener noreferrer"
 								aria-hidden={index >= CLIENTS.length}
 								tabIndex={index >= CLIENTS.length ? -1 : undefined}
-								className="group flex h-[84px] w-[260px] shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white px-8 py-5 shadow-sm ring-1 ring-black/5 transition hover:shadow-md hover:ring-[#b8dfcc] sm:w-[280px] dark:border-slate-800 dark:bg-white dark:ring-white/5 dark:hover:ring-emerald-900"
+								className="group flex h-[84px] w-[260px] shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white px-8 py-5 shadow-sm ring-1 ring-black/5 transition hover:shadow-md hover:ring-brand-200 sm:w-[280px] dark:border-slate-800 dark:bg-white dark:ring-white/5 dark:hover:ring-brand-900"
 							>
 								<Image
 									src={client.logo}

@@ -24,7 +24,7 @@ export default function BISIntegracijaPage() {
 					<PageEyebrow>Buvconsult pakalpojumi</PageEyebrow>
 					<h1 className="mt-5 text-balance text-5xl font-bold leading-[1.03] tracking-[-0.04em] sm:text-6xl lg:text-[4.6rem]">
 						BIS{" "}
-						<span className="text-[#087a49]">dokumentācijas pārvaldība</span>
+						<span className="text-brand-600">dokumentācijas pārvaldība</span>
 					</h1>
 					<p className="mt-6 text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
 						Jūs pastāstāt, kas paveikts. Mēs izskatām rasējumus, materiālu
@@ -37,7 +37,7 @@ export default function BISIntegracijaPage() {
 						</PrimaryCta>
 					</div>
 				</div>
-				<MediaFrame className="bg-[#f6f8f6] p-6 sm:p-10">
+				<MediaFrame className="bg-slate-50 p-6 sm:p-10">
 					<Image
 						src={BisConnection}
 						alt="Buvconsult un BIS savienojuma izveides soļi"
@@ -50,16 +50,16 @@ export default function BISIntegracijaPage() {
 			</section>
 
 			<section className="mx-auto w-full max-w-[1328px] px-5 pb-20 sm:px-8 lg:px-10 lg:pb-28">
-				<div className="grid overflow-hidden rounded-[2rem] bg-[#073e27] text-white shadow-[0_30px_90px_rgba(6,78,48,0.2)] lg:grid-cols-[1.1fr_0.9fr]">
+				<div className="grid overflow-hidden rounded-[2rem] bg-brand-900 text-white shadow-[0_30px_90px_rgba(30,58,138,0.2)] lg:grid-cols-[1.1fr_0.9fr]">
 					<div className="p-7 sm:p-10 lg:p-14">
-						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">
-							<span className="h-0.5 w-8 rounded-full bg-emerald-300" />
+						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-300">
+							<span className="h-0.5 w-8 rounded-full bg-brand-300" />
 							BIS dokumentācijas serviss
 						</p>
 						<h2 className="mt-5 max-w-3xl text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] sm:text-5xl">
 							Pilna BIS dokumentācijas pārvaldība
 						</h2>
-						<p className="mt-6 max-w-2xl text-lg leading-8 text-emerald-50/85">
+						<p className="mt-6 max-w-2xl text-lg leading-8 text-brand-50/85">
 							Buvconsult komanda sagatavo, aizpilda un uztur jūsu BIS
 							dokumentāciju, sadarbojoties tieši ar objekta vadību.
 						</p>
@@ -74,7 +74,7 @@ export default function BISIntegracijaPage() {
 									key={item}
 									className="flex items-center gap-3 rounded-2xl bg-white/8 px-4 py-3 text-base font-semibold ring-1 ring-white/10"
 								>
-									<span className="grid size-7 shrink-0 place-items-center rounded-full bg-emerald-300 text-[#073e27]">
+									<span className="grid size-7 shrink-0 place-items-center rounded-full bg-brand-300 text-brand-900">
 										<Check className="size-4" aria-hidden="true" />
 									</span>
 									{item}
@@ -85,7 +85,7 @@ export default function BISIntegracijaPage() {
 
 					<div className="m-3 flex flex-col justify-between rounded-[1.4rem] bg-white p-7 text-slate-950 sm:m-5 sm:p-9 dark:bg-slate-950 dark:text-white">
 						<div>
-							<span className="grid size-14 place-items-center rounded-2xl bg-[#e7f8ef] text-[#087a49] dark:bg-emerald-950">
+							<span className="grid size-14 place-items-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-950">
 								<MessageCircle className="size-7" aria-hidden="true" />
 							</span>
 							<h3 className="mt-6 text-2xl font-bold tracking-[-0.025em]">
@@ -98,7 +98,7 @@ export default function BISIntegracijaPage() {
 							</p>
 						</div>
 						<div className="mt-8 border-t border-slate-200 pt-7 dark:border-slate-800">
-							<p className="text-sm font-bold uppercase tracking-[0.16em] text-[#087a49]">
+							<p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-600">
 								Ietaupījums
 							</p>
 							<p className="mt-2 text-4xl font-bold tracking-[-0.04em]">

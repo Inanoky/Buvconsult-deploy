@@ -41,7 +41,7 @@ export default function LandingFooter() {
 
 	return (
 		<footer
-			className={`${inter.variable} ${interTight.variable} bg-[#071f14] text-white`}
+			className={`${inter.variable} ${interTight.variable} bg-brand-950 text-white`}
 			style={{ fontFamily: "var(--font-landing-footer), sans-serif" }}
 		>
 			<div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10 xl:px-14">
@@ -57,9 +57,9 @@ export default function LandingFooter() {
 								fontFamily: "var(--font-landing-footer-display), sans-serif",
 							}}
 						>
-							Buv<span className="text-[#56eb9f]">consult</span>
+							Buv<span className="text-brand-300">consult</span>
 						</Link>
-						<p className="mt-5 max-w-xl text-base leading-7 text-[#cfeede] sm:text-lg">
+						<p className="mt-5 max-w-xl text-base leading-7 text-brand-100 sm:text-lg">
 							{agents("description")}
 						</p>
 					</div>
@@ -69,7 +69,7 @@ export default function LandingFooter() {
 							href={DEMO_URL}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="inline-flex h-12 items-center justify-center rounded-full bg-[#1769ff] px-7 text-sm font-semibold text-white shadow-xl shadow-blue-950/30 transition hover:bg-[#0f5de8]"
+							className="inline-flex h-12 items-center justify-center rounded-full bg-brand-600 px-7 text-sm font-semibold text-white shadow-xl shadow-blue-950/30 transition hover:bg-brand-700"
 						>
 							{landing("bookDemo")}
 							<ArrowRight className="ml-2 size-4" aria-hidden="true" />
@@ -91,15 +91,15 @@ export default function LandingFooter() {
 					<FooterLinks heading={agents("nav.company")} links={companyLinks} />
 
 					<div className="sm:col-span-2 lg:col-span-1">
-						<h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8abda2]">
+						<h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-200">
 							{footer("contact")}
 						</h2>
-						<div className="mt-5 grid gap-4 text-sm text-[#e8f6ed] sm:grid-cols-2 lg:grid-cols-1">
+						<div className="mt-5 grid gap-4 text-sm text-brand-50 sm:grid-cols-2 lg:grid-cols-1">
 							<a
 								href="tel:+37124885690"
 								className="group flex min-w-0 items-center gap-3"
 							>
-								<span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/8 text-[#56eb9f] transition group-hover:bg-white/14">
+								<span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/8 text-brand-300 transition group-hover:bg-white/14">
 									<Phone className="size-4" aria-hidden="true" />
 								</span>
 								<span>{footer("phone")}</span>
@@ -108,7 +108,7 @@ export default function LandingFooter() {
 								href="mailto:vjaceslavs.gromatovics@buvconsult.com"
 								className="group flex min-w-0 items-center gap-3"
 							>
-								<span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/8 text-[#56eb9f] transition group-hover:bg-white/14">
+								<span className="grid size-10 shrink-0 place-items-center rounded-full bg-white/8 text-brand-300 transition group-hover:bg-white/14">
 									<Mail className="size-4" aria-hidden="true" />
 								</span>
 								<span className="min-w-0 break-all">
@@ -121,10 +121,10 @@ export default function LandingFooter() {
 
 				<div
 					data-footer-legal
-					className="grid gap-6 border-t border-white/10 py-8 text-xs leading-5 text-[#8abda2] md:grid-cols-[1fr_auto] md:items-end"
+					className="grid gap-6 border-t border-white/10 py-8 text-xs leading-5 text-brand-200 md:grid-cols-[1fr_auto] md:items-end"
 				>
 					<div className="space-y-1">
-						<p className="font-semibold text-[#cfeede]">Buvconsult SIA</p>
+						<p className="font-semibold text-brand-100">Buvconsult SIA</p>
 						<p>LV40203643527 · 23.04.2025</p>
 						<p className="flex items-start gap-2">
 							<MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
@@ -150,15 +150,15 @@ function FooterLinks({
 }) {
 	return (
 		<nav aria-label={heading}>
-			<h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#8abda2]">
+			<h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-200">
 				{heading}
 			</h2>
-			<ul className="mt-5 space-y-3 text-sm text-[#e8f6ed]">
+			<ul className="mt-5 space-y-3 text-sm text-brand-50">
 				{links.map((link) => (
 					<li key={link.href}>
 						<Link
 							href={link.href}
-							className="inline-flex items-center gap-2 transition hover:text-[#56eb9f]"
+							className="inline-flex items-center gap-2 transition hover:text-brand-300"
 						>
 							{link.label}
 							<ArrowRight className="size-3 opacity-45" aria-hidden="true" />

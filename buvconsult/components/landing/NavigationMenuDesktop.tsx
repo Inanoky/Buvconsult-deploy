@@ -17,7 +17,7 @@ export function NavigationMenuDesktop() {
 	const t = useTranslations("AgentLanding");
 	const locale = useLocale();
 	const linkClass =
-		"inline-flex min-h-10 items-center gap-1.5 rounded-lg px-3 text-[13px] font-medium text-[#354038] transition-colors hover:bg-[#f0f5ef] focus-visible:outline-2 focus-visible:outline-emerald-700 dark:text-slate-200 dark:hover:bg-slate-800";
+		"inline-flex min-h-10 items-center gap-1.5 rounded-lg px-3 text-[13px] font-medium text-slate-700 transition-colors hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-brand-700 dark:text-slate-200 dark:hover:bg-slate-800";
 
 	return (
 		<nav aria-label={t("nav.menu")} className="flex items-center gap-0.5">
@@ -40,10 +40,10 @@ export function NavigationMenuDesktop() {
 								key={id}
 								href={`/${locale}/Landing/Agents#${id}`}
 								onClick={() => setOpen(false)}
-								className="flex items-start gap-3 rounded-lg p-3 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-emerald-700 dark:hover:bg-slate-800"
+								className="flex items-start gap-3 rounded-lg p-3 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-brand-700 dark:hover:bg-slate-800"
 							>
 								<Icon
-									className="mt-0.5 shrink-0 text-[#087a49] dark:text-emerald-400"
+									className="mt-0.5 shrink-0 text-brand-600 dark:text-brand-400"
 									size={19}
 									aria-hidden="true"
 								/>
@@ -61,7 +61,7 @@ export function NavigationMenuDesktop() {
 					<Link
 						href={`/${locale}/Landing/Agents`}
 						onClick={() => setOpen(false)}
-						className="mt-2 flex items-center justify-between rounded-lg bg-[#eef5ef] px-4 py-3 text-sm font-semibold text-[#0a4426] dark:bg-slate-800 dark:text-emerald-300"
+						className="mt-2 flex items-center justify-between rounded-lg bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700 dark:bg-slate-800 dark:text-brand-300"
 					>
 						{t("nav.allAgents")}
 						<ArrowRight size={17} aria-hidden="true" />

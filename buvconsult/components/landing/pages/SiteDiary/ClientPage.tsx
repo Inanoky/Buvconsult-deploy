@@ -57,30 +57,30 @@ export default function Page() {
 	const withItems = t.raw("comparison.withItems") as string[];
 
 	return (
-		<main className="overflow-hidden bg-[radial-gradient(circle_at_12%_8%,rgba(8,122,73,0.12),transparent_18%),radial-gradient(circle_at_88%_42%,rgba(23,105,255,0.055),transparent_22%),linear-gradient(180deg,#f7f8f5_0%,#ffffff_46%,#f7f8f5_100%)] text-slate-950 dark:bg-slate-950 dark:text-white">
+		<main className="overflow-hidden bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-white">
 			<section className="relative mx-auto grid min-h-[720px] w-full max-w-[1440px] items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:px-10 lg:py-20 xl:px-14">
 				<div className="relative z-10 max-w-2xl">
-					<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#087a49]">
-						<span className="h-0.5 w-8 rounded-full bg-[#087a49]" />
+					<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+						<span className="h-0.5 w-8 rounded-full bg-brand-600" />
 						<Link href={`/${locale}/Landing/Agents#workRecords`}>
 							{agent("detailEyebrow")}
 						</Link>
 					</p>
 					<h1 className="mt-5 text-balance text-5xl font-bold leading-[1.03] tracking-[-0.045em] sm:text-6xl lg:text-[4.75rem]">
 						{t("hero.titlePrefix")}{" "}
-						<span className="text-[#087a49]">{t("hero.titleHighlight")}</span>
+						<span className="text-brand-600">{t("hero.titleHighlight")}</span>
 					</h1>
 					<p className="mt-6 max-w-xl text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
 						{t("hero.description")}
 					</p>
-					<p className="mt-5 text-sm font-semibold text-[#087a49] dark:text-emerald-400">
+					<p className="mt-5 text-sm font-semibold text-brand-600 dark:text-brand-400">
 						{agent("detailPrice")}
 					</p>
 					<div className="mt-8 flex flex-col gap-3 sm:flex-row">
 						<Link
 							href={`/${locale}/Landing/ContactForm`}
 							data-landing-pressable
-							className="inline-flex h-13 items-center justify-center rounded-full bg-[#1769ff] px-8 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition hover:bg-[#0f5de8]"
+							className="inline-flex h-13 items-center justify-center rounded-full bg-brand-600 px-8 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition hover:bg-brand-700"
 						>
 							{t("hero.cta")}
 							<ArrowRight className="ml-2 size-4" aria-hidden="true" />
@@ -101,7 +101,7 @@ export default function Page() {
 						/>
 					</div>
 
-					<div className="absolute -bottom-5 left-5 max-w-[19rem] rounded-2xl bg-[#033b27] px-5 py-4 text-white shadow-[0_18px_45px_rgba(3,59,39,0.28)] sm:left-8 lg:-left-7 lg:bottom-8">
+					<div className="absolute -bottom-5 left-5 max-w-[19rem] rounded-2xl bg-brand-950 px-5 py-4 text-white shadow-[0_18px_45px_rgba(23,37,84,0.28)] sm:left-8 lg:-left-7 lg:bottom-8">
 						<p className="text-sm font-semibold leading-6">
 							{t("hero.photoCaption")}
 						</p>
@@ -128,13 +128,13 @@ export default function Page() {
 			<section className="relative px-5 py-16 sm:px-8 lg:px-10 lg:py-24 xl:px-14">
 				<div className="mx-auto w-full max-w-[1328px]">
 					<div className="max-w-4xl">
-						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#087a49]">
-							<span className="h-0.5 w-8 rounded-full bg-[#087a49]" />
+						<p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+							<span className="h-0.5 w-8 rounded-full bg-brand-600" />
 							{t("comparison.eyebrow")}
 						</p>
 						<h2 className="mt-5 text-balance text-4xl font-bold leading-[1.06] tracking-[-0.04em] sm:text-5xl lg:text-[4.25rem]">
 							{t("comparison.titlePrefix")}{" "}
-							<span className="text-[#087a49]">
+							<span className="text-brand-600">
 								{t("comparison.titleHighlight")}
 							</span>
 						</h2>
@@ -150,7 +150,7 @@ export default function Page() {
 									<th className="border-r border-slate-200 bg-red-50 px-8 py-6 text-left text-xl font-bold text-[#b94040] dark:border-slate-800 dark:bg-red-950/20">
 										{t("comparison.withoutTitle")}
 									</th>
-									<th className="bg-emerald-50 px-8 py-6 text-left text-xl font-bold text-[#087a49] dark:bg-emerald-950/20">
+									<th className="bg-brand-50 px-8 py-6 text-left text-xl font-bold text-brand-600 dark:bg-brand-950/20">
 										{t("comparison.withTitle")}
 									</th>
 								</tr>
@@ -207,7 +207,7 @@ function FeatureSection({
 	return (
 		<article className="grid min-h-[560px] items-center gap-10 border-b border-slate-200/80 py-14 last:border-b-0 lg:grid-cols-2 lg:gap-20 lg:py-16 dark:border-slate-800">
 			<div className={reverse ? "lg:order-2" : ""}>
-				<p className="text-sm font-bold uppercase tracking-[0.16em] text-[#087a49]">
+				<p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-600">
 					{String(index + 1).padStart(2, "0")}
 				</p>
 				<h2 className="mt-4 max-w-xl text-balance text-4xl font-bold leading-[1.08] tracking-[-0.04em] sm:text-5xl">
@@ -228,7 +228,7 @@ function FeatureSection({
 						className="object-cover"
 						sizes="(min-width: 1024px) 45vw, 92vw"
 					/>
-					<span className="absolute right-6 top-6 grid size-14 place-items-center rounded-2xl bg-[#087a49] text-white shadow-xl shadow-emerald-950/20">
+					<span className="absolute right-6 top-6 grid size-14 place-items-center rounded-2xl bg-brand-600 text-white shadow-xl shadow-brand-950/20">
 						<Icon className="size-7" strokeWidth={1.8} aria-hidden="true" />
 					</span>
 				</div>
@@ -250,7 +250,7 @@ function ComparisonItem({
 			<span
 				className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-full ${
 					positive
-						? "bg-emerald-100 text-[#087a49]"
+						? "bg-brand-100 text-brand-600"
 						: "bg-red-100 text-[#b94040]"
 				}`}
 			>
@@ -274,7 +274,7 @@ function ComparisonList({
 	return (
 		<div className="border-b border-slate-200 p-6 last:border-b-0 sm:p-8 dark:border-slate-800">
 			<h3
-				className={`text-xl font-bold ${positive ? "text-[#087a49]" : "text-[#b94040]"}`}
+				className={`text-xl font-bold ${positive ? "text-brand-600" : "text-[#b94040]"}`}
 			>
 				{title}
 			</h3>

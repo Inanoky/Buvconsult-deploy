@@ -17,18 +17,18 @@ export default function HeaderMobile() {
 
 	return (
 		<header
-			className={`${inter.variable} ${interTight.variable} sticky top-0 z-50 border-b border-[#e6ece7] bg-white/90 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90`}
+			className={`${inter.variable} ${interTight.variable} sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/90`}
 			style={{ fontFamily: "var(--font-landing-nav), sans-serif" }}
 		>
 			<div className="flex items-center justify-between gap-2 px-4 py-3.5 sm:px-5">
 				<Link href={`/${locale}/Landing`} className="shrink-0">
 					<span
-						className="text-xl font-semibold tracking-[-0.04em] text-[#101610] sm:text-2xl dark:text-white"
+						className="text-xl font-semibold tracking-[-0.04em] text-slate-900 sm:text-2xl dark:text-white"
 						style={{
 							fontFamily: "var(--font-landing-nav-display), sans-serif",
 						}}
 					>
-						Buv<span className="text-[#0a4426] dark:text-emerald-400">consult</span>
+						Buv<span className="text-brand-700 dark:text-brand-400">consult</span>
 					</span>
 				</Link>
 

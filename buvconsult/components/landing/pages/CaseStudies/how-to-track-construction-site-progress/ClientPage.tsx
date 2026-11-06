@@ -55,7 +55,7 @@ export default function ConstructionProgressGuide() {
 			</div>
 			<article className="space-y-10 text-foreground">
 				<header className="space-y-5">
-					<p className="text-sm font-semibold uppercase tracking-wider text-teal-700 dark:text-teal-300">
+					<p className="text-sm font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300">
 						{guide.label}
 					</p>
 					<h1 className="text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
@@ -63,7 +63,7 @@ export default function ConstructionProgressGuide() {
 					</h1>
 					<p className="text-sm text-muted-foreground">Buvconsult</p>
 					<p className="text-lg leading-8">{guide.intro}</p>
-					<p className="rounded-2xl border border-teal-200 bg-teal-50 p-6 text-lg leading-8 text-teal-950 dark:border-teal-800 dark:bg-teal-950 dark:text-teal-50">
+					<p className="rounded-2xl border border-brand-200 bg-brand-50 p-6 text-lg leading-8 text-brand-950 dark:border-brand-800 dark:bg-brand-950 dark:text-brand-50">
 						{guide.answer}
 					</p>
 				</header>
@@ -166,7 +166,7 @@ export default function ConstructionProgressGuide() {
 						))}
 					</ul>
 					<h3 className="text-xl font-semibold">{guide.sampleTitle}</h3>
-					<blockquote className="border-l-4 border-teal-600 bg-muted/30 p-6 leading-8">
+					<blockquote className="border-l-4 border-brand-600 bg-muted/30 p-6 leading-8">
 						{guide.sample}
 					</blockquote>
 				</section>
@@ -195,7 +195,7 @@ export default function ConstructionProgressGuide() {
 						))}
 					</ul>
 					<Link
-						className="inline-flex rounded-xl bg-teal-800 px-5 py-3 font-semibold text-white hover:bg-teal-900"
+						className="inline-flex rounded-xl bg-brand-800 px-5 py-3 font-semibold text-white hover:bg-brand-900"
 						href={`/${locale}/Landing/ContactForm`}
 					>
 						{guide.cta}

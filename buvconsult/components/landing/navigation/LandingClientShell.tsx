@@ -242,7 +242,7 @@ export default function LandingClientShell({
 			<LandingNavigationContext value={navigation}>
 				<div className="landing-tactile overflow-x-hidden antialiased">
 					{pending ? (
-						<output className="fixed inset-x-0 top-0 z-[100] h-1 bg-emerald-600">
+						<output className="fixed inset-x-0 top-0 z-[100] h-1 bg-brand-600">
 							<span className="sr-only">
 								{loadingLabels[locale] || loadingLabels.en}
 							</span>

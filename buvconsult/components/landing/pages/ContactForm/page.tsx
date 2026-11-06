@@ -100,16 +100,16 @@ export default function ContactForm() {
 							<li key={label}>
 								<a
 									href={href}
-									className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/70 p-4 transition hover:-translate-y-0.5 hover:border-emerald-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/70"
+									className="group flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/70 p-4 transition hover:-translate-y-0.5 hover:border-brand-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/70"
 								>
-									<span className="grid size-11 shrink-0 place-items-center rounded-full bg-emerald-100 text-[#087a49]">
+									<span className="grid size-11 shrink-0 place-items-center rounded-full bg-brand-100 text-brand-600">
 										<Icon className="size-5" aria-hidden="true" />
 									</span>
 									<span className="min-w-0">
 										<span className="block text-sm text-slate-500">
 											{label}
 										</span>
-										<span className="block truncate font-semibold text-slate-900 group-hover:text-[#087a49] dark:text-white">
+										<span className="block truncate font-semibold text-slate-900 group-hover:text-brand-600 dark:text-white">
 											{value}
 										</span>
 									</span>
@@ -189,7 +189,7 @@ export default function ContactForm() {
 						)}
 						<Button
 							type="submit"
-							className="h-13 w-full rounded-full bg-[#1769ff] text-base font-semibold text-white hover:bg-[#0f5de8]"
+							className="h-13 w-full rounded-full bg-brand-600 text-base font-semibold text-white hover:bg-brand-700"
 							disabled={pending}
 						>
 							{pending ? (

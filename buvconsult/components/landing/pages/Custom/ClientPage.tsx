@@ -29,7 +29,7 @@ export default function Page() {
 					</h1>
 					<p className="mt-6 text-lg leading-8 text-slate-600 sm:text-xl dark:text-slate-300">
 						{t("block1.p1.prefix")}
-						<span className="font-semibold text-[#087a49]">
+						<span className="font-semibold text-brand-600">
 							{t("block1.p1.highlight")}
 						</span>
 						{t("block1.p1.suffix")}
@@ -74,7 +74,7 @@ export default function Page() {
 						<p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300">
 							{t("block2.p1")}
 						</p>
-						<p className="mt-6 text-lg font-semibold leading-8 text-[#087a49]">
+						<p className="mt-6 text-lg font-semibold leading-8 text-brand-600">
 							{t("block2.p2")}
 						</p>
 					</div>
